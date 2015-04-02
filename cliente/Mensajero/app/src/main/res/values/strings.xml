@@ -3,4 +3,8 @@
 
     <string name="mensajero">Mensajero!</string>
     <string name="action_settings">Settings</string>
+    <string name="title_activity_registracion">Registracion</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="descrip_registracion">Para registrarse debe completar la siguiente información:</string>
 </resources>
