@@ -22,6 +22,10 @@
         <activity
             android:name=".configurar_perfil"
             android:label="@string/title_activity_configurar_perfil" >
+        </activity>
+        <activity
+            android:name=".lista_usuarios_conectados"
+            android:label="@string/title_activity_lista_usuarios_conectados" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

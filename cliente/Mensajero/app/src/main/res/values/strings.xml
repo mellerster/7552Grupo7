@@ -9,4 +9,5 @@
     <string name="descrip_registracion">Para registrarse debe completar la siguiente información:</string>
     <string name="title_activity_estado">Estado de usuario</string>
     <string name="title_activity_configurar_perfil">Configurar Perfil</string>
+    <string name="title_activity_lista_usuarios_conectados">Lista de Usuarios Conectados</string>
 </resources>
