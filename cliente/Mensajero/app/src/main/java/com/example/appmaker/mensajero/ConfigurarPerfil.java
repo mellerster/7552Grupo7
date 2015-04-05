@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class configurar_perfil extends ActionBarActivity {
+public class ConfigurarPerfil extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
