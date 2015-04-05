@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class lista_usuarios_conectados extends ActionBarActivity {
+public class ListaUsuariosConectados extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
