@@ -12,7 +12,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name=".registracion"
+            android:name=".Registracion"
             android:label="@string/title_activity_registracion" >
         </activity>
         <activity

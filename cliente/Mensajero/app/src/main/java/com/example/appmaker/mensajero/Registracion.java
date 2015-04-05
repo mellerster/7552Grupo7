@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class registracion extends ActionBarActivity {
+public class Registracion extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
