@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-public class estado extends ActionBarActivity {
+public class Estado extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
