@@ -1,20 +1,15 @@
 package com.example.appmaker.mensajero;
 
-import android.app.ActionBar;
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.GridLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.view.View;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
+import android.view.View.OnClickListener;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -41,16 +36,31 @@ public class ListaUsuariosConectados extends ActionBarActivity {
 
     private void MostrarUsuarios(List<Usuario> usuarios) {
         LinearLayout gridUsuarios = (LinearLayout) findViewById(R.id.gridUsuarios);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.FILL_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
         for (Usuario usuario : usuarios) {
             TextView nombre = new TextView(this);
             nombre.setText(usuario.getNombre());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.FILL_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
             nombre.setLayoutParams(params);
+            nombre.setOnClickListener(usuarioClickListener);
             gridUsuarios.addView(nombre);
         }
     }
+
+    private OnClickListener usuarioClickListener = new OnClickListener()
+    {
+        public void onClick(View v)
+        {
+            String nombreUsuario = ((TextView)v).getText().toString();
+            Log.d(tag,nombreUsuario);
+            Intent verEstadoIntent =new Intent("com.example.appmaker.mensajero.VerEstado");
+            Bundle extras = new Bundle();
+            extras.putString("usuario",nombreUsuario);
+            verEstadoIntent.putExtras(extras);
+            startActivity(verEstadoIntent);
+        }
+    };
 
 
     @Override
