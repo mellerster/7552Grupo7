@@ -2,8 +2,10 @@ package com.example.appmaker.mensajero;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 
 public class VerEstado extends ActionBarActivity {
@@ -12,6 +14,14 @@ public class VerEstado extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_estado);
+        String nombreUsuario = "";
+        Bundle extras = getIntent().getExtras();
+        if (extras!=null)
+        {
+            nombreUsuario = extras.getString("usuario");
+        }
+        TextView txtNombre = (TextView)findViewById(R.id.txtNombre);
+        txtNombre.setText(nombreUsuario);
     }
 
 

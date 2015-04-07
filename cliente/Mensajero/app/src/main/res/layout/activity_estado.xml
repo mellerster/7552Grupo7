@@ -21,9 +21,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="Usuario"
+            android:id="@+id/txtNombre"
+            android:layout_row="0"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="Estado:"
             android:id="@+id/lblEstado"
-            android:layout_row="0"
+            android:layout_row="1"
             android:layout_column="0" />
 
         <TextView
@@ -31,7 +39,7 @@
             android:layout_height="wrap_content"
             android:text="Conectado"
             android:id="@+id/txtEstado"
-            android:layout_row="0"
+            android:layout_row="1"
             android:layout_column="1" />
 
         <TextView
@@ -39,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="Último checkin:"
             android:id="@+id/lblUltimoCheckin"
-            android:layout_row="1"
+            android:layout_row="2"
             android:layout_column="0"
             android:layout_marginRight="10dp" />
 
@@ -48,7 +56,7 @@
             android:layout_height="wrap_content"
             android:text="Miércoles 31 de Marzo de 2015"
             android:id="@+id/txtUltimoCheckin"
-            android:layout_row="1"
+            android:layout_row="2"
             android:layout_column="1" />
 
         <ImageView
@@ -58,7 +66,8 @@
             android:layout_row="3"
             android:layout_column="0"
             android:layout_columnSpan="2"
-            android:layout_gravity="center|top" />
+            android:layout_gravity="center|top"
+            android:src="@mipmap/ic_launcher" />
 
 
     </GridLayout>

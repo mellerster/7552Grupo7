@@ -25,6 +25,7 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         MostrarUsuarios(usuarios);
     }
 
+    //TODO:Llamar al proxy y obtener el listado desde la API
     private List<Usuario> obtenerUsuarios() {
         List<Usuario> usuarios = new LinkedList<Usuario>();
         usuarios.add(new Usuario("diego", "diego"));
@@ -34,6 +35,7 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         return usuarios;
     }
 
+    //TODO: Mostar mas información como pide el enunciado y en un diseño mejor
     private void MostrarUsuarios(List<Usuario> usuarios) {
         LinearLayout gridUsuarios = (LinearLayout) findViewById(R.id.gridUsuarios);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
@@ -53,7 +55,6 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         public void onClick(View v)
         {
             String nombreUsuario = ((TextView)v).getText().toString();
-            Log.d(tag,nombreUsuario);
             Intent verEstadoIntent =new Intent("com.example.appmaker.mensajero.VerEstado");
             Bundle extras = new Bundle();
             extras.putString("usuario",nombreUsuario);
