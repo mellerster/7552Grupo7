@@ -16,7 +16,7 @@
             android:label="@string/title_activity_registracion" >
         </activity>
         <activity
-            android:name=".Estado"
+            android:name=".VerEstado"
             android:label="@string/title_activity_estado" >
         </activity>
         <activity
