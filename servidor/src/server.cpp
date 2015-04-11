@@ -1,9 +1,35 @@
 #include <iostream>
+#include <string>
+#include <sstream>
 #include "mongoose.h"
 #include "json/json.h"
 
 
 using namespace std;
+
+
+// Crea un Json cualquiera como prueba
+string BuildJson(string titulo = "Hola mundo"){
+    Json::Value resp;
+    
+    // Campos normales
+    resp["Titulo"] = titulo;
+    resp["Emisor"] = "He'man";
+    resp["Receptor"] = "Leono";
+    resp["token"] = 123456;
+
+    // Se define un arreglo de elementos
+    resp["Msgs"][0] = "Esta es";
+    resp["Msgs"][1] = "una lista de";
+    resp["Msgs"][2] = "mensajes, ";
+    resp["Msgs"][3] = "como una conversación";
+    resp["Msgs"][4] = "normal.";
+
+    stringstream ss;
+    ss << resp;
+
+    return ss.str();
+}
 
 
 // Handles all the messages that arrive at the server
@@ -13,8 +39,14 @@ static int eventHandler( struct mg_connection *conn, enum mg_event evt ){
             return MG_TRUE;
 
         case MG_REQUEST:
-            mg_printf_data( conn, "Hola mundo!" );
-            return MG_TRUE;
+            {
+                // Creo un json y lo meto en un string
+                string s = BuildJson("Pruebo crear un Json");
+                
+                // Mando la respuesta
+                mg_printf_data( conn, s.c_str() );
+                return MG_TRUE;
+            }
 
         default:
             return MG_FALSE;
@@ -22,7 +54,7 @@ static int eventHandler( struct mg_connection *conn, enum mg_event evt ){
 }
 
 
-int main(int argc, char* argv[]) {
+int main() {
     struct mg_server* server = mg_create_server( NULL, eventHandler );
     mg_set_option( server, "listening_port", "8080" );
 
