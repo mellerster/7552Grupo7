@@ -1,27 +1,32 @@
-#El nombre del ejecutable que contiene los tests
-project ( SumadorTester )
-
-#La referencia a la libreria a testear
+#Agrega la libreria de prueba
 include_directories ( ${CMAKE_CURRENT_SOURCE_DIR}/sumadorLib )
 add_subdirectory ( sumadorLib )
 
-#Compila el test runner
-set ( SRCs mainTester.cpp sumadorTests.cpp )
-add_executable ( ${PROJECT_NAME} ${SRCs} ) 
-target_link_libraries ( ${PROJECT_NAME} sumadorLib )
+#Compila los distintos testers
+add_executable ( SumadorTester mainTester.cpp sumadorTests.cpp )
+target_link_libraries ( SumadorTester sumadorLib )
+
+add_executable ( JsonTester mainTester.cpp jsonTester.cpp )
+target_link_libraries ( JsonTester jsoncppLib )
 
 
 ############################ Tests ##########################
 
-message ( "*** NOTA: Para ver el detalle de los tests ejecutar: ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}" )
+message ( "*** NOTA: Para ver el detalle de los tests ejecutar: ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} ***" )
 
 #Corre todos los tests, pero los toma como si solo fuera uno
-#add_test ( All_Tests ${PROJECT_NAME} )
+#add_test ( All_Sumador_Tests SumadorTester )
+#add_test ( ALL_Json_Tests JsonTester )
 
 #Hay que pasar el nombre de los tests cases para que cmake los corra por separado
-add_test ( Test_Positivos ${PROJECT_NAME} "Sumar enteros positivos" )
-add_test ( Test_Negativos ${PROJECT_NAME} "Sumar enteros negativos" )
-add_test ( Test_Ceros ${PROJECT_NAME} "Sumar ceros" )
+add_test ( Test_Positivos SumadorTester "Sumar enteros positivos" )
+add_test ( Test_Negativos SumadorTester "Sumar enteros negativos" )
+add_test ( Test_Ceros SumadorTester "Sumar ceros" )
+
+add_test ( Test_Json_Strings JsonTester "Crear simple json con string" )
+add_test ( Test_Json_Ints JsonTester "Crear simple json con int" )
+add_test ( Test_Json_Float JsonTester "Crear simple json con float" )
+add_test ( Test_Json_Array JsonTester "Crear simple json con array" )
 
 
 

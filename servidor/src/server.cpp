@@ -3,6 +3,7 @@
 #include <sstream>
 #include "mongoose.h"
 #include "json/json.h"
+#include "rocksdb/db.h"
 
 
 using namespace std;
@@ -61,11 +62,24 @@ int main() {
     cout << "Server started listening on " << mg_get_option( server, "listening_port" ) << endl;
     cout << "Ctrl+c to exit" << endl;
 
+    rocksdb::DB* db;
+    rocksdb::Options opt;
+    opt.create_if_missing = true;
+
+    rocksdb::Status st = rocksdb::DB::Open( opt, "testDB.bin", &db );
+
+    cout << "Is ok? " << st.ok() << " => " << st.ToString() << endl;
+
+    /*
     while (true){
         mg_poll_server( server, 1000 );
     }
+    */
+    
+    delete db;
 
     mg_destroy_server( &server );
+
 
     return 0;
 }
