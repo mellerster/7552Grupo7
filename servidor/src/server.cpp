@@ -56,30 +56,31 @@ static int eventHandler( struct mg_connection *conn, enum mg_event evt ){
 
 
 int main() {
-    struct mg_server* server = mg_create_server( NULL, eventHandler );
-    mg_set_option( server, "listening_port", "8080" );
-
-    cout << "Server started listening on " << mg_get_option( server, "listening_port" ) << endl;
-    cout << "Ctrl+c to exit" << endl;
-
+    cout << "Abriendo la base de datos... ";
     rocksdb::DB* db;
     rocksdb::Options opt;
     opt.create_if_missing = true;
 
     rocksdb::Status st = rocksdb::DB::Open( opt, "testDB.bin", &db );
+    cout << st.ToString() << "!" << endl;
+    cout << endl;
+    
+    cout << "Levantando webserver... ";
+    struct mg_server* server = mg_create_server( NULL, eventHandler );
+    mg_set_option( server, "listening_port", "8080" );
+    cout << "OK!" << endl;
+    cout << endl;
 
-    cout << "Is ok? " << st.ok() << " => " << st.ToString() << endl;
+    cout << "El servidor esta escuchando en el puerto " << mg_get_option( server, "listening_port" ) << endl;
+    cout << "Presionar Ctrl + c para salir" << endl;
 
-    /*
     while (true){
         mg_poll_server( server, 1000 );
     }
-    */
-    
-    delete db;
 
     mg_destroy_server( &server );
 
+    delete db;
 
     return 0;
 }
