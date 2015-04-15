@@ -6,7 +6,7 @@ project ( serverMensajerO )
 enable_testing()
 
 #Flags para los distintos tipos de compilacion
-SET( CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wpedantic -Wextra" )
+SET( CMAKE_CXX_FLAGS "-std=c++11 -pthread -Wall -Wpedantic -Wextra" )
 SET( CMAKE_CXX_FLAGS_DEBUG ${CMAKE_CXX_FLAGS} "-g -ggdb -O0" )
 SET( CMAKE_CXX_FLAGS_RELEASE ${CMAKE_CXX_FLAGS} "-O3 -DNDEBUG" )
 
@@ -29,6 +29,7 @@ add_subdirectory ( tests )
 set ( SRCs server.cpp )
 add_executable ( ${PROJECT_NAME} ${SRCs} ) 
 target_link_libraries ( ${PROJECT_NAME} mongooseLib jsoncppLib ${LIBROCKSDB} )
+
 
 
 

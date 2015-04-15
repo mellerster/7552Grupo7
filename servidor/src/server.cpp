@@ -1,6 +1,8 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <thread>
+#include <chrono>
 #include "mongoose.h"
 #include "json/json.h"
 #include "rocksdb/db.h"
@@ -55,7 +57,9 @@ static int eventHandler( struct mg_connection *conn, enum mg_event evt ){
 }
 
 
+
 int main() {
+    /*
     cout << "Abriendo la base de datos... ";
     rocksdb::DB* db;
     rocksdb::Options opt;
@@ -64,7 +68,21 @@ int main() {
     rocksdb::Status st = rocksdb::DB::Open( opt, "testDB.bin", &db );
     cout << st.ToString() << "!" << endl;
     cout << endl;
+    */
+
+    cout << "Se crea un hilo..." << endl;
+
+    thread t1([]{
+        cout << "Empieza a dormir 2..." << endl;
+        this_thread::sleep_for(chrono::seconds(5));
+        cout << "Ya se desperto! 2" << endl;
+    });
+
+    cout << "Joining..." << endl;
+    t1.join();
+    cout << "Joined!" << endl;
     
+    /*
     cout << "Levantando webserver... ";
     struct mg_server* server = mg_create_server( NULL, eventHandler );
     mg_set_option( server, "listening_port", "8080" );
@@ -81,6 +99,7 @@ int main() {
     mg_destroy_server( &server );
 
     delete db;
+    */
 
     return 0;
 }
