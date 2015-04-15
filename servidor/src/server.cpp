@@ -1,9 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <thread>
-#include <chrono>
-#include "mongoose.h"
+#include "mangostaServer.hpp"
 #include "json/json.h"
 #include "rocksdb/db.h"
 
@@ -35,27 +33,6 @@ string BuildJson(string titulo = "Hola mundo"){
 }
 
 
-// Handles all the messages that arrive at the server
-static int eventHandler( struct mg_connection *conn, enum mg_event evt ){
-    switch (evt) {
-        case MG_AUTH:
-            return MG_TRUE;
-
-        case MG_REQUEST:
-            {
-                // Creo un json y lo meto en un string
-                string s = BuildJson("Pruebo crear un Json");
-                
-                // Mando la respuesta
-                mg_printf_data( conn, s.c_str() );
-                return MG_TRUE;
-            }
-
-        default:
-            return MG_FALSE;
-    }
-}
-
 
 
 int main() {
@@ -68,38 +45,31 @@ int main() {
     rocksdb::Status st = rocksdb::DB::Open( opt, "testDB.bin", &db );
     cout << st.ToString() << "!" << endl;
     cout << endl;
-    */
-
-    cout << "Se crea un hilo..." << endl;
-
-    thread t1([]{
-        cout << "Empieza a dormir 2..." << endl;
-        this_thread::sleep_for(chrono::seconds(5));
-        cout << "Ya se desperto! 2" << endl;
-    });
-
-    cout << "Joining..." << endl;
-    t1.join();
-    cout << "Joined!" << endl;
-    
-    /*
-    cout << "Levantando webserver... ";
-    struct mg_server* server = mg_create_server( NULL, eventHandler );
-    mg_set_option( server, "listening_port", "8080" );
-    cout << "OK!" << endl;
-    cout << endl;
-
-    cout << "El servidor esta escuchando en el puerto " << mg_get_option( server, "listening_port" ) << endl;
-    cout << "Presionar Ctrl + c para salir" << endl;
-
-    while (true){
-        mg_poll_server( server, 1000 );
-    }
-
-    mg_destroy_server( &server );
 
     delete db;
     */
+
+    MangostaServer ms;
+
+    string comando = "";
+    while (comando != "X"){
+        cout << endl << "----------------------" << endl;
+        cout << "X -> Para terminar" << endl;
+        cout << "Y -> Para iniciar" << endl << endl;
+        cout << "Ingrese comando: ";
+        cin >> comando;
+
+        if ( comando == "Y" ){
+            cout << "start!" << endl;
+            ms.Start();
+
+        } else if (comando == "X"){
+            cout << "Stop!" << endl;
+            ms.Stop();
+        }
+    }
+
+    cout << "Cerrando aplicacion" << endl;
 
     return 0;
 }
