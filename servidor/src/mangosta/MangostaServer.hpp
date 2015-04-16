@@ -1,3 +1,6 @@
+#ifndef MANGOSTA_SERVER_H
+#define MANGOSTA_SERVER_H
+
 #include <thread>
 #include "mongoose.h"
 
@@ -38,4 +41,6 @@ class MangostaServer {
         std::thread m_runningServerThread;
 };
 
+
+#endif 
 
