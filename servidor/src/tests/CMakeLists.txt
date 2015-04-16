@@ -3,10 +3,10 @@ include_directories ( ${CMAKE_CURRENT_SOURCE_DIR}/sumadorLib )
 add_subdirectory ( sumadorLib )
 
 #Compila los distintos testers
-add_executable ( SumadorTester mainTester.cpp sumadorTests.cpp )
+add_executable ( SumadorTester MainTester.cpp SumadorTests.cpp )
 target_link_libraries ( SumadorTester sumadorLib )
 
-add_executable ( JsonTester mainTester.cpp jsonTester.cpp )
+add_executable ( JsonTester MainTester.cpp JsonTester.cpp )
 target_link_libraries ( JsonTester jsoncppLib )
 
 

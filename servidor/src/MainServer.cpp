@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include "mangostaServer.hpp"
+#include "MangostaServer.hpp"
 #include "json/json.h"
 #include "rocksdb/db.h"
 

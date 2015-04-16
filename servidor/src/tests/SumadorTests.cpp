@@ -1,5 +1,5 @@
 #include "catch.hpp"
-#include "sumador.hpp"
+#include "Sumador.hpp"
 
 
 TEST_CASE( "Sumar enteros positivos" ){

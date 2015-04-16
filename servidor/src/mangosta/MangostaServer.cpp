@@ -1,4 +1,4 @@
-#include "mangostaServer.hpp"
+#include "MangostaServer.hpp"
 
 
 
@@ -39,17 +39,30 @@ void MangostaServer::Stop(){
 //------------------
 
 
-/**
- * Maneja todos los mensajes que llegan al server
- * */
 int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt ){
+    void* ptrData = conn->server_param;
+    
     switch (evt) {
         case MG_AUTH:
             return MG_TRUE;
 
-        case MG_REQUEST:    // Mando la respuesta
-            mg_printf_data( conn, "Hola mundo de los hilos!" );
+        case MG_REQUEST:
+            {
+            // Params del request
+            std::string req = conn->request_method; // POST, GET, etc.
+            std::string url = conn->uri;
+            
+            // GET params
+            std::string qStr = conn->query_string;  // Lo que viene despues del "?" en la url
+            
+            // POST data
+            char* postData = new char[ conn->content_len ];
+            //postData = conn->content; // TODO: Copy the post data
+            delete[] postData;
+
+            mg_printf_data( conn, "Hola mundo de los hilos!" ); // Mando la respuesta
             return MG_TRUE;
+            }
 
         default:
             return MG_FALSE;

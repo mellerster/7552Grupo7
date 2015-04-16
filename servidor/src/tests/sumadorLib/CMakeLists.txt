@@ -1,3 +1,3 @@
 
-add_library ( sumadorLib sumador.cpp )
+add_library ( sumadorLib Sumador.cpp )
 

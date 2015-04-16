@@ -1,4 +1,4 @@
-#include "sumador.hpp"
+#include "Sumador.hpp"
 
 
 int Sumador::sumar(int a, int b){
