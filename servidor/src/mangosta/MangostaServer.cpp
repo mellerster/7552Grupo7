@@ -1,4 +1,6 @@
 #include "MangostaServer.hpp"
+#include <memory>
+#include <vector>
 
 
 
@@ -54,19 +56,16 @@ int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt 
 
         case MG_REQUEST:
             {
-            // Params del request
-            std::string req = conn->request_method; // POST, GET, etc.
-            std::string url = conn->uri;
+            // Se crea el responder en base a los parametros del request
+            std::unique_ptr<RequestHandler> req = ptrFactory->CreateResponder(conn->request_method, conn->uri);
             
-            // GET params
-            std::string qStr = conn->query_string;  // Lo que viene despues del "?" en la url
+            // Se le pasan los datos
+            //req->LoadParameters(conn->query_string, conn->content, conn->content_len);
             
-            // POST data
-            char* postData = new char[ conn->content_len ];
-            //postData = conn->content; // TODO: Copy the post data
-            delete[] postData;
+            // Devuelve el resultado al cliente
+            std::vector<char> vRes = req->GetResponseData();
+            mg_send_data( conn, &vRes[0], vRes.size() );
 
-            mg_printf_data( conn, "Hola mundo de los hilos!" ); // Mando la respuesta
             return MG_TRUE;
             }
 
