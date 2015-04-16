@@ -22,11 +22,6 @@ class RequestHandlerFactory {
          * */
         std::unique_ptr<RequestHandler> CreateResponder(std::string httpVerb, std::string httpURL) const;
 
-
-    private:
-        // La factory no es copiable
-        RequestHandlerFactory(const RequestHandlerFactory& fac);
-        RequestHandlerFactory& operator=(const RequestHandlerFactory& fac);
 };
 
 

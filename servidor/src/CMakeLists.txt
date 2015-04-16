@@ -32,7 +32,7 @@ add_subdirectory ( tests )
 #Define el ejecutable y linkea las librerias
 set ( SRCs MainServer.cpp )
 add_executable ( ${PROJECT_NAME} ${SRCs} ) 
-target_link_libraries ( ${PROJECT_NAME} mangostaServer jsoncppLib ${LIBROCKSDB} )
+target_link_libraries ( ${PROJECT_NAME} mangostaServer jsoncppLib ${LIBROCKSDB} requestHandlers )
 
 
 

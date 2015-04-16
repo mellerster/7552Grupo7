@@ -3,6 +3,7 @@
 
 #include <thread>
 #include "mongoose.h"
+#include "RequestHandlerFactory.hpp"
 
 
 /**
@@ -10,7 +11,7 @@
  * */
 class MangostaServer {
     public:
-        MangostaServer();
+        MangostaServer(RequestHandlerFactory fac);
         virtual ~MangostaServer();
 
         /**
@@ -30,7 +31,7 @@ class MangostaServer {
 
 
     private:
-        // No se permite copiar la clase
+        // No se permite copiar el servidor
         MangostaServer(const MangostaServer& ms);
         MangostaServer& operator=(const MangostaServer& ms);
 
@@ -39,6 +40,9 @@ class MangostaServer {
 
         // Mantiene una referencia al thread donde corre el servidor
         std::thread m_runningServerThread;
+
+        // Mantiene una referencia a la factory de request's handlers
+        RequestHandlerFactory m_reqFactory;
 };
 
 

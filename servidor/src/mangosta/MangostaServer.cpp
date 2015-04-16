@@ -2,10 +2,16 @@
 
 
 
-MangostaServer::MangostaServer() : m_keepRunning(false){
-    // Crea el server y le asigna un puerto para escuchar
-    this->m_server = mg_create_server( NULL, MangostaServer::EventHandler );
-    mg_set_option( this->m_server, "listening_port", "8080" );
+MangostaServer::MangostaServer(RequestHandlerFactory fac) 
+    : m_keepRunning(false), m_reqFactory(fac)
+{
+    void* ptrFact = static_cast<void*>( &this->m_reqFactory );
+
+    // Crea el server, le pasa una referencia a la factory y le asigna un puerto para escuchar
+    struct mg_server* server = mg_create_server( ptrFact, MangostaServer::EventHandler );
+    mg_set_option( server, "listening_port", "8080" );
+
+    this->m_server = server;
 }
 
 
@@ -40,7 +46,7 @@ void MangostaServer::Stop(){
 
 
 int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt ){
-    void* ptrData = conn->server_param;
+    RequestHandlerFactory* ptrFactory = static_cast<RequestHandlerFactory*>( conn->server_param );
     
     switch (evt) {
         case MG_AUTH:

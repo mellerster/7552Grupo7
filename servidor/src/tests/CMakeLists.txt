@@ -12,7 +12,7 @@ target_link_libraries ( JsonTester jsoncppLib )
 
 ############################ Tests ##########################
 
-message ( "*** NOTA: Para ver el detalle de los tests ejecutar: ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME} ***" )
+message ( "*** NOTA: Para ver el detalle de los tests correr los ejecutables en: ${CMAKE_CURRENT_BINARY_DIR} ***" )
 
 #Corre todos los tests, pero los toma como si solo fuera uno
 #add_test ( All_Sumador_Tests SumadorTester )
