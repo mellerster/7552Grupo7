@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include "IDataService.hpp"
+#include "ICodec.hpp"
 
 
 /**
@@ -10,8 +12,17 @@
  * */
 class RequestHandler {
     public:
-        RequestHandler();
+
+        /** Constructor base de los request handlers.
+         *
+         * @param[in] service   Referencia a un servicio de almacenamiento de datos.
+         * @param[in] codec     Referencia a un helper para codificar y decodificar mensajes.
+         * */
+        RequestHandler(IDataService &service, ICodec &codec);
+
+
         virtual ~RequestHandler();
+
 
         /**
          * Setea los parametros del request.
@@ -27,6 +38,11 @@ class RequestHandler {
          * @return  Un contenedor con datos binarios.
          * */
         virtual std::vector<char> GetResponseData() = 0;
+
+
+    protected:
+        ICodec &m_codec;
+        IDataService &m_dataService;
 };
 
 

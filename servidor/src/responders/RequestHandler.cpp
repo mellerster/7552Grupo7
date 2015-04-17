@@ -1,7 +1,9 @@
 #include "RequestHandler.hpp"
 
 
-RequestHandler::RequestHandler(){
+RequestHandler::RequestHandler(IDataService &service, ICodec &codec)
+    : m_codec(codec), m_dataService(service)
+{
 }
 
 

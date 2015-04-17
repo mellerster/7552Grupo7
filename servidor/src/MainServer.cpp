@@ -1,9 +1,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include "rocksdb/db.h"
 #include "RequestHandlerFactory.hpp"
 #include "MangostaServer.hpp"
-#include "rocksdb/db.h"
+#include "ICodec.hpp"
+#include "IDataService.hpp"
 
 
 using namespace std;
@@ -26,7 +28,12 @@ int main() {
     delete db;
     */
 
-    RequestHandlerFactory factory;
+    // Se injectan los servicios en la factory
+    ICodec* cTemp = nullptr;
+    IDataService* dsTemp = nullptr;
+    RequestHandlerFactory factory(*dsTemp, *cTemp);
+
+    // Se injecta la factory en el server
     MangostaServer ms( factory );
 
     string comando = "";

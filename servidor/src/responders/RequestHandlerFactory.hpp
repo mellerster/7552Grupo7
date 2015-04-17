@@ -3,6 +3,8 @@
 
 #include <memory>
 #include "RequestHandler.hpp"
+#include "IDataService.hpp"
+#include "ICodec.hpp"
 
 
 /**
@@ -10,8 +12,17 @@
  * */
 class RequestHandlerFactory {
     public:
-        RequestHandlerFactory();
+
+        /** Constructor de los request handlers.
+         *
+         * @param[in] service   Referencia a un servicio de almacenamiento de datos.
+         * @param[in] codec     Referencia a un helper para codificar y decodificar mensajes.
+         * */
+        RequestHandlerFactory(IDataService &service, ICodec &codec);
+
+
         virtual ~RequestHandlerFactory();
+
         
         /**
          * Crea el RequestHandler associado a los parametros dados.
@@ -22,6 +33,10 @@ class RequestHandlerFactory {
          * */
         std::unique_ptr<RequestHandler> CreateResponder(std::string httpVerb, std::string httpURL) const;
 
+
+    private:
+        ICodec &m_codec;
+        IDataService &m_dataService;
 };
 
 

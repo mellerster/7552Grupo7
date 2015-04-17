@@ -1,7 +1,9 @@
 #include "ListUsersRequest.hpp"
 
 
-ListUsersRequest::ListUsersRequest(){
+ListUsersRequest::ListUsersRequest(IDataService &service, ICodec &codec)
+    : RequestHandler(service, codec)
+{
 }
 
 

@@ -20,6 +20,8 @@ include_directories ( ${PROJECT_SOURCE_DIR}/libs/jsoncppLib )
 include_directories ( ${PROJECT_SOURCE_DIR}/libs/mongooseLib )
 include_directories ( ${PROJECT_SOURCE_DIR}/mangosta )
 include_directories ( ${PROJECT_SOURCE_DIR}/responders )
+include_directories ( ${PROJECT_SOURCE_DIR}/dataService )
+include_directories ( ${PROJECT_SOURCE_DIR}/helpers )
 include_directories ( ${LIBROCKSDB_SOURCE_DIR} )
 
 #Donde buscar las librerias

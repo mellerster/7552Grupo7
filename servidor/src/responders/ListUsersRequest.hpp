@@ -2,6 +2,8 @@
 #define LIST_USERS_REQUEST_H
 
 #include "RequestHandler.hpp"
+#include "IDataService.hpp"
+#include "ICodec.hpp"
 
 
 /**
@@ -9,7 +11,7 @@
  * */
 class ListUsersRequest : public RequestHandler {
     public:
-        ListUsersRequest();
+        ListUsersRequest(IDataService &service, ICodec &codec);
         virtual ~ListUsersRequest();
 
 

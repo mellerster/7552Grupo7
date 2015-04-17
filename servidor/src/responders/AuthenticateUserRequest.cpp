@@ -1,7 +1,9 @@
 #include "AuthenticateUserRequest.hpp"
 
 
-AuthenticateUserRequest::AuthenticateUserRequest(){
+AuthenticateUserRequest::AuthenticateUserRequest(IDataService &service, ICodec &codec)
+    : RequestHandler(service, codec)
+{
 }
 
 

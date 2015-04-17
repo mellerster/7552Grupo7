@@ -2,6 +2,8 @@
 #define AUTHENTICATE_REQUEST_H
 
 #include "RequestHandler.hpp"
+#include "IDataService.hpp"
+#include "ICodec.hpp"
 
 
 /**
@@ -9,7 +11,7 @@
  * */
 class AuthenticateUserRequest : public RequestHandler {
     public:
-        AuthenticateUserRequest();
+        AuthenticateUserRequest(IDataService &service, ICodec &codec);
         virtual ~AuthenticateUserRequest();
 
 
