@@ -1,5 +1,5 @@
 #include <string>
-#include "catch.hpp"
+#include "include/catch.hpp"
 #include "json/json.h"
 
 
