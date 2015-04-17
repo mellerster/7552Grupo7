@@ -1,6 +1,7 @@
 #include "RequestHandlerFactory.hpp"
 #include "AuthenticateUserRequest.hpp"
 #include "ListUsersRequest.hpp"
+#include "EmptyRequest.hpp"
 
 
 
@@ -16,9 +17,9 @@ RequestHandlerFactory::~RequestHandlerFactory(){
 
 
 std::unique_ptr<RequestHandler> RequestHandlerFactory::CreateResponder(std::string httpVerb, std::string httpURL) const{
-    ListUsersRequest* lur = new ListUsersRequest(this->m_dataService, this->m_codec);
+    EmptyRequest* er = new EmptyRequest(this->m_dataService, this->m_codec);
 
-    std::unique_ptr<RequestHandler> rh( lur );
+    std::unique_ptr<RequestHandler> rh( er );
 
     return rh;
 }
