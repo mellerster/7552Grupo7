@@ -12,6 +12,9 @@ target_link_libraries ( JsonTester jsoncppLib )
 add_executable ( MessageFactoryTester MainTester.cpp FactoryTester.cpp )
 target_link_libraries ( MessageFactoryTester requestHandlers )
 
+add_executable ( RequestHanderTester MainTester.cpp RequestsTester.cpp )
+target_link_libraries ( RequestHanderTester  requestHandlers )
+
 
 ############################ Tests ##########################
 
@@ -21,6 +24,7 @@ message ( "*** NOTA: Para ver el detalle de los tests correr los ejecutables en:
 #add_test ( All_Sumador_Tests SumadorTester )
 #add_test ( ALL_Json_Tests JsonTester )
 #add_test ( ALL_MessageFactory_Tests MessageFactoryTester )
+add_test ( ALL_Request_Handler_Tests RequestHanderTester )
 
 #Hay que pasar el nombre de los tests cases para que cmake los corra por separado
 add_test ( Test_Positivos SumadorTester "Sumar enteros positivos" )
