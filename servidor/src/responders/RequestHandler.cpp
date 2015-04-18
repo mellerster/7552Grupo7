@@ -11,7 +11,7 @@ RequestHandler::~RequestHandler(){
 }
 
 
-void RequestHandler::LoadParameters(std::string queryString, const char* data, size_t data_len){
+void RequestHandler::LoadParameters(const char* queryString, const char* data, std::size_t data_len){
 }
 
 

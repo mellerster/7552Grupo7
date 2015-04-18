@@ -52,6 +52,7 @@ int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt 
     
     switch (evt) {
         case MG_AUTH:
+            // TODO: Autenticar la conexion
             return MG_TRUE;
 
         case MG_REQUEST:
@@ -60,7 +61,7 @@ int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt 
             std::unique_ptr<RequestHandler> req = ptrFactory->CreateResponder(conn->request_method, conn->uri);
             
             // Se le pasan los datos
-            //req->LoadParameters(conn->query_string, conn->content, conn->content_len);
+            req->LoadParameters(conn->query_string, conn->content, conn->content_len);
             
             // Devuelve el resultado al cliente
             std::vector<char> vRes = req->GetResponseData();

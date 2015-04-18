@@ -10,11 +10,8 @@ EmptyRequest::EmptyRequest(IDataService &service, ICodec &codec)
 EmptyRequest::~EmptyRequest(){ }
 
 
-
-void EmptyRequest::LoadParameters(std::string, const char*, size_t){ }
-
-
 std::vector<char> EmptyRequest::GetResponseData(){
+    // TODO: Definir como responder...
     std::vector<char> v;
     v.push_back('0');
 

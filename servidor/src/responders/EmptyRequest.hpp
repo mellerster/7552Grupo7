@@ -15,7 +15,6 @@ class EmptyRequest : public RequestHandler {
         EmptyRequest(IDataService &service, ICodec &codec);
         virtual ~EmptyRequest();
 
-        void LoadParameters(std::string queryString, const char* data, size_t data_len);
         virtual std::vector<char> GetResponseData();
 };
 

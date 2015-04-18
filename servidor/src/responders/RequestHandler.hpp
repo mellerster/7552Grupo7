@@ -1,7 +1,6 @@
 #ifndef REQUEST_HANDLER_H
 #define REQUEST_HANDLER_H
 
-#include <string>
 #include <vector>
 #include "IDataService.hpp"
 #include "ICodec.hpp"
@@ -30,7 +29,7 @@ class RequestHandler {
          * @param[in] data  Los datos binarios del pedido, suelen ser POST.
          * @param[in] data_len  La cantidad de bytes de datos binarios.
          * */
-        void LoadParameters(std::string queryString, const char* data, size_t data_len);
+        void LoadParameters(const char* queryString, const char* data, std::size_t data_len);
 
 
         /**
