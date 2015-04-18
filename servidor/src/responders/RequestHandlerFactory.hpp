@@ -34,6 +34,16 @@ class RequestHandlerFactory {
         std::unique_ptr<RequestHandler> CreateResponder(std::string httpVerb, std::string httpURL) const;
 
 
+    protected:
+        /**
+         * Metodos especializados que crean los distintos tipos de respuestas.
+         *
+         * @param[in] httpURI   La URI que señala el recurso accedido.
+         * */
+        RequestHandler* CreateGETResponses(std::string httpURI) const;
+        RequestHandler* CreatePUTResponses(std::string httpURI) const;
+        RequestHandler* CreatePOSTResponses(std::string httpURI) const;
+
     private:
         ICodec &m_codec;
         IDataService &m_dataService;

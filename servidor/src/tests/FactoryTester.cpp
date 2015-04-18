@@ -9,8 +9,46 @@
 #include "IDataService.hpp"
 #include "RequestHandlerFactory.hpp"
 #include "RequestHandler.hpp"
-#include "EmptyRequest.hpp"
 
+#include "EmptyRequest.hpp"
+#include "ListUsersRequest.hpp"
+#include "AuthenticateUserRequest.hpp"
+
+
+
+TEST_CASE ( "Request handlers esperados" ){
+    // Arrange
+    MockRepository mocker;
+    ICodec* mockCodec = mocker.Mock<ICodec>();
+    IDataService* mockService = mocker.Mock<IDataService>();
+    RequestHandlerFactory fac(*mockService, *mockCodec);
+
+    SECTION ("Crear List users request"){
+        const char* method = "GET";
+        const char* uri = "/grupo7/api/usuarios";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        ListUsersRequest* castRes = dynamic_cast<ListUsersRequest*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ("Crear autheticate user request"){
+        const char* method = "PUT";
+        const char* uri = "/grupo7/api/sesion";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        AuthenticateUserRequest* castRes = dynamic_cast<AuthenticateUserRequest*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+}
 
 
 TEST_CASE ( "Request no esperado" ){
