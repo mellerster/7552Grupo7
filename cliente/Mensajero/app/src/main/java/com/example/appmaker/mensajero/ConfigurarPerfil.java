@@ -42,6 +42,14 @@ public class ConfigurarPerfil extends ActionBarActivity {
         swt.setOnClickListener(cambiarEstadoListener);
         swt.setChecked(usuario.estaConectado());
 
+        byte[] foto = usuario.getFoto();
+        if(foto != null){
+            ImageView imageView = (ImageView) findViewById(R.id.imgFoto);
+
+            Bitmap bmp = BitmapFactory.decodeByteArray(foto, 0, foto.length);
+            imageView.setImageBitmap(bmp);
+        }
+
     }
 
     private OnClickListener cargarImagenListener = new OnClickListener() {
