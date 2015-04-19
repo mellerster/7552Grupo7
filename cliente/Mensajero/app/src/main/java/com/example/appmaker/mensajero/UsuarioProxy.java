@@ -58,6 +58,12 @@ public class UsuarioProxy {
         return  new Usuario(username);
     }
 
-
+    /**
+     * Envia la foto de perfil del usuario al servidor
+     * @param usuario con una foto de perfil nueva.
+     */
+    public void cargarFoto(Usuario usuario){
+        ///TODO: Enviar foto al server
+    }
 
 }

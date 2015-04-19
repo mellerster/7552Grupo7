@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
+import android.widget.Switch;
 
 import java.io.ByteArrayOutputStream;
 
@@ -23,13 +24,24 @@ public class ConfigurarPerfil extends ActionBarActivity {
 
     private static int RESULT_LOAD_IMAGE = 1;
 
+    Usuario usuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurar_perfil);
 
+        ///TODO: Obtener el usuario desde la actividad que llama a esta actividad.
+        usuario = new Usuario("prueba de usuario");
+        usuario.conectar();
+
         Button btn = (Button) findViewById(R.id.btnCambiarFoto);
         btn.setOnClickListener(cargarImagenListener);
+
+        Switch swt = (Switch) findViewById(R.id.swtEstado);
+        swt.setOnClickListener(cambiarEstadoListener);
+        swt.setChecked(usuario.estaConectado());
+
     }
 
     private OnClickListener cargarImagenListener = new OnClickListener() {
@@ -39,6 +51,23 @@ public class ConfigurarPerfil extends ActionBarActivity {
                     android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 
             startActivityForResult(i, RESULT_LOAD_IMAGE);
+        }
+    };
+
+    private OnClickListener cambiarEstadoListener = new OnClickListener() {
+        public void onClick(View v) {
+            ///TODO:Ver si el cambio debe ser por proxy o solamente por estado del objeto
+            UsuarioProxy proxy = new UsuarioProxy();
+            Switch swt =((Switch) v);
+            if (usuario.estaConectado()) {
+                proxy.logout(usuario);
+                swt.setChecked(false);
+                swt.setText("Desconectado");
+            } else {
+                proxy.login(usuario);
+                swt.setChecked(true);
+                swt.setText("Conectado");
+            }
         }
     };
 
@@ -68,27 +97,33 @@ public class ConfigurarPerfil extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
-            Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
-            Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-            cursor.moveToFirst();
-
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String picturePath = cursor.getString(columnIndex);
-            cursor.close();
-
-            ImageView imageView = (ImageView) findViewById(R.id.imgFoto);
-            Bitmap bp = BitmapFactory.decodeFile(picturePath);
-            imageView.setImageBitmap(bp);
-
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] b = baos.toByteArray();
-            ///TODO: Poner la foto en el usuario actual y guardar el mismo
-            Usuario u = new Usuario("", "");
-            u.setFoto(b);
+            byte[] b = getBytesFromLocalImage(data);
+            usuario.setFoto(b);
+            new UsuarioProxy().cargarFoto(usuario);
         }
+    }
 
+    /**
+     * Obtiene el array de bytes de la imagen seleccionada desde el teléfono
+     * @param data Intent que carga la imagen
+     * @return tira de bytes de la imagen
+     */
+    private byte[] getBytesFromLocalImage(Intent data) {
+        Uri selectedImage = data.getData();
+        String[] filePathColumn = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+        cursor.moveToFirst();
 
+        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+        String picturePath = cursor.getString(columnIndex);
+        cursor.close();
+
+        ImageView imageView = (ImageView) findViewById(R.id.imgFoto);
+        Bitmap bp = BitmapFactory.decodeFile(picturePath);
+        imageView.setImageBitmap(bp);
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
     }
 }

@@ -48,4 +48,8 @@ public class Usuario {
         this.conectado = false;
     }
 
+    public boolean estaConectado(){
+        return (conectado == true);
+    }
+
 }
