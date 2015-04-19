@@ -14,7 +14,12 @@ public class UsuarioProxy {
         @return Un List tipado de Usuario
      */
     public List<Usuario> getUsuariosConectados(){
-        return new LinkedList<Usuario>();
+        List<Usuario> usuarios = new LinkedList<Usuario>();
+        usuarios.add(new Usuario("diego", "diego"));
+        usuarios.add(new Usuario("cesar", "cesar"));
+        usuarios.add(new Usuario("ramiro", "ramiro"));
+        usuarios.add(new Usuario("tomas", "tomas"));
+        return usuarios;
     }
 
     /**
