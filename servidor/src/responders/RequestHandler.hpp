@@ -1,9 +1,12 @@
 #ifndef REQUEST_HANDLER_H
 #define REQUEST_HANDLER_H
 
+#include <memory>
 #include <vector>
 #include "IDataService.hpp"
-#include "ICodec.hpp"
+#include "Codec.hpp"
+#include "Response.hpp"
+
 
 
 /**
@@ -17,7 +20,7 @@ class RequestHandler {
          * @param[in] service   Referencia a un servicio de almacenamiento de datos.
          * @param[in] codec     Referencia a un helper para codificar y decodificar mensajes.
          * */
-        RequestHandler(IDataService &service, ICodec &codec);
+        RequestHandler(IDataService &service, std::unique_ptr<Codec> codec);
 
 
         virtual ~RequestHandler();
@@ -25,6 +28,7 @@ class RequestHandler {
 
         /**
          * Setea los parametros del request.
+         *
          * @param[in] queryString   El query string del request sin el "?" del inicio.
          * @param[in] data  Los datos binarios del pedido, suelen ser POST.
          * @param[in] data_len  La cantidad de bytes de datos binarios.
@@ -34,13 +38,14 @@ class RequestHandler {
 
         /**
          * Genera la respuesta para ser enviada al cliente.
-         * @return  Un contenedor con datos binarios.
+         *
+         * @return  Un contenedor con datos de la respuesta.
          * */
-        virtual std::vector<char> GetResponseData() = 0;
+        virtual std::unique_ptr<Response> GetResponseData() = 0;
 
 
     protected:
-        ICodec &m_codec;
+        std::unique_ptr<Codec> m_codec;
         IDataService &m_dataService;
 };
 

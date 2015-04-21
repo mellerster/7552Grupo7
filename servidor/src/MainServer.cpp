@@ -4,7 +4,7 @@
 #include "rocksdb/db.h"
 #include "RequestHandlerFactory.hpp"
 #include "MangostaServer.hpp"
-#include "ICodec.hpp"
+#include "helpers/ICodec.hpp"
 #include "IDataService.hpp"
 
 

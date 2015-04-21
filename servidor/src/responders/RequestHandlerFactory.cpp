@@ -1,12 +1,13 @@
 #include "RequestHandlerFactory.hpp"
-#include "AuthenticateUserRequest.hpp"
-#include "ListUsersRequest.hpp"
-#include "EmptyRequest.hpp"
+
+#include "customHandlers/AuthenticateUserRequest.hpp"
+#include "customHandlers/ListUsersRequest.hpp"
+#include "customHandlers/EmptyRequest.hpp"
 
 
 
-RequestHandlerFactory::RequestHandlerFactory(IDataService &service, ICodec &codec)
-    : m_codec(codec), m_dataService(service)
+RequestHandlerFactory::RequestHandlerFactory(IDataService &service, CodecFactory codecFac)
+    : m_dataService(service), m_codecFactory(codecFac)
 {
 }
 
@@ -30,7 +31,8 @@ std::unique_ptr<RequestHandler> RequestHandlerFactory::CreateResponder(std::stri
 
     // No es ningun mensaje existente
     if (resul == nullptr){
-        resul = new EmptyRequest(this->m_dataService, this->m_codec);
+        Codec* codecEmpty = this->m_codecFactory->BuildNotFoundCodec();
+        resul = new EmptyRequest(this->m_dataService, codecEmpty);
     }
 
     std::unique_ptr<RequestHandler> rh( resul );
@@ -40,7 +42,8 @@ std::unique_ptr<RequestHandler> RequestHandlerFactory::CreateResponder(std::stri
 
 RequestHandler* RequestHandlerFactory::CreateGETResponses(std::string httpURI) const{
     if (httpURI == "/grupo7/api/usuarios"){
-        return new ListUsersRequest(this->m_dataService, this->m_codec);
+        std::unique_ptr<Codec> codecListUsers ( this->m_codecFactory->BuildUsersListingCodec() );
+        return new ListUsersRequest(this->m_dataService, codecListUsers);
 
     } else if (httpURI == ""){
         // TODO
@@ -53,7 +56,8 @@ RequestHandler* RequestHandlerFactory::CreateGETResponses(std::string httpURI) c
 
 RequestHandler* RequestHandlerFactory::CreatePUTResponses(std::string httpURI) const{
     if (httpURI == "/grupo7/api/sesion"){
-        return new AuthenticateUserRequest(this->m_dataService, this->m_codec);
+        std::unique_ptr<Codec> codecAuth ( this->m_codecFactory->BuildAutenticationCodec() );
+        return new AuthenticateUserRequest(this->m_dataService, codecAuth);
 
     } else if (httpURI == ""){
         // TODO

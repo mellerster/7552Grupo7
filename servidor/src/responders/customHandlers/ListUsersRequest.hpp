@@ -3,7 +3,7 @@
 
 #include "RequestHandler.hpp"
 #include "IDataService.hpp"
-#include "ICodec.hpp"
+#include "helpers/ICodec.hpp"
 
 
 /**
@@ -11,11 +11,11 @@
  * */
 class ListUsersRequest : public RequestHandler {
     public:
-        ListUsersRequest(IDataService &service, ICodec &codec);
+        ListUsersRequest(IDataService &service, std::unique_ptr<Codec> codec);
         virtual ~ListUsersRequest();
 
 
-        virtual std::vector<char> GetResponseData();
+        virtual std::unique_ptr<Response> GetResponseData();
 };
 
 

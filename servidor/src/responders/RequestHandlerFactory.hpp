@@ -4,7 +4,7 @@
 #include <memory>
 #include "RequestHandler.hpp"
 #include "IDataService.hpp"
-#include "ICodec.hpp"
+#include "CodecFactory.hpp"
 
 
 /**
@@ -16,9 +16,9 @@ class RequestHandlerFactory {
         /** Constructor de los request handlers.
          *
          * @param[in] service   Referencia a un servicio de almacenamiento de datos.
-         * @param[in] codec     Referencia a un helper para codificar y decodificar mensajes.
+         * @param[in] codecFac  Referencia a una de codificadores y decodificadores de mensajes.
          * */
-        RequestHandlerFactory(IDataService &service, ICodec &codec);
+        RequestHandlerFactory(IDataService &service, CodecFactory codecFac);
 
 
         virtual ~RequestHandlerFactory();
@@ -45,8 +45,8 @@ class RequestHandlerFactory {
         RequestHandler* CreatePOSTResponses(std::string httpURI) const;
 
     private:
-        ICodec &m_codec;
         IDataService &m_dataService;
+        CodecFactory m_codecFactory;
 };
 
 

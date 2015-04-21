@@ -1,7 +1,7 @@
 #include "RequestHandler.hpp"
 
 
-RequestHandler::RequestHandler(IDataService &service, ICodec &codec)
+RequestHandler::RequestHandler(IDataService &service, std::unique_ptr<Codec> codec)
     : m_codec(codec), m_dataService(service)
 {
 }
