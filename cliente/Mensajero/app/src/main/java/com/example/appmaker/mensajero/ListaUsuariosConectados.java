@@ -21,18 +21,8 @@ public class ListaUsuariosConectados extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_usuarios_conectados);
-        List<Usuario> usuarios = obtenerUsuarios();
+        List<Usuario> usuarios = new UsuarioProxy().getUsuariosConectados();
         MostrarUsuarios(usuarios);
-    }
-
-    //TODO:Llamar al proxy y obtener el listado desde la API
-    private List<Usuario> obtenerUsuarios() {
-        List<Usuario> usuarios = new LinkedList<Usuario>();
-        usuarios.add(new Usuario("diego", "diego"));
-        usuarios.add(new Usuario("cesar", "cesar"));
-        usuarios.add(new Usuario("ramiro", "ramiro"));
-        usuarios.add(new Usuario("tomas", "tomas"));
-        return usuarios;
     }
 
     //TODO: Mostar mas información como pide el enunciado y en un diseño mejor

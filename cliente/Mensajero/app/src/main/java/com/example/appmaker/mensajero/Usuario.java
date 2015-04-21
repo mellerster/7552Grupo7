@@ -8,11 +8,16 @@ import android.media.Image;
 public class Usuario {
     private String nombre;
     private String password;
-    private Image foto;
+    private byte[] foto;
+    private boolean conectado;
 
     public Usuario(String nombre, String password){
         this.nombre = nombre;
         this.password = password;
+    }
+
+    public Usuario(String nombre){
+        this.nombre = nombre;
     }
 
     public String getNombre(){
@@ -23,16 +28,28 @@ public class Usuario {
         return this.password;
     }
 
-    public Image getFoto(){
+    public byte[] getFoto(){
         return this.foto;
     }
 
-    public void setFoto(Image foto){
+    public void setFoto(byte[] foto){
         this.foto = foto;
     }
 
     public String toString(){
         return this.getNombre();
+    }
+
+    public void conectar(){
+        this.conectado = true;
+    }
+
+    public void desconectar(){
+        this.conectado = false;
+    }
+
+    public boolean estaConectado(){
+        return (conectado == true);
     }
 
 }
