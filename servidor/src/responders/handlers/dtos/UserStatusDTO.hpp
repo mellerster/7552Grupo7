@@ -8,20 +8,30 @@
 
 /**
  * Contiene los datos de estado de un usuario conectado.
+ *
+ * Se mapea a un JSON de la siguiente forma:
+ *
+ *      {
+ *        Nombre: "xxx",
+ *        Estado: "yyy",
+ *        UltimaActividadHora: "23:59",
+ *        UltimaActividadFecha: "2015/05/08"
+ *      } 
+ *
  * */
 class UserStatusDTO : public BaseDTO {
     public:
-        UserStatusDTO();
-        virtual ~UserStatusDTO();
+        std::string Nombre;     /**< El nombre del usuario. */
+        std::string Estado;     /**< El estado del usuario: Conectado, etc. */
+        std::string UltimaActividadHora;        /**< La hora de ultima actividad del usuario: En formato de 24hs. */
+        std::string UltimaActividadFecha;       /**< La fecha de ultima actividad del usuario; En formato año, mes y dia. */
 
 
-        /**
-         * Inicializa el objeto con los datos del JSON
-         * */
-        UserStatusDTO(Json::Value);
+        UserStatusDTO();        /**< Constructor por defecto */
+        UserStatusDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON */
 
 
-        Json::Value ToJSON() const;
+        Json::Value ToJSON() const;     /**< Devuelve un JSON con todos los datos del objeto */
 };
 
 
