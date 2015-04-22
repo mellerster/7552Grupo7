@@ -3,22 +3,20 @@
 #include "include/catch.hpp"
 #include "include/hippomocks.h"
 
-#include "ICodec.hpp"
 #include "IDataService.hpp"
 
-#include "EmptyRequest.hpp"
-#include "ListUsersRequest.hpp"
-#include "AuthenticateUserRequest.hpp"
+#include "handlers/EmptyRequest.hpp"
+#include "handlers/ListUsersRequest.hpp"
+#include "handlers/AuthenticateUserRequest.hpp"
 
 
 
 TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
     // Mocks
     MockRepository mocker;
-    ICodec* mockCodec = mocker.Mock<ICodec>();
     IDataService* mockService = mocker.Mock<IDataService>();
 
-    std::unique_ptr<EmptyRequest> req( new EmptyRequest(*mockService, *mockCodec) );
+    std::unique_ptr<EmptyRequest> req( new EmptyRequest(*mockService) );
 
     SECTION ( "Aceptar los parametros" ){
         const char* testData = "pepepepe";

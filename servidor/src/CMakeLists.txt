@@ -30,7 +30,7 @@ add_subdirectory ( libs/jsoncppLib )
 add_subdirectory ( libs/mongooseLib )
 add_subdirectory ( mangosta )
 add_subdirectory ( responders )
-#add_subdirectory ( tests )
+add_subdirectory ( tests )
 
 #Define el ejecutable y linkea las librerias
 set ( SRCs MainServer.cpp )

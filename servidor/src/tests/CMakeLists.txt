@@ -13,7 +13,7 @@ add_executable ( MessageFactoryTester MainTester.cpp FactoryTester.cpp )
 target_link_libraries ( MessageFactoryTester requestHandlers )
 
 add_executable ( RequestHanderTester MainTester.cpp RequestsTester.cpp )
-target_link_libraries ( RequestHanderTester  requestHandlers )
+target_link_libraries ( RequestHanderTester requestHandlers )
 
 
 ############################ Tests ##########################

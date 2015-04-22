@@ -5,23 +5,21 @@
 #include "include/catch.hpp"
 #include "include/hippomocks.h"
 
-#include "ICodec.hpp"
 #include "IDataService.hpp"
 #include "RequestHandlerFactory.hpp"
 #include "RequestHandler.hpp"
 
-#include "EmptyRequest.hpp"
-#include "ListUsersRequest.hpp"
-#include "AuthenticateUserRequest.hpp"
+#include "handlers/EmptyRequest.hpp"
+#include "handlers/ListUsersRequest.hpp"
+#include "handlers/AuthenticateUserRequest.hpp"
 
 
 
 TEST_CASE ( "Request handlers esperados" ){
     // Arrange
     MockRepository mocker;
-    ICodec* mockCodec = mocker.Mock<ICodec>();
     IDataService* mockService = mocker.Mock<IDataService>();
-    RequestHandlerFactory fac(*mockService, *mockCodec);
+    RequestHandlerFactory fac(*mockService);
 
     SECTION ("Crear List users request"){
         const char* method = "GET";
@@ -54,9 +52,8 @@ TEST_CASE ( "Request handlers esperados" ){
 TEST_CASE ( "Request no esperado" ){
     // Arrange
     MockRepository mocker;
-    ICodec* mockCodec = mocker.Mock<ICodec>();
     IDataService* mockService = mocker.Mock<IDataService>();
-    RequestHandlerFactory fac(*mockService, *mockCodec);
+    RequestHandlerFactory fac(*mockService);
 
 
     SECTION ( "URI invalida" ){
@@ -102,7 +99,6 @@ TEST_CASE ( "Request no esperado" ){
 TEST_CASE ( "Prueba simple de mockeo de interfaces" ){
     // Mocks
     MockRepository mocker;
-    ICodec* mockCodec = mocker.Mock<ICodec>();
     IDataService* mockService = mocker.Mock<IDataService>();
 
     // Params
@@ -111,7 +107,7 @@ TEST_CASE ( "Prueba simple de mockeo de interfaces" ){
 
     // Act & Assert
     REQUIRE_NOTHROW (
-        RequestHandlerFactory fac(*mockService, *mockCodec)
+        RequestHandlerFactory fac(*mockService);
     );
 }
 
