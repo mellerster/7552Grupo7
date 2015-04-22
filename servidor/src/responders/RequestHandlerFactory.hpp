@@ -2,9 +2,8 @@
 #define REQUEST_HANDLER_FACTORY_H
 
 #include <memory>
-#include "RequestHandler.hpp"
 #include "IDataService.hpp"
-#include "CodecFactory.hpp"
+#include "RequestHandler.hpp"
 
 
 /**
@@ -16,9 +15,8 @@ class RequestHandlerFactory {
         /** Constructor de los request handlers.
          *
          * @param[in] service   Referencia a un servicio de almacenamiento de datos.
-         * @param[in] codecFac  Referencia a una de codificadores y decodificadores de mensajes.
          * */
-        RequestHandlerFactory(IDataService &service, CodecFactory codecFac);
+        RequestHandlerFactory(IDataService &service);
 
 
         virtual ~RequestHandlerFactory();
@@ -46,7 +44,7 @@ class RequestHandlerFactory {
 
     private:
         IDataService &m_dataService;
-        CodecFactory m_codecFactory;
+
 };
 
 

@@ -1,7 +1,7 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
-#include <vector>
+#include "json/json.h"
 
 
 
@@ -10,7 +10,13 @@
  * */
 class Response {
     public:
-        Response(int statusCode);
+        /**
+         * Construye una respuesta para los clientes en base a un JSON.
+         *
+         * @param[in] statusCode    Un código de estado HTTP.
+         * @param[in] jsonData      Los datos a enviar en formato JSON.
+         * */
+        Response(int statusCode, Json::Value jsonData);
         virtual ~Response();
 
         
@@ -34,7 +40,6 @@ class Response {
 
     private:
         int m_status;
-        std::vector<char> m_dataContainer;  // TODO: Evaluar un stringstream
 
 };
 

@@ -1,14 +1,12 @@
 #include "RequestHandlerFactory.hpp"
 
-#include "customHandlers/AuthenticateUserRequest.hpp"
-#include "customHandlers/ListUsersRequest.hpp"
-#include "customHandlers/EmptyRequest.hpp"
+#include "handlers/AuthenticateUserRequest.hpp"
+#include "handlers/ListUsersRequest.hpp"
+#include "handlers/EmptyRequest.hpp"
 
 
 
-RequestHandlerFactory::RequestHandlerFactory(IDataService &service, CodecFactory codecFac)
-    : m_dataService(service), m_codecFactory(codecFac)
-{
+RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataService(service) {
 }
 
 
@@ -31,8 +29,7 @@ std::unique_ptr<RequestHandler> RequestHandlerFactory::CreateResponder(std::stri
 
     // No es ningun mensaje existente
     if (resul == nullptr){
-        Codec* codecEmpty = this->m_codecFactory->BuildNotFoundCodec();
-        resul = new EmptyRequest(this->m_dataService, codecEmpty);
+        resul = new EmptyRequest(this->m_dataService);
     }
 
     std::unique_ptr<RequestHandler> rh( resul );
@@ -42,8 +39,7 @@ std::unique_ptr<RequestHandler> RequestHandlerFactory::CreateResponder(std::stri
 
 RequestHandler* RequestHandlerFactory::CreateGETResponses(std::string httpURI) const{
     if (httpURI == "/grupo7/api/usuarios"){
-        std::unique_ptr<Codec> codecListUsers ( this->m_codecFactory->BuildUsersListingCodec() );
-        return new ListUsersRequest(this->m_dataService, codecListUsers);
+        return new ListUsersRequest(this->m_dataService);
 
     } else if (httpURI == ""){
         // TODO
@@ -56,8 +52,7 @@ RequestHandler* RequestHandlerFactory::CreateGETResponses(std::string httpURI) c
 
 RequestHandler* RequestHandlerFactory::CreatePUTResponses(std::string httpURI) const{
     if (httpURI == "/grupo7/api/sesion"){
-        std::unique_ptr<Codec> codecAuth ( this->m_codecFactory->BuildAutenticationCodec() );
-        return new AuthenticateUserRequest(this->m_dataService, codecAuth);
+        return new AuthenticateUserRequest(this->m_dataService);
 
     } else if (httpURI == ""){
         // TODO

@@ -2,7 +2,8 @@
 
 
 
-Response::Response(int statusCode) : m_status(statusCode) {
+Response::Response(int statusCode, Json::Value jsonData) : m_status(statusCode) {
+    // TODO: Procesar el JSON y cargarlo en el data container
 }
 
 
@@ -17,12 +18,12 @@ int Response::GetStatus() const{
 
 
 const void* Response::GetData() const{
-    return *(this->m_dataContainer[0])
+    return nullptr;
 }
 
 
 size_t Response::GetDataLength() const{
-    return this->m_dataContainer.size();
+    return 0;
 }
 
 
