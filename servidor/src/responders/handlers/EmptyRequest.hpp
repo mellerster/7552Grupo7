@@ -1,11 +1,10 @@
 #ifndef EMPTY_REQUEST_H
 #define EMPTY_REQUEST_H
 
-#include <memory>
-#include <vector>
+
 #include "RequestHandler.hpp"
+#include "Response.hpp"
 #include "IDataService.hpp"
-#include "Codec.hpp"
 
 
 
@@ -13,10 +12,10 @@
  * */
 class EmptyRequest : public RequestHandler {
     public:
-        EmptyRequest(IDataService &service, std::unique_ptr<Codec> codec);
+        EmptyRequest(IDataService &service);
         virtual ~EmptyRequest();
 
-        virtual std::unique_ptr<Response> GetResponseData();
+        virtual const Response GetResponseData();
 };
 
 

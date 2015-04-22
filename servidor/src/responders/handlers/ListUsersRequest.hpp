@@ -1,9 +1,10 @@
 #ifndef LIST_USERS_REQUEST_H
 #define LIST_USERS_REQUEST_H
 
-#include "RequestHandler.hpp"
 #include "IDataService.hpp"
-#include "helpers/ICodec.hpp"
+#include "Response.hpp"
+#include "RequestHandler.hpp"
+
 
 
 /**
@@ -11,11 +12,11 @@
  * */
 class ListUsersRequest : public RequestHandler {
     public:
-        ListUsersRequest(IDataService &service, std::unique_ptr<Codec> codec);
+        ListUsersRequest(IDataService &service);
         virtual ~ListUsersRequest();
 
 
-        virtual std::unique_ptr<Response> GetResponseData();
+        virtual const Response GetResponseData();
 };
 
 

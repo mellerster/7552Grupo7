@@ -1,11 +1,11 @@
 #ifndef AUTHENTICATE_REQUEST_H
 #define AUTHENTICATE_REQUEST_H
 
-#include <memory>
-#include <vector>
+
 #include "RequestHandler.hpp"
+#include "Response.hpp"
 #include "IDataService.hpp"
-#include "Codec.hpp"
+
 
 
 /**
@@ -13,11 +13,11 @@
  * */
 class AuthenticateUserRequest : public RequestHandler {
     public:
-        AuthenticateUserRequest(IDataService &service, std::unique_ptr<Codec> codec);
+        AuthenticateUserRequest(IDataService &service);
         virtual ~AuthenticateUserRequest();
 
 
-        virtual std::unique_ptr<Response> GetResponseData();
+        virtual const Response GetResponseData();
 };
 
 
