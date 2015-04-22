@@ -2,6 +2,7 @@
 #define MANGOSTA_SERVER_H
 
 #include <thread>
+#include <memory>
 #include "mongoose.h"
 #include "RequestHandlerFactory.hpp"
 

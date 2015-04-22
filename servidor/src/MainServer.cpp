@@ -4,7 +4,6 @@
 #include "rocksdb/db.h"
 #include "RequestHandlerFactory.hpp"
 #include "MangostaServer.hpp"
-#include "helpers/ICodec.hpp"
 #include "IDataService.hpp"
 
 
@@ -29,9 +28,8 @@ int main() {
     */
 
     // Se injectan los servicios en la factory
-    ICodec* cTemp = nullptr;
     IDataService* dsTemp = nullptr;
-    RequestHandlerFactory factory(*dsTemp, *cTemp);
+    RequestHandlerFactory factory(*dsTemp);
 
     // Se injecta la factory en el server
     MangostaServer ms( factory );

@@ -1,6 +1,7 @@
 #include "MangostaServer.hpp"
-#include <memory>
-#include <vector>
+
+#include "Response.hpp"
+#include "RequestHandler.hpp"
 
 
 
@@ -39,8 +40,10 @@ void MangostaServer::Start(){
 
 void MangostaServer::Stop(){
     // Detiene el loop de polling y espera que termine el server
-    this->m_keepRunning = false;
-    this->m_runningServerThread.join();
+    if (this->m_keepRunning){
+        this->m_keepRunning = false;
+        this->m_runningServerThread.join();
+    }
 }
 
 
@@ -48,6 +51,7 @@ void MangostaServer::Stop(){
 
 
 int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt ){
+    // De los parametros del servidor se obtiene la factory de request handlers
     RequestHandlerFactory* ptrFactory = static_cast<RequestHandlerFactory*>( conn->server_param );
     
     switch (evt) {
@@ -60,12 +64,15 @@ int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt 
             // Se crea el responder en base a los parametros del request
             std::unique_ptr<RequestHandler> req = ptrFactory->CreateResponder(conn->request_method, conn->uri);
             
-            // Se le pasan los datos
+            // Se le pasan los datos y se obtiene la respuesta
             req->LoadParameters(conn->query_string, conn->content, conn->content_len);
-            
+            Response res = req->GetResponseData();
+
             // Devuelve el resultado al cliente
-            std::vector<char> vRes = req->GetResponseData();
-            mg_send_data( conn, &vRes[0], vRes.size() );
+            //mg_send_status( conn, res.GetStatus() );
+            //mg_send_data( conn, res.GetData(), res.GetDataLength() );
+            mg_send_status( conn, 200 );
+            mg_printf_data( conn, "Todavia no hay respuestas..." );
 
             return MG_TRUE;
             }
