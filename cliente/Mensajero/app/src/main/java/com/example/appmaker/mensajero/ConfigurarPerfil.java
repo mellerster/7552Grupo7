@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 
@@ -30,16 +31,20 @@ public class ConfigurarPerfil extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurar_perfil);
-
-        ///TODO: Obtener el usuario desde la actividad que llama a esta actividad.
-        usuario = new Usuario("prueba de usuario");
-        usuario.conectar();
+        Bundle extras = getIntent().getExtras();
+        if (extras!=null)
+        {
+            usuario = new UsuarioProxy().getUsuario(extras.getString("usuarioLogueado"));
+        }
 
         Button btn = (Button) findViewById(R.id.btnCambiarFoto);
         btn.setOnClickListener(cargarImagenListener);
 
         Switch swt = (Switch) findViewById(R.id.swtEstado);
         swt.setOnClickListener(cambiarEstadoListener);
+        //Cargo los datos del usuario
+
+        ///TODO: Extraer metodo
         swt.setChecked(usuario.estaConectado());
 
         byte[] foto = usuario.getFoto();
@@ -49,6 +54,9 @@ public class ConfigurarPerfil extends ActionBarActivity {
             Bitmap bmp = BitmapFactory.decodeByteArray(foto, 0, foto.length);
             imageView.setImageBitmap(bmp);
         }
+
+        TextView lblUsuarioLogueado = (TextView) findViewById(R.id.lblUsuarioLogueado);
+        lblUsuarioLogueado.setText(usuario.getNombre());
 
     }
 

@@ -55,6 +55,17 @@ public class UsuarioProxy {
     }
 
     /**
+     * Trae la configuración del usuario que esta logueado
+     * @param username nombre del usuario
+     * @return el usuario con sus datos cargados
+     */
+    public Usuario getUsuario(String username){
+        Usuario user = new Usuario(username);
+        user.conectar();
+        return user;
+    }
+
+    /**
      * Trae el estado completo de un usuario
      * @param username nombre del usuario
      * @return el Usuario con todos sus datos para mostrar

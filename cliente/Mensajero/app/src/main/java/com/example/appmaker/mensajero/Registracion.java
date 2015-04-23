@@ -3,10 +3,12 @@ package com.example.appmaker.mensajero;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 
 public class Registracion extends ActionBarActivity {
@@ -20,19 +22,24 @@ public class Registracion extends ActionBarActivity {
         btn.setOnClickListener(btnRegistrarseListener);
     }
 
+    /**
+     * Llama al activity de Lista Usuarios Conectados y le pasa el usuario registrado (y logueado)
+     */
     private View.OnClickListener btnRegistrarseListener = new View.OnClickListener() {
         public void onClick(View v) {
-
+            ///TODO:Llamar al proxy para que valide los datos del usuario, lo registre y loguee
             if(validarIngreso()) {
-                ///TODO: Pasar el usuario que se registro
+                TextView txtNombre = (TextView)findViewById(R.id.txtUser);
                 Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectados");
+                Bundle extras = new Bundle();
+                extras.putString("usuarioLogueado",txtNombre.getText().toString());
+                listaUsuariosConectadosIntent.putExtras(extras);
                 startActivity(listaUsuariosConectadosIntent);
             }
         }
     };
 
     ///TODO:Validar que ingrese un usuario y una contraseña en los campos
-    ///TODO:Llamar al proxy para que valide los datos del usuario
     private boolean validarIngreso(){
         return true;
     }
