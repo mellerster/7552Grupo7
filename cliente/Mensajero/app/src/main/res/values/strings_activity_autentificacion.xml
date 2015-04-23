@@ -1,0 +1,12 @@
+<resources>
+
+    <!-- Strings related to login -->
+    <string name="prompt_usuario">Usuario</string>
+    <string name="prompt_contrasenia">Contrasenia</string>
+    <string name="action_iniciar_sesion">Iniciar sesión</string>
+    <string name="action_crear_nueva_cuenta">Crear nueva cuenta</string>
+
+    <string name="error_contrasenia_vacia">No ha ingresado una contraseña</string>
+    <string name="error_credenciales_invalidas">Usuario o contraseña inválidos</string>
+    <string name="error_usuario_vacio">No ha ingresado un usuario</string>
+</resources>
