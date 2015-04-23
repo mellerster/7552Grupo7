@@ -16,7 +16,7 @@ import java.util.List;
 
 public class ListaUsuariosConectados extends ActionBarActivity {
     String tag = "Events"; // Tag para usar Log.d y poder filtrar por este tag
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +69,10 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
+        ///TODO: Pasar el usuario al perfil
         if (id == R.id.action_settings) {
-            return true;
+            Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfil");
+            startActivity(configurarPerfilIntent);
         }
 
         return super.onOptionsItemSelected(item);
