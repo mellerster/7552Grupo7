@@ -30,10 +30,18 @@
         <activity
             android:name=".ConfigurarPerfil"
             android:label="@string/title_activity_configurar_perfil" >
+            <intent-filter>
+                ​<action android:name="com.example.appmaker.mensajero.ConfigurarPerfil" />
+                ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ListaUsuariosConectados"
             android:label="@string/title_activity_lista_usuarios_conectados" >
+            <intent-filter>
+                ​<action android:name="com.example.appmaker.mensajero.ListaUsuariosConectados" />
+                ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".AutentificacionActivity"

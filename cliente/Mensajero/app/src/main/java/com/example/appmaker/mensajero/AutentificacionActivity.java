@@ -183,6 +183,7 @@ public class AutentificacionActivity extends Activity {
             showProgress(false);
 
             if (success) {
+                ///TODO: Abrir otra pantalla, no cerrar la app
                 finish();
             } else {
                 contraseniaView.setError(getString(R.string.error_credenciales_invalidas));

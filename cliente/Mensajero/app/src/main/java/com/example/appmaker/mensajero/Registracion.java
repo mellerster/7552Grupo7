@@ -1,9 +1,12 @@
 package com.example.appmaker.mensajero;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 
 public class Registracion extends ActionBarActivity {
@@ -12,8 +15,27 @@ public class Registracion extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registracion);
+
+        Button btn = (Button) findViewById(R.id.btnRegistrarse);
+        btn.setOnClickListener(btnRegistrarseListener);
     }
 
+    private View.OnClickListener btnRegistrarseListener = new View.OnClickListener() {
+        public void onClick(View v) {
+
+            if(validarIngreso()) {
+                ///TODO: Pasar el usuario que se registro
+                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectados");
+                startActivity(listaUsuariosConectadosIntent);
+            }
+        }
+    };
+
+    ///TODO:Validar que ingrese un usuario y una contraseña en los campos
+    ///TODO:Llamar al proxy para que valide los datos del usuario
+    private boolean validarIngreso(){
+        return true;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
