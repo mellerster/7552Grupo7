@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 
 import android.os.Build;
@@ -112,9 +113,10 @@ public class AutentificacionActivity extends Activity {
         }
     }
 
-    // TODO: Agregar intento cuando este la actividad de registracion.
-    private void abrirRegistracion() {
 
+    private void abrirRegistracion() {
+        Intent registracionIntent =new Intent("com.example.appmaker.mensajero.Registracion");
+        startActivity(registracionIntent);
     }
 
     /**
