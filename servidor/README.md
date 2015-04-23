@@ -64,5 +64,16 @@ O
 La diferencia entre las dos formas es que en la segunda se obtiene mas información sobre los tests que fallaron, pero ambas formas corren los mismos tests.
 
 
+### Code coverage
+
+Para obtener los datos de **code coverage** se debe compilar la aplicación y luego ejecutar el comando `make test coverage`, esto hara un par de cosas:
+
+1. Correrá todos los tests de la aplicación.
+
+2. Capturará toda la información de **code coverage** de los tests sobre la aplicación.
+
+3. Generará un reporte en formato **html** dentro de la carpeta **CoverageReport**.
+
+Se debe abrir el archivo **index.html** para acceder al reporte.
 
 

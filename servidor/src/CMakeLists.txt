@@ -27,9 +27,8 @@ if ( NOT LIBROCKSDB )
 endif()
 
 
-#Agrega un nuevo target para generar los datos de coverage
+#Agrega un nuevo target para generar los datos de coverage a partir de los tests
 add_custom_target ( coverage
-                    COMMAND make test
                     COMMAND lcov --quiet --capture --directory ${PROJECT_BINARY_DIR} --output-file coverage.info 
                     COMMAND genhtml coverage.info --output-directory CoverageReport
                   )
