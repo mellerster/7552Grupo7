@@ -15,7 +15,12 @@ target_link_libraries ( DTOTester requestHandlers jsoncppLib )
 
 ############################ Tests ##########################
 
-message ( "*** NOTA: Para ver el detalle de los tests correr los ejecutables en: ${CMAKE_CURRENT_BINARY_DIR} ***" )
+message ( "********************************************************************" )
+message ( "** NOTA: " )
+message ( "**      Para ver el detalle de los tests correr los ejecutables en: " )
+message ( "** " )
+message ( "** ${CMAKE_CURRENT_BINARY_DIR} " )
+message ( "********************************************************************" )
 
 #Corre todos los tests, pero los toma como si solo fuera uno
 #add_test ( ALL_Json_Tests JsonTester )
@@ -37,7 +42,5 @@ add_test ( Test_Factory_Handlers_invalidos MessageFactoryTester "Request no espe
 add_test ( Test_Factory_Mocking MessageFactoryTester "Prueba simple de mockeo de interfaces" )
 add_test ( Test_Factory_Memoria MessageFactoryTester "Manejo de char pointers" )
   
-    
-      
 
 
