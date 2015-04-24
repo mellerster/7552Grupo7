@@ -13,7 +13,7 @@ ListUsersRequest::~ListUsersRequest(){
 
 
 
-const Response ListUsersRequest::GetResponseData(){
+Response ListUsersRequest::GetResponseData(){
     // List users es un pedido GET, solo va a existir m_parsedParameters_QueryString
     ListUsersDTO dto( this->m_parsedParameters_QueryString );
 

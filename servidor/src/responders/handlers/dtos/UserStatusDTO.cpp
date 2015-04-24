@@ -2,12 +2,14 @@
 
 
 
-UserStatusDTO::UserStatusDTO() : Nombre(""), Estado(""), UltimaActividadHora(""), UltimaActividadFecha("")
+UserStatusDTO::UserStatusDTO() : BaseDTO(),
+    Nombre(""), Estado(""), 
+    UltimaActividadHora(""), UltimaActividadFecha("")
 {
 }
 
 
-UserStatusDTO::UserStatusDTO(Json::Value jData) {
+UserStatusDTO::UserStatusDTO(Json::Value jData) : BaseDTO(jData) {
     this->Nombre = jData.get("Nombre", "").asString();
     this->Estado = jData.get("Estado", "").asString();
 
@@ -18,7 +20,7 @@ UserStatusDTO::UserStatusDTO(Json::Value jData) {
 
 
 Json::Value UserStatusDTO::ToJSON() const {
-    Json::Value j;
+    Json::Value j = BaseDTO::ToJSON();
     j["Nombre"] = this->Nombre;
     j["Estado"] = this->Estado;
     j["UltimaActividadHora"] = this->UltimaActividadHora;

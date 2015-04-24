@@ -1,7 +1,7 @@
 #include "RequestHandlerFactory.hpp"
 
-#include "handlers/AuthenticateUserRequest.hpp"
 #include "handlers/ListUsersRequest.hpp"
+#include "handlers/LoginRequest.hpp"
 #include "handlers/EmptyRequest.hpp"
 
 
@@ -52,7 +52,7 @@ RequestHandler* RequestHandlerFactory::CreateGETResponses(std::string httpURI) c
 
 RequestHandler* RequestHandlerFactory::CreatePUTResponses(std::string httpURI) const{
     if (httpURI == "/grupo7/api/sesion"){
-        return new AuthenticateUserRequest(this->m_dataService);
+        return new LoginRequest(this->m_dataService);
 
     } else if (httpURI == ""){
         // TODO

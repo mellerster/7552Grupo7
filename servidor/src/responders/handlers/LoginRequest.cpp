@@ -1,18 +1,18 @@
-#include "AuthenticateUserRequest.hpp"
+#include "LoginRequest.hpp"
 
 #include "dtos/LoginDTO.hpp"
 
 
 
-AuthenticateUserRequest::AuthenticateUserRequest(IDataService &service) : RequestHandler(service) {
+LoginRequest::LoginRequest(IDataService &service) : RequestHandler(service) {
 }
 
 
-AuthenticateUserRequest::~AuthenticateUserRequest(){
+LoginRequest::~LoginRequest(){
 }
 
 
-const Response AuthenticateUserRequest::GetResponseData(){
+Response LoginRequest::GetResponseData(){
     // Authentica Users es un pedido de login
     LoginDTO dto( this->m_parsedParameters_ContentData );
 

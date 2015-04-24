@@ -1,13 +1,12 @@
-#include <memory>
-
 #include "include/catch.hpp"
 #include "include/hippomocks.h"
 
 #include "IDataService.hpp"
 
+#include "Response.hpp"
 #include "handlers/EmptyRequest.hpp"
 #include "handlers/ListUsersRequest.hpp"
-#include "handlers/AuthenticateUserRequest.hpp"
+#include "handlers/LoginRequest.hpp"
 
 
 
@@ -16,7 +15,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
     MockRepository mocker;
     IDataService* mockService = mocker.Mock<IDataService>();
 
-    std::unique_ptr<EmptyRequest> req( new EmptyRequest(*mockService) );
+    EmptyRequest req( *mockService );
 
     SECTION ( "Aceptar los parametros" ){
         const char* testData = "pepepepe";
@@ -27,7 +26,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = "nombre=pepe";
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
 
         delete[] cData;
@@ -42,7 +41,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = nullptr;
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
 
         delete[] cData;
@@ -54,7 +53,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = "nombre=pepe";
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
     }
 
@@ -64,10 +63,17 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = nullptr;
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
     }
 
+    SECTION ( "El request es vacio porque el recursos pedido no existe" ){
+        Response resp = req.GetResponseData();
+
+        REQUIRE ( 404 == resp.GetStatus() );
+        REQUIRE ( 0 == resp.GetDataLength() );
+        REQUIRE ( nullptr == resp.GetData() );
+    }
 }
 
 

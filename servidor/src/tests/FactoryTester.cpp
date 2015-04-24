@@ -11,7 +11,7 @@
 
 #include "handlers/EmptyRequest.hpp"
 #include "handlers/ListUsersRequest.hpp"
-#include "handlers/AuthenticateUserRequest.hpp"
+#include "handlers/LoginRequest.hpp"
 
 
 
@@ -43,7 +43,7 @@ TEST_CASE ( "Request handlers esperados" ){
         // Assert
         REQUIRE ( resul.get() != nullptr );
 
-        AuthenticateUserRequest* castRes = dynamic_cast<AuthenticateUserRequest*>( resul.get() );
+        LoginRequest* castRes = dynamic_cast<LoginRequest*>( resul.get() );
         REQUIRE ( castRes != nullptr );
     }
 }

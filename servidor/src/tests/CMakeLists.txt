@@ -6,7 +6,7 @@ target_link_libraries ( JsonTester jsoncppLib )
 add_executable ( MessageFactoryTester MainTester.cpp FactoryTester.cpp )
 target_link_libraries ( MessageFactoryTester requestHandlers )
 
-add_executable ( RequestHanderTester MainTester.cpp RequestsTester.cpp )
+add_executable ( RequestHanderTester MainTester.cpp RequestsTester.cpp ResponseTester.cpp)
 target_link_libraries ( RequestHanderTester requestHandlers )
 
 add_executable ( DTOTester MainTester.cpp DTOsTester.cpp )

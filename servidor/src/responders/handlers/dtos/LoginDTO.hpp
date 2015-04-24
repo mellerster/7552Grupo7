@@ -8,20 +8,26 @@
 
 /**
  * Contiene todos los datos relacionados con los pedidos de login de los clientes.
+ *
+ * Se mapea a un JSON de la siguiente forma:
+ *
+ *      {
+ *        Token: "xxx",
+ *        NombreUsuario: "pepe",
+ *        Password: "123"
+ *      } 
  * */
 class LoginDTO : public BaseDTO {
     public:
-        LoginDTO();
-        virtual ~LoginDTO();
+        std::string NombreUsuario;
+        std::string Password;
 
 
-        /**
-         * Inicializa el objeto con los datos del JSON
-         * */
-        LoginDTO(Json::Value);
+        LoginDTO();        /**< Constructor por defecto */
+        LoginDTO(Json::Value jData);      /**< Inicializa el objeto con los datos del JSON */
 
 
-        Json::Value ToJSON() const;
+        virtual Json::Value ToJSON() const;     /**< Devuelve un JSON con los datos del objeto */
 
 };
 

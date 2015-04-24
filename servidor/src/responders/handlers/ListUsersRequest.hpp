@@ -16,7 +16,7 @@ class ListUsersRequest : public RequestHandler {
         virtual ~ListUsersRequest();
 
 
-        virtual const Response GetResponseData();
+        virtual Response GetResponseData();
 };
 
 
