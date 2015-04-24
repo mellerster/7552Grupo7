@@ -69,11 +69,23 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfil");
-            startActivity(configurarPerfilIntent);
+        switch (id){
+            case R.id.action_mi_perfil:
+                Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfil");
+                startActivity(configurarPerfilIntent);
+                break;
+            case R.id.action_enviar_mensaje_broadcast:
+                ///TODO: Llamar a la activity de Broadcast
+                Log.d(tag,"Enviar Mensaje de Broadcast");
+                break;
+            case R.id.action_checkin:
+                ///TODO: Llamar a la activity de Checkin
+                Log.d(tag,"Realizar Checkin");
+                break;
+            case R.id.action_salir:
+                ///TODO: Realizar logout y Salir
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
