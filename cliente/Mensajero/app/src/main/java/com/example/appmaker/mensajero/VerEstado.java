@@ -40,9 +40,11 @@ public class VerEstado extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        /*if (id == R.id.action_settings) {
-            return true;
-        }*/
+        if (id == R.id.action_volver) {
+            finish();
+        }else if (id == R.id.action_salir){
+            ///TODO: Cerrar Sesión desde el proxy y salir de la app.
+        }
 
         return super.onOptionsItemSelected(item);
     }
