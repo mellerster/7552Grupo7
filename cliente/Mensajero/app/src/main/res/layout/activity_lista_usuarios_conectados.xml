@@ -9,17 +9,52 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.appmaker.mensajero.ListaUsuariosConectados">
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Usuarios Conectados" />
-
     <LinearLayout
-        android:id="@+id/gridUsuarios"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/textView4"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical" />
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#000000"
+            android:padding="5dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF"
+                android:orientation="horizontal"
+                android:textAlignment="center">
+
+                <TextView
+                    android:id="@+id/lblListaUsuariosConectados"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".50"
+                    android:background="@color/material_blue_grey_800"
+                    android:text="Lista de Usuarios"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/lblListaConversaciones"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".50"
+                    android:clickable="true"
+                    android:text="Lista de Conversaciones" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/gridUsuarios"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+    </LinearLayout>
+
+
 </RelativeLayout>
