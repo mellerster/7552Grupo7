@@ -30,10 +30,9 @@ public class Registracion extends ActionBarActivity {
             ///TODO:Llamar al proxy para que valide los datos del usuario, lo registre y loguee
             if(validarIngreso()) {
                 TextView txtNombre = (TextView)findViewById(R.id.txtUser);
+                TextView txtPassword = (TextView)findViewById(R.id.txtPassword);
                 Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectados");
-                Bundle extras = new Bundle();
-                extras.putString("usuarioLogueado",txtNombre.getText().toString());
-                listaUsuariosConectadosIntent.putExtras(extras);
+                new UsuarioProxy().registrar(txtNombre.getText().toString(),txtPassword.getText().toString());
                 startActivity(listaUsuariosConectadosIntent);
             }
         }

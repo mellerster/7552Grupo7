@@ -16,18 +16,13 @@ import java.util.List;
 
 public class ListaUsuariosConectados extends ActionBarActivity {
     String tag = "Events"; // Tag para usar Log.d y poder filtrar por este tag
-    String usuarioLogueado = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_usuarios_conectados);
         List<Usuario> usuarios = new UsuarioProxy().getUsuariosConectados();
         MostrarUsuarios(usuarios);
-        Bundle extras = getIntent().getExtras();
-        if (extras!=null)
-        {
-            usuarioLogueado = extras.getString("usuarioLogueado");
-        }
     }
 
     //TODO: Mostar mas información como pide el enunciado y en un diseño mejor
@@ -75,11 +70,7 @@ public class ListaUsuariosConectados extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            /**
-             * Se le pasa el usuario al perfíl para poder cargar sus datos y modificarlos
-             */
             Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfil");
-            configurarPerfilIntent.putExtras(getIntent().getExtras());
             startActivity(configurarPerfilIntent);
         }
 
