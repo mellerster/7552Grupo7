@@ -23,6 +23,9 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         setContentView(R.layout.activity_lista_usuarios_conectados);
         List<Usuario> usuarios = new UsuarioProxy().getUsuariosConectados();
         MostrarUsuarios(usuarios);
+
+        TextView lblListaConversaciones = (TextView)findViewById(R.id.lblListaConversaciones);
+        lblListaConversaciones.setOnClickListener(verListaConversacionesListener);
     }
 
     //TODO: Mostar mas información como pide el enunciado y en un diseño mejor
@@ -50,6 +53,15 @@ public class ListaUsuariosConectados extends ActionBarActivity {
             extras.putString("usuario",nombreUsuario);
             verEstadoIntent.putExtras(extras);
             startActivity(verEstadoIntent);
+        }
+    };
+
+    private OnClickListener verListaConversacionesListener = new OnClickListener()
+    {
+        public void onClick(View v)
+        {
+            ///TODO: Llamar a la activity para mostrar Lista de Conversaciones
+            Log.d(tag,"Ver Lista de Conversaciones");
         }
     };
 
