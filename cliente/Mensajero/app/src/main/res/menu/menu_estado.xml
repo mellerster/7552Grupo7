@@ -4,6 +4,8 @@
     tools:context="com.example.appmaker.mensajero.VerEstado">
     <item android:id="@+id/action_volver" android:title="Volver"
         app:showAsAction="never" android:orderInCategory="1"/>
+    <item android:id="@+id/action_enviar_mensaje" android:title="Enviar Mensaje"
+        app:showAsAction="never" android:orderInCategory="1"/>
     <item android:id="@+id/action_salir" android:title="Salir"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

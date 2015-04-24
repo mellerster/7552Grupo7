@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 public class VerEstado extends ActionBarActivity {
 
+    Usuario usuario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,10 +22,16 @@ public class VerEstado extends ActionBarActivity {
         {
             nombreUsuario = extras.getString("usuario");
         }
-        TextView txtNombre = (TextView)findViewById(R.id.txtNombre);
-        txtNombre.setText(nombreUsuario);
+        usuario = new UsuarioProxy().verEstado(nombreUsuario);
+        cargarDatosUsuario();
+
     }
 
+    private void cargarDatosUsuario(){
+        TextView txtNombre = (TextView)findViewById(R.id.txtNombre);
+        txtNombre.setText(usuario.getNombre());
+        ///TODO: cargar el resto de los datos
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -42,6 +50,9 @@ public class VerEstado extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_volver) {
             finish();
+        }else if (id == R.id.action_enviar_mensaje){
+            ///TODO: llamar a la pantalla de conversación y enviarle el usuario a quien le quiere enviar el mensaje
+            Log.d("Event","Se quiere enviar un mensaje a " + usuario.getNombre());
         }else if (id == R.id.action_salir){
             ///TODO: Cerrar Sesión desde el proxy y salir de la app.
         }
