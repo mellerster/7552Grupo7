@@ -81,7 +81,6 @@ public class ConfigurarPerfil extends ActionBarActivity {
 
     private OnClickListener cambiarEstadoListener = new OnClickListener() {
         public void onClick(View v) {
-            ///TODO:Ver si el cambio debe ser por proxy o solamente por estado del objeto
             UsuarioProxy proxy = new UsuarioProxy();
             Switch swt =((Switch) v);
             if (usuario.estaConectado()) {
