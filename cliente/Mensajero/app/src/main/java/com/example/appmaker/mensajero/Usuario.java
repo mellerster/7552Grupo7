@@ -1,5 +1,7 @@
 package com.example.appmaker.mensajero;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.Image;
 
 /**
@@ -30,6 +32,10 @@ public class Usuario {
 
     public byte[] getFoto(){
         return this.foto;
+    }
+
+    public Bitmap getFotoBitmap() {
+        return BitmapFactory.decodeByteArray(foto, 0, foto.length);
     }
 
     public void setFoto(byte[] foto){
