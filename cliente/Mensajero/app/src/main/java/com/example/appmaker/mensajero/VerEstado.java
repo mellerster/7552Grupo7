@@ -1,10 +1,12 @@
 package com.example.appmaker.mensajero;
 
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -28,9 +30,23 @@ public class VerEstado extends ActionBarActivity {
     }
 
     private void cargarDatosUsuario(){
+        //Cargo el Nombre
         TextView txtNombre = (TextView)findViewById(R.id.txtNombre);
         txtNombre.setText(usuario.getNombre());
-        ///TODO: cargar el resto de los datos
+        //Cargo el Estado
+        TextView txtEstado = (TextView)findViewById(R.id.txtEstado);
+        txtEstado.setText(usuario.estaConectado() ? "Conectado" : "Desconectado");
+        //Cargo el Checkin
+        ///TODO: Cargar el último check in cuando este programada esa funcionalidad
+        TextView txtUltimoCheckin = (TextView)findViewById(R.id.txtUltimoCheckin);
+        txtUltimoCheckin.setText("El 15 de Septiembre de 2015 a las 14:30hs en Facultad de Ingeniería, UBA");
+        //Cargo la imagen
+        ImageView ivFoto = (ImageView)findViewById(R.id.imgFoto);
+        ///TODO: Cambiar imagen por defecto
+        ivFoto.setImageResource(R.drawable.ic_launcher);
+        if(usuario.getFoto() != null){
+            ivFoto.setImageBitmap(usuario.getFotoBitmap());
+        }
     }
 
     @Override

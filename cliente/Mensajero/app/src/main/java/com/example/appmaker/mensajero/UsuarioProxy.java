@@ -21,16 +21,27 @@ public class UsuarioProxy {
     public static Usuario getUsuario(){
         return usuario;
     }
+
     /**
        Trae del servidor la lista de usuarios conectados
         @return Un List tipado de Usuario
      */
     public List<Usuario> getUsuariosConectados(){
+        //Mockup de Usuarios
         List<Usuario> usuarios = new LinkedList<Usuario>();
-        usuarios.add(new Usuario("diego", "diego"));
-        usuarios.add(new Usuario("cesar", "cesar"));
-        usuarios.add(new Usuario("ramiro", "ramiro"));
-        usuarios.add(new Usuario("tomas", "tomas"));
+        Usuario usuario;
+        usuario = new Usuario("Diego");
+        usuario.conectar();
+        usuarios.add(usuario);
+        usuario = new Usuario("Cesar");
+        usuario.conectar();
+        usuarios.add(usuario);
+        usuario = new Usuario("Ramiro");
+        usuario.conectar();
+        usuarios.add(usuario);
+        usuario = new Usuario("Tomas");
+        usuario.conectar();
+        usuarios.add(usuario);
         return usuarios;
     }
 
@@ -67,15 +78,6 @@ public class UsuarioProxy {
         user.conectar();
         UsuarioProxy.usuario = user;
         return user;
-    }
-
-    /**
-     * Trae la configuración del usuario que esta logueado
-     * @param username nombre del usuario
-     * @return el usuario con sus datos cargados
-     */
-    public Usuario getUsuario(String username){
-        return UsuarioProxy.usuario;
     }
 
     /**
