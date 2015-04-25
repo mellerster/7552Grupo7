@@ -10,6 +10,18 @@ import java.util.List;
 public class UsuarioProxy {
 
     /**
+     * Usuario que tiene el token para hablar con el servidor
+     */
+    private static Usuario usuario;
+
+    /**
+     * Obtiene el usuario con el token para hablar con el servidor
+     * @return usuario que tiene el token
+     */
+    public static Usuario getUsuario(){
+        return usuario;
+    }
+    /**
        Trae del servidor la lista de usuarios conectados
         @return Un List tipado de Usuario
      */
@@ -29,6 +41,7 @@ public class UsuarioProxy {
      */
     public Usuario login(Usuario usuario){
         usuario.conectar();
+        UsuarioProxy.usuario = usuario;
         return usuario;
     }
 
@@ -39,6 +52,7 @@ public class UsuarioProxy {
      */
     public Usuario logout(Usuario usuario){
         usuario.desconectar();
+        UsuarioProxy.usuario.desconectar();
         return usuario;
     }
 
@@ -51,6 +65,7 @@ public class UsuarioProxy {
     public Usuario registrar(String username, String password){
         Usuario user = new Usuario(username,password);
         user.conectar();
+        UsuarioProxy.usuario = user;
         return user;
     }
 
@@ -60,9 +75,7 @@ public class UsuarioProxy {
      * @return el usuario con sus datos cargados
      */
     public Usuario getUsuario(String username){
-        Usuario user = new Usuario(username);
-        user.conectar();
-        return user;
+        return UsuarioProxy.usuario;
     }
 
     /**
@@ -79,6 +92,7 @@ public class UsuarioProxy {
      * @param usuario con una foto de perfil nueva.
      */
     public void cargarFoto(Usuario usuario){
+        UsuarioProxy.usuario = usuario;
         ///TODO: Enviar foto al server
     }
 

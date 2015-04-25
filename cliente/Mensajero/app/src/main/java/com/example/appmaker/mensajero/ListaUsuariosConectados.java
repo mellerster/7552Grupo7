@@ -16,18 +16,16 @@ import java.util.List;
 
 public class ListaUsuariosConectados extends ActionBarActivity {
     String tag = "Events"; // Tag para usar Log.d y poder filtrar por este tag
-    String usuarioLogueado = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_usuarios_conectados);
         List<Usuario> usuarios = new UsuarioProxy().getUsuariosConectados();
         MostrarUsuarios(usuarios);
-        Bundle extras = getIntent().getExtras();
-        if (extras!=null)
-        {
-            usuarioLogueado = extras.getString("usuarioLogueado");
-        }
+
+        TextView lblListaConversaciones = (TextView)findViewById(R.id.lblListaConversaciones);
+        lblListaConversaciones.setOnClickListener(verListaConversacionesListener);
     }
 
     //TODO: Mostar mas información como pide el enunciado y en un diseño mejor
@@ -58,6 +56,15 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         }
     };
 
+    private OnClickListener verListaConversacionesListener = new OnClickListener()
+    {
+        public void onClick(View v)
+        {
+            ///TODO: Llamar a la activity para mostrar Lista de Conversaciones
+            Log.d(tag,"Ver Lista de Conversaciones");
+        }
+    };
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -74,15 +81,23 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            /**
-             * Se le pasa el usuario al perfíl para poder cargar sus datos y modificarlos
-             */
-            Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfil");
-            configurarPerfilIntent.putExtras(getIntent().getExtras());
-            startActivity(configurarPerfilIntent);
+        switch (id){
+            case R.id.action_mi_perfil:
+                Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfil");
+                startActivity(configurarPerfilIntent);
+                break;
+            case R.id.action_enviar_mensaje_broadcast:
+                ///TODO: Llamar a la activity de Broadcast
+                Log.d(tag,"Enviar Mensaje de Broadcast");
+                break;
+            case R.id.action_checkin:
+                ///TODO: Llamar a la activity de Checkin
+                Log.d(tag,"Realizar Checkin");
+                break;
+            case R.id.action_salir:
+                ///TODO: Realizar logout y Salir
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

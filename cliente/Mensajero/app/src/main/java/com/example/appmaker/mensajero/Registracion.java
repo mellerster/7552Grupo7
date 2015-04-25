@@ -3,6 +3,7 @@ package com.example.appmaker.mensajero;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,11 +14,16 @@ import android.widget.TextView;
 
 public class Registracion extends ActionBarActivity {
 
+    TextView txtNombre;
+    TextView txtPassword;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registracion);
 
+        txtNombre = (TextView)findViewById(R.id.txtUser);
+        txtPassword = (TextView)findViewById(R.id.txtPassword);
         Button btn = (Button) findViewById(R.id.btnRegistrarse);
         btn.setOnClickListener(btnRegistrarseListener);
     }
@@ -27,21 +33,46 @@ public class Registracion extends ActionBarActivity {
      */
     private View.OnClickListener btnRegistrarseListener = new View.OnClickListener() {
         public void onClick(View v) {
-            ///TODO:Llamar al proxy para que valide los datos del usuario, lo registre y loguee
             if(validarIngreso()) {
-                TextView txtNombre = (TextView)findViewById(R.id.txtUser);
                 Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectados");
-                Bundle extras = new Bundle();
-                extras.putString("usuarioLogueado",txtNombre.getText().toString());
-                listaUsuariosConectadosIntent.putExtras(extras);
+                ///TODO: Esperar respuesta del proxy sin error, si tiene error avisar al usuario
+                new UsuarioProxy().registrar(txtNombre.getText().toString(),txtPassword.getText().toString());
                 startActivity(listaUsuariosConectadosIntent);
             }
         }
     };
 
-    ///TODO:Validar que ingrese un usuario y una contraseña en los campos
+    /**
+     * Valida que haya información en los campos
+     * @return true si hay texto en ambos campos, false en caso contrario
+     */
     private boolean validarIngreso(){
-        return true;
+        txtNombre.setError(null);
+        txtPassword.setError(null);
+        boolean cancel = false;
+        View focusView = null;
+        String nombre = txtNombre.getText().toString();
+        String password = txtPassword.getText().toString();
+
+        if (TextUtils.isEmpty(password)) {
+            txtPassword.setError(getString(R.string.error_contrasenia_vacia));
+            focusView = txtPassword;
+            cancel = true;
+        }
+
+        if (TextUtils.isEmpty(nombre)) {
+            txtNombre.setError(getString(R.string.error_usuario_vacio));
+            focusView = txtNombre;
+            cancel = true;
+        }
+
+        if (cancel) {
+            focusView.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     @Override
@@ -59,9 +90,6 @@ public class Registracion extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
         return super.onOptionsItemSelected(item);
     }

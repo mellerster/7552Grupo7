@@ -26,38 +26,47 @@ public class ConfigurarPerfil extends ActionBarActivity {
     private static int RESULT_LOAD_IMAGE = 1;
 
     Usuario usuario;
+    Switch swt;
+    ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurar_perfil);
-        Bundle extras = getIntent().getExtras();
-        if (extras!=null)
-        {
-            usuario = new UsuarioProxy().getUsuario(extras.getString("usuarioLogueado"));
-        }
+        // Toma el usuario logueado del proxy
+        usuario = UsuarioProxy.getUsuario();
 
         Button btn = (Button) findViewById(R.id.btnCambiarFoto);
         btn.setOnClickListener(cargarImagenListener);
 
-        Switch swt = (Switch) findViewById(R.id.swtEstado);
+        swt = (Switch) findViewById(R.id.swtEstado);
         swt.setOnClickListener(cambiarEstadoListener);
-        //Cargo los datos del usuario
 
-        ///TODO: Extraer metodo
-        swt.setChecked(usuario.estaConectado());
+        imageView= (ImageView) findViewById(R.id.imgFoto);
+
+        cargarDatosUsuario();
+    }
+
+    private void cargarDatosUsuario(){
+        setEstadoSwitch(usuario.estaConectado());
 
         byte[] foto = usuario.getFoto();
         if(foto != null){
-            ImageView imageView = (ImageView) findViewById(R.id.imgFoto);
-
             Bitmap bmp = BitmapFactory.decodeByteArray(foto, 0, foto.length);
             imageView.setImageBitmap(bmp);
         }
 
         TextView lblUsuarioLogueado = (TextView) findViewById(R.id.lblUsuarioLogueado);
         lblUsuarioLogueado.setText(usuario.getNombre());
+    }
 
+    private void setEstadoSwitch(boolean estado){
+        swt.setChecked(estado);
+        if (estado) {
+            swt.setText("Conectado");
+        } else {
+            swt.setText("Desconectado");
+        }
     }
 
     private OnClickListener cargarImagenListener = new OnClickListener() {
@@ -72,17 +81,14 @@ public class ConfigurarPerfil extends ActionBarActivity {
 
     private OnClickListener cambiarEstadoListener = new OnClickListener() {
         public void onClick(View v) {
-            ///TODO:Ver si el cambio debe ser por proxy o solamente por estado del objeto
             UsuarioProxy proxy = new UsuarioProxy();
             Switch swt =((Switch) v);
             if (usuario.estaConectado()) {
                 proxy.logout(usuario);
-                swt.setChecked(false);
-                swt.setText("Desconectado");
+                setEstadoSwitch(usuario.estaConectado());
             } else {
                 proxy.login(usuario);
-                swt.setChecked(true);
-                swt.setText("Conectado");
+                setEstadoSwitch(usuario.estaConectado());
             }
         }
     };
@@ -102,8 +108,10 @@ public class ConfigurarPerfil extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_volver) {
+            finish();
+        }else if (id == R.id.action_salir){
+            ///TODO: Cerrar Sesión desde el proxy y salir de la app.
         }
 
         return super.onOptionsItemSelected(item);
@@ -125,6 +133,7 @@ public class ConfigurarPerfil extends ActionBarActivity {
      * @return tira de bytes de la imagen
      */
     private byte[] getBytesFromLocalImage(Intent data) {
+        ///TODO: Obtener el base64 para pasar al server
         Uri selectedImage = data.getData();
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
@@ -134,7 +143,6 @@ public class ConfigurarPerfil extends ActionBarActivity {
         String picturePath = cursor.getString(columnIndex);
         cursor.close();
 
-        ImageView imageView = (ImageView) findViewById(R.id.imgFoto);
         Bitmap bp = BitmapFactory.decodeFile(picturePath);
         imageView.setImageBitmap(bp);
 
