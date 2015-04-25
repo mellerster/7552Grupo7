@@ -52,8 +52,7 @@ public class ConfigurarPerfil extends ActionBarActivity {
 
         byte[] foto = usuario.getFoto();
         if(foto != null){
-            Bitmap bmp = BitmapFactory.decodeByteArray(foto, 0, foto.length);
-            imageView.setImageBitmap(bmp);
+            imageView.setImageBitmap(usuario.getFotoBitmap());
         }
 
         TextView lblUsuarioLogueado = (TextView) findViewById(R.id.lblUsuarioLogueado);
