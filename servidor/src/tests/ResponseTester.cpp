@@ -1,5 +1,4 @@
 #include "include/catch.hpp"
-#include "include/hippomocks.h"
 
 #include "json/json.h"
 #include "Response.hpp"
