@@ -1,6 +1,7 @@
 #ifndef RESPONSE_H
 #define RESPONSE_H
 
+#include <sstream>
 #include "json/json.h"
 
 
@@ -17,29 +18,27 @@ class Response {
          * @param[in] jsonData      Los datos a enviar en formato JSON.
          * */
         Response(int statusCode, Json::Value jsonData);
+        Response(const Response& r);        /**< Contructor copia */
+
+        Response();
         virtual ~Response();
 
         
-        /**
-         *  Devuelve el codigo de estado de la operacion realizada.
-         * */
-        int GetStatus() const;
+        int GetStatus() const;      /**< Devuelve el codigo de estado de la operacion realizada.  */
 
 
         /**
          * Devuelve la respuesta en formato binario.
+         * Es el cliente el responsable de liberar la memoria.
          * */
-        const void* GetData() const;
+        const void* GetData();
 
-
-        /**
-         * Devuelve la cantidad de bytes de la respuesta.
-         * */
-        size_t GetDataLength() const;
+        size_t GetDataLength(); /**< Devuelve la cantidad de bytes de la respuesta. */
 
 
     private:
         int m_status;
+        std::stringstream m_ssContainer;
 
 };
 
