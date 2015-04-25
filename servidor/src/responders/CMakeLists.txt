@@ -1,12 +1,24 @@
 
 #Los DTOs en el sub-subdirectorio
-set ( SRC_DTOS handlers/dtos/LoginDTO.cpp handlers/dtos/UserStatusDTO.cpp handlers/dtos/ListUsersDTO.cpp )
+set ( SRC_DTOS 
+        handlers/dtos/LoginDTO.cpp 
+        handlers/dtos/UserStatusDTO.cpp 
+        handlers/dtos/ListUsersDTO.cpp 
+        handlers/dtos/BaseDTO.cpp
+    )
+
 
 #La lista de handlers en el subdirectorio
-set ( SRC_HANDLERS handlers/EmptyRequest.cpp handlers/ListUsersRequest.cpp handlers/AuthenticateUserRequest.cpp )
+set ( SRC_HANDLERS 
+        handlers/EmptyRequest.cpp 
+        handlers/LoginRequest.cpp 
+        handlers/ListUsersRequest.cpp 
+    )
+
 
 #La lista de clases en el directorio actual
 set ( SRCS RequestHandlerFactory.cpp Response.cpp RequestHandler.cpp )
+
 
 #Compila la libreria
 add_library ( requestHandlers ${SRCS} ${SRC_HANDLERS} ${SRC_DTOS} )

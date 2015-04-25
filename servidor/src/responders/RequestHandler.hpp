@@ -38,7 +38,7 @@ class RequestHandler {
          *
          * @return  Un contenedor con datos de la respuesta.
          * */
-        virtual const Response GetResponseData() = 0;
+        virtual Response GetResponseData() = 0;
 
 
     protected:

@@ -31,7 +31,7 @@ class UserStatusDTO : public BaseDTO {
         UserStatusDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON */
 
 
-        Json::Value ToJSON() const;     /**< Devuelve un JSON con todos los datos del objeto */
+        virtual Json::Value ToJSON() const;     /**< Devuelve un JSON con todos los datos del objeto */
 };
 
 

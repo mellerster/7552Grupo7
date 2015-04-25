@@ -11,13 +11,13 @@
 /**
  * Loggea al usuario en el sistema.
  * */
-class AuthenticateUserRequest : public RequestHandler {
+class LoginRequest : public RequestHandler {
     public:
-        AuthenticateUserRequest(IDataService &service);
-        virtual ~AuthenticateUserRequest();
+        LoginRequest (IDataService &service);
+        virtual ~LoginRequest();
 
 
-        virtual const Response GetResponseData();
+        virtual Response GetResponseData();
 };
 
 

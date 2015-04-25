@@ -15,7 +15,7 @@ class EmptyRequest : public RequestHandler {
         EmptyRequest(IDataService &service);
         virtual ~EmptyRequest();
 
-        virtual const Response GetResponseData();
+        virtual Response GetResponseData();
 };
 
 

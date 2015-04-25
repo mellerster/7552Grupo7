@@ -1,13 +1,100 @@
-#include <memory>
-
 #include "include/catch.hpp"
 #include "include/hippomocks.h"
 
 #include "IDataService.hpp"
 
+#include "Response.hpp"
 #include "handlers/EmptyRequest.hpp"
 #include "handlers/ListUsersRequest.hpp"
-#include "handlers/AuthenticateUserRequest.hpp"
+#include "handlers/LoginRequest.hpp"
+
+#include "mocks/MockedRequestHandler.hpp"
+
+
+
+TEST_CASE ( "Fake test de Request handler base" ){
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    MockedRequestHandler mReqHand( *mockService );
+
+
+    SECTION ( "Load nada" ){
+        REQUIRE_NOTHROW (
+            mReqHand.LoadParameters(nullptr, nullptr, 0);
+        );
+    }
+
+    SECTION ( "Load query string" ){
+        const char* qString = "uno=1";
+
+        REQUIRE_NOTHROW (
+            mReqHand.LoadParameters(qString, nullptr, 0);
+        );
+    }
+
+    SECTION ( "Load content data" ){
+        const char* data = "{ \"dos\": 2 }";
+        size_t tam = strlen( data ) +1; // Null terminator
+
+        REQUIRE_NOTHROW (
+            mReqHand.LoadParameters(nullptr, data, tam);
+        );
+    }
+
+    SECTION ( "Load query string and content data" ){
+        const char* qString = "tres=3";
+        const char* data = "{ \"cuatro\": 4 }";
+        size_t tam = strlen( data ) +1; // Null terminator
+
+        REQUIRE_NOTHROW (
+            mReqHand.LoadParameters(qString, data, tam);
+        );
+    }
+
+}
+
+
+
+TEST_CASE ( "Testeo de list users requests" ){
+    // Mocks
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    ListUsersRequest lur( *mockService );
+
+    SECTION ( "Seteo de parametros" ){
+        // Params
+        size_t dataLen = 0;
+        const char* data = nullptr;
+        const char* queryString = "Token=1";
+
+        REQUIRE_NOTHROW (
+                lur.LoadParameters( queryString, data, dataLen );
+        );
+    }
+}
+
+
+
+TEST_CASE ( "Testeo de login requests" ){
+    // Mocks
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    LoginRequest lr( *mockService );
+
+    SECTION ( "Seteo de parametros" ){
+        // Params
+        size_t dataLen = 0;
+        const char* data = nullptr;
+        const char* queryString = "Token=1";
+
+        REQUIRE_NOTHROW (
+                lr.LoadParameters( queryString, data, dataLen );
+        );
+    }
+}
 
 
 
@@ -16,7 +103,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
     MockRepository mocker;
     IDataService* mockService = mocker.Mock<IDataService>();
 
-    std::unique_ptr<EmptyRequest> req( new EmptyRequest(*mockService) );
+    EmptyRequest req( *mockService );
 
     SECTION ( "Aceptar los parametros" ){
         const char* testData = "pepepepe";
@@ -27,7 +114,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = "nombre=pepe";
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
 
         delete[] cData;
@@ -42,7 +129,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = nullptr;
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
 
         delete[] cData;
@@ -54,7 +141,7 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = "nombre=pepe";
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
     }
 
@@ -64,11 +151,17 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         const char* qStr = nullptr;
 
         REQUIRE_NOTHROW(
-            req->LoadParameters( qStr, cData, cDataLen );
+            req.LoadParameters( qStr, cData, cDataLen );
         );
     }
 
+    SECTION ( "El request es vacio porque el recursos pedido no existe" ){
+        Response resp = req.GetResponseData();
+
+        REQUIRE ( 404 == resp.GetStatus() );
+    }
 }
+
 
 
 

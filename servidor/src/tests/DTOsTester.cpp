@@ -2,12 +2,49 @@
 #include "include/hippomocks.h"
 
 #include "json/json.h"
+#include "handlers/dtos/BaseDTO.hpp"
+#include "handlers/dtos/LoginDTO.hpp"
 #include "handlers/dtos/UserStatusDTO.hpp"
 #include "handlers/dtos/ListUsersDTO.hpp"
 
 
 
-TEST_CASE ( "UserStatus - Codificar a JSON", "[DTOs][JSON]" ) {
+TEST_CASE ( "BaseDTO - Codificar a JSON" ){
+    BaseDTO dto;
+    dto.Token = "8889999";
+
+    SECTION ( "El parseo es exitoso" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "El token es extraido" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string tok = parsed.get("Token", "nope").asString();
+        REQUIRE ( dto.Token == tok );
+    }
+}
+
+
+TEST_CASE ( "BaseDTO - Decodificar desde JSON" ){
+    Json::Value j;
+    j["Token"] = "pepepe";
+
+    SECTION ( "No Explota" ) {
+        REQUIRE_NOTHROW ( BaseDTO dto(j) );
+    }
+
+    SECTION ( "Carga el token" ) {
+        BaseDTO dto(j);
+
+        REQUIRE ( dto.Token == "pepepe" );
+    }
+}
+
+
+TEST_CASE ( "UserStatus - Codificar a JSON" ) {
     // Arrange
     UserStatusDTO dto;
     dto.Nombre = "Pepe";
@@ -52,7 +89,7 @@ TEST_CASE ( "UserStatus - Codificar a JSON", "[DTOs][JSON]" ) {
 }
 
 
-TEST_CASE ( "UserStatus - Decodificar desde JSON", "[DTOs][JSON]" ) {
+TEST_CASE ( "UserStatus - Decodificar desde JSON" ) {
     Json::Value jUserStatus;
     jUserStatus["Nombre"] = "jason";
     jUserStatus["Estado"] = "Testeando";
@@ -100,7 +137,7 @@ TEST_CASE ( "UserStatus - Decodificar desde JSON", "[DTOs][JSON]" ) {
 
 
 
-TEST_CASE ( "ListUsers - Codificar a JSON", "[DTOs][JSON]" ) {
+TEST_CASE ( "ListUsers - Codificar a JSON" ) {
     // Arrange
     ListUsersDTO dto;
     dto.Token = "123456";
@@ -166,7 +203,7 @@ TEST_CASE ( "ListUsers - Codificar a JSON", "[DTOs][JSON]" ) {
 
 
 
-TEST_CASE ( "ListUsers - Decodificar desde JSON", "[DTOs][JSON]" ) {
+TEST_CASE ( "ListUsers - Decodificar desde JSON" ) {
     Json::Value jListUsers;
     jListUsers["Token"] = "jason";
 
@@ -220,4 +257,57 @@ TEST_CASE ( "ListUsers - Decodificar desde JSON", "[DTOs][JSON]" ) {
     }
 
 }
+
+
+TEST_CASE ( "Login - Codificar a JSON" ) {
+    LoginDTO dto;
+    dto.NombreUsuario = "kamina";
+    dto.Password = "Simon";
+
+    SECTION ( "Parseo exitoso" ){
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "El nombre de usuario fue extraido" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string nomUsu = parsed.get("NombreUsuario", "xxx").asString();
+        REQUIRE ( nomUsu == dto.NombreUsuario );
+    }
+
+    SECTION ( "El password fue extraido" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string pass = parsed.get("Password", "yyy").asString();
+        REQUIRE ( pass == dto.Password );
+    }
+
+}
+
+
+TEST_CASE ( "Login - Decodificar desde JSON" ) {
+    Json::Value j;
+    j["NombreUsuario"] = "Yoko";
+    j["Password"] = "Nia";
+
+
+    SECTION ( "No Explota" ) {
+        REQUIRE_NOTHROW ( LoginDTO dto(j) );
+    }
+
+    SECTION ( "Carga el nombre usuario" ) {
+        LoginDTO dto(j);
+
+        REQUIRE ( dto.NombreUsuario == "Yoko" );
+    }
+
+    SECTION ( "Carga el password" ) {
+        LoginDTO dto(j);
+
+        REQUIRE ( dto.Password == "Nia" );
+    }
+}
+
 

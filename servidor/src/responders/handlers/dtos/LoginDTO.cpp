@@ -2,20 +2,22 @@
 
 
 
-LoginDTO::LoginDTO(){
+LoginDTO::LoginDTO() : BaseDTO() {
 }
 
 
-LoginDTO::LoginDTO(Json::Value){
+LoginDTO::LoginDTO(Json::Value jData) : BaseDTO(jData) {
+    this->NombreUsuario = jData.get("NombreUsuario", "").asString();
+    this->Password = jData.get("Password", "").asString();
 }
 
-
-LoginDTO::~LoginDTO(){
-}
 
 
 Json::Value LoginDTO::ToJSON() const{
-    Json::Value j;
+    Json::Value j = BaseDTO::ToJSON();
+    j["NombreUsuario"] = this->NombreUsuario;
+    j["Password"] = this->Password;
+
     return j;
 }
 

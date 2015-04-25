@@ -7,14 +7,24 @@
 
 /**
  * La clase base que define la interfaz de los DTOs.
+ *
+ *
+ * Se mapea a un JSON de la siguiente forma:
+ *
+ *      {
+ *        Token: "xxx"
+ *      }
  * */
 class BaseDTO {
     public:
+        std::string Token;      /**< El token de autenticación del cliente */
+
+
+        BaseDTO();        /**< Constructor por defecto */
+        BaseDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON */
+
         
-        /**
-         * Almacena todos los datos del objeto dentro de un JSON.
-         * */
-        virtual Json::Value ToJSON() const = 0;
+        virtual Json::Value ToJSON() const;     /**< Devuelve un JSON con los datos del objeto */
 
 };
 

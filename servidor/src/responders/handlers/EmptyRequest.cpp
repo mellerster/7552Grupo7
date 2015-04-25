@@ -5,10 +5,11 @@ EmptyRequest::EmptyRequest(IDataService &service) : RequestHandler(service) {
 }
 
 
-EmptyRequest::~EmptyRequest(){ }
+EmptyRequest::~EmptyRequest() {
+}
 
 
-const Response EmptyRequest::GetResponseData(){
+Response EmptyRequest::GetResponseData(){
     Response resp (404, "");
     return resp;
 }

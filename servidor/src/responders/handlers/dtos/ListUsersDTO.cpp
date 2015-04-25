@@ -2,12 +2,10 @@
 
 
 
-ListUsersDTO::ListUsersDTO() { }
+ListUsersDTO::ListUsersDTO() : BaseDTO() { }
 
 
-ListUsersDTO::ListUsersDTO(Json::Value jData) {
-    this->Token = jData.get("Token", "").asString();
-    
+ListUsersDTO::ListUsersDTO(Json::Value jData) : BaseDTO(jData) {
     // Si la lista de usuarios existe y es un array
     Json::Value lUsuarios = jData["Usuarios"];
     if ( lUsuarios.type() == Json::ValueType::arrayValue ){
@@ -24,8 +22,7 @@ ListUsersDTO::ListUsersDTO(Json::Value jData) {
 
 
 Json::Value ListUsersDTO::ToJSON() const {
-    Json::Value j;
-    j["Token"] = this->Token;
+    Json::Value j = BaseDTO::ToJSON();
 
     for (unsigned int i = 0; i < this->Usuarios.size(); ++i){
         j["Usuarios"][i] = this->Usuarios[i].ToJSON();

@@ -1,6 +1,10 @@
 #include <string>
+#include <string.h>
+
 #include "include/catch.hpp"
+#include "include/hippomocks.h"
 #include "json/json.h"
+
 
 
 TEST_CASE( "Crear simple json con string", "[json]" ){
@@ -110,5 +114,58 @@ TEST_CASE( "Crear simple json con array", "[json]" ){
     }
 }
 
+
+TEST_CASE ( "Descripcion de un JSON vacio" ) {
+    Json::Value j("");
+
+    std::string s = j.asString();
+
+    REQUIRE ( s == "" );
+}
+
+
+
+TEST_CASE ( "Cargar datos crudos en un JSON" ){
+    Json::Value j;
+    Json::CharReaderBuilder builder;
+    Json::CharReader* jcr = builder.newCharReader();
+
+    SECTION ( "Query string a JSON" ){
+        const char* qString = "uno=1";
+        size_t tam = strlen(qString) +1;
+        const char* qStrEnd = &qString[tam];
+
+        std::string errs = "";
+        bool resul = jcr->parse( qString, qStrEnd, &j, &errs );
+
+        CAPTURE ( errs );
+        REQUIRE ( false == resul ); // No se puede hacer query string a JSON directamente
+    }
+
+    SECTION ( "Data block en formato JSON a JSON" ){
+        const char* data = "{ \"dos\": 2 }";
+        size_t tam = strlen( data ) +1; // Null terminator
+        const char* dataEnd = &data[tam];
+
+        std::string errs = "";
+        bool resul = jcr->parse( data, dataEnd, &j, &errs );
+
+        CAPTURE ( errs );
+        REQUIRE ( true == resul );
+    }
+
+    SECTION ( "Data block en formato JSON a JSON v2" ){
+        const char* data = "{ \"dos\": 2 }";
+        size_t tam = strlen( data ) +1; // Null terminator
+        const char* dataEnd = &data[tam];
+
+        std::string errs = "";
+        bool resul = jcr->parse( data, dataEnd, &j, &errs );
+
+        REQUIRE ( 2 == j.get("dos", 6).asInt() );
+    }
+
+    delete jcr;
+}
 
 
