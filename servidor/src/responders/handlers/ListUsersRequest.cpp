@@ -21,6 +21,18 @@ Response ListUsersRequest::GetResponseData(){
 
     // TODO: Cargar en el "resul" el listado de usuarios conectados y sus estados
     ListUsersDTO resul;
+    resul.Token = "333";
+
+    for (int i = 0; i < 3; ++i){
+        UserStatusDTO us;
+        us.Token = i;
+        us.Nombre = "pepe";
+        us.Estado = "Testing: " + i;
+        us.UltimaActividadHora = "11:11 hs";
+        us.UltimaActividadFecha = "1816/07/09";
+
+        resul.Usuarios.push_back( us );
+    }
     
     // Crea la respuesta
     Response resp( 200, resul.ToJSON() );
