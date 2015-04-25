@@ -1,26 +1,30 @@
 package com.example.appmaker.mensajero;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-import java.util.LinkedList;
 import java.util.List;
 
 
 public class ListaUsuariosConectados extends ActionBarActivity {
     String tag = "Events"; // Tag para usar Log.d y poder filtrar por este tag
+    LinearLayout gridUsuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lista_usuarios_conectados);
+        gridUsuarios = (LinearLayout) findViewById(R.id.gridUsuarios);
+
         List<Usuario> usuarios = new UsuarioProxy().getUsuariosConectados();
         MostrarUsuarios(usuarios);
 
@@ -30,24 +34,43 @@ public class ListaUsuariosConectados extends ActionBarActivity {
 
     //TODO: Mostar mas información como pide el enunciado y en un diseño mejor
     private void MostrarUsuarios(List<Usuario> usuarios) {
-        LinearLayout gridUsuarios = (LinearLayout) findViewById(R.id.gridUsuarios);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         for (Usuario usuario : usuarios) {
-            TextView nombre = new TextView(this);
-            nombre.setText(usuario.getNombre());
-            nombre.setLayoutParams(params);
-            nombre.setOnClickListener(usuarioClickListener);
-            gridUsuarios.addView(nombre);
+            agregarUsuarioALista(usuario,params);
         }
+    }
+
+    private void agregarUsuarioALista(Usuario usuario,LinearLayout.LayoutParams params){
+        int fotoWidth = 100;
+        int fotoHeight = 100;
+        LinearLayout llUsuario = new LinearLayout(this);
+        llUsuario.setLayoutParams(params);
+        llUsuario.setOrientation(LinearLayout.HORIZONTAL);
+        // Muestro la foto
+        ImageView ivFoto = new ImageView(this);
+        ///TODO: Cambiar la foto por el icono de la app si en algun momento tenemos uno
+        ivFoto.setImageResource(R.drawable.ic_launcher);
+        LinearLayout.LayoutParams fotoParams = new LinearLayout.LayoutParams(fotoWidth,fotoHeight);
+        ivFoto.setLayoutParams(fotoParams);
+        if(usuario.getFoto() != null){
+            ivFoto.setImageBitmap(Bitmap.createScaledBitmap(usuario.getFotoBitmap(), fotoWidth, fotoHeight, true));
+        }
+        llUsuario.addView(ivFoto);
+        // Muestro el nombre
+        TextView tvNombre = new TextView(this);
+        tvNombre.setText(usuario.getNombre());
+        llUsuario.setOnClickListener(usuarioClickListener);
+        llUsuario.addView(tvNombre);
+        gridUsuarios.addView(llUsuario);
     }
 
     private OnClickListener usuarioClickListener = new OnClickListener()
     {
         public void onClick(View v)
         {
-            String nombreUsuario = ((TextView)v).getText().toString();
+            String nombreUsuario = ((TextView)((LinearLayout)v).getChildAt(1)).getText().toString();
             Intent verEstadoIntent =new Intent("com.example.appmaker.mensajero.VerEstado");
             Bundle extras = new Bundle();
             extras.putString("usuario",nombreUsuario);
