@@ -9,6 +9,93 @@
 #include "handlers/LoginRequest.hpp"
 
 
+TEST_CASE ( "Fake test de Request handler base" ){
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+    RequestHandler* rh;
+
+    REQUIRE_NOTHROW (
+            rh = mocker.Mock<RequestHandler>();
+    );
+
+    SECTION ( "Load nada" ){
+        REQUIRE_NOTHROW (
+            rh->LoadParameters(nullptr, nullptr, 0);
+        );
+    }
+
+    SECTION ( "Load query string" ){
+        const char* qString = "uno=1";
+
+        REQUIRE_NOTHROW (
+            rh->LoadParameters(qString, nullptr, 0);
+        );
+    }
+
+    SECTION ( "Load content data" ){
+        const char* data = "{ \"dos\": 2 }";
+        size_t tam = strlen( data ) +1; // Null terminator
+
+        REQUIRE_NOTHROW (
+            rh->LoadParameters(nullptr, data, tam);
+        );
+    }
+
+    SECTION ( "Load query string and content data" ){
+        const char* qString = "tres=3";
+        const char* data = "{ \"cuatro\": 4 }";
+        size_t tam = strlen( data ) +1; // Null terminator
+
+        REQUIRE_NOTHROW (
+            rh->LoadParameters(qString, data, tam);
+        );
+    }
+
+}
+
+
+
+TEST_CASE ( "Testeo de list users requests" ){
+    // Mocks
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    ListUsersRequest lur( *mockService );
+
+    SECTION ( "Seteo de parametros" ){
+        // Params
+        size_t dataLen = 0;
+        const char* data = nullptr;
+        const char* queryString = "Token=1";
+
+        REQUIRE_NOTHROW (
+                lur.LoadParameters( queryString, data, dataLen );
+        );
+    }
+}
+
+
+
+TEST_CASE ( "Testeo de login requests" ){
+    // Mocks
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    LoginRequest lr( *mockService );
+
+    SECTION ( "Seteo de parametros" ){
+        // Params
+        size_t dataLen = 0;
+        const char* data = nullptr;
+        const char* queryString = "Token=1";
+
+        REQUIRE_NOTHROW (
+                lr.LoadParameters( queryString, data, dataLen );
+        );
+    }
+}
+
+
 
 TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
     // Mocks
@@ -71,10 +158,9 @@ TEST_CASE ( "Probar la carga de parametros en el handler vacio" ){
         Response resp = req.GetResponseData();
 
         REQUIRE ( 404 == resp.GetStatus() );
-        REQUIRE ( 0 == resp.GetDataLength() );
-        REQUIRE ( nullptr == resp.GetData() );
     }
 }
+
 
 
 
