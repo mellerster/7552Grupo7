@@ -8,19 +8,20 @@
 #include "handlers/ListUsersRequest.hpp"
 #include "handlers/LoginRequest.hpp"
 
+#include "mocks/MockedRequestHandler.hpp"
+
+
 
 TEST_CASE ( "Fake test de Request handler base" ){
     MockRepository mocker;
     IDataService* mockService = mocker.Mock<IDataService>();
-    RequestHandler* rh;
 
-    REQUIRE_NOTHROW (
-            rh = mocker.Mock<RequestHandler>();
-    );
+    MockedRequestHandler mReqHand( *mockService );
+
 
     SECTION ( "Load nada" ){
         REQUIRE_NOTHROW (
-            rh->LoadParameters(nullptr, nullptr, 0);
+            mReqHand.LoadParameters(nullptr, nullptr, 0);
         );
     }
 
@@ -28,7 +29,7 @@ TEST_CASE ( "Fake test de Request handler base" ){
         const char* qString = "uno=1";
 
         REQUIRE_NOTHROW (
-            rh->LoadParameters(qString, nullptr, 0);
+            mReqHand.LoadParameters(qString, nullptr, 0);
         );
     }
 
@@ -37,7 +38,7 @@ TEST_CASE ( "Fake test de Request handler base" ){
         size_t tam = strlen( data ) +1; // Null terminator
 
         REQUIRE_NOTHROW (
-            rh->LoadParameters(nullptr, data, tam);
+            mReqHand.LoadParameters(nullptr, data, tam);
         );
     }
 
@@ -47,7 +48,7 @@ TEST_CASE ( "Fake test de Request handler base" ){
         size_t tam = strlen( data ) +1; // Null terminator
 
         REQUIRE_NOTHROW (
-            rh->LoadParameters(qString, data, tam);
+            mReqHand.LoadParameters(qString, data, tam);
         );
     }
 
