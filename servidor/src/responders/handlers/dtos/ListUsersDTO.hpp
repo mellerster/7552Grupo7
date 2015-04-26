@@ -15,7 +15,7 @@
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
- *        Token: "xxx",
+ *        Token: xxx,
  *        Usuarios: [
  *                      <UserStatusDTO>,
  *                      <UserStatusDTO>,

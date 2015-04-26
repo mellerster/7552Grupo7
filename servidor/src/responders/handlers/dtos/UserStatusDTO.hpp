@@ -12,6 +12,7 @@
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
+ *        Token: 123,
  *        Nombre: "xxx",
  *        Estado: "yyy",
  *        UltimaActividadHora: "23:59",

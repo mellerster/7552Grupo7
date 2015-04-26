@@ -17,7 +17,7 @@
  * */
 class BaseDTO {
     public:
-        std::string Token;      /**< El token de autenticación del cliente */
+        int Token;      /**< El token de autenticación del cliente */
 
 
         BaseDTO();        /**< Constructor por defecto */

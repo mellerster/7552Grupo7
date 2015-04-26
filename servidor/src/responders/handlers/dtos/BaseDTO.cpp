@@ -2,12 +2,12 @@
 
 
 
-BaseDTO::BaseDTO() : Token("") {
+BaseDTO::BaseDTO() : Token(0) {
 }
 
 
 BaseDTO::BaseDTO(Json::Value jData){
-    this->Token = jData.get("Token", "").asString();
+    this->Token = jData.get("Token", 0).asInt();
 }
 
 
