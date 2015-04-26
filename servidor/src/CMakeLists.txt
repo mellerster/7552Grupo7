@@ -50,12 +50,13 @@ include_directories ( ${LIBROCKSDB_SOURCE_DIR} )
 add_subdirectory ( libs/jsoncppLib )
 add_subdirectory ( libs/mongooseLib )
 add_subdirectory ( mangosta )
+add_subdirectory ( dataService )
 add_subdirectory ( responders )
 add_subdirectory ( tests )
 
 
 #Define el ejecutable y linkea las librerias
 add_executable ( ${PROJECT_NAME} MainServer.cpp ) 
-target_link_libraries ( ${PROJECT_NAME} jsoncppLib ${LIBROCKSDB} requestHandlers mangostaServer )
+target_link_libraries ( ${PROJECT_NAME} jsoncppLib ${LIBROCKSDB} requestHandlers mangostaServer dataService )
 
 

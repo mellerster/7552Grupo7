@@ -39,7 +39,7 @@ class IDataService {
          *
          * @returns  Un token que representa la nueva sesión del usuario, "0" si no.
          * */
-        virtual int startSession(std::string nombreUsuario, std::string password) = 0;
+        virtual unsigned int startSession(std::string nombreUsuario, std::string password) = 0;
 
 
         /** Devuelve el listado con todos los usuarios conectados al sistema.

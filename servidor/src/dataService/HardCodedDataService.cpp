@@ -1,0 +1,43 @@
+#include "HardCodedDataService.hpp"
+#include <random>
+
+
+bool HardCodedDataService::Open(){
+    return true;
+}
+
+
+void HardCodedDataService::Close(){
+}
+
+
+unsigned int HardCodedDataService::startSession(std::string nombreUsuario, std::string password){
+    if (nombreUsuario == "" || password == ""){
+        return 0;
+    }
+
+    std::default_random_engine eng;
+    std::uniform_int_distribution<unsigned int> tokenGenerator;
+
+    return tokenGenerator( eng );
+}
+
+
+std::vector<UserStatus> HardCodedDataService::ListActiveUsers(){
+    std::vector<UserStatus> v;
+
+    for (int i = 0; i < 3; ++i){
+        UserStatus user;
+        user.Nombre = "pepe " + i;
+        user.Estado = "Testing " +i;
+        user.UltimaActividadHora = "00:0" + i;
+        user.UltimaActividadFecha = "2015/12/31";
+
+        v.push_back( user );
+    }
+
+    return v;
+}
+
+
+

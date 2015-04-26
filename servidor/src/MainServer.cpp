@@ -1,10 +1,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+
 #include "rocksdb/db.h"
 #include "RequestHandlerFactory.hpp"
+#include "HardCodedDataService.hpp"
 #include "MangostaServer.hpp"
-#include "IDataService.hpp"
 
 
 using namespace std;
@@ -28,8 +29,8 @@ int main() {
     */
 
     // Se injectan los servicios en la factory
-    IDataService* dsTemp = nullptr;
-    RequestHandlerFactory factory(*dsTemp);
+    HardCodedDataService hardDS;
+    RequestHandlerFactory factory( hardDS );
 
     // Se injecta la factory en el server
     MangostaServer ms( factory );
