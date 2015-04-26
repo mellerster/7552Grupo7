@@ -11,7 +11,7 @@
 
 TEST_CASE ( "BaseDTO - Codificar a JSON" ){
     BaseDTO dto;
-    dto.Token = "8889999";
+    dto.Token = 8889999;
 
     SECTION ( "El parseo es exitoso" ) {
         Json::Value parsed = dto.ToJSON();
@@ -22,7 +22,7 @@ TEST_CASE ( "BaseDTO - Codificar a JSON" ){
     SECTION ( "El token es extraido" ) {
         Json::Value parsed = dto.ToJSON();
 
-        std::string tok = parsed.get("Token", "nope").asString();
+        int tok = parsed.get("Token",0).asInt();
         REQUIRE ( dto.Token == tok );
     }
 }
@@ -30,7 +30,7 @@ TEST_CASE ( "BaseDTO - Codificar a JSON" ){
 
 TEST_CASE ( "BaseDTO - Decodificar desde JSON" ){
     Json::Value j;
-    j["Token"] = "pepepe";
+    j["Token"] = 1234;
 
     SECTION ( "No Explota" ) {
         REQUIRE_NOTHROW ( BaseDTO dto(j) );
@@ -39,7 +39,7 @@ TEST_CASE ( "BaseDTO - Decodificar desde JSON" ){
     SECTION ( "Carga el token" ) {
         BaseDTO dto(j);
 
-        REQUIRE ( dto.Token == "pepepe" );
+        REQUIRE ( dto.Token == 1234 );
     }
 }
 
@@ -140,7 +140,7 @@ TEST_CASE ( "UserStatus - Decodificar desde JSON" ) {
 TEST_CASE ( "ListUsers - Codificar a JSON" ) {
     // Arrange
     ListUsersDTO dto;
-    dto.Token = "123456";
+    dto.Token = 123456;
 
     SECTION ( "El parseo es exitoso" ) {
         Json::Value parsed = dto.ToJSON();
@@ -151,7 +151,7 @@ TEST_CASE ( "ListUsers - Codificar a JSON" ) {
     SECTION ( "El token fue extraido" ) {
         Json::Value parsed = dto.ToJSON();
 
-        std::string token = parsed.get("Token", "nope").asString();
+        int token = parsed.get("Token", 0).asInt();
         REQUIRE ( token == dto.Token );
     }
 
@@ -205,7 +205,7 @@ TEST_CASE ( "ListUsers - Codificar a JSON" ) {
 
 TEST_CASE ( "ListUsers - Decodificar desde JSON" ) {
     Json::Value jListUsers;
-    jListUsers["Token"] = "jason";
+    jListUsers["Token"] = 999;
 
 
     SECTION ( "No Explota" ) {
@@ -215,7 +215,7 @@ TEST_CASE ( "ListUsers - Decodificar desde JSON" ) {
     SECTION ( "Carga el token" ) {
         ListUsersDTO dto( jListUsers );
 
-        REQUIRE ( dto.Token == "jason" );
+        REQUIRE ( dto.Token == 999 );
     }
 
     SECTION ( "No hay lista de usuarios" ) {
