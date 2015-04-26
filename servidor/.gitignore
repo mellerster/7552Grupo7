@@ -1,3 +1,6 @@
 #ignores all files in the "bin" directory
 bin/
 
+#ignores all temp files
+*.swp
+
