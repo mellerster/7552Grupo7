@@ -45,10 +45,38 @@ class RequestHandler {
         IDataService &m_dataService;
 
 
-        // Los parametros parseados estan disponibles para las clases derivadas
+        /**
+         * El JSON correspondiente al 'Content data' esta disponible para las clases derivadas.
+         * */
         Json::Value m_parsedParameters_ContentData;
+
+
+        /**
+         * El JSON correspondiente al 'query string' esta disponible para las clases derivadas.
+         * */
         Json::Value m_parsedParameters_QueryString;
 
+
+    private:
+
+        /**
+         * Parsea el query string y lo transforma a JSON.
+         *
+         * @param[in] qStr   Datos en forma de query string.
+         *
+         * @returns Un JSON con los datos del query string.
+         * */
+        Json::Value parseQueryStringData(std::string qStr) const;
+
+
+        /**
+         * Utilidad que separa un par clave-valor mediante un signo '='.
+         *
+         * @param[in] keyVal    Contiene la clave y el valor separados por un '='.
+         *
+         * @returns Un objeto 'pair' con la clave y el valor en el primer y segundo lugar respectivamente.
+         * */
+        std::pair<std::string, std::string> toKeyValuePair(std::string keyVal) const;
 };
 
 

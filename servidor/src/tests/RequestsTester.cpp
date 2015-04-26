@@ -52,6 +52,46 @@ TEST_CASE ( "Fake test de Request handler base" ){
         );
     }
 
+
+}
+
+
+TEST_CASE ( "Request handler - Parseo de query string" ){
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    // Uso un mock porque es un clase virtual pura
+    MockedRequestHandler mReqHand( *mockService );
+
+    SECTION ( "Test parseo de query string simple" ){
+        const char* qString = "uno=x";
+        mReqHand.LoadParameters(qString, nullptr, 0);
+
+        Json::Value parsed = mReqHand.GetQueryStringJSON();
+
+        INFO ( "El resultado del parseo es: " << parsed );
+        REQUIRE ( parsed.type() == Json::ValueType::objectValue );
+
+        REQUIRE ( true == parsed.isMember("uno") );
+        REQUIRE ( "x" == parsed.get("uno", "").asString() );
+    }
+
+    SECTION ( "Test parseo de query string complejo" ){
+        const char* qString = "dos=yy&pepe=feo";
+        mReqHand.LoadParameters(qString, nullptr, 0);
+
+        Json::Value parsed = mReqHand.GetQueryStringJSON();
+
+        INFO ( "El resultado del parseo es: " << parsed );
+        REQUIRE ( parsed.type() == Json::ValueType::objectValue );
+
+        REQUIRE ( true == parsed.isMember("dos") );
+        REQUIRE ( true == parsed.isMember("pepe") );
+
+        REQUIRE ( "yy" == parsed.get("dos", "").asString() );
+        REQUIRE ( "feo" == parsed.get("pepe", "lindo").asString() );
+    }
+
 }
 
 
