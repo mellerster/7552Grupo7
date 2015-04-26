@@ -30,7 +30,7 @@ class RequestHandler {
          * @param[in] data  Los datos binarios del pedido, suelen ser POST.
          * @param[in] data_len  La cantidad de bytes de datos binarios.
          * */
-        void LoadParameters(const char* queryString, const char* data, std::size_t data_len);
+        void LoadParameters(const char* queryString, const char* data, size_t data_len);
 
 
         /**
@@ -58,6 +58,17 @@ class RequestHandler {
 
 
     private:
+
+        /**
+         * Parsea el JSON contenido en el content data del request.
+         *
+         * @param[in] data   Datos binarios en formato JSON.
+         * @param[in] dataLen   Cantidad de bytes que conforman los datos.
+         *
+         * @returns Un JSON con los datos conetnidos dentro del parametro 'data'.
+         * */
+        Json::Value parseContentData(const char* data, size_t dataLen) const;
+
 
         /**
          * Parsea el query string y lo transforma a JSON.

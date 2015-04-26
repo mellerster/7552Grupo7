@@ -1,5 +1,5 @@
 #include "RequestHandler.hpp"
-#include <vector>
+#include <memory>
 #include <string>
 #include <utility>
 
@@ -15,17 +15,34 @@ RequestHandler::~RequestHandler(){
 }
 
 
-void RequestHandler::LoadParameters(const char* queryString, const char* data, std::size_t data_len){
-    // Pärsea el query string
+void RequestHandler::LoadParameters(const char* queryString, const char* data, size_t data_len){
+    // Pärsea el query string que viene con los GET
     if (queryString != nullptr){   
         this->m_parsedParameters_QueryString = parseQueryStringData( queryString );
     }
 
+    // Parsea la data de tipo POST
     if (data_len > 0 && data != nullptr){
-        // TODO: Parsear la data POST
-        this->m_parsedParameters_ContentData;
+        this->m_parsedParameters_ContentData = parseContentData( data, data_len );
     }
 }
+
+
+
+Json::Value RequestHandler::parseContentData(const char* data, size_t dataLen) const {
+    // Usa un builder para parsear los datos
+    Json::CharReaderBuilder builder;
+    std::unique_ptr<Json::CharReader> ptrJsonBuilder( builder.newCharReader() );
+
+    // Apunta al final de los datos
+    const char* dataEnd = &data[dataLen];
+
+    Json::Value jData;
+    ptrJsonBuilder->parse( data, dataEnd, &jData, nullptr );
+
+    return jData;
+}
+
 
 
 Json::Value RequestHandler::parseQueryStringData(std::string qStr) const {
