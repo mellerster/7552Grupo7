@@ -7,7 +7,7 @@ BaseDTO::BaseDTO() : Token(0) {
 
 
 BaseDTO::BaseDTO(Json::Value jData){
-    this->Token = jData.get("Token", 0).asInt();
+    this->Token = jData.get("Token", 0).asUInt();
 }
 
 

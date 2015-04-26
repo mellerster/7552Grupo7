@@ -22,7 +22,7 @@ TEST_CASE ( "BaseDTO - Codificar a JSON" ){
     SECTION ( "El token es extraido" ) {
         Json::Value parsed = dto.ToJSON();
 
-        int tok = parsed.get("Token",0).asInt();
+        unsigned int tok = parsed.get("Token",0).asUInt();
         REQUIRE ( dto.Token == tok );
     }
 }
@@ -151,7 +151,7 @@ TEST_CASE ( "ListUsers - Codificar a JSON" ) {
     SECTION ( "El token fue extraido" ) {
         Json::Value parsed = dto.ToJSON();
 
-        int token = parsed.get("Token", 0).asInt();
+        unsigned int token = parsed.get("Token", 0).asUInt();
         REQUIRE ( token == dto.Token );
     }
 

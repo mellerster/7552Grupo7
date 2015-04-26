@@ -17,7 +17,7 @@
  * */
 class BaseDTO {
     public:
-        int Token;      /**< El token de autenticación del cliente */
+        unsigned int Token;      /**< El token de autenticación del cliente */
 
 
         BaseDTO();        /**< Constructor por defecto */
