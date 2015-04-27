@@ -28,9 +28,9 @@ std::vector<UserStatus> HardCodedDataService::ListActiveUsers(){
 
     for (int i = 0; i < 3; ++i){
         UserStatus user;
-        user.Nombre = "pepe " + i;
-        user.Estado = "Testing " +i;
-        user.UltimaActividadHora = "00:0" + i;
+        user.Nombre = "pepe";
+        user.Estado = "Testing";
+        user.UltimaActividadHora = "00:00";
         user.UltimaActividadFecha = "2015/12/31";
 
         v.push_back( user );
