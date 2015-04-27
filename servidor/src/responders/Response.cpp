@@ -29,7 +29,7 @@ int Response::GetStatus() const{
 
 
 
-const void* Response::GetData() {
+const char* Response::GetData() {
     size_t tam = GetDataLength();
     char* buff = new char[tam];
     this->m_ssContainer.read(buff, tam);

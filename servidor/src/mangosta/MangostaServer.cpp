@@ -69,10 +69,12 @@ int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt 
             Response res = req->GetResponseData();
 
             // Devuelve el resultado al cliente
-            //mg_send_status( conn, res.GetStatus() );
-            //mg_send_data( conn, res.GetData(), res.GetDataLength() );
-            mg_send_status( conn, 200 );
-            mg_printf_data( conn, "Todavia no hay respuestas..." );
+            const char* data = res.GetData();
+
+            mg_send_status( conn, res.GetStatus() );
+            mg_send_data( conn, data, res.GetDataLength() );
+
+            delete[] data;
 
             return MG_TRUE;
             }
