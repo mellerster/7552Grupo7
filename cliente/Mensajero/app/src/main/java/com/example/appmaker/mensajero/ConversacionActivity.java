@@ -2,11 +2,14 @@ package com.example.appmaker.mensajero;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Scroller;
-import android.text.method.ScrollingMovementMethod;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Muestra una pantalla donde se ve la conversacion que se ha tenido con un contacto y un campo para
@@ -14,33 +17,34 @@ import android.text.method.ScrollingMovementMethod;
  */
 public class ConversacionActivity  extends Activity {
 
-    private EditText conversacion;
+    private TextView conversacion;
     private EditText nuevoMensaje;
     private Button enviarButton;
 
     private Conversacion conversacionMantenida;
+    //TODO ver de reemplazar por clase como en Conversacion
     private String nombrePropio;
-    private String nombreAjeno;
-
-    // TODO aca simulamos la obtencion de una conversacion ya existente
-    private static String NOMBRE_PROPIO = "Tomas";
-    private static String NOMBRE_AJENO = "Diego";
-    private static final Mensaje mensajeUno = new Mensaje(NOMBRE_PROPIO, NOMBRE_AJENO, "Hola, como andas?");
-    private static final Mensaje mensajeDos = new Mensaje(NOMBRE_AJENO, NOMBRE_PROPIO, "Hola, bien y vos?");
-    private static final Mensaje mensajeTres = new Mensaje(NOMBRE_PROPIO, NOMBRE_AJENO, "Todo bien. Bueno chau!");
-    private static final Mensaje mensajeCuatro = new Mensaje(NOMBRE_AJENO, NOMBRE_PROPIO, "Chau!");
+    private static final int demora = 5000;
+    private boolean seguirEscuchando = true;
 
     /**
      * Inicializa la conversacion con la conversacion previa entre estos dos usuarios.
      */
     private void inicializarAtributosConversacion() {
+        // TODO traer los datos del servidor
+        String NOMBRE_PROPIO = "Tomas";
+        String NOMBRE_AJENO = "Diego";
+        Mensaje mensajeUno = new Mensaje(NOMBRE_PROPIO, "Hola, como andas?");
+        Mensaje mensajeDos = new Mensaje(NOMBRE_AJENO, "Hola, bien y vos?");
+        Mensaje mensajeTres = new Mensaje(NOMBRE_PROPIO, "Todo bien. Bueno chau!");
+        Mensaje mensajeCuatro = new Mensaje(NOMBRE_AJENO, "Chau!");
+        List<Mensaje> mensajes = new ArrayList<Mensaje>();
+        mensajes.add(mensajeUno);
+        mensajes.add(mensajeDos);
+        mensajes.add(mensajeTres);
+        mensajes.add(mensajeCuatro);
         nombrePropio = NOMBRE_PROPIO;
-        nombreAjeno = NOMBRE_AJENO;
-        conversacionMantenida = new Conversacion();
-        conversacionMantenida.agregarMensaje(mensajeUno);
-        conversacionMantenida.agregarMensaje(mensajeDos);
-        //conversacionMantenida.agregarMensaje(mensajeCuatro);
-        //conversacionMantenida.agregarMensaje(mensajeTres);
+        conversacionMantenida = new Conversacion(mensajes, NOMBRE_PROPIO, NOMBRE_AJENO);
     }
 
     @Override
@@ -48,17 +52,31 @@ public class ConversacionActivity  extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversacion);
 
-        conversacion = (EditText) findViewById(R.id.conversacion);
-        conversacion.setEnabled(false);
+        inicializarConversacion();
+        inicializarNuevoMensaje();
+        inicializarEnviarButton();
+        escucharLlegadaDeMensajes();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        seguirEscuchando = false;
+    }
+
+    private void inicializarConversacion() {
+        conversacion = (TextView) findViewById(R.id.conversacion);
         inicializarAtributosConversacion();
         conversacion.setText(conversacionMantenida.toString());
-        conversacion.setFocusableInTouchMode(true);
-        conversacion.setScroller(new Scroller(ConversacionActivity.this));
-        conversacion.setVerticalScrollBarEnabled(true);
         conversacion.setMovementMethod(new ScrollingMovementMethod());
+    }
 
+    private void inicializarNuevoMensaje() {
         nuevoMensaje = (EditText) findViewById(R.id.nuevo_mensaje);
         nuevoMensaje.requestFocus();
+    }
+
+    private void inicializarEnviarButton() {
         enviarButton = (Button) findViewById(R.id.boton_enviar);
         enviarButton.setOnClickListener(new EnviarMensajeListener());
     }
@@ -69,12 +87,38 @@ public class ConversacionActivity  extends Activity {
         public void onClick(View view) {
             if (nuevoMensaje.getText().length() > 0) {
                 // TODO enviar al servidor y recepcion de OK
-                conversacionMantenida.agregarMensaje(new Mensaje(nombrePropio, nombreAjeno,
-                        nuevoMensaje.getText().toString()));
-                conversacion.setText(conversacionMantenida.toString());
+                Mensaje mensajeEnviado = new Mensaje(nombrePropio, nuevoMensaje.getText().toString());
+                conversacion.append(mensajeEnviado.toString());
                 nuevoMensaje.setText("");
             }
         }
+    }
+
+    private void escucharLlegadaDeMensajes() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //TODO en este ciclo preguntarle al servidor si hay nuevo mensaje
+                int ciclo = 1;
+                String NOMBRE_AJENO = "Diego";
+                while (seguirEscuchando) {
+                    final Mensaje mensajeRecibido = new Mensaje(NOMBRE_AJENO,
+                            "Hola soy Diego" + Integer.toString(ciclo));
+                    ++ciclo;
+                    conversacion.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            conversacion.append(mensajeRecibido.toString());
+                        }
+                    });
+                    try {
+                        Thread.sleep(demora);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
 }

@@ -1,17 +1,15 @@
 package com.example.appmaker.mensajero;
 
 /**
- * Clase que representa un mensaje que envia un remitente a un destinatario.
+ * Clase que representa un mensaje que envia un remitente.
  */
 public class Mensaje {
 
     private String remitente;
-    private String destinatario;
     private String mensaje;
 
-    public Mensaje(String remitente, String destinatario, String mensaje) {
+    public Mensaje(String remitente, String mensaje) {
         this.remitente = remitente;
-        this.destinatario = destinatario;
         this.mensaje = mensaje;
     }
 
@@ -20,7 +18,7 @@ public class Mensaje {
      * @return representacion del mensaje para ser mostrada en una conversacion
      */
     public String toString() {
-       return remitente +" dice" + ": \n" + mensaje + "\n";
+       return remitente +" dice" + ": \n" + mensaje + "\n\n";
     }
 
 }

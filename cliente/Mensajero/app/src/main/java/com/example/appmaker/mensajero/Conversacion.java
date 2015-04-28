@@ -1,6 +1,5 @@
 package com.example.appmaker.mensajero;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,9 +8,14 @@ import java.util.List;
 public class Conversacion {
 
     private List<Mensaje> mensajes;
+    // TODO ver de reemplazar por clases que los representen
+    private String conversanteUno;
+    private String conversanteDos;
 
-    public Conversacion() {
-        mensajes = new ArrayList<Mensaje>();
+    public Conversacion(List<Mensaje> mensajes, String conversanteUno, String conversanteDos) {
+        this.mensajes = mensajes;
+        this.conversanteUno = conversanteUno;
+        this.conversanteDos = conversanteDos;
     }
 
     /**
