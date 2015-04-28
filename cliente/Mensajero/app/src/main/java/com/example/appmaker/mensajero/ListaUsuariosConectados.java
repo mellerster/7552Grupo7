@@ -32,7 +32,6 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         lblListaConversaciones.setOnClickListener(verListaConversacionesListener);
     }
 
-    //TODO: Mostar mas información como pide el enunciado y en un diseño mejor
     private void MostrarUsuarios(List<Usuario> usuarios) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
