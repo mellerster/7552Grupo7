@@ -169,6 +169,7 @@ public class AutentificacionActivity extends Activity {
 
             try {
                 Thread.sleep(2000);
+                new UsuarioProxy().login(new Usuario(this.usuario,this.contrasenia));
             } catch (InterruptedException e) {
                 return false;
             }
@@ -183,7 +184,8 @@ public class AutentificacionActivity extends Activity {
             showProgress(false);
 
             if (success) {
-                ///TODO: Abrir otra pantalla, no cerrar la app
+                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectados");
+                startActivity(listaUsuariosConectadosIntent);
                 finish();
             } else {
                 contraseniaView.setError(getString(R.string.error_credenciales_invalidas));
