@@ -51,7 +51,7 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         // Muestro la foto
         ImageView ivFoto = new ImageView(this);
         ///TODO: Cambiar la foto por el icono de la app si en algun momento tenemos uno
-        ivFoto.setImageResource(R.drawable.ic_launcher);
+        ivFoto.setImageResource(R.drawable.no_user);
         LinearLayout.LayoutParams fotoParams = new LinearLayout.LayoutParams(fotoWidth,fotoHeight);
         ivFoto.setLayoutParams(fotoParams);
         if(usuario.getFoto() != null){

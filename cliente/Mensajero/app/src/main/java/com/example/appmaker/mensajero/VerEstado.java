@@ -1,5 +1,6 @@
 package com.example.appmaker.mensajero;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -42,8 +43,7 @@ public class VerEstado extends ActionBarActivity {
         txtUltimoCheckin.setText("El 15 de Septiembre de 2015 a las 14:30hs en Facultad de Ingeniería, UBA");
         //Cargo la imagen
         ImageView ivFoto = (ImageView)findViewById(R.id.imgFoto);
-        ///TODO: Cambiar imagen por defecto
-        ivFoto.setImageResource(R.drawable.ic_launcher);
+        ivFoto.setImageResource(R.drawable.no_user);
         if(usuario.getFoto() != null){
             ivFoto.setImageBitmap(usuario.getFotoBitmap());
         }
@@ -67,7 +67,11 @@ public class VerEstado extends ActionBarActivity {
         if (id == R.id.action_volver) {
             finish();
         }else if (id == R.id.action_enviar_mensaje){
-            ///TODO: llamar a la pantalla de conversación y enviarle el usuario a quien le quiere enviar el mensaje
+            Intent conversacionIntent = new Intent("com.example.appmaker.mensajero.ConversacionActivity");
+            Bundle extras = new Bundle();
+            extras.putString("usuario",usuario.getNombre());
+            conversacionIntent.putExtras(extras);
+            startActivity(conversacionIntent);
             Log.d("Event","Se quiere enviar un mensaje a " + usuario.getNombre());
         }else if (id == R.id.action_salir){
             ///TODO: Cerrar Sesión desde el proxy y salir de la app.
