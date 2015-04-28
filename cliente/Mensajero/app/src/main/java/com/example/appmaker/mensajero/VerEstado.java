@@ -1,7 +1,6 @@
 package com.example.appmaker.mensajero;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -73,8 +72,6 @@ public class VerEstado extends ActionBarActivity {
             conversacionIntent.putExtras(extras);
             startActivity(conversacionIntent);
             Log.d("Event","Se quiere enviar un mensaje a " + usuario.getNombre());
-        }else if (id == R.id.action_salir){
-            ///TODO: Cerrar Sesión desde el proxy y salir de la app.
         }
 
         return super.onOptionsItemSelected(item);

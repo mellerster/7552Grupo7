@@ -118,7 +118,8 @@ public class ListaUsuariosConectados extends ActionBarActivity {
                 Log.d(tag,"Realizar Checkin");
                 break;
             case R.id.action_salir:
-                ///TODO: Realizar logout y Salir
+                new UsuarioProxy().logout(UsuarioProxy.getUsuario());
+                finish();
                 break;
         }
         return super.onOptionsItemSelected(item);
