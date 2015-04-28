@@ -10,4 +10,6 @@
     <string name="title_activity_estado">Estado de usuario</string>
     <string name="title_activity_configurar_perfil">Configurar Perfil</string>
     <string name="title_activity_lista_usuarios_conectados">Lista de Usuarios Conectados</string>
+    <string name="dice">dice</string>
+
 </resources>
