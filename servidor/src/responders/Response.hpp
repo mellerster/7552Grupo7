@@ -31,7 +31,7 @@ class Response {
          * Devuelve la respuesta en formato binario.
          * Es el cliente el responsable de liberar la memoria.
          * */
-        const void* GetData();
+        const char* GetData();
 
         size_t GetDataLength(); /**< Devuelve la cantidad de bytes de la respuesta. */
 
