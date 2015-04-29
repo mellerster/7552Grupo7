@@ -13,6 +13,7 @@ Contenido:
 
    Intro
    Cliente
+   Pantallas_Cliente
    Servidor
    Mensajes
 
