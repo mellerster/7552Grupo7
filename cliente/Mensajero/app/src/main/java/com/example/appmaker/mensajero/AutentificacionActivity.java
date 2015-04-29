@@ -117,6 +117,7 @@ public class AutentificacionActivity extends Activity {
     private void abrirRegistracion() {
         Intent registracionIntent =new Intent("com.example.appmaker.mensajero.Registracion");
         startActivity(registracionIntent);
+        finish();
     }
 
     /**

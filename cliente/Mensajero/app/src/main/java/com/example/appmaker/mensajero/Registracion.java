@@ -38,6 +38,7 @@ public class Registracion extends ActionBarActivity {
                 ///TODO: Esperar respuesta del proxy sin error, si tiene error avisar al usuario
                 new UsuarioProxy().registrar(txtNombre.getText().toString(),txtPassword.getText().toString());
                 startActivity(listaUsuariosConectadosIntent);
+                finish();
             }
         }
     };

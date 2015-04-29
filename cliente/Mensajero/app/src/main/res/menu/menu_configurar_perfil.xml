@@ -4,6 +4,4 @@
     tools:context="com.example.appmaker.mensajero.ConfigurarPerfil">
     <item android:id="@+id/action_volver" android:title="Volver"
         app:showAsAction="never"/>
-    <item android:id="@+id/action_salir" android:title="Salir"
-        android:orderInCategory="100" app:showAsAction="never" />
 </menu>

@@ -109,8 +109,6 @@ public class ConfigurarPerfil extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_volver) {
             finish();
-        }else if (id == R.id.action_salir){
-            ///TODO: Cerrar Sesión desde el proxy y salir de la app.
         }
 
         return super.onOptionsItemSelected(item);
@@ -132,7 +130,6 @@ public class ConfigurarPerfil extends ActionBarActivity {
      * @return tira de bytes de la imagen
      */
     private byte[] getBytesFromLocalImage(Intent data) {
-        ///TODO: Obtener el base64 para pasar al server
         Uri selectedImage = data.getData();
         String[] filePathColumn = {MediaStore.Images.Media.DATA};
         Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);

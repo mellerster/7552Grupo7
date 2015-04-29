@@ -3,6 +3,7 @@ package com.example.appmaker.mensajero;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.Image;
+import android.util.Base64;
 
 /**
  * Created by diego on 07/04/15.
@@ -36,6 +37,10 @@ public class Usuario {
 
     public Bitmap getFotoBitmap() {
         return BitmapFactory.decodeByteArray(foto, 0, foto.length);
+    }
+
+    public String getFotoBase64(){
+        return Base64.encodeToString(getFoto(), Base64.DEFAULT);
     }
 
     public void setFoto(byte[] foto){
