@@ -21,4 +21,11 @@ public class Mensaje {
        return remitente +" dice" + ": \n" + mensaje + "\n\n";
     }
 
+    public String getRemitente() {
+        return remitente;
+    }
+
+    public String getMensaje() {
+        return mensaje;
+    }
 }
