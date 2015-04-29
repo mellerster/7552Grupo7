@@ -62,6 +62,10 @@
                 ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-    </application>
-
+        <activity
+            android:name=".ConversacionesActivity"
+            android:label="@string/app_name"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+</application>
 </manifest>

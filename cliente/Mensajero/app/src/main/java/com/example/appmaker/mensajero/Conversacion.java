@@ -14,6 +14,7 @@ public class Conversacion {
 
     public Conversacion(List<Mensaje> mensajes, String conversanteUno, String conversanteDos) {
         this.mensajes = mensajes;
+
         this.conversanteUno = conversanteUno;
         this.conversanteDos = conversanteDos;
     }
@@ -47,4 +48,19 @@ public class Conversacion {
         return resultado;
     }
 
+    public String getConversanteUno() {
+        return conversanteUno;
+    }
+
+    public String getConversanteDos() {
+        return conversanteDos;
+    }
+
+    /**
+     *
+     * @return cuerpo del ultimo mensaje de esta conversacion
+     */
+    public String getUltimoMensaje() {
+        return mensajes.get(mensajes.size()-1).getMensaje();
+    }
 }
