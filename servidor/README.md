@@ -13,6 +13,8 @@ Para poder compilar y/o correr la aplicación servidor necesitarán:
 
 2. [CMake] (http://www.cmake.org "Sitio oficial de CMake")
 
+3. [Doxygen] (http://www.stack.nl/~dimitri/doxygen/index.html "Sitio oficial de Doxygen") - **Opcional**
+
 
 ### RocksDB
 
@@ -75,5 +77,16 @@ Para obtener los datos de **code coverage** se debe compilar la aplicación y lue
 3. Generará un reporte en formato **html** dentro de la carpeta **CoverageReport**.
 
 Se debe abrir el archivo **index.html** para acceder al reporte.
+
+
+## Documentación
+
+El código fuente del servidor esta documentado con Doxygen, por lo tanto es necesario correr el comando:
+
+* `doxygen`
+
+Solo eso es necesario; la documentación generada quedará almacenada dentro de la carpeta *docs*.
+
+
 
 
