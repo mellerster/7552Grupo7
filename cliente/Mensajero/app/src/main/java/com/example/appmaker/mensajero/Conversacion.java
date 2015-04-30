@@ -1,11 +1,14 @@
 package com.example.appmaker.mensajero;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Representa a una conversacion.
  */
-public class Conversacion {
+public class Conversacion implements Serializable {
+
+    public static Conversacion actual;
 
     private List<Mensaje> mensajes;
     // TODO ver de reemplazar por clases que los representen

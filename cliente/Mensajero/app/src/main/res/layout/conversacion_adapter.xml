@@ -7,12 +7,14 @@
         android:id="@+id/nombre_contacto"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        android:layout_margin="3dp" />
 
     <TextView
         android:id="@+id/ultimo_mensaje"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="12dp"/>
+        android:textSize="12dp"
+        android:layout_margin="5dp" />
 
 </LinearLayout>

@@ -66,6 +66,10 @@
             android:name=".ConversacionesActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+            <intent-filter>
+                ​<action android:name="com.example.appmaker.mensajero.ConversacionesActivity" />
+                ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 </application>
 </manifest>

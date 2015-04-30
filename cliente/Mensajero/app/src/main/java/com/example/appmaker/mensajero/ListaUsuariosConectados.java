@@ -82,7 +82,8 @@ public class ListaUsuariosConectados extends ActionBarActivity {
     {
         public void onClick(View v)
         {
-            ///TODO: Llamar a la activity para mostrar Lista de Conversaciones
+            Intent conversacionesIntent = new Intent("com.example.appmaker.mensajero.ConversacionesActivity");
+            startActivity(conversacionesIntent);
             Log.d(tag,"Ver Lista de Conversaciones");
         }
     };

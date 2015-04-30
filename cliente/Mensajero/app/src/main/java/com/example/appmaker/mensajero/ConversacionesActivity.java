@@ -1,7 +1,11 @@
 package com.example.appmaker.mensajero;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,14 +17,25 @@ import java.util.List;
  */
 public class ConversacionesActivity extends Activity {
 
+    Conversacion[] conversaciones;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversaciones);
-        Conversacion[] conversaciones = inicializarConverciones();
+        conversaciones = inicializarConverciones();
         ConversacionAdapter conversacionAdapter = new ConversacionAdapter(this, conversaciones);
-        ListView listview = (ListView) findViewById(R.id.lista_conversaciones);
-        listview.setAdapter(conversacionAdapter);
+        ListView lista = (ListView) findViewById(R.id.lista_conversaciones);
+        lista.setAdapter(conversacionAdapter);
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Conversacion.actual = conversaciones[position];
+                Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConversacionActivity");
+                startActivity(configurarPerfilIntent);
+            }
+        });
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
     private Conversacion[] inicializarConverciones() {
@@ -41,8 +56,26 @@ public class ConversacionesActivity extends Activity {
         Conversacion conversacionTres = new Conversacion(mensajes, NOMBRE_PROPIO, "Juan");
         Conversacion conversacionCuatro = new Conversacion(mensajes, NOMBRE_PROPIO, "Matias");
         Conversacion conversacionCinco = new Conversacion(mensajes, NOMBRE_PROPIO, "Mariano");
+        Conversacion conversacionSeis = new Conversacion(mensajes, NOMBRE_PROPIO, "Tomas");
+        Conversacion conversacionSiete = new Conversacion(mensajes, NOMBRE_PROPIO, "Nahuel");
+        Conversacion conversacionOcho = new Conversacion(mensajes, NOMBRE_PROPIO, "Victor");
+        Conversacion conversacionNueve = new Conversacion(mensajes, NOMBRE_PROPIO, "Oscar");
+        Conversacion conversacionDiez = new Conversacion(mensajes, NOMBRE_PROPIO, "Pedro");
+        Conversacion conversacionOnce = new Conversacion(mensajes, NOMBRE_PROPIO, "Mateo");
+        Conversacion conversacionDoce = new Conversacion(mensajes, NOMBRE_PROPIO, "Marcos");
+        Conversacion conversacionCatorce = new Conversacion(mensajes, NOMBRE_PROPIO, "Lucas");
+        Conversacion conversacionQuince = new Conversacion(mensajes, NOMBRE_PROPIO, "Romina");
+        Conversacion conversacionDieciseis = new Conversacion(mensajes, NOMBRE_PROPIO, "Camila");
+        Conversacion conversacionDecisiete = new Conversacion(mensajes, NOMBRE_PROPIO, "Agustina");
+        Conversacion conversacionDeciocho = new Conversacion(mensajes, NOMBRE_PROPIO, "Carolina");
+        Conversacion conversacionDecinueve = new Conversacion(mensajes, NOMBRE_PROPIO, "Florencia");
+        Conversacion conversacionVeinte = new Conversacion(mensajes, NOMBRE_PROPIO, "Abril");
         Conversacion array[] = new Conversacion[] {conversacionUno, conversacionDos,
-                conversacionTres, conversacionCuatro, conversacionCinco};
+                conversacionTres, conversacionCuatro, conversacionCinco, conversacionCinco,
+                conversacionSeis, conversacionSiete, conversacionOcho, conversacionNueve,
+                conversacionDiez, conversacionOnce, conversacionDoce, conversacionCatorce,
+                conversacionQuince, conversacionDieciseis, conversacionDecisiete,
+                conversacionDeciocho, conversacionDecinueve, conversacionVeinte};
         return array;
     }
 

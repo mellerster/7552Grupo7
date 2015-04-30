@@ -8,9 +8,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Muestra una pantalla donde se ve la conversacion que se ha tenido con un contacto y un campo para
  * continuar enviandole mensajes.
@@ -31,20 +28,8 @@ public class ConversacionActivity  extends Activity {
      * Inicializa la conversacion con la conversacion previa entre estos dos usuarios.
      */
     private void inicializarAtributosConversacion() {
-        // TODO traer los datos del servidor
-        String NOMBRE_PROPIO = "Tomas";
-        String NOMBRE_AJENO = "Diego";
-        Mensaje mensajeUno = new Mensaje(NOMBRE_PROPIO, "Hola, como andas?");
-        Mensaje mensajeDos = new Mensaje(NOMBRE_AJENO, "Hola, bien y vos?");
-        Mensaje mensajeTres = new Mensaje(NOMBRE_PROPIO, "Todo bien. Bueno chau!");
-        Mensaje mensajeCuatro = new Mensaje(NOMBRE_AJENO, "Chau!");
-        List<Mensaje> mensajes = new ArrayList<Mensaje>();
-        mensajes.add(mensajeUno);
-        mensajes.add(mensajeDos);
-        mensajes.add(mensajeTres);
-        mensajes.add(mensajeCuatro);
-        nombrePropio = NOMBRE_PROPIO;
-        conversacionMantenida = new Conversacion(mensajes, NOMBRE_PROPIO, NOMBRE_AJENO);
+        conversacionMantenida = Conversacion.actual;
+        nombrePropio = conversacionMantenida.getConversanteUno();
     }
 
     @Override
