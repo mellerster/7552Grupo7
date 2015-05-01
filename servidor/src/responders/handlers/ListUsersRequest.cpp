@@ -17,8 +17,13 @@ Response ListUsersRequest::GetResponseData(){
     // List users es un pedido GET, solo va a existir m_parsedParameters_QueryString
     ListUsersDTO dto( this->m_parsedParameters_QueryString );
 
+    // Chequea que el token sea valido
+    if ( !this->m_dataService.IsTokenActive(dto.Token) ){
+        Response invalid_resp( 403, "" );
+        return invalid_resp;
+    }
+
     ListUsersDTO resul;
-    resul.Token = dto.Token;
 
     // Extrae de la BD la lista de usuarios conectados y sus estados
     for ( auto stat : this->m_dataService.ListActiveUsers() ){
