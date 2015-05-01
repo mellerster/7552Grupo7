@@ -15,6 +15,7 @@ class HardCodedDataService : public IDataService {
         virtual bool Open();
         virtual void Close();
         virtual unsigned int startSession(std::string nombreUsuario, std::string password);
+        virtual bool IsTokenActive(unsigned int tok);
         virtual std::vector<UserStatus> ListActiveUsers();
 };
 

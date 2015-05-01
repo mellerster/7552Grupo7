@@ -23,6 +23,11 @@ unsigned int HardCodedDataService::startSession(std::string nombreUsuario, std::
 }
 
 
+bool HardCodedDataService::IsTokenActive(unsigned int){
+    return true;
+}
+
+
 std::vector<UserStatus> HardCodedDataService::ListActiveUsers(){
     std::vector<UserStatus> v;
 

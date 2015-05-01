@@ -13,7 +13,6 @@
  * */
 class IDataService {
     public:
-
         /** Abre la conexion con la base de datos.
          *
          * @return  "true" si la connexion fue abrierta exitosamente, "false" sino.
@@ -24,6 +23,16 @@ class IDataService {
         /** Cierra la conexion con la base de datos.
          * */
         virtual void Close() = 0;
+
+        /** Indica si el token esta relacionado con alguna sesión activa.
+         *
+         * Un token activo es aquel que se encuentra asociado a un usuario conectado al sistema.
+         *
+         * @param[in] tok   El token a validar
+         *
+         * @returns  True si el token es valido, false si no.
+         * */
+        virtual bool IsTokenActive(unsigned int tok) = 0;
 
 
         /** Comienza la sesión del usuario si este ya esta registrado en el sistema.
@@ -47,6 +56,9 @@ class IDataService {
          * @returns  Una lista con los datos de los usuarios conectados
          * */
         virtual std::vector<UserStatus> ListActiveUsers() = 0;
+
+
+        virtual ~IDataService() { } 
 
 };
 
