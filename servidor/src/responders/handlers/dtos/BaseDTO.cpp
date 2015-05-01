@@ -1,4 +1,5 @@
 #include "BaseDTO.hpp"
+#include <string>
 
 
 
@@ -7,7 +8,8 @@ BaseDTO::BaseDTO() : Token(0) {
 
 
 BaseDTO::BaseDTO(Json::Value jData){
-    this->Token = jData.get("Token", 0).asUInt();
+    std::string s = jData.get("Token", 0).asString();
+    this->Token = std::stoul( s );
 }
 
 
