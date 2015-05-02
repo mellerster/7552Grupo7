@@ -37,6 +37,14 @@ std::unique_ptr<RequestHandler> RequestHandlerFactory::CreateResponder(std::stri
 }
 
 
+std::unique_ptr<AuthenticationHandler> RequestHandlerFactory::CreateRequestAuthenticator(const char* queryString, const char* data, size_t dataLen) const {
+    std::unique_ptr<AuthenticationHandler> rh( new AuthenticationHandler(this->m_dataService) );
+    rh->LoadParameters( queryString, data, dataLen );
+
+    return rh;
+}
+
+
 RequestHandler* RequestHandlerFactory::CreateGETResponses(std::string httpURI) const{
     if (httpURI == "/grupo7/api/usuarios"){
         return new ListUsersRequest(this->m_dataService);

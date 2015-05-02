@@ -17,7 +17,12 @@ set ( SRC_HANDLERS
 
 
 #La lista de clases en el directorio actual
-set ( SRCS RequestHandlerFactory.cpp Response.cpp RequestHandler.cpp )
+set ( SRCS 
+        RequestHandlerFactory.cpp 
+        Response.cpp 
+        RequestHandler.cpp
+        AuthenticationHandler.cpp
+    )
 
 
 #Compila la libreria
