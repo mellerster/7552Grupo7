@@ -2,6 +2,7 @@
 #include "include/hippomocks.h"
 
 #include <vector>
+#include <memory>
 
 #include "json/json.h"
 #include "IDataService.hpp"
@@ -61,11 +62,21 @@ TEST_CASE ( "Testeo de list users requests - Manejo de resultados" ){
 
         // Act
         Response resp = lur.GetResponseData();
+
+        int status = resp.GetStatus();
+        size_t tam = resp.GetDataLength();
         const char* resul = resp.GetData();
+        const char* resulEnd = &resul[tam];
+
+        // Todo esto para cargar el Json
+        Json::CharReaderBuilder builder;
+        std::unique_ptr<Json::CharReader> ptrJsonBuilder( builder.newCharReader() );
+
+        Json::Value jn;
+        ptrJsonBuilder->parse( resul, resulEnd, &jn, nullptr );
 
         // Assert
-        Json::Value jn(resul);
-        REQUIRE ( 200 == resp.GetStatus() );
+        REQUIRE ( 200 == status );
 
         REQUIRE ( Json::ValueType::objectValue == jn.type() );
         REQUIRE ( Json::ValueType::arrayValue == jn["Usuarios"].type() );
@@ -104,9 +115,15 @@ TEST_CASE ( "Testeo de list users requests - Parseo de params" ){
         const char* data = "Token=1";
         size_t dataLen = strlen(data) +1;
 
-        REQUIRE_THROWS(
+        mocker.OnCall( mockService, IDataService::IsTokenActive).Return( false );
+
+        REQUIRE_NOTHROW (
                 lur.LoadParameters( queryString, data, dataLen );
         );
+
+        Response r = lur.GetResponseData();
+
+        REQUIRE ( 200 != r.GetStatus() );
     }
 
 }

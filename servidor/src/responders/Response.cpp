@@ -1,4 +1,5 @@
 #include "Response.hpp"
+#include <iostream>
 
 
 
@@ -14,7 +15,7 @@ Response::Response(const Response& r) :
     m_status(r.m_status), 
     m_ssContainer(std::stringstream::binary | std::stringstream::in | std::stringstream::out) 
 {
-    this->m_ssContainer << r.m_ssContainer;
+    this->m_ssContainer << r.m_ssContainer.rdbuf();
 }
 
 
