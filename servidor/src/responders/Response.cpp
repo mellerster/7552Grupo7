@@ -2,7 +2,6 @@
 
 
 
-
 Response::Response(int statusCode, Json::Value jsonData) : 
     m_status(statusCode), 
     m_ssContainer(std::stringstream::binary | std::stringstream::in | std::stringstream::out) 
@@ -31,8 +30,10 @@ int Response::GetStatus() const{
 
 const char* Response::GetData() {
     size_t tam = GetDataLength();
-    char* buff = new char[tam];
+    char* buff = new char[tam +1];  // Lugar para el null terminator
+
     this->m_ssContainer.read(buff, tam);
+    buff[tam] = '\0';
 
     return buff;
 }
