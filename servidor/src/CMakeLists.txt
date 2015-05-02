@@ -33,7 +33,7 @@ add_custom_target ( coverage
                     COMMAND lcov --quiet --remove coverage.info /usr/include/\\* --output-file coverage.info   
                     COMMAND lcov --quiet --remove coverage.info src/tests/include/\\* --output-file coverage.info    
                     COMMAND lcov --quiet --remove coverage.info src/libs/\\* --output-file coverage.info    
-                    COMMAND genhtml --quiet coverage.info --output-directory CoverageReport
+                    COMMAND genhtml coverage.info --output-directory CoverageReport
                   )
 
 

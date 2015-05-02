@@ -1,3 +1,4 @@
+#include <string.h>
 #include "include/catch.hpp"
 #include "include/hippomocks.h"
 
@@ -16,14 +17,64 @@ TEST_CASE ( "Testeo de login requests - Parseo de params" ){
 
     SECTION ( "Seteo de parametros" ){
         // Params
-        size_t dataLen = 0;
-        const char* data = nullptr;
-        const char* queryString = "Token=1";
+        const char* queryString =nullptr;
+        const char* data = "{ Token : 1 }";
+        size_t dataLen = strlen(data) +1;
 
         REQUIRE_NOTHROW (
                 lr.LoadParameters( queryString, data, dataLen );
         );
     }
+
+    SECTION ( "Extraccion de params" ){
+        const char* queryString = nullptr;
+        const char* data = "{ \"Token\" : 0, \"NombreUsuario\" : \"pepe\", \"Password\" : \"123\" }";
+        size_t dataLen = strlen(data) +1;
+
+        // Solo comienza la sesion si es es nombre de usuario y password que especificamos
+        mocker.OnCall( mockService, IDataService::startSession ).Return( 0 );
+        mocker.OnCall( mockService, IDataService::startSession ).With("pepe", "123").Return( 5555 );
+
+        // Act
+        lr.LoadParameters( queryString, data, dataLen );
+        Response resp = lr.GetResponseData();
+
+        // Assert
+        REQUIRE ( 200 == resp.GetStatus() );
+    }
+
+    SECTION ( "Probar usuario invalido" ){
+        const char* queryString = nullptr;
+        const char* data = "{ \"Token\" : 0, \"NombreUsuario\" : \"pepe\", \"Password\" : \"123\" }";
+        size_t dataLen = strlen(data) +1;
+
+        mocker.OnCall( mockService, IDataService::startSession ).Return( 0 );
+
+        // Act
+        lr.LoadParameters( queryString, data, dataLen );
+        Response resp = lr.GetResponseData();
+
+        // Assert
+        REQUIRE ( 403 == resp.GetStatus() );
+    }
+
+    SECTION ( "Probar usuario valido" ){
+        const char* queryString = nullptr;
+        const char* data = "{ \"Token\" : 0, \"NombreUsuario\" : \"pepe\", \"Password\" : \"123\" }";
+        size_t dataLen = strlen(data) +1;
+
+        // Solo comienza la sesion si es es nombre de usuario y password que especificamos
+        mocker.OnCall( mockService, IDataService::startSession ).Return( 5555 );
+
+        // Act
+        lr.LoadParameters( queryString, data, dataLen );
+        Response resp = lr.GetResponseData();
+
+        // Assert
+        REQUIRE ( 200 == resp.GetStatus() );
+    }
+
+
 }
 
 
