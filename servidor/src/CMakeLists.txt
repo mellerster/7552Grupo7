@@ -27,11 +27,13 @@ if ( NOT LIBROCKSDB )
 endif()
 
 
-#Agrega un nuevo target para generar los datos de coverage a partir de los tests
+#Agrega un nuevo target para generar los datos de coverage a partir de los tests: Ignora las librerias externas e internas 
 add_custom_target ( coverage
                     COMMAND lcov --quiet --capture --directory ${PROJECT_BINARY_DIR} --output-file coverage.info 
-                    COMMAND lcov --quiet --remove coverage.info /usr/include/\\* --output-file coverage.info    
-                    COMMAND genhtml coverage.info --output-directory CoverageReport
+                    COMMAND lcov --quiet --remove coverage.info /usr/include/\\* --output-file coverage.info   
+                    COMMAND lcov --quiet --remove coverage.info src/tests/include/\\* --output-file coverage.info    
+                    COMMAND lcov --quiet --remove coverage.info src/libs/\\* --output-file coverage.info    
+                    COMMAND genhtml --quiet coverage.info --output-directory CoverageReport
                   )
 
 
