@@ -36,6 +36,23 @@ TEST_CASE ( "Response tests - construccion" ){
         );
     }
 
+    SECTION ( "Construccion con JSON complejo" ){
+        Json::Value j2;
+        j2["Uno"] = 1;
+        j2["dos"] = "22";
+
+        Json::Value j;
+        j["Token"] = 58;
+        j["arreglo"][0] = "A";
+        j["arreglo"][1] = "B";
+        j["arreglo"][2] = "C";
+        j["arreglo"][3] = "D";
+        j["obj"] = j2;
+
+        REQUIRE_NOTHROW (
+            Response resp (57, j);
+        );
+    }
 }
 
 
@@ -55,6 +72,23 @@ TEST_CASE ( "Response tests" ){
         size_t tam = resp.GetDataLength();
 
         REQUIRE ( tam > 0 );
+    }
+
+    SECTION ( "Retrieve data" ){
+        const char* data = resp.GetData();
+        std::string s(data);    // Es mas facil trabajar con strings
+
+        // El json empieza y termina con llaves
+        REQUIRE ( false == s.empty() );
+        REQUIRE ( '{' == s.front() );
+        REQUIRE ( '}' == s.back() );
+
+        // El json debe contener los datos
+        REQUIRE ( std::string::npos != s.find("uno") );
+        REQUIRE ( std::string::npos != s.find(':') );
+        REQUIRE ( std::string::npos != s.find("2") );
+
+        delete[] data;
     }
 }
 

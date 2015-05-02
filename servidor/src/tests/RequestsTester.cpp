@@ -1,12 +1,13 @@
+#include <vector>
+
 #include "include/catch.hpp"
 #include "include/hippomocks.h"
 
 #include "IDataService.hpp"
+#include "json/json.h"
 
 #include "Response.hpp"
 #include "handlers/EmptyRequest.hpp"
-#include "handlers/ListUsersRequest.hpp"
-#include "handlers/LoginRequest.hpp"
 
 #include "mocks/MockedRequestHandler.hpp"
 
@@ -181,46 +182,6 @@ TEST_CASE ( "Request handler - Parseo de JSON content data" ){
 }
 
 
-
-TEST_CASE ( "Testeo de list users requests" ){
-    // Mocks
-    MockRepository mocker;
-    IDataService* mockService = mocker.Mock<IDataService>();
-
-    ListUsersRequest lur( *mockService );
-
-    SECTION ( "Seteo de parametros" ){
-        // Params
-        size_t dataLen = 0;
-        const char* data = nullptr;
-        const char* queryString = "Token=1";
-
-        REQUIRE_NOTHROW (
-                lur.LoadParameters( queryString, data, dataLen );
-        );
-    }
-}
-
-
-
-TEST_CASE ( "Testeo de login requests" ){
-    // Mocks
-    MockRepository mocker;
-    IDataService* mockService = mocker.Mock<IDataService>();
-
-    LoginRequest lr( *mockService );
-
-    SECTION ( "Seteo de parametros" ){
-        // Params
-        size_t dataLen = 0;
-        const char* data = nullptr;
-        const char* queryString = "Token=1";
-
-        REQUIRE_NOTHROW (
-                lr.LoadParameters( queryString, data, dataLen );
-        );
-    }
-}
 
 
 
