@@ -23,6 +23,16 @@ unsigned int HardCodedDataService::startSession(std::string nombreUsuario, std::
 }
 
 
+bool HardCodedDataService::RegisterNewUser(std::string nombreUsuario, std::string password) {
+    if (nombreUsuario == "" || password == ""){
+        return false;
+
+    } else {
+        return true;
+    }
+}
+
+
 bool HardCodedDataService::IsTokenActive(unsigned int){
     return true;
 }

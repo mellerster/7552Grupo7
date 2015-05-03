@@ -51,6 +51,19 @@ class IDataService {
         virtual unsigned int startSession(std::string nombreUsuario, std::string password) = 0;
 
 
+        /** Registra un nuevo usuario en el sistema.
+         *
+         * Inicializa todos los elementos relacionados con un usuario del sistema.
+         * El nombre de usuario debe ser unico ya que es la forma de identificar a cada usuario que pertenece al sistema.
+         *
+         * @param[in] nombreUsuario   El nombre del usuario, unico para cada usuario.
+         * @param[in] password   El password associado al nombre de usuario.
+         *
+         * @returns  True si se completó la registración en forma exitosa, false si no.
+         * */
+        virtual bool RegisterNewUser(std::string nombreUsuario, std::string password) = 0;
+
+
         /** Devuelve el listado con todos los usuarios conectados al sistema.
          *
          * @returns  Una lista con los datos de los usuarios conectados
