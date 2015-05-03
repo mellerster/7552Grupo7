@@ -5,6 +5,7 @@ set ( SRC_DTOS
         handlers/dtos/UserStatusDTO.cpp 
         handlers/dtos/ListUsersDTO.cpp 
         handlers/dtos/BaseDTO.cpp
+        handlers/dtos/RegistrationDTO.cpp
     )
 
 
@@ -13,6 +14,7 @@ set ( SRC_HANDLERS
         handlers/EmptyRequest.cpp 
         handlers/LoginRequest.cpp 
         handlers/ListUsersRequest.cpp 
+        handlers/UserSignUpHandler.cpp
     )
 
 
