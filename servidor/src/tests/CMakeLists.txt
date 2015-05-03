@@ -6,16 +6,22 @@ target_link_libraries ( JsonTester jsoncppLib )
 add_executable ( MessageFactoryTester MainTester.cpp FactoryTester.cpp )
 target_link_libraries ( MessageFactoryTester requestHandlers )
 
-add_executable ( RequestHanderTester 
+add_executable ( CoreRequestHandlerTester 
         MainTester.cpp 
         RequestsTester.cpp 
         ResponseTester.cpp 
-        LoginHandlerTester.cpp
-        ListUsersTester.cpp
         AuthenticationHandlerTester.cpp
         mocks/MockedRequestHandler.cpp 
         )
-target_link_libraries ( RequestHanderTester requestHandlers )
+target_link_libraries ( CoreRequestHandlerTester requestHandlers )
+
+add_executable ( HandlerTester 
+        MainTester.cpp 
+        LoginHandlerTester.cpp
+        ListUsersTester.cpp
+        RegistrationTester.cpp
+        )
+target_link_libraries ( HandlerTester requestHandlers )
 
 add_executable ( DTOTester MainTester.cpp DTOsTester.cpp )
 target_link_libraries ( DTOTester requestHandlers jsoncppLib )
@@ -33,7 +39,8 @@ message ( "********************************************************************"
 #Corre todos los tests, pero los toma como si solo fuera uno
 add_test ( ALL_Json_Tests JsonTester )
 add_test ( ALL_MessageFactory_Tests MessageFactoryTester )
-add_test ( ALL_Request_Handler_Tests RequestHanderTester )
+add_test ( ALL_Core_Request_Handler_Tests CoreRequestHandlerTester )
+add_test ( ALL_Handler_Tests HandlerTester )
 add_test ( ALL_DTOs_Tests DTOTester )
 
 #Hay que pasar el nombre de los tests cases para que cmake los corra por separado
