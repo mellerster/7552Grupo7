@@ -6,6 +6,7 @@
 #include "handlers/dtos/LoginDTO.hpp"
 #include "handlers/dtos/UserStatusDTO.hpp"
 #include "handlers/dtos/ListUsersDTO.hpp"
+#include "handlers/dtos/RegistrationDTO.hpp"
 
 
 
@@ -310,4 +311,57 @@ TEST_CASE ( "Login - Decodificar desde JSON" ) {
     }
 }
 
+
+TEST_CASE ( "Registration DTO - codificar a JSON" ){
+    RegistrationDTO dto;
+    dto.NombreUsuario = "Kaname";
+    dto.Password = "Chidori";
+
+    SECTION ( "Parseo exitoso" ){
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "El nombre de usuario fue extraido" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string nomUsu = parsed.get("NombreUsuario", "xxx").asString();
+        REQUIRE ( nomUsu == dto.NombreUsuario );
+    }
+
+    SECTION ( "El password fue extraido" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string pass = parsed.get("Password", "yyy").asString();
+        REQUIRE ( pass == dto.Password );
+    }
+
+}
+
+
+TEST_CASE ( "Registration DTO - decodificar desde JSON" ){
+    Json::Value j;
+    j["NombreUsuario"] = "Yuki";
+    j["Password"] = "Nagato";
+
+
+    SECTION ( "No Explota" ) {
+        REQUIRE_NOTHROW ( 
+                RegistrationDTO dto( j )
+        );
+    }
+
+    SECTION ( "Carga el nombre usuario" ) {
+        RegistrationDTO dto(j);
+
+        REQUIRE ( dto.NombreUsuario == "Yuki" );
+    }
+
+    SECTION ( "Carga el password" ) {
+        RegistrationDTO dto(j);
+
+        REQUIRE ( dto.Password == "Nagato" );
+    }
+}
 

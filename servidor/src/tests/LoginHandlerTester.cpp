@@ -17,7 +17,7 @@ TEST_CASE ( "Testeo de login requests - Parseo de params" ){
 
     SECTION ( "Seteo de parametros" ){
         // Params
-        const char* queryString =nullptr;
+        const char* queryString = nullptr;
         const char* data = "{ \"Token\" : 1 }";
         size_t dataLen = strlen(data) +1;
 
