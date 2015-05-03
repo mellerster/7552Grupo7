@@ -62,7 +62,7 @@ int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt 
                 std::unique_ptr<AuthenticationHandler> auHand = ptrFactory->CreateRequestAuthenticator( conn->query_string, conn->content, conn->content_len);
 
                 // Evalua si el recurso es accesible
-                if ( IsResourceAccesible(conn->request_method, conn->uri) ){
+                if ( auHand->IsResourceAccesible(conn->request_method, conn->uri) ){
                     return MG_TRUE;
 
                 } else {
