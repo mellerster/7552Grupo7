@@ -3,13 +3,16 @@
 
 
 
-BaseDTO::BaseDTO() : Token(0) {
+BaseDTO::BaseDTO() : Token(0), Status("OK") {
 }
 
 
 BaseDTO::BaseDTO(Json::Value jData){
-    std::string s = jData.get("Token", 0).asString();
-    this->Token = std::stoul( s );
+    std::string t = jData.get("Token", 0).asString();
+    std::string s = jData.get("Status", "OK").asString();
+
+    this->Token = std::stoul( t );  // El token es numérico
+    this->Status = s;
 }
 
 
@@ -17,6 +20,7 @@ BaseDTO::BaseDTO(Json::Value jData){
 Json::Value BaseDTO::ToJSON() const{
     Json::Value j;
     j["Token"] = this->Token;
+    j["Status"] = this->Status;
 
     return j;
 }

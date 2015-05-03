@@ -12,12 +12,14 @@
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
- *        Token: xxx
+ *        Token: xxx,
+ *        Status: "OK"
  *      }
  * */
 class BaseDTO {
     public:
-        unsigned int Token;      /**< El token de autenticación del cliente */
+        unsigned int Token;      /**< El token de autenticación del cliente. */
+        std::string Status;      /**< El estado del pedido-respuesta; puede ser "OK" o "ERR". */
 
 
         BaseDTO();        /**< Constructor por defecto */

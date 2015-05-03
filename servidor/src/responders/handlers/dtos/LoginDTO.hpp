@@ -12,7 +12,8 @@
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
- *        Token: xxx,
+ *        Token: 0,
+ *        Status: "",
  *        NombreUsuario: "pepe",
  *        Password: "123"
  *      } 
