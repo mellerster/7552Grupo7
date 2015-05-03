@@ -8,10 +8,12 @@
 #include "IDataService.hpp"
 #include "RequestHandlerFactory.hpp"
 #include "RequestHandler.hpp"
+#include "AuthenticationHandler.hpp"
 
 #include "handlers/EmptyRequest.hpp"
-#include "handlers/ListUsersRequest.hpp"
 #include "handlers/LoginRequest.hpp"
+#include "handlers/ListUsersRequest.hpp"
+#include "handlers/UserSignUpHandler.hpp"
 
 
 
@@ -19,6 +21,7 @@ TEST_CASE ( "Request handlers esperados" ){
     // Arrange
     MockRepository mocker;
     IDataService* mockService = mocker.Mock<IDataService>();
+
     RequestHandlerFactory fac(*mockService);
 
     SECTION ("Crear List users request"){
@@ -34,7 +37,7 @@ TEST_CASE ( "Request handlers esperados" ){
         REQUIRE ( castRes != nullptr );
     }
 
-    SECTION ("Crear autheticate user request"){
+    SECTION ("Crear login user request"){
         const char* method = "PUT";
         const char* uri = "/grupo7/api/sesion";
 
@@ -46,7 +49,41 @@ TEST_CASE ( "Request handlers esperados" ){
         LoginRequest* castRes = dynamic_cast<LoginRequest*>( resul.get() );
         REQUIRE ( castRes != nullptr );
     }
+
+    SECTION ("Crear registration user request"){
+        const char* method = "POST";
+        const char* uri = "/grupo7/api/usuarios";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        UserSignUpHandler* castRes = dynamic_cast<UserSignUpHandler*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
 }
+
+
+TEST_CASE ( "Crear manejador de autenticacion" ){
+    // Arrange
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    RequestHandlerFactory fac(*mockService);
+
+    size_t dataLen = 0;
+    const char* data = nullptr;
+    const char* queryString = nullptr;
+
+    // Act
+    std::unique_ptr<AuthenticationHandler> auHandler = fac.CreateRequestAuthenticator(queryString, data, dataLen);
+
+    // Assert
+    REQUIRE ( auHandler.get() != nullptr );
+}
+
 
 
 TEST_CASE ( "Request no esperado" ){
