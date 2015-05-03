@@ -12,6 +12,7 @@ add_executable ( RequestHanderTester
         ResponseTester.cpp 
         LoginHandlerTester.cpp
         ListUsersTester.cpp
+        AuthenticationHandlerTester.cpp
         mocks/MockedRequestHandler.cpp 
         )
 target_link_libraries ( RequestHanderTester requestHandlers )

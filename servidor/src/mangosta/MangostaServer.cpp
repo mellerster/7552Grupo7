@@ -2,6 +2,7 @@
 
 #include "Response.hpp"
 #include "RequestHandler.hpp"
+#include "AuthenticationHandler.hpp"
 
 
 
@@ -56,27 +57,37 @@ int MangostaServer::EventHandler( struct mg_connection *conn, enum mg_event evt 
     
     switch (evt) {
         case MG_AUTH:
-            // TODO: Autenticar la conexion
-            return MG_TRUE;
+            {
+                // Crea un handler capaz de validar el acceso al recurso
+                std::unique_ptr<AuthenticationHandler> auHand = ptrFactory->CreateRequestAuthenticator( conn->query_string, conn->content, conn->content_len);
+
+                // Evalua si el recurso es accesible
+                if ( IsResourceAccesible(conn->request_method, conn->uri) ){
+                    return MG_TRUE;
+
+                } else {
+                    return MG_FALSE;
+                }
+            }
 
         case MG_REQUEST:
             {
-            // Se crea el responder en base a los parametros del request
-            std::unique_ptr<RequestHandler> req = ptrFactory->CreateResponder(conn->request_method, conn->uri);
-            
-            // Se le pasan los datos y se obtiene la respuesta
-            req->LoadParameters(conn->query_string, conn->content, conn->content_len);
-            Response res = req->GetResponseData();
+                // Se crea el responder en base a los parametros del request
+                std::unique_ptr<RequestHandler> req = ptrFactory->CreateResponder(conn->request_method, conn->uri);
+                
+                // Se le pasan los datos y se obtiene la respuesta
+                req->LoadParameters(conn->query_string, conn->content, conn->content_len);
+                Response res = req->GetResponseData();
 
-            // Devuelve el resultado al cliente
-            const char* data = res.GetData();
+                // Devuelve el resultado al cliente
+                const char* data = res.GetData();
 
-            mg_send_status( conn, res.GetStatus() );
-            mg_send_data( conn, data, res.GetDataLength() );
+                mg_send_status( conn, res.GetStatus() );
+                mg_send_data( conn, data, res.GetDataLength() );
 
-            delete[] data;
+                delete[] data;
 
-            return MG_TRUE;
+                return MG_TRUE;
             }
 
         default:
