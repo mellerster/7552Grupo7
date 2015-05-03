@@ -1,5 +1,6 @@
 #include "RequestHandlerFactory.hpp"
 
+#include "handlers/UserSignUpHandler.hpp"
 #include "handlers/ListUsersRequest.hpp"
 #include "handlers/LoginRequest.hpp"
 #include "handlers/EmptyRequest.hpp"
@@ -72,8 +73,8 @@ RequestHandler* RequestHandlerFactory::CreatePUTResponses(std::string httpURI) c
 
 
 RequestHandler* RequestHandlerFactory::CreatePOSTResponses(std::string httpURI) const{
-    if (httpURI == ""){
-        // TODO
+    if (httpURI == "/grupo7/api/usuarios"){
+        return new UserSignUpHandler( this->m_dataService );
 
     } else if (httpURI == ""){
         // TODO
