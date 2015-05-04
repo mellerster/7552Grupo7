@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class VerEstado extends ActionBarActivity {
+public class VerEstadoActivity extends ActionBarActivity {
 
     Usuario usuario;
 

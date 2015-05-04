@@ -8,11 +8,6 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ExitActivity"
-            android:label="@string/app_name"
-            android:noHistory="true">
-        </activity>
-        <activity
             android:name=".RegistracionActivity"
             android:label="@string/title_activity_registracion" >
             <intent-filter>
@@ -21,10 +16,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".VerEstado"
+            android:name=".VerEstadoActivity"
             android:label="@string/title_activity_estado" >
             <intent-filter>
-                ​<action android:name="com.example.appmaker.mensajero.VerEstado" />
+                ​<action android:name="com.example.appmaker.mensajero.VerEstadoActivity" />
                 ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

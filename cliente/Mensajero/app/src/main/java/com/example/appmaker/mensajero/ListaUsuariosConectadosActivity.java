@@ -70,7 +70,7 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
         public void onClick(View v)
         {
             String nombreUsuario = ((TextView)((LinearLayout)v).getChildAt(1)).getText().toString();
-            Intent verEstadoIntent =new Intent("com.example.appmaker.mensajero.VerEstado");
+            Intent verEstadoIntent =new Intent("com.example.appmaker.mensajero.VerEstadoActivity");
             Bundle extras = new Bundle();
             extras.putString("usuario",nombreUsuario);
             verEstadoIntent.putExtras(extras);
