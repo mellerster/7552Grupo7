@@ -106,7 +106,7 @@ public class ListaUsuariosConectados extends ActionBarActivity {
         //noinspection SimplifiableIfStatement
         switch (id){
             case R.id.action_mi_perfil:
-                Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfil");
+                Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfilActivity");
                 startActivity(configurarPerfilIntent);
                 break;
             case R.id.action_enviar_mensaje_broadcast:

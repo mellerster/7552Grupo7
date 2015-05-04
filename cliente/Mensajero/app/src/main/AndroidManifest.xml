@@ -29,10 +29,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ConfigurarPerfil"
+            android:name=".ConfigurarPerfilActivity"
             android:label="@string/title_activity_configurar_perfil" >
             <intent-filter>
-                ​<action android:name="com.example.appmaker.mensajero.ConfigurarPerfil" />
+                ​<action android:name="com.example.appmaker.mensajero.ConfigurarPerfilActivity" />
                 ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
