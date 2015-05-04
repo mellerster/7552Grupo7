@@ -15,7 +15,7 @@ import android.view.View.OnClickListener;
 import java.util.List;
 
 
-public class ListaUsuariosConectados extends ActionBarActivity {
+public class ListaUsuariosConectadosActivity extends ActionBarActivity {
     String tag = "Events"; // Tag para usar Log.d y poder filtrar por este tag
     LinearLayout gridUsuarios;
 

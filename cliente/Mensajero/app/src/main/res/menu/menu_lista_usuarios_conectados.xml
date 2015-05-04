@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.appmaker.mensajero.ListaUsuariosConectados">
+    tools:context="com.example.appmaker.mensajero.ListaUsuariosConectadosActivity">
     <item android:id="@+id/action_mi_perfil" android:title="Mi Perfíl"
         app:showAsAction="never" />
     <item android:id="@+id/action_enviar_mensaje_broadcast" android:title="Enviar Mensaje Broadcast"

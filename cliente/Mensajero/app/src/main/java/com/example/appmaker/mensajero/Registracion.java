@@ -34,7 +34,7 @@ public class Registracion extends ActionBarActivity {
     private View.OnClickListener btnRegistrarseListener = new View.OnClickListener() {
         public void onClick(View v) {
             if(validarIngreso()) {
-                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectados");
+                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
                 ///TODO: Esperar respuesta del proxy sin error, si tiene error avisar al usuario
                 new UsuarioProxy().registrar(txtNombre.getText().toString(),txtPassword.getText().toString());
                 startActivity(listaUsuariosConectadosIntent);

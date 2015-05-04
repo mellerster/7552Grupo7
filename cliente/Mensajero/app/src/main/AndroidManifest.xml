@@ -37,10 +37,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ListaUsuariosConectados"
+            android:name=".ListaUsuariosConectadosActivity"
             android:label="@string/title_activity_lista_usuarios_conectados" >
             <intent-filter>
-                ​<action android:name="com.example.appmaker.mensajero.ListaUsuariosConectados" />
+                ​<action android:name="com.example.appmaker.mensajero.ListaUsuariosConectadosActivity" />
                 ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

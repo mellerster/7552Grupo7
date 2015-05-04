@@ -185,7 +185,7 @@ public class AutentificacionActivity extends Activity {
             showProgress(false);
 
             if (success) {
-                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectados");
+                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
                 startActivity(listaUsuariosConectadosIntent);
                 finish();
             } else {
