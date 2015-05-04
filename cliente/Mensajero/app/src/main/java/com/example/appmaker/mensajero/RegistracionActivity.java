@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class Registracion extends ActionBarActivity {
+public class RegistracionActivity extends ActionBarActivity {
 
     TextView txtNombre;
     TextView txtPassword;

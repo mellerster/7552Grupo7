@@ -13,10 +13,10 @@
             android:noHistory="true">
         </activity>
         <activity
-            android:name=".Registracion"
+            android:name=".RegistracionActivity"
             android:label="@string/title_activity_registracion" >
             <intent-filter>
-                ​<action android:name="com.example.appmaker.mensajero.Registracion" />
+                ​<action android:name="com.example.appmaker.mensajero.RegistracionActivity" />
                 ​​​​​​​​​​​​​​​​<category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
