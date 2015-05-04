@@ -3,4 +3,6 @@ bin/
 
 #ignores all temp files
 *.swp
-
+/docs
+doxy_err.txt
+*~

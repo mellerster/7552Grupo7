@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
 
-public class ConfigurarPerfil extends ActionBarActivity {
+public class ConfigurarPerfilActivity extends ActionBarActivity {
 
 
     private static int RESULT_LOAD_IMAGE = 1;
