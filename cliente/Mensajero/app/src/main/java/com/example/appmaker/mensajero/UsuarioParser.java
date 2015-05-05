@@ -35,9 +35,8 @@ public class UsuarioParser {
                     case "Status":
                         String status = reader.nextString();
                         if (!status.equals("OK")) {
-                            ///TODO: Crear Excepcion: EstadoRecibidoInvalidoException
                             Log.e("Obtencion Listado Usuarios Conectados", "Status es: " + status);
-                            throw new IOException();
+                            throw new EstadoRecibidoInvalidoException();
                         }
                         break;
                     case "Usuarios":
@@ -75,6 +74,51 @@ public class UsuarioParser {
             }
         }
         reader.endObject();
+        return usuario;
+    }
+
+    public Usuario readEstadoUsuario() throws  IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+        Usuario usuario = null;
+        try {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                switch (name) {
+                    case "Status":
+                        String status = reader.nextString();
+                        if (!status.equals("OK")) {
+                            Log.e("VerEstado", "Status es: " + status);
+                            throw new EstadoRecibidoInvalidoException();
+                        }
+                        break;
+                    case "NombreUsuario":
+                        usuario = new Usuario(reader.nextString());
+                        break;
+                    case "Estado":
+                        String estado = reader.nextString();
+                        if(estado.equals("C")){
+                            usuario.conectar();
+                        }else {
+                            usuario.desconectar();
+                        }
+                        break;
+                    case "Checkin":
+                        break;
+                    case "Foto":
+                        String base64 = reader.nextString();
+                        usuario.setFoto(base64);
+                        break;
+                    default:
+                        reader.skipValue();
+                        break;
+                }
+            }
+            reader.endObject();
+        }
+        finally {
+            reader.close();
+        }
         return usuario;
     }
 }

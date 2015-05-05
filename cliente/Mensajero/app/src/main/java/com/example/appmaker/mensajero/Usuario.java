@@ -47,6 +47,10 @@ public class Usuario {
         this.foto = foto;
     }
 
+    public void setFoto(String base64){
+        this.foto = Base64.decode(base64,Base64.DEFAULT);
+    }
+
     public String toString(){
         return this.getNombre();
     }
