@@ -38,6 +38,7 @@ public class UsuarioProxy {
      */
     public List<Usuario> getUsuariosConectados() {
         //Mockup de Usuarios
+        ///TODO: Obtener json del servidor
         String jsonRecibido = "\n" +
                 "{\n" +
                 "\t\"Status\" : \"OK\",\n" +
@@ -70,69 +71,14 @@ public class UsuarioProxy {
                 "\t\t}\n" +
                 "\t]\n" +
                 "}";
-        List<Usuario> usuarios = parsearJSon(jsonRecibido);
-        return usuarios;
-    }
-
-    private List<Usuario> parsearJSon(String jsonRecibido) {
-        InputStream in = new ByteArrayInputStream(jsonRecibido.getBytes());
-        String token = "";
-        List<Usuario> usuarios = new ArrayList<>();
+        UsuarioParser parser = new UsuarioParser(new ByteArrayInputStream(jsonRecibido.getBytes()));
+        List<Usuario> usuarios = null;
         try {
-            JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-            try {
-                reader.beginObject();
-                while (reader.hasNext()) {
-                    String name = reader.nextName();
-                    switch (name) {
-                        case "Status":
-                            String status = reader.nextString();
-                            if (!status.equals("OK")) {
-                                ///TODO: Crear Excepcion: EstadoRecibidoInvalidoException
-                                Log.e("Obtencion Listado Usuarios Conectados", "Status es: " + status);
-                                throw new Exception();
-                            }
-                            break;
-                        case "Token":
-                            token = reader.nextString();
-                            break;
-                        case "Usuarios":
-                            reader.beginArray();
-
-                            while (reader.hasNext()) {
-                                usuarios.add(readUsuarioListado(reader));
-                            }
-                            reader.endArray();
-                            break;
-
-                    }
-                }
-            } finally {
-                reader.close();
-            }
-        } catch (Exception ex) {
+            usuarios = parser.getListadoUsuariosConectados();
+        }catch (Exception ex) {
             Log.e("Leer Listado de Usuarios Conectados", ex.toString());
         }
         return usuarios;
-    }
-
-    public Usuario readUsuarioListado(JsonReader reader) throws IOException {
-        Usuario usuario = null;
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            switch (name) {
-                case "Nombre":
-                    usuario = new Usuario(reader.nextString());
-                    usuario.conectar();
-                    break;
-                default:
-                    reader.skipValue();
-            }
-        }
-        reader.endObject();
-        return usuario;
     }
 
     /**
