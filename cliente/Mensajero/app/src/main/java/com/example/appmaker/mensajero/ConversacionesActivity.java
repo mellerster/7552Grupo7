@@ -3,9 +3,11 @@ package com.example.appmaker.mensajero;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -36,6 +38,8 @@ public class ConversacionesActivity extends Activity {
             }
         });
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        ImageButton btnListaUsuariosConectados = (ImageButton)findViewById(R.id.btnListaUsuariosConectados);
+        btnListaUsuariosConectados.setOnClickListener(verListaUsuariosConectadosListener);
     }
 
     private Conversacion[] inicializarConverciones() {
@@ -78,6 +82,16 @@ public class ConversacionesActivity extends Activity {
                 conversacionDeciocho, conversacionDecinueve, conversacionVeinte};
         return array;
     }
+
+    private View.OnClickListener verListaUsuariosConectadosListener = new View.OnClickListener()
+    {
+        public void onClick(View v)
+        {
+            Intent conversacionesIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
+            startActivity(conversacionesIntent);
+            finish();
+        }
+    };
 
 }
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -28,8 +29,8 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
         List<Usuario> usuarios = new UsuarioProxy().getUsuariosConectados();
         MostrarUsuarios(usuarios);
 
-        TextView lblListaConversaciones = (TextView)findViewById(R.id.lblListaConversaciones);
-        lblListaConversaciones.setOnClickListener(verListaConversacionesListener);
+        ImageButton btnListaConversaciones = (ImageButton)findViewById(R.id.btnListaConversaciones);
+        btnListaConversaciones.setOnClickListener(verListaConversacionesListener);
     }
 
     private void MostrarUsuarios(List<Usuario> usuarios) {
@@ -84,7 +85,7 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
         {
             Intent conversacionesIntent = new Intent("com.example.appmaker.mensajero.ConversacionesActivity");
             startActivity(conversacionesIntent);
-            Log.d(tag,"Ver Lista de Conversaciones");
+            finish();
         }
     };
 
