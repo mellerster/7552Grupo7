@@ -2,7 +2,7 @@
 
     <!-- Strings related to login -->
     <string name="prompt_usuario">Usuario</string>
-    <string name="prompt_contrasenia">Contrasenia</string>
+    <string name="prompt_contrasenia">Contraseña</string>
     <string name="action_iniciar_sesion">Iniciar sesión</string>
     <string name="action_crear_nueva_cuenta">Crear nueva cuenta</string>
 
