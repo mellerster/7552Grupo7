@@ -6,8 +6,9 @@
     <string name="title_activity_registracion">Registracion</string>
 
     <string name="hello_world">Hello world!</string>
-    <string name="descrip_registracion">Para registrarse debe completar la siguiente información:</string>
+    <string name="descrip_registracion">Para registrarse debe completar:</string>
     <string name="title_activity_estado">Estado de usuario</string>
+    <string name="registrarse_boton">Registrarse</string>
     <string name="title_activity_configurar_perfil">Configurar Perfil</string>
     <string name="title_activity_lista_usuarios_conectados">Lista de Usuarios Conectados</string>
     <string name="dice">dice</string>
