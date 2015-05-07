@@ -4,11 +4,14 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
@@ -16,6 +19,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -39,7 +43,6 @@ public class AutentificacionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autentificacion);
-
         usuarioView = (AutoCompleteTextView) findViewById(R.id.usuario);
 
         contraseniaView = (EditText) findViewById(R.id.contrasenia);
@@ -171,6 +174,14 @@ public class AutentificacionActivity extends Activity {
             try {
                 Thread.sleep(2000);
                 new UsuarioProxy().login(new Usuario(this.usuario,this.contrasenia));
+                CheckBox recordarDatosCheck = (CheckBox) findViewById(R.id.recordar_datos_check);
+                if(recordarDatosCheck.isChecked()) {
+                SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
+                editorPreferenciasCompartidas.putString("usuario", this.usuario);
+                editorPreferenciasCompartidas.putString("contrasenia", this.contrasenia);
+                editorPreferenciasCompartidas.commit();
+                }
             } catch (InterruptedException e) {
                 return false;
             }

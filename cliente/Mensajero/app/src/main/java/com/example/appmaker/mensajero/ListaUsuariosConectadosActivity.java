@@ -1,7 +1,9 @@
 package com.example.appmaker.mensajero;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -117,6 +119,19 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
             case R.id.action_checkin:
                 ///TODO: Llamar a la activity de Checkin
                 Log.d(tag,"Realizar Checkin");
+                break;
+            case R.id.cerrar_sesion:
+                new UsuarioProxy().logout(UsuarioProxy.getUsuario());
+                //Borro los datos del usuario conectado
+                SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
+                editorPreferenciasCompartidas.putString("usuario", "");
+                editorPreferenciasCompartidas.putString("contrasenia", "");
+                editorPreferenciasCompartidas.commit();
+                //Envío a la pantalla de login
+                Intent autentificacionIntent =new Intent("com.example.appmaker.mensajero.AutentificacionActivity");
+                startActivity(autentificacionIntent );
+                finish();
                 break;
             case R.id.action_salir:
                 new UsuarioProxy().logout(UsuarioProxy.getUsuario());

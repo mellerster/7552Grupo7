@@ -58,6 +58,11 @@
                 android:maxLines="1"
                 android:singleLine="true" />
 
+            <CheckBox
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/recordar_datos"
+                android:id="@+id/recordar_datos_check"/>
             <Button
                 android:id="@+id/iniciar_sesion_button"
                 style="?android:textAppearanceSmall"
