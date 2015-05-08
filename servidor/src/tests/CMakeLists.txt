@@ -8,7 +8,7 @@ target_link_libraries ( MessageFactoryTester requestHandlers )
 
 add_executable ( CoreRequestHandlerTester 
         MainTester.cpp 
-        RequestsTester.cpp 
+        RequestsHandlerTester.cpp 
         ResponseTester.cpp 
         AuthenticationHandlerTester.cpp
         mocks/MockedRequestHandler.cpp 
@@ -18,8 +18,8 @@ target_link_libraries ( CoreRequestHandlerTester requestHandlers )
 add_executable ( HandlerTester 
         MainTester.cpp 
         LoginHandlerTester.cpp
-        ListUsersTester.cpp
-        RegistrationTester.cpp
+        ListUsersHandlerTester.cpp
+        RegistrationHandlerTester.cpp
         )
 target_link_libraries ( HandlerTester requestHandlers )
 
