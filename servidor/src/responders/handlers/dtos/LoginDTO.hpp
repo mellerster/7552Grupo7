@@ -20,6 +20,7 @@
  * */
 class LoginDTO : public BaseDTO {
     public:
+        unsigned int Token;     /**< Identifica la sesión autenticada del usuario. */
         std::string NombreUsuario;
         std::string Password;
 

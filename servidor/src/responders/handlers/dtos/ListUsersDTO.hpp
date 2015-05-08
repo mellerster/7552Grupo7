@@ -26,14 +26,15 @@
  * */
 class ListUsersDTO : public BaseDTO {
     public:
-        std::vector<UserStatusDTO> Usuarios;        /**< La lista de usuarios conectados */
+        unsigned int Token;         /**< El token de autenticación del cliente.  */
+        std::vector<UserStatusDTO> Usuarios;        /**< La lista de usuarios conectados. */
 
 
         ListUsersDTO();        /**< Constructor por defecto */
-        ListUsersDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON */
+        ListUsersDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON. */
 
 
-        virtual Json::Value ToJSON() const;     /**< Devuelve un JSON con los datos del objeto */
+        virtual Json::Value ToJSON() const;     /**< Devuelve un JSON con los datos del objeto. */
 
 };
 

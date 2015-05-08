@@ -2,10 +2,13 @@
 
 
 
-ListUsersDTO::ListUsersDTO() : BaseDTO() { }
+ListUsersDTO::ListUsersDTO() : BaseDTO(), Token(0) { }
 
 
 ListUsersDTO::ListUsersDTO(Json::Value jData) : BaseDTO(jData) {
+    std::string tok = jData.get("Token", 0).asString();
+    this->Token = std::stoul( tok );    // El token es numerico.
+
     // Si la lista de usuarios existe y es un array
     Json::Value lUsuarios = jData["Usuarios"];
     if ( lUsuarios.type() == Json::ValueType::arrayValue ){
@@ -23,6 +26,7 @@ ListUsersDTO::ListUsersDTO(Json::Value jData) : BaseDTO(jData) {
 
 Json::Value ListUsersDTO::ToJSON() const {
     Json::Value j = BaseDTO::ToJSON();
+    j["Token"] = this->Token;
 
     for (unsigned int i = 0; i < this->Usuarios.size(); ++i){
         j["Usuarios"][i] = this->Usuarios[i].ToJSON();

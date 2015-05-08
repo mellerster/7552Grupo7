@@ -12,10 +12,10 @@
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
- *        Token: 0,
  *        Status: "",
  *        Nombre: "xxx",
  *        Estado: "yyy",
+ *        Foto: "<Base64>",
  *        UltimaActividadHora: "23:59",
  *        UltimaActividadFecha: "2015/05/08"
  *      } 
@@ -29,11 +29,27 @@ class UserStatusDTO : public BaseDTO {
         std::string UltimaActividadFecha;       /**< La fecha de ultima actividad del usuario; En formato año, mes y dia. */
 
 
+        /** Copia los datos binarios que corresponden a la fotografia dentro de la clase.
+         *
+         * @param[in] data  Puntero a la region de memoria donde se encuentran los datos que forman la fotografia, DEBE terminar en null.
+         * */
+        void CargarFotografia(const char* strData);
+
+
+        const char* GetFotografia() const;
+
+
         UserStatusDTO();        /**< Constructor por defecto */
         UserStatusDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON */
-
+        virtual ~UserStatusDTO();
 
         virtual Json::Value ToJSON() const;     /**< Devuelve un JSON con todos los datos del objeto */
+
+    private:
+
+        char* m_foto;     /**< Puntero a los datos que componen la foto del usuario */
+
+        void clearFoto();
 };
 
 

@@ -20,6 +20,7 @@
  * */
 class RegistrationDTO : public BaseDTO {
     public:
+        unsigned int Token;         /**< Identifica a un usuario conectado. */
         std::string NombreUsuario;
         std::string Password;
 
