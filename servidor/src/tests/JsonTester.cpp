@@ -169,37 +169,5 @@ TEST_CASE ( "Cargar datos crudos en un JSON" ){
 }
 
 
-TEST_CASE ( "C-style strings en un JSON" ){
-    // Arrange
-    Json::Value j;
-    j["CString"] = "Hola!";
-    j["CStringNulo"] = "";
-
-    SECTION ( "Extraer el c-string" ){
-        // Act
-        const char* cData = j.get("CString", "").asCString();
-
-        // Assert
-        REQUIRE ( cData != nullptr );
-        REQUIRE ( 0 == strcmp(cData, "Hola!") );
-    }
-
-    SECTION ( "Extraer el c-string nulo" ){
-        // Act
-        const char* cData = j.get("CStringNulo", "").asCString();
-
-        // Assert
-        REQUIRE ( 0 == strcmp(cData, "") );
-    }
-
-    SECTION ( "Extraer de un campo in-existente" ){
-        // Act
-        const char* cData = j.get("Este campo no existe", "").asCString();
-
-        // Assert
-        REQUIRE ( 0 == strcmp(cData, "") );
-    }
-}
-
 
 

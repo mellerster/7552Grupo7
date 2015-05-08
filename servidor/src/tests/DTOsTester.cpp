@@ -50,7 +50,7 @@ TEST_CASE ( "UserStatus - Codificar a JSON" ) {
     UserStatusDTO dto;
     dto.Nombre = "Pepe";
     dto.Estado = "Testeando";
-    dto.CargarFotografia(":-)");
+    dto.Foto = ":-)";
     dto.UltimaActividadHora = "10:15";
     dto.UltimaActividadFecha = "1816/07/09";
 
@@ -77,8 +77,8 @@ TEST_CASE ( "UserStatus - Codificar a JSON" ) {
     SECTION ( "La foto fue extraida" ) {
         Json::Value parsed = dto.ToJSON();
 
-        const char* foto = parsed.get("Foto", "X-(").asCString();
-        REQUIRE ( 0 == strcmp(foto, dto.GetFotografia()) );
+        std::string foto = parsed.get("Foto", "X-(").asString();
+        REQUIRE ( dto.Foto == foto );
     }
 
     SECTION ( "La ultima fecha de actividad fue extraida" ) {
@@ -115,7 +115,7 @@ TEST_CASE ( "UserStatus - Decodificar desde JSON" ) {
 
         REQUIRE ( dto.Nombre != "" );
         REQUIRE ( dto.Estado != "" );
-        REQUIRE ( dto.GetFotografia() != nullptr );
+        REQUIRE ( dto.Foto != "" );
         REQUIRE ( dto.UltimaActividadHora != "" );
         REQUIRE ( dto.UltimaActividadFecha != "" );
     }
@@ -135,7 +135,7 @@ TEST_CASE ( "UserStatus - Decodificar desde JSON" ) {
     SECTION ( "Carga la foto correctamente" ) {
         UserStatusDTO dto( jUserStatus );
 
-        REQUIRE ( 0 == strcmp(dto.GetFotografia(), ":-p") );
+        REQUIRE ( dto.Foto == ":-p" );
     }
 
     SECTION ( "Carga la ultima hora de actividad correctamente" ) {
