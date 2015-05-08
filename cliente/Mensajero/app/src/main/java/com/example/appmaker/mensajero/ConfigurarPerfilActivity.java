@@ -121,6 +121,8 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
             byte[] b = getBytesFromLocalImage(data);
             usuario.setFoto(b);
             new UsuarioProxy().cargarFoto(usuario);
+            imageView.setImageBitmap(usuario.getFotoBitmap());
+            Log.d("Foto",usuario.getFotoBase64());
         }
     }
 
@@ -140,10 +142,9 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         cursor.close();
 
         Bitmap bp = BitmapFactory.decodeFile(picturePath);
-        imageView.setImageBitmap(bp);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bp.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
     }
 }
