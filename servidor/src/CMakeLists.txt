@@ -43,6 +43,7 @@ add_custom_target ( coverage
 #Permite que el compilador vea los includes de los subdirectorios
 include_directories ( ${PROJECT_SOURCE_DIR}/libs/jsoncppLib )
 include_directories ( ${PROJECT_SOURCE_DIR}/libs/mongooseLib )
+include_directories ( ${PROJECT_SOURCE_DIR}/libs/humblelogging/include )
 include_directories ( ${PROJECT_SOURCE_DIR}/mangosta )
 include_directories ( ${PROJECT_SOURCE_DIR}/responders )
 include_directories ( ${PROJECT_SOURCE_DIR}/dataService )
@@ -51,6 +52,7 @@ include_directories ( ${LIBROCKSDB_SOURCE_DIR} )
 #Donde buscar las librerias
 add_subdirectory ( libs/jsoncppLib )
 add_subdirectory ( libs/mongooseLib )
+add_subdirectory ( libs/humblelogging )
 add_subdirectory ( mangosta )
 add_subdirectory ( dataService )
 add_subdirectory ( responders )
@@ -59,6 +61,13 @@ add_subdirectory ( tests )
 
 #Define el ejecutable y linkea las librerias
 add_executable ( ${PROJECT_NAME} MainServer.cpp ) 
-target_link_libraries ( ${PROJECT_NAME} jsoncppLib ${LIBROCKSDB} requestHandlers mangostaServer dataService )
+target_link_libraries ( ${PROJECT_NAME} 
+                        humblelogging
+                        jsoncppLib 
+                        ${LIBROCKSDB}
+                        requestHandlers
+                        mangostaServer 
+                        dataService
+                      )
 
 

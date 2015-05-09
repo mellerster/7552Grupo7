@@ -1,8 +1,9 @@
 #include <iostream>
 #include <string>
-#include <sstream>
 
 #include "rocksdb/db.h"
+#include "humblelogging/api.h"
+
 #include "RequestHandlerFactory.hpp"
 #include "HardCodedDataService.hpp"
 #include "MangostaServer.hpp"
@@ -11,10 +12,28 @@
 using namespace std;
 
 
+// Crea el logger
+HUMBLE_LOGGER( logger, "default" );
+
+
 /**
  *
  * */
 int main() {
+    // Inicializa el logger
+    auto &fac = humble::logging::Factory::getInstance();
+    fac.setDefaultFormatter( new humble::logging::PatternFormatter("%date **%lls** [%tid] %filename:%line -> %m\n") );
+    fac.registerAppender( new humble::logging::ConsoleAppender() );
+    fac.changeGlobalLogLevel( humble::logging::LogLevel::Info );
+
+    // Loggea de diferentes niveles, en orden
+    HL_TRACE(logger, "Nivel de trace");
+    HL_DEBUG(logger, "Nivel de debug");
+    HL_INFO (logger, "Nivel de información");
+    HL_WARN (logger, "Nivel de advertencia");
+    HL_ERROR(logger, "Nivel de error");
+    HL_FATAL(logger, "Nivel de error fatal");
+
     /*
     cout << "Abriendo la base de datos... ";
     rocksdb::DB* db;
