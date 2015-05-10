@@ -2,6 +2,9 @@
 #define REQUEST_HANDLER_FACTORY_H
 
 #include <memory>
+#include <functional>
+#include <unordered_map>
+
 #include "IDataService.hpp"
 #include "RequestHandler.hpp"
 #include "AuthenticationHandler.hpp"
@@ -45,19 +48,20 @@ class RequestHandlerFactory {
         std::unique_ptr<AuthenticationHandler> CreateRequestAuthenticator(const char* queryString, const char* data, size_t dataLen) const;
 
 
-    protected:
-
-        /** Metodos especializados que crean los distintos tipos de respuestas.
-         *
-         * @param[in] httpURI   La URI que señala el recurso accedido.
-         * */
-        RequestHandler* CreateGETResponses(std::string httpURI) const;
-        RequestHandler* CreatePUTResponses(std::string httpURI) const;
-        RequestHandler* CreatePOSTResponses(std::string httpURI) const;
-
-
     private:
+        /** Una referencia hacia el servicio de datos.
+         * */
         IDataService &m_dataService;
+
+
+        /** Hace la definición de la factory-map mas clara.
+         * */
+        typedef std::function< RequestHandler*(IDataService&) > requestCreator;
+
+
+        /** Contiene todos los elementos a ser creados por la factory.
+         * */
+        std::unordered_map<std::string, requestCreator> m_factoryMap;
 
 };
 

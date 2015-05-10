@@ -8,6 +8,12 @@
 
 
 RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataService(service) {
+    // Cada request responder tiene una entrada en el mapa-factory
+    m_factoryMap["GET /grupo7/api/usuarios"] = [] (IDataService& ds) { return new ListUsersRequest(ds); };
+    m_factoryMap["PUT /grupo7/api/sesion"] = [] (IDataService& ds) { return new LoginRequest(ds); };
+    m_factoryMap["POST /grupo7/api/usuarios"] = [] (IDataService& ds) { return new UserSignUpHandler(ds); };
+
+    // TODO: Agregar los responders faltantes
 }
 
 
@@ -16,20 +22,18 @@ RequestHandlerFactory::~RequestHandlerFactory(){
 
 
 std::unique_ptr<RequestHandler> RequestHandlerFactory::CreateResponder(std::string httpVerb, std::string httpURL) const{
+    // Busca si la clave del responder pertenece al factory-map
+    std::string responderKey = httpVerb + " " + httpURL;
+    auto ptrVal = this->m_factoryMap.find( responderKey );
+
     RequestHandler* resul = nullptr;
 
-    if (httpVerb == "GET"){
-        resul = CreateGETResponses(httpURL);
+    if ( this->m_factoryMap.end() != ptrVal ){
+        // El resquest handler esta definido en el factory-map
+        resul = ptrVal->second( this->m_dataService );
 
-    } else if (httpVerb == "POST"){
-        resul = CreatePOSTResponses(httpURL);
-
-    } else if (httpVerb == "PUT"){
-        resul = CreatePUTResponses(httpURL);
-    }
-
-    // No es ningun mensaje existente
-    if (resul == nullptr){
+    } else {
+        // No es ningun mensaje definido
         resul = new EmptyRequest(this->m_dataService);
     }
 
@@ -45,43 +49,5 @@ std::unique_ptr<AuthenticationHandler> RequestHandlerFactory::CreateRequestAuthe
     return rh;
 }
 
-
-RequestHandler* RequestHandlerFactory::CreateGETResponses(std::string httpURI) const{
-    if (httpURI == "/grupo7/api/usuarios"){
-        return new ListUsersRequest(this->m_dataService);
-
-    } else if (httpURI == ""){
-        // TODO
-    }
-
-    // Ninguna URI es un match
-    return nullptr;
-}
-
-
-RequestHandler* RequestHandlerFactory::CreatePUTResponses(std::string httpURI) const{
-    if (httpURI == "/grupo7/api/sesion"){
-        return new LoginRequest(this->m_dataService);
-
-    } else if (httpURI == ""){
-        // TODO
-    }
-
-    // Ninguna URI es un match
-    return nullptr;
-}
-
-
-RequestHandler* RequestHandlerFactory::CreatePOSTResponses(std::string httpURI) const{
-    if (httpURI == "/grupo7/api/usuarios"){
-        return new UserSignUpHandler( this->m_dataService );
-
-    } else if (httpURI == ""){
-        // TODO
-    }
-
-    // Ninguna URI es un match
-    return nullptr;
-}
 
 
