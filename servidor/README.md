@@ -40,6 +40,13 @@ Es necesario para compilar la aplicación, se puede instalar ejecutando en la lin
 * `sudo apt-get install cmake`
 
 
+### Doxygen
+
+Es necesario para extraer la documentación del código fuente del servidor, para instalarlo se puede ejecutar el comando:
+
+* `sudo apt-get install doxygen`
+
+
 ## Compilación
 
 Una vez que las dependencias esten cubiertas hay que seguir los siguientes pasos para compilar la aplicación:
@@ -86,6 +93,21 @@ El código fuente del servidor esta documentado con Doxygen, por lo tanto es nece
 * `doxygen`
 
 Solo eso es necesario; la documentación generada quedará almacenada dentro de la carpeta *docs*.
+
+
+## Third-party libs
+
+El servidor utiliza un número de librerias externas, estas son:
+
+* [Mongoose] (https://github.com/cesanta/mongoose "Mongoose git repository"): Utilizado como web-server.
+
+* [JsonCpp] (https://github.com/open-source-parsers/jsoncpp "JsonCpp git repository"): Utilizado para parsear los datos en formato JSON.
+
+* [HumbleLogging] (http://humblelogging.insanefactory.com/ "Página oficial de HumbleLogging"): Framework de loggeo.
+
+* [Catch] (https://github.com/philsquared/Catch "Catch git repository"): Framework de testeo.
+
+* [Hippomocks] (https://github.com/dascandy/hippomocks "Hippomocks git repository"): Framework de mockeo para los tests.
 
 
 
