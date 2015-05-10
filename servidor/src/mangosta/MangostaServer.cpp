@@ -25,6 +25,11 @@ MangostaServer::~MangostaServer(){
 
 
 void MangostaServer::Start(){
+    if (this->m_keepRunning){
+        // El servidor ya esta corriendo
+        return;
+    }
+
     this->m_keepRunning = true;
 
     // Corre en un thread el loop de polling del server
