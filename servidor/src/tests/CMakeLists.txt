@@ -3,7 +3,11 @@
 add_executable ( JsonTester MainTester.cpp JsonTester.cpp )
 target_link_libraries ( JsonTester jsoncppLib )
 
-add_executable ( MessageFactoryTester MainTester.cpp FactoryTester.cpp )
+add_executable ( MessageFactoryTester 
+        MainTester.cpp 
+        FactoryTester.cpp 
+        mocks/MockedRequestHandler.cpp 
+        )
 target_link_libraries ( MessageFactoryTester requestHandlers )
 
 add_executable ( CoreRequestHandlerTester 
