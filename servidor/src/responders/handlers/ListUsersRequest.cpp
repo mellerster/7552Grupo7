@@ -31,6 +31,7 @@ Response ListUsersRequest::GetResponseData(){
         UserStatusDTO us;
         us.Nombre = stat.Nombre;
         us.Estado = stat.Estado;
+        us.Foto = stat.Foto;
         us.UltimaActividadHora = stat.UltimaActividadHora;
         us.UltimaActividadFecha = stat.UltimaActividadFecha;
 
