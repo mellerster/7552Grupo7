@@ -12,7 +12,6 @@
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
- *        Token: 0,
  *        Status: "",
  *        NombreUsuario: "pepe",
  *        Password: "123"
@@ -20,7 +19,6 @@
  * */
 class RegistrationDTO : public BaseDTO {
     public:
-        unsigned int Token;         /**< Identifica a un usuario conectado. */
         std::string NombreUsuario;
         std::string Password;
 
