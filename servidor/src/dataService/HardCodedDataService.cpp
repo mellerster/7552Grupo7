@@ -39,17 +39,15 @@ bool HardCodedDataService::IsTokenActive(unsigned int){
 
 
 std::vector<UserStatus> HardCodedDataService::ListActiveUsers(){
+    UserStatus user;
+    user.Nombre = "pepe";
+    user.Estado = "Testing";
+    user.UltimaActividadHora = "00:00";
+    user.UltimaActividadFecha = "2015/12/31";
+    user.Foto = this->m_fotoBin;
+
     std::vector<UserStatus> v;
-
-    for (int i = 0; i < 3; ++i){
-        UserStatus user;
-        user.Nombre = "pepe";
-        user.Estado = "Testing";
-        user.UltimaActividadHora = "00:00";
-        user.UltimaActividadFecha = "2015/12/31";
-
-        v.push_back( user );
-    }
+    v.push_back( user );
 
     return v;
 }

@@ -12,6 +12,7 @@ class UserStatus {
     public:
         std::string Nombre;
         std::string Estado;     /**< Conectado, Desconectado, etc. */
+        std::string Foto;     /**< La foto en base64. */
 
         std::string UltimaActividadHora;
         std::string UltimaActividadFecha;
