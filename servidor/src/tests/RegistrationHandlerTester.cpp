@@ -33,17 +33,31 @@ TEST_CASE ( "Testear Registracion de usuario" ){
         );
     }
 
-    SECTION ( "Testear resultado" ){
-        const char* queryString =nullptr;
+    SECTION ( "Testear resultado exito" ){
+        const char* queryString = nullptr;
         const char* data = "{ \"NombreUsuario\" : \"pepe\", \"Password\" : \"1234\" }";
         size_t dataLen = strlen(data) +1;
+
+        mocker.ExpectCall( mockService, IDataService::RegisterNewUser).Return( true );
 
         reg.LoadParameters( queryString, data, dataLen );
         Response resp = reg.GetResponseData();
 
-        REQUIRE ( 200 == resp.GetStatus() );
+        REQUIRE ( 201 == resp.GetStatus() );
     }
 
+    SECTION ( "Testear resultado fracaso" ){
+        const char* queryString = nullptr;
+        const char* data = "{ \"NombreUsuario\" : \"pepe\", \"Password\" : \"1234\" }";
+        size_t dataLen = strlen(data) +1;
+
+        mocker.ExpectCall( mockService, IDataService::RegisterNewUser).Return( false );
+
+        reg.LoadParameters( queryString, data, dataLen );
+        Response resp = reg.GetResponseData();
+
+        REQUIRE ( 403 == resp.GetStatus() );
+    }
 }
 
 
