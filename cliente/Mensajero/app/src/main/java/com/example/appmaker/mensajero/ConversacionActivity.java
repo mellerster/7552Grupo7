@@ -52,7 +52,7 @@ public class ConversacionActivity  extends Activity {
     private void inicializarConversacion() {
         conversacion = (TextView) findViewById(R.id.conversacion);
         inicializarAtributosConversacion();
-        conversacion.setText(conversacionMantenida.toString());
+        conversacion.setText(conversacionMantenida.getStringFormateado());
         conversacion.setMovementMethod(new ScrollingMovementMethod());
     }
 
@@ -73,7 +73,7 @@ public class ConversacionActivity  extends Activity {
             if (nuevoMensaje.getText().length() > 0) {
                 // TODO enviar al servidor y recepcion de OK
                 Mensaje mensajeEnviado = new Mensaje(nombrePropio, nuevoMensaje.getText().toString());
-                conversacion.append(mensajeEnviado.toString());
+                conversacion.append(mensajeEnviado.getStringRemitentePropio());
                 nuevoMensaje.setText("");
             }
         }
@@ -93,7 +93,7 @@ public class ConversacionActivity  extends Activity {
                     conversacion.post(new Runnable() {
                         @Override
                         public void run() {
-                            conversacion.append(mensajeRecibido.toString());
+                            conversacion.append(mensajeRecibido.getStringRemitenteAjeno());
                         }
                     });
                     try {

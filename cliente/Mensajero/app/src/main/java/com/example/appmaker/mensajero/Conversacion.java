@@ -1,5 +1,8 @@
 package com.example.appmaker.mensajero;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -38,17 +41,23 @@ public class Conversacion implements Serializable {
         return mensajes;
     }
 
-    @Override
     /**
      *
-     * @return representacion de toda la conversacion en un unico String
+     * @return representacion de toda la conversacion en un unico String formateado mediante html
      */
-    public String toString() {
+    public Spanned getStringFormateado() {
         String resultado = "";
         for (Mensaje mensaje : mensajes) {
-            resultado += mensaje.toString();
+            resultado += mensaje.getStringSegunRemitente(conversanteUno);
         }
-        return resultado;
+        return Html.fromHtml(resultado);
+    }
+
+    private Spanned inicializarConversacion() {
+        if (mensajes.get(0).getRemitente().equals(conversanteUno)) {
+            return mensajes.get(0).getStringRemitentePropio();
+        }
+        return mensajes.get(0).getStringRemitenteAjeno();
     }
 
     public String getConversanteUno() {
