@@ -2,6 +2,8 @@ package com.example.appmaker.mensajero;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.text.Layout;
+import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
 import android.widget.Button;
@@ -73,7 +75,7 @@ public class ConversacionActivity  extends Activity {
             if (nuevoMensaje.getText().length() > 0) {
                 // TODO enviar al servidor y recepcion de OK
                 Mensaje mensajeEnviado = new Mensaje(nombrePropio, nuevoMensaje.getText().toString());
-                conversacion.append(mensajeEnviado.getStringRemitentePropio());
+                agregarTextoAConversacion(mensajeEnviado.getStringRemitentePropio());
                 nuevoMensaje.setText("");
             }
         }
@@ -93,7 +95,7 @@ public class ConversacionActivity  extends Activity {
                     conversacion.post(new Runnable() {
                         @Override
                         public void run() {
-                            conversacion.append(mensajeRecibido.getStringRemitenteAjeno());
+                            agregarTextoAConversacion(mensajeRecibido.getStringRemitenteAjeno());
                         }
                     });
                     try {
@@ -104,6 +106,22 @@ public class ConversacionActivity  extends Activity {
                 }
             }
         }).start();
+    }
+
+    /**
+     * Agrega un nuevo mensaje a la conversacion y mueve el scroll hacia abajo automaticamente.
+     * @param text sera agregado a la conversacion
+     */
+    private void agregarTextoAConversacion(Spanned text) {
+        conversacion.append(text);
+        final Layout layout = conversacion.getLayout();
+        if(layout != null){
+            int scrollDelta = layout.getLineBottom(conversacion.getLineCount() - 1) -
+                conversacion.getScrollY() - conversacion.getHeight();
+            if(scrollDelta > 0) {
+                conversacion.scrollBy(0, scrollDelta);
+            }
+        }
     }
 
 }
