@@ -13,5 +13,6 @@
     <string name="title_activity_lista_usuarios_conectados">Lista de Usuarios Conectados</string>
     <string name="dice">dice</string>
     <string name="recordar_datos">Recordar datos</string>
+    <string name="title_activity_checkin">Checkin</string>
 
 </resources>
