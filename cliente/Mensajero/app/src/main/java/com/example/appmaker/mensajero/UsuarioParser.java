@@ -41,9 +41,8 @@ public class UsuarioParser {
                         break;
                     case "Usuarios":
                         reader.beginArray();
-
                         while (reader.hasNext()) {
-                            usuarios.add(readUsuarioListado(reader));
+                            usuarios.add(readUsuario(reader));
                         }
                         reader.endArray();
                         break;
@@ -58,16 +57,35 @@ public class UsuarioParser {
         return usuarios;
     }
 
-    public Usuario readUsuarioListado(JsonReader reader) throws IOException {
-        Usuario usuario = null;
+    public Usuario readUsuario(JsonReader reader) throws IOException {
+        Usuario usuario = new Usuario();
+        usuario.conectar();
 
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
+            Log.d("MensajerO",name);
             switch (name) {
                 case "Nombre":
-                    usuario = new Usuario(reader.nextString());
-                    usuario.conectar();
+                    usuario.setNombre(reader.nextString());
+                    Log.d("MensajerO", usuario.getNombre());
+                    break;
+                case "Estado":
+                    String estado = reader.nextString();
+                    Log.d("MensajerO",estado);
+                    if(estado.equals("C")){
+                        usuario.conectar();
+                    }else {
+                        usuario.desconectar();
+                    }
+                    break;
+                case "Checkin":
+                    reader.skipValue();
+                    break;
+                case "Foto":
+                    String base64 = reader.nextString();
+                    Log.d("MensajerO", base64);
+                    usuario.setFoto(base64);
                     break;
                 default:
                     reader.skipValue();
@@ -81,40 +99,7 @@ public class UsuarioParser {
         JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
         Usuario usuario = null;
         try {
-            reader.beginObject();
-            while (reader.hasNext()) {
-                String name = reader.nextName();
-                switch (name) {
-                    case "Status":
-                        String status = reader.nextString();
-                        if (!status.equals("OK")) {
-                            Log.e("VerEstado", "Status es: " + status);
-                            throw new EstadoRecibidoInvalidoException();
-                        }
-                        break;
-                    case "NombreUsuario":
-                        usuario = new Usuario(reader.nextString());
-                        break;
-                    case "Estado":
-                        String estado = reader.nextString();
-                        if(estado.equals("C")){
-                            usuario.conectar();
-                        }else {
-                            usuario.desconectar();
-                        }
-                        break;
-                    case "Checkin":
-                        break;
-                    case "Foto":
-                        String base64 = reader.nextString();
-                        usuario.setFoto(base64);
-                        break;
-                    default:
-                        reader.skipValue();
-                        break;
-                }
-            }
-            reader.endObject();
+            readUsuario(reader);
         }
         finally {
             reader.close();

@@ -176,11 +176,11 @@ public class AutentificacionActivity extends Activity {
                 new UsuarioProxy().login(new Usuario(this.usuario,this.contrasenia));
                 CheckBox recordarDatosCheck = (CheckBox) findViewById(R.id.recordar_datos_check);
                 if(recordarDatosCheck.isChecked()) {
-                SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
-                editorPreferenciasCompartidas.putString("usuario", this.usuario);
-                editorPreferenciasCompartidas.putString("contrasenia", this.contrasenia);
-                editorPreferenciasCompartidas.commit();
+                    SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                    SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
+                    editorPreferenciasCompartidas.putString("usuario", this.usuario);
+                    editorPreferenciasCompartidas.putString("contrasenia", this.contrasenia);
+                    editorPreferenciasCompartidas.commit();
                 }
             } catch (InterruptedException e) {
                 return false;

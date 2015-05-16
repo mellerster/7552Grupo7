@@ -1,12 +1,17 @@
 package com.example.appmaker.mensajero;
 
+import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,7 +21,7 @@ import java.util.List;
  */
 ///TODO: Conectar con el server y traer el datos reales
 public class UsuarioProxy {
-
+    String urlBase = "http://10.0.2.2:8080/grupo7/api/";
     /**
      * Usuario que tiene el token para hablar con el servidor
      */
@@ -71,12 +76,25 @@ public class UsuarioProxy {
                 "\t\t}\n" +
                 "\t]\n" +
                 "}";
-        UsuarioParser parser = new UsuarioParser(new ByteArrayInputStream(jsonRecibido.getBytes()));
+        String urlString = urlBase + "usuarios";
+        Log.d("MensajerO", urlString);
         List<Usuario> usuarios = null;
+        InputStream streamAParsear = null;
         try {
+            URL url = new URL(urlString);
+            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            streamAParsear = new BufferedInputStream(urlConnection.getInputStream());
+            Log.i("MensajerO","Conexión al servidor exitosa");
+        } catch (Exception ex) {
+            Log.e("MensajerO","No fue posible conectarse al servidor");
+            Log.e("MensajerO", ex.toString());
+        }
+        try {
+            UsuarioParser parser = new UsuarioParser(streamAParsear);
             usuarios = parser.getListadoUsuariosConectados();
-        }catch (Exception ex) {
-            Log.e("Leer Listado de Usuarios Conectados", ex.toString());
+            Log.i("MensajerO","Lista de Usuarios Logueados traida y parseada");
+        }catch (IOException ex){
+            Log.e("MensajerO", ex.toString());
         }
         return usuarios;
     }
@@ -139,4 +157,37 @@ public class UsuarioProxy {
         ///TODO: Enviar foto al server
     }
 
+    private class UsuarioAPI extends AsyncTask<String, String, String> {
+        public InputStream stream = null;
+        public boolean tieneResultado = false;
+
+        @Override
+        protected String doInBackground(String... params) {
+            String urlString = params[0]; // URL to call
+            String resultToDisplay = "";
+            InputStream in = null;
+
+            // HTTP Get
+            try {
+                Log.d("MensajerO", urlString);
+                tieneResultado = false;
+                URL url = new URL(urlString);
+                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+                in = new BufferedInputStream(urlConnection.getInputStream());
+                Log.d("MensajerO", in.toString());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return e.getMessage();
+            }
+            stream = in;
+            return resultToDisplay;
+        }
+
+        protected void onPostExecute(String result) {
+            tieneResultado = true;
+        }
+
+    } // end UsuarioAPI
 }
+
+

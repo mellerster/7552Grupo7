@@ -14,6 +14,9 @@ public class Usuario {
     private byte[] foto;
     private boolean conectado;
 
+    public Usuario(){
+    }
+
     public Usuario(String nombre, String password){
         this.nombre = nombre;
         this.password = password;
@@ -23,6 +26,9 @@ public class Usuario {
         this.nombre = nombre;
     }
 
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
     public String getNombre(){
         return this.nombre;
     }

@@ -97,10 +97,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
+<!--
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google_play_services_version" />-->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
@@ -108,6 +108,12 @@
         <activity
             android:name=".CheckinActivity"
             android:label="@string/title_activity_checkin" >
+            <intent-filter>
+                ​
+                <action android:name="com.example.appmaker.mensajero.CheckinActivity" />
+                ​​​​​​​​​​​​​​​​
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

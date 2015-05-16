@@ -1,8 +1,13 @@
 package com.example.appmaker.mensajero;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,17 +15,25 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 
 
 public class ListaUsuariosConectadosActivity extends ActionBarActivity {
     String tag = "Events"; // Tag para usar Log.d y poder filtrar por este tag
     LinearLayout gridUsuarios;
+    private View mProgressView;
+    private View mListaUsuariosFormView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,19 +41,23 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
         setContentView(R.layout.activity_lista_usuarios_conectados);
         gridUsuarios = (LinearLayout) findViewById(R.id.gridUsuarios);
 
-        List<Usuario> usuarios = new UsuarioProxy().getUsuariosConectados();
-        MostrarUsuarios(usuarios);
+        new ListaUsuariosAPI().execute();
 
         ImageButton btnListaConversaciones = (ImageButton)findViewById(R.id.btnListaConversaciones);
         btnListaConversaciones.setOnClickListener(verListaConversacionesListener);
+
+        mListaUsuariosFormView = findViewById(R.id.form_lista_usuarios);
+        mProgressView = findViewById(R.id.lista_usuarios_progress);
     }
 
     private void MostrarUsuarios(List<Usuario> usuarios) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-        for (Usuario usuario : usuarios) {
-            agregarUsuarioALista(usuario,params);
+        if(usuarios != null) {
+            for (Usuario usuario : usuarios) {
+                agregarUsuarioALista(usuario, params);
+            }
         }
     }
 
@@ -117,7 +134,8 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
                 Log.d(tag,"Enviar Mensaje de Broadcast");
                 break;
             case R.id.action_checkin:
-                ///TODO: Llamar a la activity de Checkin
+                Intent checkinIntent = new Intent("com.example.appmaker.mensajero.CheckinActivity");
+                startActivity(checkinIntent);
                 Log.d(tag,"Realizar Checkin");
                 break;
             case R.id.cerrar_sesion:
@@ -140,4 +158,55 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    /**
+     * Muestra el progreso.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    public void showProgress(final boolean show) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mListaUsuariosFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mListaUsuariosFormView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mListaUsuariosFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mListaUsuariosFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private class ListaUsuariosAPI extends AsyncTask<String, List<Usuario>, List<Usuario>> {
+        @Override
+        protected List<Usuario> doInBackground(String... params) {
+            showProgress(true);
+            List<Usuario> usuarios = null;
+            try {
+                usuarios = new UsuarioProxy().getUsuariosConectados();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return usuarios;
+        }
+
+        protected void onPostExecute(List<Usuario> usuarios) {
+            showProgress(false);
+            MostrarUsuarios(usuarios);
+        }
+
+    } // end UsuarioAPI
 }
