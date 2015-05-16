@@ -1,5 +1,6 @@
 package com.example.appmaker.mensajero;
 
+import android.system.Os;
 import android.util.JsonReader;
 import android.util.Log;
 
@@ -35,7 +36,7 @@ public class UsuarioParser {
                     case "Status":
                         String status = reader.nextString();
                         if (!status.equals("OK")) {
-                            Log.e("Obtencion Listado Usuarios Conectados", "Status es: " + status);
+                            Log.e("MensajerO", "Status es: " + status);
                             throw new EstadoRecibidoInvalidoException();
                         }
                         break;

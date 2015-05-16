@@ -42,40 +42,6 @@ public class UsuarioProxy {
      * @return Un List tipado de Usuario
      */
     public List<Usuario> getUsuariosConectados() {
-        //Mockup de Usuarios
-        ///TODO: Obtener json del servidor
-        String jsonRecibido = "\n" +
-                "{\n" +
-                "\t\"Status\" : \"OK\",\n" +
-                "\t\"Token\" : 0,\n" +
-                "\t\"Usuarios\" : \n" +
-                "\t[\n" +
-                "\t\t{\n" +
-                "\t\t\t\"Estado\" : \"Testing\",\n" +
-                "\t\t\t\"Nombre\" : \"pepe\",\n" +
-                "\t\t\t\"Status\" : \"OK\",\n" +
-                "\t\t\t\"Token\" : 0,\n" +
-                "\t\t\t\"UltimaActividadFecha\" : \"2015/12/31\",\n" +
-                "\t\t\t\"UltimaActividadHora\" : \"00:00\"\n" +
-                "\t\t},\n" +
-                "\t\t{\n" +
-                "\t\t\t\"Estado\" : \"Testing\",\n" +
-                "\t\t\t\"Nombre\" : \"pepe\",\n" +
-                "\t\t\t\"Status\" : \"OK\",\n" +
-                "\t\t\t\"Token\" : 0,\n" +
-                "\t\t\t\"UltimaActividadFecha\" : \"2015/12/31\",\n" +
-                "\t\t\t\"UltimaActividadHora\" : \"00:00\"\n" +
-                "\t\t},\n" +
-                "\t\t{\n" +
-                "\t\t\t\"Estado\" : \"Testing\",\n" +
-                "\t\t\t\"Nombre\" : \"pepe\",\n" +
-                "\t\t\t\"Status\" : \"OK\",\n" +
-                "\t\t\t\"Token\" : 0,\n" +
-                "\t\t\t\"UltimaActividadFecha\" : \"2015/12/31\",\n" +
-                "\t\t\t\"UltimaActividadHora\" : \"00:00\"\n" +
-                "\t\t}\n" +
-                "\t]\n" +
-                "}";
         String urlString = urlBase + "usuarios";
         Log.d("MensajerO", urlString);
         List<Usuario> usuarios = null;
@@ -83,7 +49,7 @@ public class UsuarioProxy {
         try {
             URL url = new URL(urlString);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-            streamAParsear = new BufferedInputStream(urlConnection.getInputStream());
+            streamAParsear = urlConnection.getInputStream();
             Log.i("MensajerO","Conexión al servidor exitosa");
         } catch (Exception ex) {
             Log.e("MensajerO","No fue posible conectarse al servidor");
