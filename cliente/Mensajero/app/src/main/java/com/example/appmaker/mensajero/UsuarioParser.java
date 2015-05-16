@@ -64,15 +64,12 @@ public class UsuarioParser {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
-            Log.d("MensajerO",name);
             switch (name) {
                 case "Nombre":
                     usuario.setNombre(reader.nextString());
-                    Log.d("MensajerO", usuario.getNombre());
                     break;
                 case "Estado":
                     String estado = reader.nextString();
-                    Log.d("MensajerO",estado);
                     if(estado.equals("C")){
                         usuario.conectar();
                     }else {
@@ -84,7 +81,6 @@ public class UsuarioParser {
                     break;
                 case "Foto":
                     String base64 = reader.nextString();
-                    Log.d("MensajerO", base64);
                     usuario.setFoto(base64);
                     break;
                 default:
