@@ -3,34 +3,28 @@ package com.example.appmaker.mensajero;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.preference.PreferenceManager;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
-
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 
-public class ListaUsuariosConectadosActivity extends ActionBarActivity {
-    String tag = "Events"; // Tag para usar Log.d y poder filtrar por este tag
+public class ListaUsuariosConectadosActivity extends Activity {
+    String tag = "MensajerO"; // Tag para usar Log.d y poder filtrar por este tag
     LinearLayout gridUsuarios;
     private View mProgressView;
     private View mListaUsuariosFormView;
@@ -48,6 +42,54 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
 
         mListaUsuariosFormView = findViewById(R.id.form_lista_usuarios);
         mProgressView = findViewById(R.id.lista_usuarios_progress);
+
+        asignarListenersABotones();
+    }
+
+    private void asignarListenersABotones() {
+        ImageButton btnMiPerfil = (ImageButton)findViewById(R.id.btnMiPerfil);
+        btnMiPerfil.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent("com.example.appmaker.mensajero.ConfigurarPerfilActivity"));
+            }
+        });
+
+        ImageButton btnCheckin = (ImageButton)findViewById(R.id.btnCheckin);
+        btnCheckin.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent("com.example.appmaker.mensajero.CheckinActivity"));
+            }
+        });
+
+        ImageButton btnBroadcast = (ImageButton)findViewById(R.id.btnBroadcast);
+        btnBroadcast.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //startActivity(new Intent("com.example.appmaker.mensajero.CheckinActivity"));
+                ///TODO: Llamar a la activity de Broadcast
+                Log.d(tag, "Enviar Mensaje de Broadcast");
+            }
+        });
+
+        ImageButton btnCerrarSesion = (ImageButton)findViewById(R.id.btnCerrarSesion);
+        btnCerrarSesion.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new UsuarioProxy().logout(UsuarioProxy.getUsuario());
+                //Borro los datos del usuario conectado
+                SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+                SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
+                editorPreferenciasCompartidas.putString("usuario", "");
+                editorPreferenciasCompartidas.putString("contrasenia", "");
+                editorPreferenciasCompartidas.apply();
+                //Envío a la pantalla de login
+                Intent autentificacionIntent =new Intent("com.example.appmaker.mensajero.AutentificacionActivity");
+                startActivity(autentificacionIntent );
+                finish();
+            }
+        });
     }
 
     private void MostrarUsuarios(List<Usuario> usuarios) {
@@ -125,32 +167,6 @@ public class ListaUsuariosConectadosActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         switch (id){
-            case R.id.action_mi_perfil:
-                Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConfigurarPerfilActivity");
-                startActivity(configurarPerfilIntent);
-                break;
-            case R.id.action_enviar_mensaje_broadcast:
-                ///TODO: Llamar a la activity de Broadcast
-                Log.d(tag,"Enviar Mensaje de Broadcast");
-                break;
-            case R.id.action_checkin:
-                Intent checkinIntent = new Intent("com.example.appmaker.mensajero.CheckinActivity");
-                startActivity(checkinIntent);
-                Log.d(tag,"Realizar Checkin");
-                break;
-            case R.id.cerrar_sesion:
-                new UsuarioProxy().logout(UsuarioProxy.getUsuario());
-                //Borro los datos del usuario conectado
-                SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
-                editorPreferenciasCompartidas.putString("usuario", "");
-                editorPreferenciasCompartidas.putString("contrasenia", "");
-                editorPreferenciasCompartidas.commit();
-                //Envío a la pantalla de login
-                Intent autentificacionIntent =new Intent("com.example.appmaker.mensajero.AutentificacionActivity");
-                startActivity(autentificacionIntent );
-                finish();
-                break;
             case R.id.action_salir:
                 new UsuarioProxy().logout(UsuarioProxy.getUsuario());
                 finish();
