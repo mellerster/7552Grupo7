@@ -4,14 +4,28 @@ import android.os.AsyncTask;
 import android.util.JsonReader;
 import android.util.Log;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.ParseException;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.protocol.HTTP;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,9 +64,9 @@ public class UsuarioProxy {
             URL url = new URL(urlString);
             HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
             streamAParsear = urlConnection.getInputStream();
-            Log.i("MensajerO","Conexión al servidor exitosa");
+            Log.i("MensajerO", "Conexión al servidor exitosa");
         } catch (Exception ex) {
-            Log.e("MensajerO","No fue posible conectarse al servidor");
+            Log.e("MensajerO", "No fue posible conectarse al servidor");
             Log.e("MensajerO", ex.toString());
         }
         try {
@@ -72,8 +86,46 @@ public class UsuarioProxy {
      * @return Devuelve el Usuario con la información del servidor
      */
     public Usuario login(Usuario usuario) {
-        usuario.conectar();
-        UsuarioProxy.usuario = usuario;
+        String urlString = urlBase + "sesion";
+        JSONObject params = new JSONObject();
+        HttpURLConnection urlConnection = null;
+        InputStream streamAParsear = null;
+        try {
+            params.put("Token", "0");
+            params.put("NombreUsuario", usuario.getNombre());
+            params.put("Password", usuario.getPassword());
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            OutputStreamWriter out = new   OutputStreamWriter(urlConnection.getOutputStream());
+            out.write(params.toString());
+            out.close();
+
+            int HttpResult =urlConnection.getResponseCode();
+            if(HttpResult ==HttpURLConnection.HTTP_OK) {
+                streamAParsear = urlConnection.getInputStream();
+                UsuarioParser parser = new UsuarioParser(streamAParsear);
+                usuario.setToken(parser.readLoginResponse());
+                if(parser.getStatusOk()) {
+                    UsuarioProxy.usuario = usuario;
+                    Log.i("MensajerO", "Usuario Logueado correctamente");
+                }
+            }else{
+                System.out.println(urlConnection.getResponseMessage());
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
+
         return usuario;
     }
 

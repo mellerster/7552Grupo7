@@ -19,8 +19,11 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //TODO: Hacer login con tarea asincronica (baja prioridad)
+        /*
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
         String usuarioGuardado= sharedPref.getString("usuario","");
+
         if(!usuarioGuardado.isEmpty()){
             Log.d("AutoLogin","Se autologeo con el usuario:" + usuarioGuardado);
             String contraseniaGuardada = sharedPref.getString("contrasenia","");
@@ -28,7 +31,7 @@ public class MainActivity extends ActionBarActivity {
             Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
             startActivity(listaUsuariosConectadosIntent);
             finish();
-        }
+        }*/
 
         Button btnIniciarSesion = (Button)findViewById(R.id.iniciar_sesion_button);
         btnIniciarSesion.setOnClickListener(new View.OnClickListener() {

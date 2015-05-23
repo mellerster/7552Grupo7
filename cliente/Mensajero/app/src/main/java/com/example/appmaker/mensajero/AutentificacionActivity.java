@@ -27,12 +27,6 @@ import android.widget.TextView;
  * Muestra una pantalla que permite loguearse mediante usuario y contrasenia.
  */
 public class AutentificacionActivity extends Activity {
-
-
-    // TODO: Usuario y contrasenia para probar, eliminar despues
-    private static final String USUARIO_PRUEBA= "tomas";
-    private static final String CONTRASENIA_PRUEBA= "franco";
-
     private AutentificacionTask autentificacionTask = null;
     private AutoCompleteTextView usuarioView;
     private EditText contraseniaView;
@@ -169,25 +163,21 @@ public class AutentificacionActivity extends Activity {
 
         @Override
         protected Boolean doInBackground(Void... params) {
-            // TODO: Aca se debe intentar la autentificacion con el servidor, por ahora la simulo.
-
-            try {
-                Thread.sleep(2000);
-                new UsuarioProxy().login(new Usuario(this.usuario,this.contrasenia));
-                CheckBox recordarDatosCheck = (CheckBox) findViewById(R.id.recordar_datos_check);
-                if(recordarDatosCheck.isChecked()) {
-                    SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                    SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
-                    editorPreferenciasCompartidas.putString("usuario", this.usuario);
-                    editorPreferenciasCompartidas.putString("contrasenia", this.contrasenia);
-                    editorPreferenciasCompartidas.commit();
-                }
-            } catch (InterruptedException e) {
-                return false;
+            Usuario usuario = null;
+            usuario = new UsuarioProxy().login(new Usuario(this.usuario, this.contrasenia));
+            CheckBox recordarDatosCheck = (CheckBox) findViewById(R.id.recordar_datos_check);
+            if (recordarDatosCheck.isChecked()) {
+                guardarLogin();
             }
+            return (usuario != null );
+        }
 
-            return (USUARIO_PRUEBA.equals(usuario) && CONTRASENIA_PRUEBA.equals(contrasenia));
-
+        private void guardarLogin() {
+            SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
+            editorPreferenciasCompartidas.putString("usuario", this.usuario);
+            editorPreferenciasCompartidas.putString("contrasenia", this.contrasenia);
+            editorPreferenciasCompartidas.apply();
         }
 
         @Override

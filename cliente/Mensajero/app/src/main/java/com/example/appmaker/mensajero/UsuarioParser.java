@@ -16,6 +16,7 @@ import java.util.List;
 public class UsuarioParser {
     Usuario usuario;
     InputStream stream;
+    boolean statusOk;
 
     public UsuarioParser(Usuario usuario) {
         this.usuario = usuario;
@@ -23,6 +24,10 @@ public class UsuarioParser {
 
     public UsuarioParser(InputStream inputStream) {
         this.stream = inputStream;
+    }
+
+    public boolean getStatusOk(){
+        return this.statusOk;
     }
 
     public List<Usuario> getListadoUsuariosConectados() throws IOException {
@@ -35,8 +40,10 @@ public class UsuarioParser {
                 switch (name) {
                     case "Status":
                         String status = reader.nextString();
+                        statusOk = true;
                         if (!status.equals("OK")) {
                             Log.e("MensajerO", "Status es: " + status);
+                            statusOk = false;
                             throw new EstadoRecibidoInvalidoException();
                         }
                         break;
@@ -102,5 +109,42 @@ public class UsuarioParser {
             reader.close();
         }
         return usuario;
+    }
+
+    /**
+     * Obtiene el status y el token del usuario
+     * @return El token correspondiente al login
+     * @throws IOException dado que tiene que leer un json
+     */
+    public long readLoginResponse() throws  IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+        long token = 0;
+        try {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                switch (name) {
+                    case "Status":
+                        String status = reader.nextString();
+                        statusOk = true;
+                        if (!status.equals("OK")) {
+                            Log.e("MensajerO", "Status es: " + status);
+                            statusOk = false;
+                            throw new EstadoRecibidoInvalidoException();
+                        }
+                        break;
+                    case "Token":
+                        token = reader.nextLong();
+                        Log.d("Token",Long.toString(token));
+                        break;
+                    default:
+                        reader.skipValue();
+                }
+            }
+        }
+        finally {
+            reader.close();
+        }
+        return token;
     }
 }

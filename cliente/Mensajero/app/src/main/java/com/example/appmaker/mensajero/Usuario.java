@@ -13,6 +13,7 @@ public class Usuario {
     private String password;
     private byte[] foto;
     private boolean conectado;
+    private long token;
 
     public Usuario(){
     }
@@ -73,4 +74,11 @@ public class Usuario {
         return (conectado == true);
     }
 
+    public long getToken() {
+        return token;
+    }
+
+    public void setToken(long token) {
+        this.token = token;
+    }
 }
