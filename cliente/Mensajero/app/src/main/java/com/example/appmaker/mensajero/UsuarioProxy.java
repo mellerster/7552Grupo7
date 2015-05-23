@@ -109,6 +109,7 @@ public class UsuarioProxy {
                 UsuarioParser parser = new UsuarioParser(streamAParsear);
                 usuario.setToken(parser.readLoginResponse());
                 if(parser.getStatusOk()) {
+                    usuario.conectar();
                     UsuarioProxy.usuario = usuario;
                     Log.i("MensajerO", "Usuario Logueado correctamente");
                 }

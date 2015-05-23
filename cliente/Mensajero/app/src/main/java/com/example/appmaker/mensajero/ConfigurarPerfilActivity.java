@@ -83,10 +83,12 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
             UsuarioProxy proxy = new UsuarioProxy();
             Switch swt =((Switch) v);
             if (usuario.estaConectado()) {
-                proxy.logout(usuario);
+                usuario.desconectar();
+                //proxy.logout(usuario);
                 setEstadoSwitch(usuario.estaConectado());
             } else {
-                proxy.login(usuario);
+                //proxy.login(usuario);
+                usuario.conectar();
                 setEstadoSwitch(usuario.estaConectado());
             }
         }
