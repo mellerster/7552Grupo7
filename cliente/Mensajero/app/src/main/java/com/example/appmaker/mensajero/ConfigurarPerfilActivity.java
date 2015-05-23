@@ -1,6 +1,11 @@
 package com.example.appmaker.mensajero;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.annotation.TargetApi;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +18,15 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 public class ConfigurarPerfilActivity extends ActionBarActivity {
 
@@ -28,14 +36,18 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
     Usuario usuario;
     Switch swt;
     ImageView imageView;
+    private View mProgressView;
+    private View mConfigurarPerfilView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_configurar_perfil);
-        // Toma el usuario logueado del proxy
-        usuario = UsuarioProxy.getUsuario();
+        mConfigurarPerfilView = findViewById(R.id.configurar_perfil_panel);
+        mProgressView = findViewById(R.id.configurar_perfil_progress);
 
+        // Toma el usuario logueado del proxy
+        copiarUsuarioDelProxy();
         Button btn = (Button) findViewById(R.id.btnCambiarFoto);
         btn.setOnClickListener(cargarImagenListener);
 
@@ -45,6 +57,10 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         imageView= (ImageView) findViewById(R.id.imgFoto);
 
         cargarDatosUsuario();
+    }
+
+    private void copiarUsuarioDelProxy() {
+        usuario = new Usuario(UsuarioProxy.getUsuario());
     }
 
     private void cargarDatosUsuario(){
@@ -80,17 +96,12 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
 
     private OnClickListener cambiarEstadoListener = new OnClickListener() {
         public void onClick(View v) {
-            UsuarioProxy proxy = new UsuarioProxy();
-            Switch swt =((Switch) v);
             if (usuario.estaConectado()) {
                 usuario.desconectar();
-                //proxy.logout(usuario);
-                setEstadoSwitch(usuario.estaConectado());
             } else {
-                //proxy.login(usuario);
                 usuario.conectar();
-                setEstadoSwitch(usuario.estaConectado());
             }
+            new ConfigurarPerfilAPI().execute();
         }
     };
 
@@ -122,9 +133,7 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
             byte[] b = getBytesFromLocalImage(data);
             usuario.setFoto(b);
-            new UsuarioProxy().cargarFoto(usuario);
-            imageView.setImageBitmap(usuario.getFotoBitmap());
-            Log.d("Foto",usuario.getFotoBase64());
+            new ConfigurarPerfilAPI().execute();
         }
     }
 
@@ -149,4 +158,57 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         bp.compress(Bitmap.CompressFormat.PNG, 100, baos);
         return baos.toByteArray();
     }
+
+    /**
+     * Muestra el progreso.
+     */
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
+    public void showProgress(final boolean show) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB_MR2) {
+            int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+
+            mConfigurarPerfilView.setVisibility(show ? View.GONE : View.VISIBLE);
+            mConfigurarPerfilView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 0 : 1).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mConfigurarPerfilView.setVisibility(show ? View.GONE : View.VISIBLE);
+                }
+            });
+
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mProgressView.animate().setDuration(shortAnimTime).alpha(
+                    show ? 1 : 0).setListener(new AnimatorListenerAdapter() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+                }
+            });
+        } else {
+            mProgressView.setVisibility(show ? View.VISIBLE : View.GONE);
+            mConfigurarPerfilView.setVisibility(show ? View.GONE : View.VISIBLE);
+        }
+    }
+
+    private class ConfigurarPerfilAPI extends AsyncTask<String, Boolean, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            boolean result = false;
+            try {
+                result = new UsuarioProxy().actualizarPerfil(usuario);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return result;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            if (!result) {
+                copiarUsuarioDelProxy();
+                Log.e("MensajerO", "Error al intentar guardar el perfil en el servidor");
+            }
+            cargarDatosUsuario();
+        }
+
+    } // end UsuarioAPI
 }

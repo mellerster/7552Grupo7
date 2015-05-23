@@ -110,7 +110,7 @@ public class UsuarioProxy {
                 usuario.setToken(parser.readLoginResponse());
                 if(parser.getStatusOk()) {
                     usuario.conectar();
-                    UsuarioProxy.usuario = usuario;
+                    UsuarioProxy.usuario = new Usuario(usuario);
                     Log.i("MensajerO", "Usuario Logueado correctamente");
                 }
             }else{
@@ -166,47 +166,58 @@ public class UsuarioProxy {
         return new Usuario(username);
     }
 
-    /**
-     * Envia la foto de perfil del usuario al servidor
-     *
-     * @param usuario con una foto de perfil nueva.
-     */
-    public void cargarFoto(Usuario usuario) {
-        UsuarioProxy.usuario = usuario;
-        ///TODO: Enviar foto al server
-    }
 
-    private class UsuarioAPI extends AsyncTask<String, String, String> {
-        public InputStream stream = null;
-        public boolean tieneResultado = false;
+    public boolean actualizarPerfil(Usuario usuario) {
+        String urlString = urlBase + "usuarios";
+        JSONObject params = new JSONObject();
+        HttpURLConnection urlConnection = null;
+        InputStream streamAParsear = null;
+        boolean statusOk = false;
+        try {
+            params.put("Token", usuario.getToken());
+            if(usuario.getFoto() != null)
+                params.put("Foto", usuario.getFotoBase64());
+            params.put("Estado", usuario.estaConectado() ? "C" : "D");
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
+            out.write(params.toString());
+            out.close();
 
-        @Override
-        protected String doInBackground(String... params) {
-            String urlString = params[0]; // URL to call
-            String resultToDisplay = "";
-            InputStream in = null;
-
-            // HTTP Get
-            try {
-                Log.d("MensajerO", urlString);
-                tieneResultado = false;
-                URL url = new URL(urlString);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                in = new BufferedInputStream(urlConnection.getInputStream());
-                Log.d("MensajerO", in.toString());
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                return e.getMessage();
+            int HttpResult = urlConnection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                streamAParsear = urlConnection.getInputStream();
+                UsuarioParser parser = new UsuarioParser(streamAParsear);
+                parser.parseStatus();
+                if (parser.getStatusOk()) {
+                    UsuarioProxy.usuario = new Usuario(usuario);
+                    Log.i("MensajerO", "Perfil Actualizado correctamente");
+                    statusOk = true;
+                } else {
+                    Log.e("MensajerO", "El servidor devolvio estado ERR");
+                }
+            } else {
+                statusOk = false;
+                Log.e("MensajerO", urlConnection.getResponseMessage());
             }
-            stream = in;
-            return resultToDisplay;
+        } catch (EstadoRecibidoInvalidoException e){
+            Log.e("MensajerO", e.getMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
         }
 
-        protected void onPostExecute(String result) {
-            tieneResultado = true;
-        }
-
-    } // end UsuarioAPI
+        return statusOk;
+    }
 }
 
 

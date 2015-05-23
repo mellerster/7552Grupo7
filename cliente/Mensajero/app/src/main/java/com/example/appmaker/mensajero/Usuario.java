@@ -18,6 +18,14 @@ public class Usuario {
     public Usuario(){
     }
 
+    public Usuario(Usuario original){
+        this.nombre = original.nombre;
+        this.password = original.password;
+        this.foto = original.foto;
+        this.conectado = original.conectado;
+        this.token = original.token;
+    }
+
     public Usuario(String nombre, String password){
         this.nombre = nombre;
         this.password = password;

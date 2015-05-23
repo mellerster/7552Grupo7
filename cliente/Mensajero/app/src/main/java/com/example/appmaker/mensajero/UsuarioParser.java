@@ -16,11 +16,7 @@ import java.util.List;
 public class UsuarioParser {
     Usuario usuario;
     InputStream stream;
-    boolean statusOk;
-
-    public UsuarioParser(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    boolean statusOk = false;
 
     public UsuarioParser(InputStream inputStream) {
         this.stream = inputStream;
@@ -99,17 +95,6 @@ public class UsuarioParser {
         return usuario;
     }
 
-    public Usuario readEstadoUsuario() throws  IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
-        Usuario usuario = null;
-        try {
-            readUsuario(reader);
-        }
-        finally {
-            reader.close();
-        }
-        return usuario;
-    }
 
     /**
      * Obtiene el status y el token del usuario
@@ -146,5 +131,32 @@ public class UsuarioParser {
             reader.close();
         }
         return token;
+    }
+
+    public void parseStatus() throws  IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+        try {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                switch (name) {
+                    case "Status":
+                        String status = reader.nextString();
+                        statusOk = true;
+                        if (!status.equals("OK")) {
+                            Log.e("MensajerO", "Status es: " + status);
+                            statusOk = false;
+                            throw new EstadoRecibidoInvalidoException();
+                        }
+                        break;
+                    default:
+                        reader.skipValue();
+                }
+            }
+        }
+        finally {
+            reader.close();
+        }
+
     }
 }
