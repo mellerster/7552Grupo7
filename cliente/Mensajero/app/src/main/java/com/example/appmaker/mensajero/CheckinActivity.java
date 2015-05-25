@@ -49,16 +49,17 @@ public class CheckinActivity extends FragmentActivity {
 
     private LatLng getLocation() {
         //Utilizacion de la clase de http://www.androidhive.info/2012/07/android-gps-location-manager-tutorial
-        //TODO reemplazar por codigo que busque la posicion mediante GPS, para poder probarlo en el emulador lo dejo asi por ahora
         gps = new GPSTracker(CheckinActivity.this);
-
+        double latitude = -34.617529;
+        double longitude = -58.368208;
         // check if GPS enabled
         if(gps.canGetLocation()){
 
-            double latitude = gps.getLatitude();
-            double longitude = gps.getLongitude();
-
+            latitude = gps.getLatitude();
+            longitude = gps.getLongitude();
+            gps.stopUsingGPS();
             // \n is for new line
+            //TODO:Quitar es solo para debbug
             Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         }else{
             // can't get location
@@ -66,7 +67,15 @@ public class CheckinActivity extends FragmentActivity {
             // Ask user to enable GPS/network in settings
             gps.showSettingsAlert();
         }
-        return new LatLng(-34.617529, -58.368208);
+        /*
+
+        Para poder probar la aplicacion con el emulador se debe hacer lo siguiente en una consola
+        telnet localhost 5554
+        geo fix -34.617529 -58.368208
+        Esto envia la latitud y longitud deseada al dispositivo
+
+        */
+        return new LatLng(latitude, longitude);
     }
 
     private void configurarBoton() {
