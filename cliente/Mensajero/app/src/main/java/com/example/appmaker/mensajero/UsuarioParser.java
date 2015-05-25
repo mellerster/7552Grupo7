@@ -159,4 +159,35 @@ public class UsuarioParser {
         }
 
     }
+
+    public String parseCheckin() throws  IOException {
+        String checkin = "";
+        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+        try {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String name = reader.nextName();
+                switch (name) {
+                    case "Status":
+                        String status = reader.nextString();
+                        statusOk = true;
+                        if (!status.equals("OK")) {
+                            Log.e("MensajerO", "Status es: " + status);
+                            statusOk = false;
+                            throw new EstadoRecibidoInvalidoException();
+                        }
+                        break;
+                    case "Checkin":
+                        checkin = reader.nextString();
+                        break;
+                    default:
+                        reader.skipValue();
+                }
+            }
+        }
+        finally {
+            reader.close();
+        }
+        return checkin;
+    }
 }

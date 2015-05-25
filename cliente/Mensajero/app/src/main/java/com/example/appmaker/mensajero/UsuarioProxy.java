@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Created by diego on 19/04/15.
  */
-///TODO: Conectar con el server y traer el datos reales
+
 public class UsuarioProxy {
     String urlBase = "http://10.0.2.2:8080/grupo7/api/";
     /**
@@ -166,7 +166,11 @@ public class UsuarioProxy {
         return new Usuario(username);
     }
 
-
+    /**
+     * Envia al servidor los datos del usuario para guardar
+     * @param usuario a actualizar sus datos
+     * @return true si el servido actualizo correctamente los datos, false en caso contrario
+     */
     public boolean actualizarPerfil(Usuario usuario) {
         String urlString = urlBase + "usuarios";
         JSONObject params = new JSONObject();
@@ -217,6 +221,54 @@ public class UsuarioProxy {
         }
 
         return statusOk;
+    }
+
+    public Usuario realizarCheckin(Usuario usuario){
+        //TODO: Ver uri a llamar
+        String urlString = urlBase + "usuarios";
+        JSONObject params = new JSONObject();
+        HttpURLConnection urlConnection = null;
+        InputStream streamAParsear = null;
+        try {
+            params.put("Token", usuario.getToken());
+            params.put("Latitud", usuario.getLatitud());
+            params.put("Longitud", usuario.getLongitud());
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
+            out.write(params.toString());
+            out.close();
+
+            int HttpResult = urlConnection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                streamAParsear = urlConnection.getInputStream();
+                UsuarioParser parser = new UsuarioParser(streamAParsear);
+                usuario.setCheckin(parser.parseCheckin());
+                if (parser.getStatusOk()) {
+                    UsuarioProxy.usuario = new Usuario(usuario);
+                    Log.i("MensajerO", "Checkin realizado correctamente");
+                } else {
+                    Log.e("MensajerO", "El servidor devolvio estado ERR");
+                }
+            } else {
+                Log.e("MensajerO", urlConnection.getResponseMessage());
+            }
+        } catch (EstadoRecibidoInvalidoException e){
+            Log.e("MensajerO", e.getMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
+        return usuario;
     }
 }
 
