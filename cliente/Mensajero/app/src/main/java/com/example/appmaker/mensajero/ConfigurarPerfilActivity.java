@@ -24,6 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -206,6 +207,9 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
             if (!result) {
                 copiarUsuarioDelProxy();
                 Log.e("MensajerO", "Error al intentar guardar el perfil en el servidor");
+                Toast.makeText(getApplicationContext(), "No se pudo guardar los cambios en el servidor", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "Todos los cambios guardados", Toast.LENGTH_LONG).show();
             }
             cargarDatosUsuario();
         }
