@@ -7,6 +7,7 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -81,7 +82,7 @@ public class UsuarioParser {
                     }
                     break;
                 case "Checkin":
-                    reader.skipValue();
+                    usuario.setCheckin(reader.nextString());
                     break;
                 case "Foto":
                     String base64 = reader.nextString();
@@ -189,5 +190,9 @@ public class UsuarioParser {
             reader.close();
         }
         return checkin;
+    }
+
+    public Usuario leerUsuario() throws IOException {
+        return this.readUsuario(new JsonReader(new InputStreamReader(stream, "UTF-8")));
     }
 }
