@@ -56,6 +56,8 @@ public class CheckinActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 //TODO enviar al servidor la location del usuario para que la registre y hacerlo tambien localmente
+                Usuario usuario = UsuarioProxy.getUsuario();
+                usuario.setPosicion(getLocation().latitude,getLocation().longitude);
             }
         });
     }

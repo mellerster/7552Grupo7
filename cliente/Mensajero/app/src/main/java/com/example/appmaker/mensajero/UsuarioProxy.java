@@ -225,7 +225,7 @@ public class UsuarioProxy {
 
     public Usuario realizarCheckin(Usuario usuario){
         //TODO: Ver uri a llamar
-        String urlString = urlBase + "usuarios";
+        String urlString = urlBase + "checkin";
         JSONObject params = new JSONObject();
         HttpURLConnection urlConnection = null;
         InputStream streamAParsear = null;

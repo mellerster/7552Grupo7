@@ -14,8 +14,8 @@ public class Usuario {
     private byte[] foto;
     private boolean conectado;
     private long token;
-    private long latitud;
-    private long longitud;
+    private double latitud;
+    private double longitud;
     private String checkin;
 
     public Usuario(){
@@ -93,16 +93,16 @@ public class Usuario {
         this.token = token;
     }
 
-    public void setPosicion(long latitud, long longitud){
+    public void setPosicion(double latitud, double longitud){
         this.latitud = latitud;
         this.longitud = longitud;
     }
 
-    public long getLatitud(){
+    public double getLatitud(){
         return latitud;
     }
 
-    public long getLongitud(){
+    public double getLongitud(){
         return longitud;
     }
 
