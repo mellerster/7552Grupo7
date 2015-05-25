@@ -1,6 +1,7 @@
 package com.example.appmaker.mensajero;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class RegistracionActivity extends ActionBarActivity {
@@ -34,11 +36,7 @@ public class RegistracionActivity extends ActionBarActivity {
     private View.OnClickListener btnRegistrarseListener = new View.OnClickListener() {
         public void onClick(View v) {
             if(validarIngreso()) {
-                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
-                ///TODO: Esperar respuesta del proxy sin error, si tiene error avisar al usuario
-                new UsuarioProxy().registrar(txtNombre.getText().toString(),txtPassword.getText().toString());
-                startActivity(listaUsuariosConectadosIntent);
-                finish();
+                new RegistrarUsuarioAPI().execute(txtNombre.getText().toString(), txtPassword.getText().toString());
             }
         }
     };
@@ -98,4 +96,29 @@ public class RegistracionActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class RegistrarUsuarioAPI extends AsyncTask<String, Usuario, Usuario> {
+        @Override
+        protected Usuario doInBackground(String... params) {
+            Usuario result = null;
+            try {
+                result = new UsuarioProxy().registrar(params[0],params[1]);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return result;
+        }
+
+        protected void onPostExecute(Usuario result) {
+            if (result == null) {
+                Log.e("MensajerO", "Error al intentar registrarse en el servidor");
+                Toast.makeText(getApplicationContext(), "No se pudo registrar el usuario en el servidor", Toast.LENGTH_LONG).show();
+            }else {
+                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
+                startActivity(listaUsuariosConectadosIntent);
+                finish();
+            }
+        }
+
+    } // end UsuarioAPI
 }

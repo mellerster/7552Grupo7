@@ -149,10 +149,51 @@ public class UsuarioProxy {
      * @return el Usuario autentificado
      */
     public Usuario registrar(String username, String password) {
-        Usuario user = new Usuario(username, password);
-        //TODO: Llamar al registrar del servidor
-        user.conectar();
-        UsuarioProxy.usuario = user;
+        Usuario user = null;
+        String urlString = urlBase + "usuarios";
+        JSONObject params = new JSONObject();
+        HttpURLConnection urlConnection = null;
+        try {
+            params.put("NombreUsuario", username);
+            params.put("Password", password);
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("POST");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
+            out.write(params.toString());
+            out.close();
+
+            int HttpResult = urlConnection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED) {
+                InputStream streamAParsear;
+                streamAParsear = urlConnection.getInputStream();
+                UsuarioParser parser = new UsuarioParser(streamAParsear);
+                parser.parseStatus();
+                if (parser.getStatusOk()) {
+                    user = new Usuario(username,password);
+                    user.conectar();
+                    UsuarioProxy.usuario = user;
+                    Log.i("MensajerO", "Registración realizada correctamente");
+                } else {
+                    Log.e("MensajerO", "El servidor devolvio estado ERR");
+                }
+            } else {
+                Log.e("MensajerO", urlConnection.getResponseMessage());
+            }
+        } catch (EstadoRecibidoInvalidoException e){
+            Log.e("MensajerO", e.getMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
         return user;
     }
 
