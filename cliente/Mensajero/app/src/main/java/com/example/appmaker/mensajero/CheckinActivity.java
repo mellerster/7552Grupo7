@@ -1,7 +1,9 @@
 package com.example.appmaker.mensajero;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -16,12 +18,13 @@ public class CheckinActivity extends FragmentActivity {
 
     private GoogleMap mapa;
     GPSTracker gps;
-
+    Usuario usuario;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checkin);
         setUpMapSiEsNecesario();
+        usuario = new Usuario(UsuarioProxy.getUsuario());
         configurarBoton();
     }
 
@@ -84,10 +87,34 @@ public class CheckinActivity extends FragmentActivity {
             @Override
             public void onClick(View v) {
                 //TODO enviar al servidor la location del usuario para que la registre y hacerlo tambien localmente
-                Usuario usuario = UsuarioProxy.getUsuario();
                 usuario.setPosicion(getLocation().latitude,getLocation().longitude);
+                new CheckInAPI().execute();
             }
         });
     }
+
+    private class CheckInAPI extends AsyncTask<String, Boolean, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            boolean result = false;
+            try {
+                usuario = new UsuarioProxy().realizarCheckin(usuario);
+                result = true;
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return result;
+        }
+
+        protected void onPostExecute(Boolean result) {
+            if (!result) {
+                Log.e("MensajerO", "Error al intentar guardar la posicion en el servidor");
+                Toast.makeText(getApplicationContext(), "Error al intentar guardar la posicion en el servidor", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(getApplicationContext(), "Todos los cambios guardados", Toast.LENGTH_LONG).show();
+            }
+        }
+
+    } // end CheckInAPI
 
 }
