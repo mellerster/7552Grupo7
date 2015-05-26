@@ -71,6 +71,16 @@ class IDataService {
         virtual std::vector<UserStatus> ListActiveUsers() = 0;
 
 
+        /** Devuelve un texto descriptivo del lugar mas cercano a las coordenadas dadas.
+         *
+         * @param[in] latitud
+         * @param[in] longitud
+         *
+         * @returns  Un texto asociado al lugar mas cercano a las coordenadas dadas.
+         * */
+        virtual std::string GetCheckinLocations(double latitud, double longitud) = 0;
+
+
         virtual ~IDataService() { } 
 
 };

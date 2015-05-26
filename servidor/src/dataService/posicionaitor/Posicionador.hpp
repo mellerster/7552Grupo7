@@ -4,9 +4,13 @@
 #include <fstream>
 #include <string>
 #include <list>
+
+#include "IPosicionador.hpp"
 #include "Posicion.hpp"
 
-class Posicionador {
+
+
+class Posicionador : public IPosicionador {
     public:
 
         /** Constructor base del Posicionador

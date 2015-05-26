@@ -2,6 +2,10 @@
 #include <random>
 
 
+HardCodedDataService::HardCodedDataService(IPosicionador& posInator) : m_posicionador(posInator) {
+}
+
+
 bool HardCodedDataService::Open(){
     return true;
 }
@@ -51,6 +55,12 @@ std::vector<UserStatus> HardCodedDataService::ListActiveUsers(){
 
     return v;
 }
+
+
+std::string HardCodedDataService::GetCheckinLocations(double latitud, double longitud) {
+    return this->m_posicionador.getLugarMasCercano(latitud, longitud);
+}
+
 
 
 
