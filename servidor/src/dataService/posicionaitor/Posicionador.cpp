@@ -2,33 +2,29 @@
 
 Posicionador::Posicionador()
 {
-	this->LoadUbicaciones();
+	this->LoadLocaciones();
 }
 
 
-Posicionador::~Posicionador(){
-	for (std::list<Posicion>::iterator it = ubicaciones.begin(); it != ubicaciones.end(); it++)
-	{
-		delete *it;
-	}
-}
+Posicionador::~Posicionador(){ }
 
-Posicionador::LoadLocaciones(){
-	ifstream locaciones ("locaciones");
+
+void Posicionador::LoadLocaciones(){
+    std::ifstream locaciones ("locaciones");
 	std::string line;
-	if (myfile.is_open())
+	if (locaciones.is_open())
 	{
-		while ( getline (myfile,line) )
+		while ( getline (locaciones,line) )
 		{
-			double latitud;
-			double longitud;
-			std::string texto;
-			size_t posPipeLat = s.find("|");
-			latitud = std::stod (s.substr(0, posPipeLat));
-			size_t posPipeLong = s.find("|",posPipeLat+1);
-			longitud = std::stod (s.substr(posPileLat+1, posPileLong));
-			texto = s.substr(posPileLong+1);
-			ubicaciones.add(new Posicion(latitud,longitud,texto));
+			size_t posPipeLat = line.find("|");
+			size_t posPipeLong = line.find("|",posPipeLat+1);
+
+			double latitud = std::stod (line.substr(0, posPipeLat));
+			double longitud = std::stod (line.substr(posPipeLat+1, posPipeLong));
+			std::string texto = line.substr(posPipeLong+1);
+
+            Posicion p(latitud,longitud,texto);
+			ubicaciones.push_back(p);
 		}
 		locaciones.close();
 	}

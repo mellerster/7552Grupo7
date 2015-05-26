@@ -37,6 +37,6 @@ class Posicionador : public IPosicionador {
          * Carga los lugares desde el archivo.
          *
          * */
-        void LoadUbicaciones();
+        void LoadLocaciones();
 };
 #endif

@@ -5,6 +5,7 @@
 #include "humblelogging/api.h"
 
 #include "RequestHandlerFactory.hpp"
+#include "posicionaitor/Posicionador.hpp"
 #include "HardCodedDataService.hpp"
 #include "MangostaServer.hpp"
 
@@ -48,7 +49,8 @@ int main() {
     */
 
     // Se injectan los servicios en la factory
-    HardCodedDataService hardDS;
+    Posicionador checkinProvider;
+    HardCodedDataService hardDS( checkinProvider );
     RequestHandlerFactory factory( hardDS );
 
     // Se injecta la factory en el server

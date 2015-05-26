@@ -7,8 +7,7 @@ Posicion::Posicion(double latitud, double longitud, std::string texto)
 	this->texto = texto;
 }
 
-Posicion::~Posicion(){
-}
+Posicion::~Posicion(){ }
 
 double Posicion::getLatitud()
 {
@@ -28,5 +27,6 @@ std::string Posicion::getTexto()
 double Posicion::distancia(Posicion otraPosicion)
 {
 	// Distancia = raiz cuadrada de la suma del cuadrado de las diferencia de X e Y
-	double dist = sqrt(pow((this->latitud - otraPosicion->latitud),2.0)+pow(this->longitud - otraPosicion->longitud,2.0));
+	double dist = sqrt(pow((this->latitud - otraPosicion.latitud),2.0)+pow(this->longitud - otraPosicion.longitud,2.0));
+    return dist;
 }
