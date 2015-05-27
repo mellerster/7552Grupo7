@@ -6,6 +6,8 @@ set ( SRC_DTOS
         handlers/dtos/ListUsersDTO.cpp 
         handlers/dtos/BaseDTO.cpp
         handlers/dtos/RegistrationDTO.cpp
+        handlers/dtos/PerfilDTO.cpp
+        handlers/dtos/CheckinDTO.cpp
     )
 
 
