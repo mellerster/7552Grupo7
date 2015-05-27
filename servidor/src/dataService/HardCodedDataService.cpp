@@ -62,5 +62,15 @@ std::string HardCodedDataService::GetCheckinLocations(double latitud, double lon
 }
 
 
+void HardCodedDataService::ReplaceFoto(unsigned int, std::string) {
+    // TODO
+}
+
+
+void HardCodedDataService::ReplaceEstado(unsigned int, std::string) {
+    // TODO
+}
+
+
 
 

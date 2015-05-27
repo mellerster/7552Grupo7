@@ -81,6 +81,26 @@ class IDataService {
         virtual std::string GetCheckinLocations(double latitud, double longitud) = 0;
 
 
+        /** Reemplaza la foto del perfil del usuario.
+         * 
+         * Se identifica al usuario mediante su token.
+         *
+         * @param[in] token El token asociado al usuario que se desea modificar.
+         * @param[in] foto  Los datos binarios correspondientes a la foto a reemplazar.
+         * */
+        virtual void ReplaceFoto(unsigned int token, std::string foto) = 0;
+
+
+        /** Reemplaza el estado del usuario.
+         * 
+         * Se identifica al usuario mediante su token.
+         *
+         * @param[in] token El token asociado al usuario que se desea modificar.
+         * @param[in] estado  El nuevo estado asociado al usuario.
+         * */
+        virtual void ReplaceEstado(unsigned int token, std::string estado) = 0;
+
+
         virtual ~IDataService() { } 
 
 };
