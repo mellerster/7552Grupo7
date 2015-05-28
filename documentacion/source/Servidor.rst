@@ -41,7 +41,7 @@ Es un componente que instancia los manejadores especificos de cada tipo de pedid
 
 
 Request handlers
-================
+----------------
 
 Una clase base que define las operaciones de todos los manejadores.
 
@@ -52,12 +52,18 @@ Los diversos tipos de pedidos definidos en el servidor son:
 
 * **List Users Request handler**: Devuelve al cliente una lista con todos los usuarios que actualmente tienen una sesión activa en el servidor.
 
+* **User Sign Up Request handler**: Permite que un nuevo usuario se registre en el sistema.
+
+* **Edit Perfil handler**: Permite que un usuario del sistema modifique los datos que se muestran en su perfil.
+
+* **Checkin handler**: Tiene una doble función; guarda la ubucación del usuario y devuelve una descripción del punto conocido mas cercano.
+
 
 **TODO:** Listar los otros request handlers
 
 
 Authentication handler
-======================
+----------------------
 
 Un tipo especial de manejador de pedidos; tiene la funcionalidad de validar que el cliente tenga acceso al recurso que esta pidiendo. Esto es: No permitiria que un cliente sin sesión envie mensajes.
 

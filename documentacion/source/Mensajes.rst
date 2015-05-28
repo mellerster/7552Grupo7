@@ -22,7 +22,8 @@ Los parametros de estos mensajes son transmitidos mediante *query strings* en la
 grupo7/api/usuarios
 ===================
 
-Este pedido hace que el servidor le envie al cliente un listado con todos los usuarios que tienen una sesión activa en el servidor.
+Este pedido hace que el servidor envie al cliente un listado con todos los usuarios que tienen una sesión activa.
+
 
 Parametros de entrada
 ---------------------
@@ -36,12 +37,13 @@ Parametros de salida
 Un JSON con la siguiente estructura::
 
     {
-        Token: 0,
+        Status: "",
         Usuarios: [
                 { 
-                    Token: 0,
+                    Status: "",
                     Nombre: "",
                     Estado: "",
+                    Foto: "<base64>",
                     UltimaActividadHora: "",
                     UltimaActividadFecha: ""
                 },
@@ -53,15 +55,17 @@ Un JSON con la siguiente estructura::
 
 Donde:
 
-* **Token:** El token del cliente para que pueda validar su pedido.
+* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
 
 * **Usuarios:** Un arreglo de objetos *usuario*, pueden ser cero o mas.
 
-  * **Token:** Cada dato de usuario tiene este campo por un tema de compatibilidad, pero este siempre deberia ser vacio o cero.
+  * **Status:** Cada dato de usuario tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
 
   * **Nombre:** El nombre del usuario.
 
   * **Estado:** El estado del usuario,
+
+  * **Foto:** La fotografia que el correspondiente usuario ha cargado en el sistema, en base64.
 
   * **UltimaActividadHora:** La hora cuando se registró la ultima actividad de ese usuario.
 
@@ -85,14 +89,11 @@ Parametros de entrada
 El parametro de entrada es en formato JSON::
 
     {
-        Token: 0,
         NombreUsuario: "",
         Password: ""
     }
 
 Donde:
-
-* **Token:** Se mantiene por compatibilidad, debe ser vacio o cero.
 
 * **NombreUsuario:** El nombre con el que el usuario se registró en el sistema.
 
@@ -106,22 +107,140 @@ El parametro de salida es en formato JSON::
 
     {
         Token: 0,
+        Status: ""
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica la sesión del usuario, si este logro loggearse al sistema.
+
+* **Status:** El resultado de la operación; "OK" o "ERR".
+
+
+
+grupo7/api/usuarios
+===================
+
+Mediante este pedido se realiza la edición de los datos del perfil del usuario.
+
+Parametros de entrada
+---------------------
+
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        Foto: "<base64>",
+        Estado: ""
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica la sesión del usuario.
+
+* **Foto:** Una imagen codificada en base64.
+
+* **Estado:** Un texto que indique el estado del usuario.
+
+
+Parametros de salida
+--------------------
+
+El parametro de salida es en formato JSON::
+
+    {
+        Status: ""
+    }
+
+Donde:
+
+* **Status:** El resultado de la operación; "OK" o "ERR".
+
+
+
+*************
+Mensajes POST
+*************
+
+
+grupo7/api/usuarios
+===================
+
+Mediante este pedido un usuario puede registrarse en el sistema.
+
+
+Parametro de entrada
+--------------------
+
+El parametro de entrada es en formato JSON::
+
+    {
         NombreUsuario: "",
         Password: ""
     }
 
 Donde:
 
-* **Token:** El token generado y registrado por el sistema para el usuario, si el loggeo fue exitoso, cero si no.
+* **NombreUsuario:** El nombre con el que el usuario se registró en el sistema.
 
-* **NombreUsuario:** Por compatibilidad, debe estar vacio.
-
-* **Password:** Por compatibilidad, debe estar vacio.
+* **Password:** La clave con la que el usuario se registró en el sistema.
 
 
-*************
-Mensajes POST
-*************
+Parametros de salida
+--------------------
+
+El parametro de salida es en formato JSON::
+
+    {
+        Status: ""
+    }
+
+Donde:
+
+* **Status:** El resultado de la operación; "OK" o "ERR".
+
+
+grupo7/api/checkin
+==================
+
+Mediante este pedido un usuario puede actualizar su ubicación en el sistema, al mismo tiempo recibe una descripción del punto conocido mas cercano.
+
+
+Parametro de entrada
+--------------------
+
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        Latitud: "",
+        Longitud: ""
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+* **Latitud:** Coordenada geografica.
+
+* **Longitud:** Coordenada geografica.
+
+
+Parametros de salida
+--------------------
+
+El parametro de salida es en formato JSON::
+
+    {
+        Status: "",
+        Descripcion: ""
+    }
+
+Donde:
+
+* **Status:** El resultado de la operación; "OK" o "ERR".
+
+* **Descripcion:** Una pequeña descripción del lugar conocido mas cercano a la ubicación del usuario.
 
 
 
