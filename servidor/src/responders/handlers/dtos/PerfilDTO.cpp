@@ -12,7 +12,6 @@ PerfilDTO::PerfilDTO(Json::Value jData) : BaseDTO(jData) {
 
     this->Estado = jData.get("Estado", "").asString();
     this->Foto = jData.get("Foto", "").asString();
-
 }
 
 

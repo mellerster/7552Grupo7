@@ -31,7 +31,7 @@ Response CheckinHandler::GetResponseData() {
     resul.Descripcion = this->m_dataService.GetCheckinLocations(lat, lon);
 
     // Crea la respuesta
-    Response resp( 500, resul.ToJSON() );
+    Response resp( 200, resul.ToJSON() );
     return resp;
 }
 

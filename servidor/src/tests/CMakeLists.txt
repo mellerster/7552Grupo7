@@ -24,6 +24,8 @@ add_executable ( HandlerTester
         LoginHandlerTester.cpp
         ListUsersHandlerTester.cpp
         RegistrationHandlerTester.cpp
+        CheckinHandlerTester.cpp
+        EditProfileHandlerTester.cpp
         )
 target_link_libraries ( HandlerTester requestHandlers )
 
