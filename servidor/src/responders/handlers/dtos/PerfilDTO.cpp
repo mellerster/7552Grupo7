@@ -18,6 +18,7 @@ PerfilDTO::PerfilDTO(Json::Value jData) : BaseDTO(jData) {
 
 Json::Value PerfilDTO::ToJSON() const {
     Json::Value j = BaseDTO::ToJSON();
+    j["Token"] = this->Token;
     j["Foto"] = this->Foto;
     j["Estado"] = this->Estado;
 

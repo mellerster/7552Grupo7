@@ -4,8 +4,10 @@
 #include "json/json.h"
 #include "handlers/dtos/BaseDTO.hpp"
 #include "handlers/dtos/LoginDTO.hpp"
-#include "handlers/dtos/UserStatusDTO.hpp"
+#include "handlers/dtos/PerfilDTO.hpp"
+#include "handlers/dtos/CheckinDTO.hpp"
 #include "handlers/dtos/ListUsersDTO.hpp"
+#include "handlers/dtos/UserStatusDTO.hpp"
 #include "handlers/dtos/RegistrationDTO.hpp"
 
 
@@ -379,4 +381,156 @@ TEST_CASE ( "Registration DTO - decodificar desde JSON" ){
         REQUIRE ( dto.Password == "Nagato" );
     }
 }
+
+
+TEST_CASE ( "PerfilDTO - codificar a JSON" ) {
+    PerfilDTO dto;
+    dto.Token = 123;
+    dto.Estado = "Borracho";
+    dto.Foto = "123ABC";
+
+    SECTION ( "Parseo exitoso" ) {
+        Json::Value resul = dto.ToJSON();
+
+        REQUIRE ( resul.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "Extraccion de Token" ) {
+        Json::Value resul = dto.ToJSON();
+
+        unsigned int tok = resul.get("Token", 0).asUInt();
+        REQUIRE ( dto.Token == tok );
+    }
+
+    SECTION ( "Extraccion de Estado" ) {
+        Json::Value resul = dto.ToJSON();
+
+        std::string est = resul.get("Estado", "X").asString();
+        REQUIRE ( dto.Estado == est );
+    }
+
+    SECTION ( "Extraccion de Foto" ) {
+        Json::Value resul = dto.ToJSON();
+
+        std::string foto = resul.get("Foto", "X").asString();
+        REQUIRE ( dto.Foto == foto );
+    }
+}
+
+
+TEST_CASE ( "PerfilDTO - deCodificar desde JSON" ) {
+    Json::Value j;
+    j["Token"] = "123";
+    j["Estado"] = "De paro";
+    j["Foto"] = ":-)";
+
+    SECTION ( "No Explota" ) {
+        REQUIRE_NOTHROW ( 
+                PerfilDTO dto( j )
+        );
+    }
+
+    SECTION ( "Carga el token" ) {
+        PerfilDTO dto(j);
+
+        REQUIRE ( dto.Token == 123 );
+    }
+
+    SECTION ( "Carga el estado" ) {
+        PerfilDTO dto(j);
+
+        REQUIRE ( dto.Estado == "De paro" );
+    }
+
+    SECTION ( "Carga la foto" ) {
+        PerfilDTO dto(j);
+
+        REQUIRE ( dto.Foto == ":-)" );
+    }
+}
+
+
+TEST_CASE ( "CheckinDTO - codificar a JSON" ) {
+    CheckinDTO dto;
+    dto.Token = 123;
+    dto.Latitud = "456.458";
+    dto.Longitud = "-6.77";
+    dto.Descripcion = "algo cualquiera";
+
+    SECTION ( "Parseo exitoso" ) {
+        Json::Value resul = dto.ToJSON();
+
+        REQUIRE ( resul.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "Extraccion de Token" ) {
+        Json::Value resul = dto.ToJSON();
+
+        unsigned int tok = resul.get("Token", 0).asUInt();
+        REQUIRE ( dto.Token == tok );
+    }
+
+    SECTION ( "Extraccion de Latitud" ) {
+        Json::Value resul = dto.ToJSON();
+
+        std::string lat = resul.get("Latitud", "x").asString();
+        REQUIRE ( dto.Latitud == lat );
+    }
+
+    SECTION ( "Extraccion de Longitud" ) {
+        Json::Value resul = dto.ToJSON();
+
+        std::string longitud = resul.get("Longitud", "x").asString();
+        REQUIRE ( dto.Longitud == longitud );
+    }
+
+    SECTION ( "Extraccion de Descripcion" ) {
+        Json::Value resul = dto.ToJSON();
+
+        std::string desc = resul.get("Descripcion", "x").asString();
+        REQUIRE ( dto.Descripcion == desc );
+    }
+
+}
+
+
+TEST_CASE ( "CheckinDTO - deCodificar desde JSON" ) {
+    Json::Value j;
+    j["Token"] = "123";
+    j["Latitud"] = "-78.12345";
+    j["Longitud"] = "44.65432";
+    j["Descripcion"] = "Superman!";
+
+    SECTION ( "No Explota" ) {
+        REQUIRE_NOTHROW ( 
+                CheckinDTO dto( j )
+        );
+    }
+
+    SECTION ( "Carga el token" ) {
+        CheckinDTO dto(j);
+
+        REQUIRE ( dto.Token == 123 );
+    }
+
+    SECTION ( "Carga la latitud" ) {
+        CheckinDTO dto(j);
+
+        REQUIRE ( dto.Latitud == "-78.12345" );
+    }
+
+    SECTION ( "Carga la longitud" ) {
+        CheckinDTO dto(j);
+
+        REQUIRE ( dto.Longitud == "44.65432" );
+    }
+
+    SECTION ( "Carga la descripcion" ) {
+        CheckinDTO dto(j);
+
+        REQUIRE ( dto.Descripcion == "Superman!" );
+    }
+}
+
+
 
