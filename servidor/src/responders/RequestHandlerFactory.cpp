@@ -1,7 +1,9 @@
 #include "RequestHandlerFactory.hpp"
 
+#include "handlers/EditPerfilHandler.hpp"
 #include "handlers/UserSignUpHandler.hpp"
 #include "handlers/ListUsersRequest.hpp"
+#include "handlers/CheckinHandler.hpp"
 #include "handlers/LoginRequest.hpp"
 #include "handlers/EmptyRequest.hpp"
 
@@ -10,8 +12,12 @@
 RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataService(service) {
     // Cada request responder tiene una entrada en el mapa-factory
     m_factoryMap["GET /grupo7/api/usuarios"] = [] (IDataService& ds) { return new ListUsersRequest(ds); };
+
     m_factoryMap["PUT /grupo7/api/sesion"] = [] (IDataService& ds) { return new LoginRequest(ds); };
+    m_factoryMap["PUT /grupo7/api/usuarios"] = [] (IDataService& ds) { return new EditPerfilHandler(ds); };
+
     m_factoryMap["POST /grupo7/api/usuarios"] = [] (IDataService& ds) { return new UserSignUpHandler(ds); };
+    m_factoryMap["POST /grupo7/api/checkin"] = [] (IDataService& ds) { return new CheckinHandler(ds); };
 
     // TODO: Agregar los responders faltantes
 }
