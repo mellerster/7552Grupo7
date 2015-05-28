@@ -17,6 +17,8 @@ set ( SRC_HANDLERS
         handlers/LoginRequest.cpp 
         handlers/ListUsersRequest.cpp 
         handlers/UserSignUpHandler.cpp
+        handlers/CheckinHandler.cpp
+        handlers/EditPerfilHandler.cpp
     )
 
 

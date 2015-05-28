@@ -26,6 +26,7 @@ class HardCodedDataService : public IDataService {
 
         virtual std::string GetCheckinLocations(double latitud, double longitud);
 
+        virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud);
         virtual void ReplaceFoto(unsigned int token, std::string foto);
         virtual void ReplaceEstado(unsigned int token, std::string estado);
 

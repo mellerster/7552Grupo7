@@ -24,6 +24,7 @@ class IDataService {
          * */
         virtual void Close() = 0;
 
+
         /** Indica si el token esta relacionado con alguna sesión activa.
          *
          * Un token activo es aquel que se encuentra asociado a un usuario conectado al sistema.
@@ -79,6 +80,17 @@ class IDataService {
          * @returns  Un texto asociado al lugar mas cercano a las coordenadas dadas.
          * */
         virtual std::string GetCheckinLocations(double latitud, double longitud) = 0;
+
+
+        /** Reemplaza los datos de la ubicación del usuario.
+         *
+         * Se identifica al usuario mediante su token.
+         *
+         * @param[in] token     El token asociado al usuario que se desea modificar.
+         * @param[in] latitud
+         * @param[in] longitud
+         * */
+        virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud) = 0;
 
 
         /** Reemplaza la foto del perfil del usuario.

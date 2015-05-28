@@ -1,4 +1,5 @@
 #include "EditPerfilHandler.hpp"
+#include "dtos/PerfilDTO.hpp"
 
 
 
@@ -22,12 +23,12 @@ Response EditPerfilHandler::GetResponseData() {
 
     // Si hay una foto definida se almacena
     if (!dto.Foto.empty()) {
-        this->ReplaceFoto( dto.Token, dto.Foto );
+        this->m_dataService.ReplaceFoto( dto.Token, dto.Foto );
     }
 
     // So hay algún estado definido se almacena
     if (!dto.Estado.empty()) {
-        this->ReplaceEstado( dto.Token, dto.Estado );
+        this->m_dataService.ReplaceEstado( dto.Token, dto.Estado );
     }
 
     // Crea la respuesta
