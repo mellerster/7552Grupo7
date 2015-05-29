@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 
-#include "rocksdb/db.h"
 #include "humblelogging/api.h"
 
 #include "RequestHandlerFactory.hpp"
@@ -34,19 +33,6 @@ int main() {
     HL_WARN (logger, "Nivel de advertencia");
     HL_ERROR(logger, "Nivel de error");
     HL_FATAL(logger, "Nivel de error fatal");
-
-    /*
-    cout << "Abriendo la base de datos... ";
-    rocksdb::DB* db;
-    rocksdb::Options opt;
-    opt.create_if_missing = true;
-
-    rocksdb::Status st = rocksdb::DB::Open( opt, "testDB.bin", &db );
-    cout << st.ToString() << "!" << endl;
-    cout << endl;
-
-    delete db;
-    */
 
     // Se injectan los servicios en la factory
     Posicionador checkinProvider;

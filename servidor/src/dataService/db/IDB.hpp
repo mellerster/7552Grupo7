@@ -4,8 +4,6 @@
 #include <string>
 #include <vector>
 
-#include "models/UserDataRecord.hpp"
-
 
 
 /**
@@ -75,15 +73,6 @@ class IDB {
          * @returns     True si la operación fue exitosa, false si no.
          * */
         virtual bool LoadUserFoto(std::string userID, std::string &foto) = 0;
-
-
-        /** Recupera los datos de un usuario dado.
-         *
-         * @param[in] userID    El nombre de usuario, unico.
-         *
-         * @returns     Los datos contenidos en la base del usuario indicado.
-         * */
-        virtual UserDataRecord LoadUserData(std::string userID) = 0;
 
 
         /** Indica si ya existe el nombre de usuario en la base.
