@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "model/UserStatus.hpp"
+#include "UserStatus.hpp"
 
 
 
