@@ -164,21 +164,12 @@ public class UsuarioProxy {
             OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
             out.write(params.toString());
             out.close();
-
             int HttpResult = urlConnection.getResponseCode();
-            if (HttpResult == HttpURLConnection.HTTP_OK || HttpResult == HttpURLConnection.HTTP_CREATED) {
-                InputStream streamAParsear;
-                streamAParsear = urlConnection.getInputStream();
-                UsuarioParser parser = new UsuarioParser(streamAParsear);
-                parser.parseStatus();
-                if (parser.getStatusOk()) {
-                    user = new Usuario(username,password);
-                    user.conectar();
-                    UsuarioProxy.usuario = user;
-                    Log.i("MensajerO", "Registración realizada correctamente");
-                } else {
-                    Log.e("MensajerO", "El servidor devolvio estado ERR");
-                }
+            if (HttpResult == HttpURLConnection.HTTP_CREATED) {
+                Log.i("MensajerO", "Registración realizada correctamente");
+                user = new Usuario(username,password);
+                //Hago el login de usuario
+                login(user);
             } else {
                 Log.e("MensajerO", urlConnection.getResponseMessage());
             }
@@ -275,17 +266,17 @@ public class UsuarioProxy {
 
             int HttpResult = urlConnection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {
-                InputStream streamAParsear;
+                /*InputStream streamAParsear;
                 streamAParsear = urlConnection.getInputStream();
                 UsuarioParser parser = new UsuarioParser(streamAParsear);
                 parser.parseStatus();
-                if (parser.getStatusOk()) {
+                if (parser.getStatusOk()) {*/
                     UsuarioProxy.usuario = new Usuario(usuario);
                     Log.i("MensajerO", "Perfil Actualizado correctamente");
                     statusOk = true;
-                } else {
+                /*} else {
                     Log.e("MensajerO", "El servidor devolvio estado ERR");
-                }
+                }*/
             } else {
                 statusOk = false;
                 Log.e("MensajerO", urlConnection.getResponseMessage());
