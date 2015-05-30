@@ -3,12 +3,14 @@
 add_executable ( JsonTester MainTester.cpp JsonTester.cpp )
 target_link_libraries ( JsonTester jsoncppLib )
 
+
 add_executable ( MessageFactoryTester 
         MainTester.cpp 
         FactoryTester.cpp 
         mocks/MockedRequestHandler.cpp 
         )
 target_link_libraries ( MessageFactoryTester requestHandlers )
+
 
 add_executable ( CoreRequestHandlerTester 
         MainTester.cpp 
@@ -18,6 +20,7 @@ add_executable ( CoreRequestHandlerTester
         mocks/MockedRequestHandler.cpp 
         )
 target_link_libraries ( CoreRequestHandlerTester requestHandlers )
+
 
 add_executable ( HandlerTester 
         MainTester.cpp 
@@ -29,11 +32,18 @@ add_executable ( HandlerTester
         )
 target_link_libraries ( HandlerTester requestHandlers )
 
+
 add_executable ( DTOTester MainTester.cpp DTOsTester.cpp )
 target_link_libraries ( DTOTester requestHandlers jsoncppLib )
 
 
+add_executable ( RocaDBTester MainLoggedTester.cpp RocaDBTester.cpp )
+target_link_libraries ( RocaDBTester rocaDB humblelogging )
+                        
+
+
 ############################ Tests ##########################
+
 
 message ( "********************************************************************" )
 message ( "** NOTA: " )
@@ -42,12 +52,14 @@ message ( "** " )
 message ( "** ${CMAKE_CURRENT_BINARY_DIR} " )
 message ( "********************************************************************" )
 
+
 #Corre todos los tests, pero los toma como si solo fuera uno
 add_test ( ALL_Json_Tests JsonTester )
 add_test ( ALL_MessageFactory_Tests MessageFactoryTester )
 add_test ( ALL_Core_Request_Handler_Tests CoreRequestHandlerTester )
 add_test ( ALL_Handler_Tests HandlerTester )
 add_test ( ALL_DTOs_Tests DTOTester )
+
 
 #Hay que pasar el nombre de los tests cases para que cmake los corra por separado
 
