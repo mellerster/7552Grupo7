@@ -1,10 +1,12 @@
 
+# Los archivos fuente
 set ( DB_SRC RocaDB.cpp )
 
+# Compilar la libreria
+add_library ( rocaDB ${DB_SRC} )
 
-add_library ( db ${DB_SRC} )
-
-target_link_libraries ( db
+# Linkear con las siguientes librerias
+target_link_libraries ( rocaDB
                         humblelogging
                         jsoncppLib 
                         ${LIBROCKSDB}
