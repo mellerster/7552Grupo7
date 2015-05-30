@@ -38,6 +38,7 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
     Usuario usuario;
     Switch swt;
     ImageView imageView;
+    TextView lblUltimoCheckin;
     private View mProgressView;
     private View mConfigurarPerfilView;
 
@@ -57,7 +58,7 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         swt.setOnClickListener(cambiarEstadoListener);
 
         imageView= (ImageView) findViewById(R.id.imgFoto);
-
+        lblUltimoCheckin = (TextView) findViewById(R.id.lblUltimoCheckin);
         cargarDatosUsuario();
     }
 
@@ -72,6 +73,8 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         if(foto != null){
             imageView.setImageBitmap(usuario.getFotoBitmap());
         }
+
+        lblUltimoCheckin.setText(usuario.getCheckin());
 
         TextView lblUsuarioLogueado = (TextView) findViewById(R.id.lblUsuarioLogueado);
         lblUsuarioLogueado.setText(usuario.getNombre());
