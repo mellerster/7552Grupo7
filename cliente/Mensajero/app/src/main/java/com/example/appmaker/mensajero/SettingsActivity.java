@@ -1,5 +1,6 @@
 package com.example.appmaker.mensajero;
 
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
@@ -13,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 
-public class SettingsActivity extends ActionBarActivity {
+public class SettingsActivity extends Activity {
     EditText txtUrl;
     EditText txtPuerto;
     @Override
