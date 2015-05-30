@@ -104,6 +104,7 @@ public class UsuarioProxy {
      */
     public Usuario login(Usuario usuario) {
         String urlString = urlBase + "sesion";
+        Usuario user = null;
         JSONObject params = new JSONObject();
         HttpURLConnection urlConnection = null;
         try {
@@ -127,6 +128,7 @@ public class UsuarioProxy {
                 usuario.setToken(parser.readLoginResponse());
                 if(parser.getStatusOk()) {
                     usuario.conectar();
+                    user = new Usuario(usuario);
                     UsuarioProxy.usuario = new Usuario(usuario);
                     Log.i("MensajerO", "Usuario Logueado correctamente");
                 }
@@ -144,7 +146,7 @@ public class UsuarioProxy {
                 urlConnection.disconnect();
         }
 
-        return usuario;
+        return user;
     }
 
     /**
