@@ -28,7 +28,7 @@ En caso de utilizar un emulador los pasos a seguir son:
 	$ abd install [ruta hasta el apk]
 
 Ejemplos
-........
+<<<<<<<<
 
 
 	$ abd install ./archivos/mensajero.apk
