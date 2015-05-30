@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
 import java.util.List;
@@ -209,7 +210,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
     private class ListaUsuariosAPI extends AsyncTask<String, List<Usuario>, List<Usuario>> {
         @Override
         protected List<Usuario> doInBackground(String... params) {
-            showProgress(true);
+            //showProgress(true);
             List<Usuario> usuarios = null;
             try {
                 usuarios = new UsuarioProxy().getUsuariosConectados();
@@ -220,7 +221,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         }
 
         protected void onPostExecute(List<Usuario> usuarios) {
-            showProgress(false);
+            //showProgress(false);
             MostrarUsuarios(usuarios);
         }
 

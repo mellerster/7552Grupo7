@@ -298,7 +298,6 @@ public class UsuarioProxy {
     }
 
     public Usuario realizarCheckin(Usuario usuario){
-        //TODO: Ver uri a llamar
         String urlString = urlBase + "checkin";
         JSONObject params = new JSONObject();
         HttpURLConnection urlConnection = null;
@@ -309,7 +308,7 @@ public class UsuarioProxy {
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestMethod("POST");
             urlConnection.setRequestProperty("Content-Type", "application/json");
             OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
             out.write(params.toString());
@@ -323,6 +322,7 @@ public class UsuarioProxy {
                 usuario.setCheckin(parser.parseCheckin());
                 if (parser.getStatusOk()) {
                     UsuarioProxy.usuario = new Usuario(usuario);
+                    Log.d("MensajerO","El servidor devolvio la ubicacion: " + usuario.getCheckin());
                     Log.i("MensajerO", "Checkin realizado correctamente");
                 } else {
                     Log.e("MensajerO", "El servidor devolvio estado ERR");

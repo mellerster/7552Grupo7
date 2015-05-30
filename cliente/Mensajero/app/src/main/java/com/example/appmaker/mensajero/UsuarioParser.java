@@ -178,7 +178,7 @@ public class UsuarioParser {
                             throw new EstadoRecibidoInvalidoException();
                         }
                         break;
-                    case "Checkin":
+                    case "Descripcion":
                         checkin = reader.nextString();
                         break;
                     default:
