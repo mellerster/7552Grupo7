@@ -27,6 +27,11 @@ public class UsuarioParser {
         return this.statusOk;
     }
 
+    /**
+     * Pasea la lista de usuarios conectados enviada por el servidor
+     * @return Una lista generica de usuarios
+     * @throws IOException
+     */
     public List<Usuario> getListadoUsuariosConectados() throws IOException {
         List<Usuario> usuarios = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
@@ -62,6 +67,12 @@ public class UsuarioParser {
         return usuarios;
     }
 
+    /**
+     * Lee un usuario del Stream enviado por el servidor
+     * @param reader
+     * @return el usuario con sus datos cargados
+     * @throws IOException
+     */
     public Usuario readUsuario(JsonReader reader) throws IOException {
         Usuario usuario = new Usuario();
         usuario.conectar();
@@ -134,6 +145,10 @@ public class UsuarioParser {
         return token;
     }
 
+    /**
+     * Lee unicamente el status del stream enviado por el servidor
+     * @throws IOException
+     */
     public void parseStatus() throws  IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
         try {
@@ -161,6 +176,11 @@ public class UsuarioParser {
 
     }
 
+    /**
+     * Lee los datos del checkin enviados por el servidor
+     * @return La descripcion del lugar donde se encuentra el usuario
+     * @throws IOException
+     */
     public String parseCheckin() throws  IOException {
         String checkin = "";
         JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
@@ -192,6 +212,11 @@ public class UsuarioParser {
         return checkin;
     }
 
+    /**
+     * Llamada publica para leer un usuario del stream enviado desde el servidor
+     * @return el usuario leido
+     * @throws IOException
+     */
     public Usuario leerUsuario() throws IOException {
         return this.readUsuario(new JsonReader(new InputStreamReader(stream, "UTF-8")));
     }

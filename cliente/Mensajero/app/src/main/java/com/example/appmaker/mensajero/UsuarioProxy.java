@@ -40,6 +40,7 @@ public class UsuarioProxy {
     String url = "http://10.0.2.2";
     String puerto = "8080";
     String urlBase = url+":"+puerto+"/grupo7/api/";
+
     /**
      * Usuario que tiene el token para hablar con el servidor
      */
@@ -54,6 +55,10 @@ public class UsuarioProxy {
         return usuario;
     }
 
+    /**
+     * Crea un proxy para comunicarse con el servidor
+     * @param sharedPref que tiene la actividad para saber a donde conectarse
+     */
     public UsuarioProxy(SharedPreferences sharedPref){
         String urlBase = sharedPref.getString("urlBase", url);
         String puertoBase =sharedPref.getString("puertoBase", puerto);
@@ -309,6 +314,11 @@ public class UsuarioProxy {
         return statusOk;
     }
 
+    /**
+     * Envia al servidor la latitud y longitud del usuario y espera la respuesta del mismo
+     * @param usuario el usuario con los datos a enviar
+     * @return el usuario con la descripcion del lugar mas cercano al que se encuentra
+     */
     public Usuario realizarCheckin(Usuario usuario){
         String urlString = urlBase + "checkin";
         JSONObject params = new JSONObject();
