@@ -24,14 +24,15 @@ En caso de utilizar un emulador los pasos a seguir son:
 
 * Abrir una consola y ejecutar:
 
-
-	$ abd install [ruta hasta el apk]
-
+```sh
+$ abd install [ruta hasta el apk]
+```
 Ejemplos
-<<<<<<<<
+--------
 
-
-	$ abd install ./archivos/mensajero.apk
-
-
-	> abd install C:\archivos\mensajero.apk
+```sh
+$ abd install ./archivos/mensajero.apk
+```
+```batch
+> abd install C:\archivos\mensajero.apk
+```
