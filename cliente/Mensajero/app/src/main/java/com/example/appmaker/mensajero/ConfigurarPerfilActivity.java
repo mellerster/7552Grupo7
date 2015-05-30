@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -196,7 +197,7 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         protected Boolean doInBackground(String... params) {
             boolean result = false;
             try {
-                result = new UsuarioProxy().actualizarPerfil(usuario);
+                result = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).actualizarPerfil(usuario);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

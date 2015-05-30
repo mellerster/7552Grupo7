@@ -2,6 +2,7 @@ package com.example.appmaker.mensajero;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -98,7 +99,7 @@ public class CheckinActivity extends FragmentActivity {
         protected Boolean doInBackground(String... params) {
             boolean result = false;
             try {
-                usuario = new UsuarioProxy().realizarCheckin(usuario);
+                usuario = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).realizarCheckin(usuario);
                 result = true;
             } catch (Exception e) {
                 System.out.println(e.getMessage());

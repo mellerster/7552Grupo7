@@ -1,6 +1,8 @@
 package com.example.appmaker.mensajero;
 
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.util.JsonReader;
 import android.util.Log;
 
@@ -35,7 +37,9 @@ import java.util.List;
  */
 
 public class UsuarioProxy {
-    String urlBase = "http://10.0.2.2:8080/grupo7/api/";
+    String url = "http://10.0.2.2";
+    String puerto = "8080";
+    String urlBase = url+":"+puerto+"/grupo7/api/";
     /**
      * Usuario que tiene el token para hablar con el servidor
      */
@@ -48,6 +52,14 @@ public class UsuarioProxy {
      */
     public static Usuario getUsuario() {
         return usuario;
+    }
+
+    public UsuarioProxy(SharedPreferences sharedPref){
+        String urlBase = sharedPref.getString("urlBase", url);
+        String puertoBase =sharedPref.getString("puertoBase", puerto);
+        this.url = urlBase;
+        this.puerto = puertoBase;
+        this.urlBase = url+":"+puerto+"/grupo7/api/";
     }
 
     /**

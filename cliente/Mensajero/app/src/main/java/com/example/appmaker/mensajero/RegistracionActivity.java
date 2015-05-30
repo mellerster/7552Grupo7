@@ -2,6 +2,7 @@ package com.example.appmaker.mensajero;
 
 import android.content.Intent;
 import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -102,7 +103,7 @@ public class RegistracionActivity extends ActionBarActivity {
         protected Usuario doInBackground(String... params) {
             Usuario result = null;
             try {
-                result = new UsuarioProxy().registrar(params[0],params[1]);
+                result = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).registrar(params[0],params[1]);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

@@ -23,6 +23,16 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String urlBase = sharedPref.getString("urlBase", "");
+        String puertoBase =sharedPref.getString("puertoBase", "");
+        SharedPreferences.Editor editorPreferenciasCompartidas = sharedPref.edit();
+        if(urlBase.isEmpty())
+            editorPreferenciasCompartidas.putString("urlBase", "http://10.0.2.2");
+        if(puertoBase.isEmpty())
+            editorPreferenciasCompartidas.putString("puertoBase","8080");
+
+        editorPreferenciasCompartidas.apply();
+
         String usuarioGuardado= sharedPref.getString("usuario","");
 
         if(!usuarioGuardado.isEmpty()){
@@ -48,6 +58,15 @@ public class MainActivity extends ActionBarActivity {
                     Intent registracionIntent = new Intent("com.example.appmaker.mensajero.RegistracionActivity");
                     startActivity(registracionIntent);
                     finish();
+                }
+            });
+
+            Button btnAjustes = (Button) findViewById(R.id.ajustes_button);
+            btnAjustes.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    Intent settingsIntent = new Intent("com.example.appmaker.mensajero.SettingsActivity");
+                    startActivity(settingsIntent);
                 }
             });
         }
@@ -92,7 +111,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected Boolean doInBackground(Void... params) {
             Usuario usuario = null;
-            usuario = new UsuarioProxy().login(new Usuario(this.usuario, this.contrasenia));
+            usuario = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).login(new Usuario(this.usuario, this.contrasenia));
             return (usuario != null );
         }
 

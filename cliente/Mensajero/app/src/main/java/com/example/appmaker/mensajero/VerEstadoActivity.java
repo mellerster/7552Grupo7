@@ -1,6 +1,7 @@
 package com.example.appmaker.mensajero;
 
 import android.content.Intent;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,7 +25,7 @@ public class VerEstadoActivity extends ActionBarActivity {
         {
             nombreUsuario = extras.getString("usuario");
         }
-        usuario = new UsuarioProxy().verEstado(nombreUsuario);
+        usuario = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).verEstado(nombreUsuario);
         cargarDatosUsuario();
 
     }

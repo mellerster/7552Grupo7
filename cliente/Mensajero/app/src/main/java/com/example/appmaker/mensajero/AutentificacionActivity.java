@@ -164,7 +164,7 @@ public class AutentificacionActivity extends Activity {
         @Override
         protected Boolean doInBackground(Void... params) {
             Usuario usuario = null;
-            usuario = new UsuarioProxy().login(new Usuario(this.usuario, this.contrasenia));
+            usuario = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).login(new Usuario(this.usuario, this.contrasenia));
             CheckBox recordarDatosCheck = (CheckBox) findViewById(R.id.recordar_datos_check);
             if (recordarDatosCheck.isChecked()) {
                 guardarLogin();

@@ -78,7 +78,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         btnCerrarSesion.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                new UsuarioProxy().logout(UsuarioProxy.getUsuario());
+                new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).logout(UsuarioProxy.getUsuario());
                 //Borro los datos del usuario conectado
                 SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
                 SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
@@ -169,7 +169,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         //noinspection SimplifiableIfStatement
         switch (id){
             case R.id.action_salir:
-                new UsuarioProxy().logout(UsuarioProxy.getUsuario());
+                new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).logout(UsuarioProxy.getUsuario());
                 finish();
                 break;
         }
@@ -213,7 +213,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
             //showProgress(true);
             List<Usuario> usuarios = null;
             try {
-                usuarios = new UsuarioProxy().getUsuariosConectados();
+                usuarios = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getUsuariosConectados();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
