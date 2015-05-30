@@ -68,9 +68,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         btnBroadcast.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                //startActivity(new Intent("com.example.appmaker.mensajero.CheckinActivity"));
-                ///TODO: Llamar a la activity de Broadcast
-                Log.d(tag, "Enviar Mensaje de Broadcast");
+                startActivity(new Intent("com.example.appmaker.mensajero.BroadcastActivity"));
             }
         });
 

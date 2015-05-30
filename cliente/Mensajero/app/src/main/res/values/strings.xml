@@ -15,5 +15,6 @@
     <string name="recordar_datos">Recordar datos</string>
     <string name="title_activity_checkin">Checkin</string>
     <string name="title_activity_settings">Ajustes</string>
+    <string name="title_activity_broadcast">Mensaje de Broadcast</string>
 
 </resources>

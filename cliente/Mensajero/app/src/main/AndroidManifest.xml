@@ -126,6 +126,16 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".BroadcastActivity"
+            android:label="@string/title_activity_broadcast" >
+            <intent-filter>
+                ​
+                <action android:name="com.example.appmaker.mensajero.BroadcastActivity" />
+                ​​​​​​​​​​​​​​​​
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

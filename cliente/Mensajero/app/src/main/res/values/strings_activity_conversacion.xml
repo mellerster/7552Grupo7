@@ -1,4 +1,5 @@
 <resources>
     <string name="enviar">Enviar</string>
     <string name="nuevo_mensaje">Escriba un nuevo mensaje</string>
+    <string name="enviar_broadcast">Enviar a todos los usuarios conectados</string>
 </resources>
