@@ -1,6 +1,6 @@
 #include "RocaDB.hpp"
 
-#include "json/json.h"
+#include <memory>
 
 
 HUMBLE_LOGGER( logger, "default" );
@@ -279,6 +279,45 @@ unsigned int RocaDB::GenerateNewID() {
     this->m_rockdb->Put( rocksdb::WriteOptions(), secuenceKey, std::to_string(newGeneratedID) );
 
     return newGeneratedID;
+}
+
+
+//---------------------------------------------------------------------
+
+
+std::string RocaDB::JsonToSlice(Json::Value j) const {
+    // Crea un writer para el Json
+    Json::StreamWriterBuilder builder;
+    std::unique_ptr<Json::StreamWriter> writer( builder.newStreamWriter() );
+
+    // Escribe el Json a un stream
+    std::stringstream ss;
+    writer->write( j, &ss );
+
+    return ss.str();
+}
+
+
+Json::Value RocaDB::SliceToJson(rocksdb::Slice s) const {
+    // Puntero al inicio y al final de los datos del slice
+    const char* beg = s.data();
+    const char* end = &beg[ s.size() ];
+
+    // Crea un reader para el Json
+    Json::CharReaderBuilder builder;
+    std::unique_ptr<Json::CharReader> reader( builder.newCharReader() );
+
+    // Copia los datos del slice al Json
+    std::string errs = "";
+    Json::Value jResul;
+    bool exito = reader->parse( beg, end, &jResul, &errs );
+
+    if (!exito) {
+        HL_FATAL( logger, "Falló slice to Json:\n" + errs );
+        throw std::runtime_error( "Error al parsear un slice a Json" );
+    }
+
+    return jResul;
 }
 
 

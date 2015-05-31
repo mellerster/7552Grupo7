@@ -6,6 +6,7 @@
 #include <string>
 
 #include "IDB.hpp"
+#include "json/json.h"
 #include "rocksdb/db.h"
 #include "humblelogging/api.h"
 
@@ -68,6 +69,25 @@ class RocaDB : public IDB {
     private:
 
         rocksdb::DB* m_rockdb;  /**< La base de datos. */
+
+
+        /** Dado un Slice, devuelve su contenido en un Json.
+         *
+         * @returns  Un Json con una copia de los datos originales.
+         * */
+        Json::Value SliceToJson(rocksdb::Slice s) const;
+
+
+        /** Dado un Json, devuelve su contenido en un string.
+         *
+         * Debido a la forma en que los slices funcionan, es necesario guardar una referencia a este string
+         * para luego asignarselo a un slice.
+         * Esto es porque los slices no tienen una copia de los datos, si no que guardan una referencia a los 
+         * datos originales.
+         *
+         * @returns  Un string con una copia de los datos del Json.
+         * */
+        std::string JsonToSlice(Json::Value j) const;
 
 };
 
