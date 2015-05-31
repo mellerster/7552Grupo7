@@ -181,22 +181,3 @@ TEST_CASE ( "JSON con array vacio" ) {
 }
 
 
-TEST_CASE ( "JSON con string de enteros" ) {
-    Json::Value j;
-    j["uno"] = "12345";
-
-    SECTION ( "Test type" ) {
-        Json::ValueType vt = j["uno"].type();
-
-        REQUIRE ( vt == Json::ValueType::stringValue );
-    }
-
-    SECTION ( "All to string" ) {
-        REQUIRE_NOTHROW (
-                std::string resul = j.asString();
-            );
-    }
-}
-
-
-
