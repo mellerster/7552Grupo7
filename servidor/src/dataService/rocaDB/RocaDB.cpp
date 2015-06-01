@@ -78,11 +78,11 @@ bool RocaDB::StoreUserUbicacion(std::string userID, std::string latitud, std::st
         return false;   // No existe el usuario
     }
 
-    Json::Value jUser(val);
+    Json::Value jUser = SliceToJson( val );
     jUser["Latitud"] = latitud;
     jUser["Longitud"] = longitud;
 
-    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetUserKey(userID), jUser.asString() );
+    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetUserKey(userID), JsonToSlice(jUser) );
 
     return st.ok();
 }
@@ -96,7 +96,7 @@ bool RocaDB::LoadUserUbicacion(std::string userID, std::string &latitud, std::st
         return false;   // No existe el usuario
     }
 
-    Json::Value jUser(val);
+    Json::Value jUser = SliceToJson( val );
     latitud = jUser.get("Latitud", "").asString();
     longitud = jUser.get("Longitud", "").asString();
 
@@ -112,10 +112,10 @@ bool RocaDB::StoreUserFoto(std::string userID, std::string foto) {
         return false;   // No existe el usuario
     }
 
-    Json::Value jUser(val);
+    Json::Value jUser = SliceToJson( val );
     jUser["Foto"] = foto;
 
-    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetUserKey(userID), jUser.asString() );
+    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetUserKey(userID), JsonToSlice(jUser) );
 
     return st.ok();
 }
@@ -129,7 +129,7 @@ bool RocaDB::LoadUserFoto(std::string userID, std::string &foto) {
         return false;   // No existe el usuario
     }
 
-    Json::Value jUser(val);
+    Json::Value jUser = SliceToJson( val );
     foto = jUser.get("Foto", "").asString();
 
     return true;
