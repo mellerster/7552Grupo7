@@ -25,6 +25,7 @@ class RocaDB : public IDB {
 
         virtual bool ExistsUser(std::string userID);
         virtual bool CreateUser(std::string userID, std::string password);
+        virtual bool AutheticateUser(std::string userID, std::string password);
         virtual bool StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud);
         virtual bool LoadUserUbicacion(std::string userID, std::string &latitud, std::string &longitud);
         virtual bool StoreUserFoto(std::string userID, std::string foto);

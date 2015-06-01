@@ -89,6 +89,16 @@ class IDB {
         virtual unsigned int CreateNewConversacion(std::vector<std::string> listaUsuarios) = 0;
 
 
+        /** Chequea que el password corresponda al usuario dado.
+         *
+         * @param[in] userID    El nombre del usuario a autenticar.
+         * @param[in] password  El password usuado para la autenticación.
+         *
+         * @returns True si el password es igual al password del usuario dado, false si no.
+         * */
+        virtual bool AutheticateUser(std::string userID, std::string password) = 0;
+
+
         /** Devuelve los IDs de todos los mensajes contenidos en la conversación data.
          *
          * @param[in] conversacionID    El ID de la conversación de la cual se quieren los mensajes.

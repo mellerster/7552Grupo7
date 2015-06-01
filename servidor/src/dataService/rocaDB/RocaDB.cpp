@@ -55,9 +55,24 @@ bool RocaDB::CreateUser(std::string userID, std::string password) {
 }
 
 
+bool RocaDB::AutheticateUser(std::string userID, std::string password) {
+    std::string userData;
+    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &userData );
+
+    if (st.IsNotFound()) {
+        return false;   // No existe el usuario
+    }
+
+    Json::Value jUser = SliceToJson( userData );
+    std::string storedPass = jUser["Password"].asString();
+
+    return (storedPass == password);
+}
+
+
 bool RocaDB::StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud) {
     std::string val;
-    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &val);
+    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &val );
 
     if (st.IsNotFound()) {
         return false;   // No existe el usuario
