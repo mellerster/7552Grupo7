@@ -50,7 +50,7 @@ bool RocaDB::CreateUser(std::string userID, std::string password) {
     jUser["Password"] = password;
 
     // Si existia algo lo sobre-escribe
-    rocksdb::Status st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetUserKey(userID), jUser.asString() );
+    rocksdb::Status st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetUserKey(userID), JsonToSlice(jUser) );
     return st.ok();
 }
 
