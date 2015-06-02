@@ -87,7 +87,7 @@ Aqui podra escribir mensajes hacia otro usuario y recibir los que le envíe este
 .. _broadcast:
 
 Pantalla de envio de Mensaje de Broadcast
-========================================
+=========================================
 
 .. figure:: pantallas_cliente/broadcast.png
 	:scale: 15 %
