@@ -1,6 +1,9 @@
 
 #Compila los distintos testers
-add_executable ( JsonTester MainTester.cpp JsonTester.cpp )
+add_executable ( JsonTester
+        MainTester.cpp 
+        JsonTester.cpp 
+        )
 target_link_libraries ( JsonTester jsoncppLib )
 
 
@@ -33,11 +36,19 @@ add_executable ( HandlerTester
 target_link_libraries ( HandlerTester requestHandlers )
 
 
-add_executable ( DTOTester MainTester.cpp DTOsTester.cpp )
+add_executable ( DTOTester 
+        MainTester.cpp 
+        DTOsTester.cpp 
+        )
 target_link_libraries ( DTOTester requestHandlers jsoncppLib )
 
 
-add_executable ( RocaDBTester MainLoggedTester.cpp RocaDBTester.cpp SliceJsonTester.cpp )
+add_executable ( RocaDBTester 
+        MainLoggedTester.cpp 
+        RocaDBUsuariosTester.cpp 
+        RocaDBMensajesTester.cpp 
+        SliceJsonTester.cpp 
+        )
 target_link_libraries ( RocaDBTester rocaDB jsoncppLib humblelogging )
                         
 

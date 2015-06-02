@@ -32,6 +32,7 @@ class RocaDB : public IDB {
         virtual bool LoadUserFoto(std::string userID, std::string &foto);
 
         virtual unsigned int CreateNewConversacion(std::vector<std::string> listaUsuarios);
+        virtual std::vector<unsigned int> GetConversaciones(std::string userID);
         virtual std::vector<unsigned int> GetMensajesConversacion(unsigned int conversacionID);
         virtual unsigned int AgregarMensaje(std::string userID, unsigned int IDConversacion, std::string texto);
         virtual std::string GetMensaje(unsigned int mensajeID);

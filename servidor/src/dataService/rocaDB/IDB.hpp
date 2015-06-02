@@ -89,6 +89,15 @@ class IDB {
         virtual unsigned int CreateNewConversacion(std::vector<std::string> listaUsuarios) = 0;
 
 
+        /** Devuelve todas las conversaciónes de un usuario dado.
+         *
+         * @param[in] userID El Id del usuario.
+         *
+         * @returns Una lista con todos los ID de conversaciones del usuario.
+         * */
+        virtual std::vector<unsigned int> GetConversaciones(std::string userID) = 0;
+
+
         /** Chequea que el password corresponda al usuario dado.
          *
          * @param[in] userID    El nombre del usuario a autenticar.

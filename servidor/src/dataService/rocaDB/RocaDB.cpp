@@ -123,7 +123,7 @@ bool RocaDB::StoreUserFoto(std::string userID, std::string foto) {
 
 bool RocaDB::LoadUserFoto(std::string userID, std::string &foto) {
     std::string val;
-    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &val);
+    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &val );
 
     if (st.IsNotFound()) {
         return false;   // No existe el usuario
@@ -145,6 +145,10 @@ std::string RocaDB::GetUserKey(std::string userID) const {
 
 
 unsigned int RocaDB::CreateNewConversacion(std::vector<std::string> listaUsuarios) {
+    // Se genera un ID para la conversación
+    unsigned int convID = GenerateNewID();
+
+    // Se crea la conversación
     Json::Value jConv;
     jConv["IDMensajes"] = Json::Value( Json::arrayValue );  // Array vacio
 
@@ -153,11 +157,57 @@ unsigned int RocaDB::CreateNewConversacion(std::vector<std::string> listaUsuario
         jConv["IDUsuarios"][i] = listaUsuarios[i];
     }
 
-    unsigned int key = GenerateNewID();
-    rocksdb::Status st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetConversationKey(key), jConv.asString() );
+    // Se guarda la nueva conversación
+    rocksdb::Status st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetConversationKey(convID), JsonToSlice(jConv) );
 
-    // Si fue exitosa la operación devuelve la clave, si no "0"
-    return st.ok() ? key : 0;
+    if (!st.ok()) {
+        HL_ERROR( logger, "No se logró guardar una nueva conversación\n" + st.ToString() );
+        return 0;
+    }
+
+    // Se asocia cada usuario que participa de la conversación
+    for (unsigned int i = 0; i < listaUsuarios.size(); ++i) {
+        std::string userKey = GetUserKey( listaUsuarios[i] );
+
+        std::string val;
+        st = this->m_rockdb->Get( rocksdb::ReadOptions(), userKey, &val );   // Recupera los datos del usuario
+
+        if (!st.ok()) {
+            HL_FATAL( logger, "Se grabó una conversación, pero no se pudo asociar a algún usuario\n" + st.ToString() );
+            throw std::runtime_error( "Error al recuperar un usuario (" + userKey + ")\n" + st.ToString() );
+        }
+
+        Json::Value jUser = SliceToJson( val );
+        jUser["IDConversaciones"].append( convID ); // Agrega el id de la nueva conversación
+
+        st = this->m_rockdb->Put( rocksdb::WriteOptions(), userKey, JsonToSlice(jUser) );    // Lo guarda
+
+        if (!st.ok()) {
+            HL_FATAL( logger, "Se asoció un usuario a una conversación, pero no se puede almacenarla\n" + st.ToString() );
+            throw std::runtime_error( "Error al guardar un usuario (" + userKey + ")\n" + st.ToString() );
+        }
+    }
+
+    return convID;
+}
+
+
+std::vector<unsigned int> RocaDB::GetConversaciones(std::string userID) {
+    std::string val;
+    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &val );
+
+    if (st.IsNotFound()) {
+        return std::vector<unsigned int>(); // Devuelve un vector vacio
+    }
+
+    Json::Value jUser = SliceToJson( val );
+
+    std::vector<unsigned int> vConvs;
+    for (unsigned int i = 0; i < jUser["IDConversaciones"].size(); ++i) {
+        vConvs.push_back( jUser["IDConversaciones"][i].asUInt() );
+    }
+
+    return vConvs;
 }
 
 
@@ -169,7 +219,7 @@ std::vector<unsigned int> RocaDB::GetMensajesConversacion(unsigned int conversac
         return std::vector<unsigned int>();
     }
 
-    Json::Value jConv(val);
+    Json::Value jConv = SliceToJson( val );
 
     std::vector<unsigned int> vResul;
     for (unsigned int i = 0; i < jConv["IDMensajes"].size(); ++i) {
@@ -198,17 +248,17 @@ unsigned int RocaDB::AgregarMensaje(std::string userID, unsigned int IDConversac
     jMsg["Texto"] = texto;
 
     // Se agregá el id del mensaje a la conversación
-    Json::Value jConv(conv);
+    Json::Value jConv = SliceToJson( conv );
     jConv["IDMensajes"].append( msgKey );
 
     // Se guarda el mensaje
-    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetMessageKey(msgKey), jMsg.asString() );
+    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetMessageKey(msgKey), JsonToSlice(jMsg) );
     if (!st.ok()) {
         return 0;
     }
 
     // Se guarda la conversación
-    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetConversationKey(IDConversacion), jConv.asString() );
+    st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetConversationKey(IDConversacion), JsonToSlice(jConv) );
     if (!st.ok()) {
         return 0;
     }
@@ -225,7 +275,7 @@ std::string RocaDB::GetMensaje(unsigned int mensajeID) {
         return "";   // El mensaje no existe
     }
 
-    Json::Value jMsg(m);
+    Json::Value jMsg = SliceToJson(m);
     return jMsg["Texto"].asString();
 }
 
