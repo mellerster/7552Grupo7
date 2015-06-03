@@ -31,6 +31,7 @@ endif()
 add_custom_target ( coverage
                     COMMAND lcov --quiet --capture --directory ${PROJECT_BINARY_DIR} --output-file coverage.info 
                     COMMAND lcov --quiet --remove coverage.info /usr/include/\\* --output-file coverage.info   
+                    COMMAND lcov --quiet --remove coverage.info /usr/local/include/\\* --output-file coverage.info   
                     COMMAND lcov --quiet --remove coverage.info src/tests/include/\\* --output-file coverage.info    
                     COMMAND lcov --quiet --remove coverage.info src/libs/\\* --output-file coverage.info    
                     COMMAND genhtml coverage.info --output-directory CoverageReport
