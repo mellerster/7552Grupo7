@@ -87,3 +87,29 @@ TEST_CASE ( "Pruebas de mensaje" ) {
 }
 
 
+TEST_CASE ( "Recuperar los ultimos mensajes" ) {
+    RocaDB db;
+    db.Open("DBTestsLasts.bin");
+
+    const unsigned int msgID = 999;
+    const unsigned int convID = 1010;
+
+    SECTION ( "No hay ultimo mensaje" ) {
+        unsigned int lastMsgID = db.GetIDUltimoMensaje("pepe", convID);
+
+        REQUIRE ( 0 == lastMsgID );
+    }
+
+    SECTION ( "Hay ultimo mensaje" ) {
+        db.SetIDUltimoMensaje("pepe", convID, msgID);
+        unsigned int lastMsgID = db.GetIDUltimoMensaje("pepe", convID);
+
+        REQUIRE ( msgID == lastMsgID );
+    }
+
+    db.Close();
+    rocksdb::DestroyDB( "DBTestsLasts.bin", rocksdb::Options() );
+}
+
+
+

@@ -1,6 +1,5 @@
 #include "RocaDB.hpp"
 
-#include <memory>
 
 
 HUMBLE_LOGGER( logger, "default" );
@@ -303,7 +302,7 @@ unsigned int RocaDB::GetIDUltimoMensaje(std::string userID, unsigned int convers
         return 0;
     }
 
-    Json::Value jMsg(val);
+    Json::Value jMsg = SliceToJson(val);
     return jMsg.get("IDUltimoMensaje", 0).asUInt();
 }
 
@@ -314,7 +313,7 @@ void RocaDB::SetIDUltimoMensaje(std::string userID, unsigned int conversacionID,
 
     std::string umKey = GetUltimoReciboKey(userID, conversacionID);
 
-    this->m_rockdb->Put( rocksdb::WriteOptions(), umKey, jMsg.asString() );
+    this->m_rockdb->Put( rocksdb::WriteOptions(), umKey, JsonToSlice(jMsg) );
 }
 
 
