@@ -8,6 +8,24 @@ Descripción del cliente
 
 El Cliente es una aplicación Android para ser instalada y ejecutada en dispositivos moviles como Celulares y Tablets con dicho sistema operativo. Su funcionalidad es conectarse con el servidor, enviar mensajes y obtener la respuesta del mismo.
 
+Features Incluidos
+==================
+
+Dentro de las funcionalidades de la aplicación esta:
+
+* Registrar un nuevo usuario
+* Acceder con un usuario ya creado 
+* Ver el listado de usuarios conectados
+* Configurar Mi Perfil
+* Ver el perfil de otro usuario
+
+.. note:: Para la proxima entrega van a estar:
+
+* Ver el listado de conversaciones
+* Enviar Mensajes con otros usuarios
+* Realizar Checkin para que todos sepan mi ubicación
+* Enviar un mensaje a todos los usuarios conectados (Broadcast)
+
 **********
 Aplicación
 **********
@@ -51,6 +69,10 @@ Ejemplos
 
 	> abd install C:\archivos\mensajero.apk
 
+Configuración
+=============
+
+En la pantalla inicial, se puede presionar el boton de AJUSTES, desde allí se podra cambiar la IP del servidor y el Puerto de conexión, por defecto si no se configura ninguno es la ip http://10.0.2.2 y el puerto 8080, dado que la ip es la de la maquina que aloja el emulador del android.
 
 ******
 Diseño
@@ -88,3 +110,15 @@ Mensaje
 
 Clase que maneja todos los datos de un mensaje, por ahora solo se utiliza para las pantallas
 
+
+***********************
+Known Issues
+***********************
+
+* No todas las funcionalidades estan conectadas al 100% con el servidor, dado que el servidor no esta terminado
+
+***********************
+Troubleshooting
+***********************
+
+No se encuentra resoluciones a problemas frecuentes por el momento.

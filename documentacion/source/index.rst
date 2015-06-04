@@ -12,10 +12,12 @@ Contenido:
    :maxdepth: 2
 
    Intro
+   Proyecto
    Cliente
    Pantallas_Cliente
    Servidor
    Database
    Mensajes
+   Administrador
 
 
