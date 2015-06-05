@@ -52,6 +52,13 @@ add_executable ( RocaDBTester
 target_link_libraries ( RocaDBTester rocaDB jsoncppLib humblelogging )
                         
 
+add_executable ( DataServiceTester 
+        MainLoggedTester.cpp 
+        SessionTester.cpp 
+        )
+target_link_libraries ( DataServiceTester dataService humblelogging )
+
+
 ############################ Tests ##########################
 
 
@@ -70,6 +77,7 @@ add_test ( ALL_Core_Request_Handler_Tests CoreRequestHandlerTester )
 add_test ( ALL_Handler_Tests HandlerTester )
 add_test ( ALL_DTOs_Tests DTOTester )
 add_test ( ALL_RocaDB_Tests RocaDBTester )
+add_test ( ALL_DataServiceTests DataServiceTester )
 
 
 #Hay que pasar el nombre de los tests cases para que cmake los corra por separado
