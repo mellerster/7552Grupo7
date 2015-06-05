@@ -15,10 +15,7 @@ class HardCodedDataService : public IDataService {
     public:
         HardCodedDataService(IPosicionador& posInator);
 
-        virtual bool Open();
-        virtual void Close();
-
-        virtual unsigned int startSession(std::string nombreUsuario, std::string password);
+        virtual unsigned int StartSession(std::string nombreUsuario, std::string password);
         virtual bool IsTokenActive(unsigned int tok);
         virtual bool RegisterNewUser(std::string nombreUsuario, std::string password);
 
