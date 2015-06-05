@@ -105,7 +105,20 @@ unsigned int DataService::GenerateTokenUnico(std::string nomUsuario) const {
 
 
 std::vector<UserStatus> DataService::ListActiveUsers() {
-    return std::vector<UserStatus>();
+    std::vector<UserStatus> lista;
+
+    // Hay que ver todos los usuario conectados
+    for (auto it = this->m_tokenContainer.cbegin(); it != this->m_tokenContainer.cend(); ++it) {
+        UserStatus us;
+        us.Nombre = it->second;
+        us.Estado = "Conectado";
+
+        this->m_rocaDB.LoadUserFoto(us.Nombre, us.Foto);    // Carga la foto
+
+        lista.push_back( us );
+    }
+
+    return lista;
 }
 
 

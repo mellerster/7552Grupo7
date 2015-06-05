@@ -55,6 +55,7 @@ target_link_libraries ( RocaDBTester rocaDB jsoncppLib humblelogging )
 add_executable ( DataServiceTester 
         MainLoggedTester.cpp 
         SessionTester.cpp 
+        UserDataDataServiceTester.cpp 
         )
 target_link_libraries ( DataServiceTester dataService humblelogging )
 
