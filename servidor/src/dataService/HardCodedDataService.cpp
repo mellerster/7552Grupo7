@@ -6,16 +6,7 @@ HardCodedDataService::HardCodedDataService(IPosicionador& posInator) : m_posicio
 }
 
 
-bool HardCodedDataService::Open(){
-    return true;
-}
-
-
-void HardCodedDataService::Close(){
-}
-
-
-unsigned int HardCodedDataService::startSession(std::string nombreUsuario, std::string password){
+unsigned int HardCodedDataService::StartSession(std::string nombreUsuario, std::string password){
     if (nombreUsuario == "" || password == ""){
         return 0;
     }

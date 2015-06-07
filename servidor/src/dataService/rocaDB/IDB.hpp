@@ -33,6 +33,21 @@ class IDB {
         virtual bool CreateUser(std::string userID, std::string password) = 0;
 
 
+        /** Indica si ya existe el nombre de usuario en la base.
+         * */
+        virtual bool ExistsUser(std::string userID) = 0;
+
+
+        /** Chequea que el password corresponda al usuario dado.
+         *
+         * @param[in] userID    El nombre del usuario a autenticar.
+         * @param[in] password  El password usuado para la autenticación.
+         *
+         * @returns True si el password es igual al password del usuario dado, false si no.
+         * */
+        virtual bool AutheticateUser(std::string userID, std::string password) = 0;
+
+
         /** Guarda la ubicación de un usuario.
          *
          * @param[in] userID    El ID de usuario.
@@ -75,11 +90,6 @@ class IDB {
         virtual bool LoadUserFoto(std::string userID, std::string &foto) = 0;
 
 
-        /** Indica si ya existe el nombre de usuario en la base.
-         * */
-        virtual bool ExistsUser(std::string userID) = 0;
-
-
         /** Crea una nueva conversación en la base.
          *
          * @param[in] listaUsuarios     Una lista con los ID de los usuarios participantes en la conversación.
@@ -96,16 +106,6 @@ class IDB {
          * @returns Una lista con todos los ID de conversaciones del usuario.
          * */
         virtual std::vector<unsigned int> GetConversaciones(std::string userID) = 0;
-
-
-        /** Chequea que el password corresponda al usuario dado.
-         *
-         * @param[in] userID    El nombre del usuario a autenticar.
-         * @param[in] password  El password usuado para la autenticación.
-         *
-         * @returns True si el password es igual al password del usuario dado, false si no.
-         * */
-        virtual bool AutheticateUser(std::string userID, std::string password) = 0;
 
 
         /** Devuelve los IDs de todos los mensajes contenidos en la conversación data.
@@ -154,7 +154,6 @@ class IDB {
          * @returns     El texto correspondiente al ID dado.
          * */
         virtual std::string GetMensaje(unsigned int mensajeID) = 0;
-
 
 
         virtual ~IDB() { }

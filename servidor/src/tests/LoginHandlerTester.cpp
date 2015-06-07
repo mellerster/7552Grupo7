@@ -32,8 +32,8 @@ TEST_CASE ( "Testeo de login requests - Parseo de params" ){
         size_t dataLen = strlen(data) +1;
 
         // Solo comienza la sesion si es es nombre de usuario y password que especificamos
-        mocker.OnCall( mockService, IDataService::startSession ).Return( 0 );
-        mocker.OnCall( mockService, IDataService::startSession ).With("pepe", "123").Return( 5555 );
+        mocker.OnCall( mockService, IDataService::StartSession ).Return( 0 );
+        mocker.OnCall( mockService, IDataService::StartSession ).With("pepe", "123").Return( 5555 );
 
         // Act
         lr.LoadParameters( queryString, data, dataLen );
@@ -48,7 +48,7 @@ TEST_CASE ( "Testeo de login requests - Parseo de params" ){
         const char* data = "{ \"Token\" : 0, \"NombreUsuario\" : \"pepe\", \"Password\" : \"123\" }";
         size_t dataLen = strlen(data) +1;
 
-        mocker.OnCall( mockService, IDataService::startSession ).Return( 0 );
+        mocker.OnCall( mockService, IDataService::StartSession ).Return( 0 );
 
         // Act
         lr.LoadParameters( queryString, data, dataLen );
@@ -64,7 +64,7 @@ TEST_CASE ( "Testeo de login requests - Parseo de params" ){
         size_t dataLen = strlen(data) +1;
 
         // Solo comienza la sesion si es es nombre de usuario y password que especificamos
-        mocker.OnCall( mockService, IDataService::startSession ).Return( 5555 );
+        mocker.OnCall( mockService, IDataService::StartSession ).Return( 5555 );
 
         // Act
         lr.LoadParameters( queryString, data, dataLen );

@@ -13,17 +13,6 @@
  * */
 class IDataService {
     public:
-        /** Abre la conexion con la base de datos.
-         *
-         * @return  "true" si la connexion fue abrierta exitosamente, "false" sino.
-         * */
-        virtual bool Open() = 0;
-
-
-        /** Cierra la conexion con la base de datos.
-         * */
-        virtual void Close() = 0;
-
 
         /** Indica si el token esta relacionado con alguna sesión activa.
          *
@@ -49,7 +38,7 @@ class IDataService {
          *
          * @returns  Un token que representa la nueva sesión del usuario, "0" si no.
          * */
-        virtual unsigned int startSession(std::string nombreUsuario, std::string password) = 0;
+        virtual unsigned int StartSession(std::string nombreUsuario, std::string password) = 0;
 
 
         /** Registra un nuevo usuario en el sistema.

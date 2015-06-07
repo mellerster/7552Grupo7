@@ -225,11 +225,11 @@ TEST_CASE ( "Nueva inplemetación para la factory" ){
         // Mocks
         MockRepository mocker;
         IDataService* mockService = mocker.Mock<IDataService>();
-        mocker.OnCall( mockService, IDataService::startSession ).Return( 999 );
+        mocker.OnCall( mockService, IDataService::StartSession ).Return( 999 );
 
         std::unordered_map< int, std::function<unsigned int(IDataService&)> > um;
         um[1] = [] (IDataService& ds) { 
-            return ds.startSession("", "");
+            return ds.StartSession("", "");
         };
 
         unsigned int resul;
