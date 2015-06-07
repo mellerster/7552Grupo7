@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transmisión de Mensajes &mdash; MensajerO 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MensajerO 1.0 documentation" href="index.html" />
+    <link rel="next" title="Administrador del Servidor" href="Administrador.html" />
+    <link rel="prev" title="Base de datos" href="Database.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Administrador.html" title="Administrador del Servidor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Database.html" title="Base de datos"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="transmision-de-mensajes">
+<h1>Transmisión de Mensajes<a class="headerlink" href="#transmision-de-mensajes" title="Permalink to this headline">¶</a></h1>
+<p>La transmición de los mensajes se define por una cantidad de variables:</p>
+<ol class="arabic simple">
+<li><strong>Metodo Http:</strong> Los tipos permitidos son: <em>POST</em>, <em>GET</em>, o <em>PUT</em>, el resto son ignorados.</li>
+<li><strong>URL Htpp:</strong> La dirección del recurso al que se desea acceder, esta asociado al tipo de operación a realizar.</li>
+<li><strong>Parametros:</strong> La mayoria de las operaciones requiere que los pedidos vengan con un token, entre muchos otros.</li>
+</ol>
+<div class="section" id="mensajes-get">
+<h2>Mensajes GET<a class="headerlink" href="#mensajes-get" title="Permalink to this headline">¶</a></h2>
+<p>Los parametros de estos mensajes son transmitidos mediante <em>query strings</em> en la misma dirección URL.</p>
+<div class="section" id="grupo7-api-usuarios">
+<h3>grupo7/api/usuarios<a class="headerlink" href="#grupo7-api-usuarios" title="Permalink to this headline">¶</a></h3>
+<p>Este pedido hace que el servidor envie al cliente un listado con todos los usuarios que tienen una sesión activa.</p>
+<div class="section" id="parametros-de-entrada">
+<h4>Parametros de entrada<a class="headerlink" href="#parametros-de-entrada" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Token</strong>: Debe ser el token del cliente y estar activo en el sistema.</li>
+</ul>
+</div>
+<div class="section" id="parametros-de-salida">
+<h4>Parametros de salida<a class="headerlink" href="#parametros-de-salida" title="Permalink to this headline">¶</a></h4>
+<p>Un JSON con la siguiente estructura:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Usuarios</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">Nombre</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">Estado</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">Foto</span><span class="p">:</span> <span class="s">&quot;&lt;base64&gt;&quot;</span><span class="p">,</span>
+                <span class="n">UltimaActividadHora</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">UltimaActividadFecha</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="o">...</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status</strong> El estado del resultado de la operación, pudiendo ser esta: &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>Usuarios:</strong> Un arreglo de objetos <em>usuario</em>, pueden ser cero o mas.<ul>
+<li><strong>Status:</strong> Cada dato de usuario tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.</li>
+<li><strong>Nombre:</strong> El nombre del usuario.</li>
+<li><strong>Estado:</strong> El estado del usuario,</li>
+<li><strong>Foto:</strong> La fotografia que el correspondiente usuario ha cargado en el sistema, en base64.</li>
+<li><strong>UltimaActividadHora:</strong> La hora cuando se registró la ultima actividad de ese usuario.</li>
+<li><strong>UltimaActividadFecha:</strong> La fecha cuando se registró la ultima actividad de ese usuario.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="mensajes-put">
+<h2>Mensajes PUT<a class="headerlink" href="#mensajes-put" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="grupo7-api-sesion">
+<h3>grupo7/api/sesion<a class="headerlink" href="#grupo7-api-sesion" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se inicia una sesión del cliente en el servidor.</p>
+<div class="section" id="id1">
+<h4>Parametros de entrada<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">NombreUsuario</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Password</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>NombreUsuario:</strong> El nombre con el que el usuario se registró en el sistema.</li>
+<li><strong>Password:</strong> La clave con la que el usuario se registró en el sistema.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h4>Parametros de salida<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica la sesión del usuario, si este logro loggearse al sistema.</li>
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>grupo7/api/usuarios<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se realiza la edición de los datos del perfil del usuario.</p>
+<div class="section" id="id4">
+<h4>Parametros de entrada<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Foto</span><span class="p">:</span> <span class="s">&quot;&lt;base64&gt;&quot;</span><span class="p">,</span>
+    <span class="n">Estado</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica la sesión del usuario.</li>
+<li><strong>Foto:</strong> Una imagen codificada en base64.</li>
+<li><strong>Estado:</strong> Un texto que indique el estado del usuario.</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h4>Parametros de salida<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="mensajes-post">
+<h2>Mensajes POST<a class="headerlink" href="#mensajes-post" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id6">
+<h3>grupo7/api/usuarios<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido un usuario puede registrarse en el sistema.</p>
+<div class="section" id="parametro-de-entrada">
+<h4>Parametro de entrada<a class="headerlink" href="#parametro-de-entrada" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">NombreUsuario</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Password</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>NombreUsuario:</strong> El nombre con el que el usuario se registró en el sistema.</li>
+<li><strong>Password:</strong> La clave con la que el usuario se registró en el sistema.</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h4>Parametros de salida<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="grupo7-api-checkin">
+<h3>grupo7/api/checkin<a class="headerlink" href="#grupo7-api-checkin" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido un usuario puede actualizar su ubicación en el sistema, al mismo tiempo recibe una descripción del punto conocido mas cercano.</p>
+<div class="section" id="id8">
+<h4>Parametro de entrada<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Latitud</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Longitud</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+<li><strong>Latitud:</strong> Coordenada geografica.</li>
+<li><strong>Longitud:</strong> Coordenada geografica.</li>
+</ul>
+</div>
+<div class="section" id="id9">
+<h4>Parametros de salida<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Descripcion</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>Descripcion:</strong> Una pequeña descripción del lugar conocido mas cercano a la ubicación del usuario.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transmisión de Mensajes</a><ul>
+<li><a class="reference internal" href="#mensajes-get">Mensajes GET</a><ul>
+<li><a class="reference internal" href="#grupo7-api-usuarios">grupo7/api/usuarios</a><ul>
+<li><a class="reference internal" href="#parametros-de-entrada">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#parametros-de-salida">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mensajes-put">Mensajes PUT</a><ul>
+<li><a class="reference internal" href="#grupo7-api-sesion">grupo7/api/sesion</a><ul>
+<li><a class="reference internal" href="#id1">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id2">Parametros de salida</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">grupo7/api/usuarios</a><ul>
+<li><a class="reference internal" href="#id4">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id5">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mensajes-post">Mensajes POST</a><ul>
+<li><a class="reference internal" href="#id6">grupo7/api/usuarios</a><ul>
+<li><a class="reference internal" href="#parametro-de-entrada">Parametro de entrada</a></li>
+<li><a class="reference internal" href="#id7">Parametros de salida</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-checkin">grupo7/api/checkin</a><ul>
+<li><a class="reference internal" href="#id8">Parametro de entrada</a></li>
+<li><a class="reference internal" href="#id9">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Database.html"
+                        title="previous chapter">Base de datos</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Administrador.html"
+                        title="next chapter">Administrador del Servidor</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Mensajes.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Administrador.html" title="Administrador del Servidor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Database.html" title="Base de datos"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Grupo-7.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

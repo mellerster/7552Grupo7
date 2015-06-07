@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MensajerO - Server: Fichero Fuente src/dataService/rocaDB/RocaDB.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MensajerO - Server
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Servidor de MensajerO</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_685019b3d6f24dd413d56537e4a2a550.html">dataService</a></li><li class="navelem"><a class="el" href="dir_de73f9386396b5b661977100e2b939ad.html">rocaDB</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">RocaDB.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef ROCA_DATABASE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define ROCA_DATABASE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stdexcept&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;IDB.hpp&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;json/json.h&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;rocksdb/db.h&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#include &quot;humblelogging/api.h&quot;</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classRocaDB.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classRocaDB.html">RocaDB</a> : <span class="keyword">public</span> <a class="code" href="classIDB.html">IDB</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="classRocaDB.html">RocaDB</a>() : m_rockdb( <span class="keyword">nullptr</span> ) { }</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classRocaDB.html">RocaDB</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRocaDB.html#a5a46c9ceeff40ba0ca7eb75b4a1f147e">Open</a>(std::string fileName);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRocaDB.html#a2f45d9367770af35e9088b23209debe9">Close</a>();</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRocaDB.html#ae4a95a2e9b6f5324e9b1454e6c44761a">ExistsUser</a>(std::string userID);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRocaDB.html#a5c82ea7f470cb62ec66d2e87a9a00d5c">CreateUser</a>(std::string userID, std::string password);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRocaDB.html#a1494d85dd123fffe4813954be2ba70bf">AutheticateUser</a>(std::string userID, std::string password);</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRocaDB.html#ae1354f12df791f76dbc2686200f7ea27">StoreUserUbicacion</a>(std::string userID, std::string latitud, std::string longitud);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRocaDB.html#a9ad1e2f03aa1fbe8ddc7095321c1773e">LoadUserUbicacion</a>(std::string userID, std::string &amp;latitud, std::string &amp;longitud);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRocaDB.html#a9a446165b6a0d381609a48452f2cb769">StoreUserFoto</a>(std::string userID, std::string foto);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classRocaDB.html#aa3ded2720ca360dd222b1aca1da0a436">LoadUserFoto</a>(std::string userID, std::string &amp;foto);</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classRocaDB.html#a74591c2de66de312111339d9ab695c93">CreateNewConversacion</a>(std::vector&lt;std::string&gt; listaUsuarios);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;unsigned int&gt; <a class="code" href="classRocaDB.html#ab7a496ffb9271683ba6d33bf1e90e910">GetConversaciones</a>(std::string userID);</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;unsigned int&gt; <a class="code" href="classRocaDB.html#a0bf3345f91836fa15411e64605690ba1">GetMensajesConversacion</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> conversacionID);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classRocaDB.html#a1faddf2bc096be7823d9e23a759cd69f">AgregarMensaje</a>(std::string userID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> IDConversacion, std::string texto);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classRocaDB.html#aa9bf8247802727c0c86672b5047d0f83">GetMensaje</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mensajeID);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classRocaDB.html#a1406ebe818e492852a265283fe66a5fd">GetIDUltimoMensaje</a>(std::string userID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> conversacionID);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classRocaDB.html#a482d11433b2cf9ecedc921117ce5adac">SetIDUltimoMensaje</a>(std::string userID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> conversacionID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mensajeID);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <span class="keyword">protected</span>:</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        std::string <a class="code" href="classRocaDB.html#a779bc5585d223f0121dcb8ea4dbeaf39">GetUserKey</a>(std::string userID) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        std::string <a class="code" href="classRocaDB.html#a3cae63a398740598a7913a6378f5bfd5">GetConversationKey</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> convID) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;        std::string <a class="code" href="classRocaDB.html#a514ceaaa5a3e7d9da9f41d1096afe118">GetMessageKey</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> msgID) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::string <a class="code" href="classRocaDB.html#a7e4abb50f6ad6b4d680f0996acb3c645">GetUltimoReciboKey</a>(std::string userID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> convID) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classRocaDB.html#aedc8f5c7727f6260ad4a99e51031b07a">GenerateNewID</a>();</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;        rocksdb::DB* m_rockdb;  </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;        Json::Value SliceToJson(rocksdb::Slice s) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        std::string JsonToSlice(Json::Value j) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;};</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;</div>
+<div class="ttc" id="classRocaDB_html_ae1354f12df791f76dbc2686200f7ea27"><div class="ttname"><a href="classRocaDB.html#ae1354f12df791f76dbc2686200f7ea27">RocaDB::StoreUserUbicacion</a></div><div class="ttdeci">virtual bool StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud)</div><div class="ttdoc">Guarda la ubicación de un usuario. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:72</div></div>
+<div class="ttc" id="classRocaDB_html_a514ceaaa5a3e7d9da9f41d1096afe118"><div class="ttname"><a href="classRocaDB.html#a514ceaaa5a3e7d9da9f41d1096afe118">RocaDB::GetMessageKey</a></div><div class="ttdeci">std::string GetMessageKey(unsigned int msgID) const </div><div class="ttdoc">Dado el Id de un mensaje devuelve la clave para acceder a los datos correspondientes. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:287</div></div>
+<div class="ttc" id="classRocaDB_html_ab7a496ffb9271683ba6d33bf1e90e910"><div class="ttname"><a href="classRocaDB.html#ab7a496ffb9271683ba6d33bf1e90e910">RocaDB::GetConversaciones</a></div><div class="ttdeci">virtual std::vector&lt; unsigned int &gt; GetConversaciones(std::string userID)</div><div class="ttdoc">Devuelve todas las conversaciónes de un usuario dado. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:194</div></div>
+<div class="ttc" id="classRocaDB_html_a1faddf2bc096be7823d9e23a759cd69f"><div class="ttname"><a href="classRocaDB.html#a1faddf2bc096be7823d9e23a759cd69f">RocaDB::AgregarMensaje</a></div><div class="ttdeci">virtual unsigned int AgregarMensaje(std::string userID, unsigned int IDConversacion, std::string texto)</div><div class="ttdoc">Agrega un nuevo mensaje a una conversación. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:234</div></div>
+<div class="ttc" id="classRocaDB_html_a7e4abb50f6ad6b4d680f0996acb3c645"><div class="ttname"><a href="classRocaDB.html#a7e4abb50f6ad6b4d680f0996acb3c645">RocaDB::GetUltimoReciboKey</a></div><div class="ttdeci">std::string GetUltimoReciboKey(std::string userID, unsigned int convID) const </div><div class="ttdoc">Genera la clave para acceder al ultimo mensaje recibido por el usuario. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:320</div></div>
+<div class="ttc" id="classRocaDB_html"><div class="ttname"><a href="classRocaDB.html">RocaDB</a></div><div class="ttdoc">Implementación de la base de datos mediante RocksDB. </div><div class="ttdef"><b>Definition:</b> RocaDB.hpp:18</div></div>
+<div class="ttc" id="classRocaDB_html_a3cae63a398740598a7913a6378f5bfd5"><div class="ttname"><a href="classRocaDB.html#a3cae63a398740598a7913a6378f5bfd5">RocaDB::GetConversationKey</a></div><div class="ttdeci">std::string GetConversationKey(unsigned int convID) const </div><div class="ttdoc">Dado el Id de una conversación devuelve la clave para acceder a los datos correspondientes. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:282</div></div>
+<div class="ttc" id="classRocaDB_html_aa9bf8247802727c0c86672b5047d0f83"><div class="ttname"><a href="classRocaDB.html#aa9bf8247802727c0c86672b5047d0f83">RocaDB::GetMensaje</a></div><div class="ttdeci">virtual std::string GetMensaje(unsigned int mensajeID)</div><div class="ttdoc">Recupera el texto del mensaje dado. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:269</div></div>
+<div class="ttc" id="classIDB_html"><div class="ttname"><a href="classIDB.html">IDB</a></div><div class="ttdoc">La interfaz de la base de datos. </div><div class="ttdef"><b>Definition:</b> IDB.hpp:12</div></div>
+<div class="ttc" id="classRocaDB_html_a779bc5585d223f0121dcb8ea4dbeaf39"><div class="ttname"><a href="classRocaDB.html#a779bc5585d223f0121dcb8ea4dbeaf39">RocaDB::GetUserKey</a></div><div class="ttdeci">std::string GetUserKey(std::string userID) const </div><div class="ttdoc">Dado el Id de un usuario devuelve la clave para acceder a los datos correspondientes. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:138</div></div>
+<div class="ttc" id="classRocaDB_html_a9ad1e2f03aa1fbe8ddc7095321c1773e"><div class="ttname"><a href="classRocaDB.html#a9ad1e2f03aa1fbe8ddc7095321c1773e">RocaDB::LoadUserUbicacion</a></div><div class="ttdeci">virtual bool LoadUserUbicacion(std::string userID, std::string &amp;latitud, std::string &amp;longitud)</div><div class="ttdoc">Recupera la ubicación de un usuario. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:90</div></div>
+<div class="ttc" id="classRocaDB_html_a0bf3345f91836fa15411e64605690ba1"><div class="ttname"><a href="classRocaDB.html#a0bf3345f91836fa15411e64605690ba1">RocaDB::GetMensajesConversacion</a></div><div class="ttdeci">virtual std::vector&lt; unsigned int &gt; GetMensajesConversacion(unsigned int conversacionID)</div><div class="ttdoc">Devuelve los IDs de todos los mensajes contenidos en la conversación data. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:213</div></div>
+<div class="ttc" id="classRocaDB_html_a482d11433b2cf9ecedc921117ce5adac"><div class="ttname"><a href="classRocaDB.html#a482d11433b2cf9ecedc921117ce5adac">RocaDB::SetIDUltimoMensaje</a></div><div class="ttdeci">virtual void SetIDUltimoMensaje(std::string userID, unsigned int conversacionID, unsigned int mensajeID)</div><div class="ttdoc">Setea el mensaje dado como ultimo mensaje recibido. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:310</div></div>
+<div class="ttc" id="classRocaDB_html_a74591c2de66de312111339d9ab695c93"><div class="ttname"><a href="classRocaDB.html#a74591c2de66de312111339d9ab695c93">RocaDB::CreateNewConversacion</a></div><div class="ttdeci">virtual unsigned int CreateNewConversacion(std::vector&lt; std::string &gt; listaUsuarios)</div><div class="ttdoc">Crea una nueva conversación en la base. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:146</div></div>
+<div class="ttc" id="classRocaDB_html_aa3ded2720ca360dd222b1aca1da0a436"><div class="ttname"><a href="classRocaDB.html#aa3ded2720ca360dd222b1aca1da0a436">RocaDB::LoadUserFoto</a></div><div class="ttdeci">virtual bool LoadUserFoto(std::string userID, std::string &amp;foto)</div><div class="ttdoc">Recupera la fotografia de un usuario. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:123</div></div>
+<div class="ttc" id="classRocaDB_html_a9a446165b6a0d381609a48452f2cb769"><div class="ttname"><a href="classRocaDB.html#a9a446165b6a0d381609a48452f2cb769">RocaDB::StoreUserFoto</a></div><div class="ttdeci">virtual bool StoreUserFoto(std::string userID, std::string foto)</div><div class="ttdoc">Guarda la fotografia de un usuario. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:106</div></div>
+<div class="ttc" id="classRocaDB_html_a5a46c9ceeff40ba0ca7eb75b4a1f147e"><div class="ttname"><a href="classRocaDB.html#a5a46c9ceeff40ba0ca7eb75b4a1f147e">RocaDB::Open</a></div><div class="ttdeci">virtual void Open(std::string fileName)</div><div class="ttdoc">Opens the database contained in the given file. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:14</div></div>
+<div class="ttc" id="classRocaDB_html_a1406ebe818e492852a265283fe66a5fd"><div class="ttname"><a href="classRocaDB.html#a1406ebe818e492852a265283fe66a5fd">RocaDB::GetIDUltimoMensaje</a></div><div class="ttdeci">virtual unsigned int GetIDUltimoMensaje(std::string userID, unsigned int conversacionID)</div><div class="ttdoc">Devuelve el ID del ultimo mensaje recibido por el usuario en la conversación dada. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:295</div></div>
+<div class="ttc" id="classRocaDB_html_ae4a95a2e9b6f5324e9b1454e6c44761a"><div class="ttname"><a href="classRocaDB.html#ae4a95a2e9b6f5324e9b1454e6c44761a">RocaDB::ExistsUser</a></div><div class="ttdeci">virtual bool ExistsUser(std::string userID)</div><div class="ttdoc">Indica si ya existe el nombre de usuario en la base. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:39</div></div>
+<div class="ttc" id="classRocaDB_html_a1494d85dd123fffe4813954be2ba70bf"><div class="ttname"><a href="classRocaDB.html#a1494d85dd123fffe4813954be2ba70bf">RocaDB::AutheticateUser</a></div><div class="ttdeci">virtual bool AutheticateUser(std::string userID, std::string password)</div><div class="ttdoc">Chequea que el password corresponda al usuario dado. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:57</div></div>
+<div class="ttc" id="classRocaDB_html_a2f45d9367770af35e9088b23209debe9"><div class="ttname"><a href="classRocaDB.html#a2f45d9367770af35e9088b23209debe9">RocaDB::Close</a></div><div class="ttdeci">virtual void Close()</div><div class="ttdoc">Closes the database, if it&#39;s open. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:27</div></div>
+<div class="ttc" id="classRocaDB_html_a5c82ea7f470cb62ec66d2e87a9a00d5c"><div class="ttname"><a href="classRocaDB.html#a5c82ea7f470cb62ec66d2e87a9a00d5c">RocaDB::CreateUser</a></div><div class="ttdeci">virtual bool CreateUser(std::string userID, std::string password)</div><div class="ttdoc">Crea un usuario en la base, si ya existe lo reemplaza. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:47</div></div>
+<div class="ttc" id="classRocaDB_html_aedc8f5c7727f6260ad4a99e51031b07a"><div class="ttname"><a href="classRocaDB.html#aedc8f5c7727f6260ad4a99e51031b07a">RocaDB::GenerateNewID</a></div><div class="ttdeci">unsigned int GenerateNewID()</div><div class="ttdoc">Genera ids unicos en todo el sistema. </div><div class="ttdef"><b>Definition:</b> RocaDB.cpp:328</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado el Domingo, 7 de Junio de 2015 16:23:59 para MensajerO - Server por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

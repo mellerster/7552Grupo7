@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MensajerO - Server: Fichero Fuente src/dataService/IDataService.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MensajerO - Server
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Servidor de MensajerO</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_685019b3d6f24dd413d56537e4a2a550.html">dataService</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">IDataService.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef IDATA_SERVICE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define IDATA_SERVICE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;UserStatus.hpp&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classIDataService.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIDataService.html">IDataService</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDataService.html#a850b57b4066eeb9fdee31cd51f9c0327">Open</a>() = 0;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classIDataService.html#ab606d4a8fd4bb61fa4a8e24224e148e9">Close</a>() = 0;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDataService.html#abd8b3ed020d36cb5cdec605f213ee87e">IsTokenActive</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tok) = 0;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classIDataService.html#a0ae4427909aea822ee463688a7b993ff">startSession</a>(std::string nombreUsuario, std::string password) = 0;</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDataService.html#a1cdc242b3dbec96b53101c2e08e8c751">RegisterNewUser</a>(std::string nombreUsuario, std::string password) = 0;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;UserStatus&gt; <a class="code" href="classIDataService.html#a23a9348892daef21c00b1af03459a198">ListActiveUsers</a>() = 0;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classIDataService.html#a7523731bf10096e2d0e3f5ecf068c524">GetCheckinLocations</a>(<span class="keywordtype">double</span> latitud, <span class="keywordtype">double</span> longitud) = 0;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classIDataService.html#a128ca6ba70e33f7c8bceeb6579c6726d">ReplaceCheckinLocation</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, <span class="keywordtype">double</span> latitud, <span class="keywordtype">double</span> longitud) = 0;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classIDataService.html#aef2dcd063e77d620b85b61ea76f6435c">ReplaceFoto</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string foto) = 0;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classIDataService.html#aeb2988ad11fd8d278c344220c813aab0">ReplaceEstado</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string estado) = 0;</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classIDataService.html">IDataService</a>() { } </div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;};</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;</div>
+<div class="ttc" id="classIDataService_html_a23a9348892daef21c00b1af03459a198"><div class="ttname"><a href="classIDataService.html#a23a9348892daef21c00b1af03459a198">IDataService::ListActiveUsers</a></div><div class="ttdeci">virtual std::vector&lt; UserStatus &gt; ListActiveUsers()=0</div><div class="ttdoc">Devuelve el listado con todos los usuarios conectados al sistema. </div></div>
+<div class="ttc" id="classIDataService_html_aef2dcd063e77d620b85b61ea76f6435c"><div class="ttname"><a href="classIDataService.html#aef2dcd063e77d620b85b61ea76f6435c">IDataService::ReplaceFoto</a></div><div class="ttdeci">virtual void ReplaceFoto(unsigned int token, std::string foto)=0</div><div class="ttdoc">Reemplaza la foto del perfil del usuario. </div></div>
+<div class="ttc" id="classIDataService_html_abd8b3ed020d36cb5cdec605f213ee87e"><div class="ttname"><a href="classIDataService.html#abd8b3ed020d36cb5cdec605f213ee87e">IDataService::IsTokenActive</a></div><div class="ttdeci">virtual bool IsTokenActive(unsigned int tok)=0</div><div class="ttdoc">Indica si el token esta relacionado con alguna sesión activa. </div></div>
+<div class="ttc" id="classIDataService_html_a850b57b4066eeb9fdee31cd51f9c0327"><div class="ttname"><a href="classIDataService.html#a850b57b4066eeb9fdee31cd51f9c0327">IDataService::Open</a></div><div class="ttdeci">virtual bool Open()=0</div><div class="ttdoc">Abre la conexion con la base de datos. </div></div>
+<div class="ttc" id="classIDataService_html_a7523731bf10096e2d0e3f5ecf068c524"><div class="ttname"><a href="classIDataService.html#a7523731bf10096e2d0e3f5ecf068c524">IDataService::GetCheckinLocations</a></div><div class="ttdeci">virtual std::string GetCheckinLocations(double latitud, double longitud)=0</div><div class="ttdoc">Devuelve un texto descriptivo del lugar mas cercano a las coordenadas dadas. </div></div>
+<div class="ttc" id="classIDataService_html"><div class="ttname"><a href="classIDataService.html">IDataService</a></div><div class="ttdoc">La interfaz que todos los servicios de persistencia de datos deben implementar. </div><div class="ttdef"><b>Definition:</b> IDataService.hpp:14</div></div>
+<div class="ttc" id="classIDataService_html_a0ae4427909aea822ee463688a7b993ff"><div class="ttname"><a href="classIDataService.html#a0ae4427909aea822ee463688a7b993ff">IDataService::startSession</a></div><div class="ttdeci">virtual unsigned int startSession(std::string nombreUsuario, std::string password)=0</div><div class="ttdoc">Comienza la sesión del usuario si este ya esta registrado en el sistema. </div></div>
+<div class="ttc" id="classIDataService_html_aeb2988ad11fd8d278c344220c813aab0"><div class="ttname"><a href="classIDataService.html#aeb2988ad11fd8d278c344220c813aab0">IDataService::ReplaceEstado</a></div><div class="ttdeci">virtual void ReplaceEstado(unsigned int token, std::string estado)=0</div><div class="ttdoc">Reemplaza el estado del usuario. </div></div>
+<div class="ttc" id="classIDataService_html_a1cdc242b3dbec96b53101c2e08e8c751"><div class="ttname"><a href="classIDataService.html#a1cdc242b3dbec96b53101c2e08e8c751">IDataService::RegisterNewUser</a></div><div class="ttdeci">virtual bool RegisterNewUser(std::string nombreUsuario, std::string password)=0</div><div class="ttdoc">Registra un nuevo usuario en el sistema. </div></div>
+<div class="ttc" id="classIDataService_html_ab606d4a8fd4bb61fa4a8e24224e148e9"><div class="ttname"><a href="classIDataService.html#ab606d4a8fd4bb61fa4a8e24224e148e9">IDataService::Close</a></div><div class="ttdeci">virtual void Close()=0</div><div class="ttdoc">Cierra la conexion con la base de datos. </div></div>
+<div class="ttc" id="classIDataService_html_a128ca6ba70e33f7c8bceeb6579c6726d"><div class="ttname"><a href="classIDataService.html#a128ca6ba70e33f7c8bceeb6579c6726d">IDataService::ReplaceCheckinLocation</a></div><div class="ttdeci">virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud)=0</div><div class="ttdoc">Reemplaza los datos de la ubicación del usuario. </div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado el Domingo, 7 de Junio de 2015 16:23:59 para MensajerO - Server por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

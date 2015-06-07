@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cliente &mdash; MensajerO 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MensajerO 1.0 documentation" href="index.html" />
+    <link rel="next" title="Pantallas Cliente" href="Pantallas_Cliente.html" />
+    <link rel="prev" title="Gestion del Proyecto" href="Proyecto.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Pantallas_Cliente.html" title="Pantallas Cliente"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Proyecto.html" title="Gestion del Proyecto"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="cliente">
+<h1>Cliente<a class="headerlink" href="#cliente" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="descripcion-del-cliente">
+<h2>Descripción del cliente<a class="headerlink" href="#descripcion-del-cliente" title="Permalink to this headline">¶</a></h2>
+<p>El Cliente es una aplicación Android para ser instalada y ejecutada en dispositivos moviles como Celulares y Tablets con dicho sistema operativo. Su funcionalidad es conectarse con el servidor, enviar mensajes y obtener la respuesta del mismo.</p>
+<div class="section" id="features-incluidos">
+<h3>Features Incluidos<a class="headerlink" href="#features-incluidos" title="Permalink to this headline">¶</a></h3>
+<p>Dentro de las funcionalidades de la aplicación esta:</p>
+<ul class="simple">
+<li>Registrar un nuevo usuario</li>
+<li>Acceder con un usuario ya creado</li>
+<li>Ver el listado de usuarios conectados</li>
+<li>Configurar Mi Perfil</li>
+<li>Ver el perfil de otro usuario</li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Para la proxima entrega van a estar:</p>
+</div>
+<ul class="simple">
+<li>Ver el listado de conversaciones</li>
+<li>Enviar Mensajes con otros usuarios</li>
+<li>Realizar Checkin para que todos sepan mi ubicación</li>
+<li>Enviar un mensaje a todos los usuarios conectados (Broadcast)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="aplicacion">
+<h2>Aplicación<a class="headerlink" href="#aplicacion" title="Permalink to this headline">¶</a></h2>
+<p>El cliente es una aplicación nativa Android, la misma va a estar generada en un archivo apk.</p>
+<div class="section" id="version-minima-del-sistema-operativo">
+<h3>Versión minima del sistema operativo<a class="headerlink" href="#version-minima-del-sistema-operativo" title="Permalink to this headline">¶</a></h3>
+<p>La aplicación esta compilada para correr en la API 21</p>
+</div>
+<div class="section" id="instalacion">
+<h3>Instalación<a class="headerlink" href="#instalacion" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="en-un-dispositivo-movil-real">
+<h4>En un dispositivo movil real<a class="headerlink" href="#en-un-dispositivo-movil-real" title="Permalink to this headline">¶</a></h4>
+<p>Copiar el archivo apk al dispositivo movil y abrirlo, al hacerlo se instalara la aplicación.</p>
+</div>
+<div class="section" id="en-el-emulador-de-android">
+<h4>En el emulador de Android<a class="headerlink" href="#en-el-emulador-de-android" title="Permalink to this headline">¶</a></h4>
+<p>En caso de utilizar un emulador los pasos a seguir son:</p>
+<ul class="simple">
+<li>Abrir el emulador (con el Android Device Manager o similar)</li>
+<li>Abrir una consola y ejecutar:</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>abd install <span class="o">[</span>ruta hasta el apk<span class="o">]</span>
+</pre></div>
+</div>
+<div class="section" id="ejemplos">
+<h5>Ejemplos<a class="headerlink" href="#ejemplos" title="Permalink to this headline">¶</a></h5>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>abd install ./archivos/mensajero.apk
+</pre></div>
+</div>
+<div class="highlight-batch"><div class="highlight"><pre><span class="p">&gt;</span> <span class="n">abd</span> install C:\archivos\mensajero.apk
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="configuracion">
+<h3>Configuración<a class="headerlink" href="#configuracion" title="Permalink to this headline">¶</a></h3>
+<p>En la pantalla inicial, se puede presionar el boton de AJUSTES, desde allí se podra cambiar la IP del servidor y el Puerto de conexión, por defecto si no se configura ninguno es la ip <a class="reference external" href="http://10.0.2.2">http://10.0.2.2</a> y el puerto 8080, dado que la ip es la de la maquina que aloja el emulador del android.</p>
+</div>
+</div>
+<div class="section" id="diseno">
+<h2>Diseño<a class="headerlink" href="#diseno" title="Permalink to this headline">¶</a></h2>
+<div class="figure" id="id1">
+<img alt="_images/diagrama_clases_cliente.png" src="_images/diagrama_clases_cliente.png" />
+<p class="caption"><span class="caption-text">Diagrama del cliente</span></p>
+</div>
+<p>En la figura se muestra el diseño del cliente y sus partes mas importantes; estas son detalladas a continuación:</p>
+<div class="section" id="usuario">
+<h3>Usuario<a class="headerlink" href="#usuario" title="Permalink to this headline">¶</a></h3>
+<p>Es la clase que maneja todos los datos del mismo, como: nombre, password, si esta conectado, la foto, los datos del checkin, etc.</p>
+</div>
+<div class="section" id="usuarioparser">
+<h3>UsuarioParser<a class="headerlink" href="#usuarioparser" title="Permalink to this headline">¶</a></h3>
+<p>Clase encargada de parsear el stream que envia el servidor hacia el cliente</p>
+</div>
+<div class="section" id="usuarioproxy">
+<h3>UsuarioProxy<a class="headerlink" href="#usuarioproxy" title="Permalink to this headline">¶</a></h3>
+<p>Clase encargada de la comunicacion con el servidor en lo que respecta a los usuarios</p>
+</div>
+<div class="section" id="conversacion">
+<h3>Conversacion<a class="headerlink" href="#conversacion" title="Permalink to this headline">¶</a></h3>
+<p>Clase que maneja todo respecto a las conversaciones, por ahora solo se utiliza para las pantallas</p>
+</div>
+<div class="section" id="mensaje">
+<h3>Mensaje<a class="headerlink" href="#mensaje" title="Permalink to this headline">¶</a></h3>
+<p>Clase que maneja todos los datos de un mensaje, por ahora solo se utiliza para las pantallas</p>
+</div>
+</div>
+<div class="section" id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>No todas las funcionalidades estan conectadas al 100% con el servidor, dado que el servidor no esta terminado</li>
+</ul>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>No se encuentra resoluciones a problemas frecuentes por el momento.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cliente</a><ul>
+<li><a class="reference internal" href="#descripcion-del-cliente">Descripción del cliente</a><ul>
+<li><a class="reference internal" href="#features-incluidos">Features Incluidos</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#aplicacion">Aplicación</a><ul>
+<li><a class="reference internal" href="#version-minima-del-sistema-operativo">Versión minima del sistema operativo</a></li>
+<li><a class="reference internal" href="#instalacion">Instalación</a><ul>
+<li><a class="reference internal" href="#en-un-dispositivo-movil-real">En un dispositivo movil real</a></li>
+<li><a class="reference internal" href="#en-el-emulador-de-android">En el emulador de Android</a><ul>
+<li><a class="reference internal" href="#ejemplos">Ejemplos</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuracion">Configuración</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#diseno">Diseño</a><ul>
+<li><a class="reference internal" href="#usuario">Usuario</a></li>
+<li><a class="reference internal" href="#usuarioparser">UsuarioParser</a></li>
+<li><a class="reference internal" href="#usuarioproxy">UsuarioProxy</a></li>
+<li><a class="reference internal" href="#conversacion">Conversacion</a></li>
+<li><a class="reference internal" href="#mensaje">Mensaje</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#known-issues">Known Issues</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Proyecto.html"
+                        title="previous chapter">Gestion del Proyecto</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Pantallas_Cliente.html"
+                        title="next chapter">Pantallas Cliente</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Cliente.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Pantallas_Cliente.html" title="Pantallas Cliente"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Proyecto.html" title="Gestion del Proyecto"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Grupo-7.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

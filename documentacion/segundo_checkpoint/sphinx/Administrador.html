@@ -1,0 +1,253 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Administrador del Servidor &mdash; MensajerO 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MensajerO 1.0 documentation" href="index.html" />
+    <link rel="prev" title="Transmisión de Mensajes" href="Mensajes.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Mensajes.html" title="Transmisión de Mensajes"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="administrador-del-servidor">
+<h1>Administrador del Servidor<a class="headerlink" href="#administrador-del-servidor" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="get-started">
+<h2>Get Started<a class="headerlink" href="#get-started" title="Permalink to this headline">¶</a></h2>
+<p>Para poder compilar y/o correr la aplicación servidor necesitarán:</p>
+<ol class="arabic simple">
+<li>[RocksDB] (<a class="reference external" href="https://github.com/facebook/rocksdb">https://github.com/facebook/rocksdb</a> &#8220;Repositorio github de rocksDB&#8221;)</li>
+<li>[CMake] (<a class="reference external" href="http://www.cmake.org">http://www.cmake.org</a> &#8220;Sitio oficial de CMake&#8221;)</li>
+<li>[Doxygen] (<a class="reference external" href="http://www.stack.nl/~dimitri/doxygen/index.html">http://www.stack.nl/~dimitri/doxygen/index.html</a> &#8220;Sitio oficial de Doxygen&#8221;) - <strong>Opcional</strong></li>
+</ol>
+<div class="section" id="rocksdb">
+<h3>RocksDB<a class="headerlink" href="#rocksdb" title="Permalink to this headline">¶</a></h3>
+<p>Es necesario compilar e instalar esta libreria, para esto hay que:</p>
+<ol class="arabic simple">
+<li>Bajarse el codigo fuente de su repositorio</li>
+<li>Compilar mediante los comandos:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ PORTABLE</span><span class="o">=</span><span class="m">1</span> make static_lib
+<span class="nv">$ PORTABLE</span><span class="o">=</span><span class="m">1</span> make shared_lib
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Instalar la librerias en el sistema ejecutando:</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make install
+</pre></div>
+</div>
+</div>
+<div class="section" id="cmake">
+<h3>CMake<a class="headerlink" href="#cmake" title="Permalink to this headline">¶</a></h3>
+<p>Es necesario para compilar la aplicación, se puede instalar ejecutando en la linea de comando:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install cmake
+</pre></div>
+</div>
+</div>
+<div class="section" id="doxygen">
+<h3>Doxygen<a class="headerlink" href="#doxygen" title="Permalink to this headline">¶</a></h3>
+<p>Es necesario para extraer la documentación del código fuente del servidor, para instalarlo se puede ejecutar el comando:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install doxygen
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="instalacion-y-configuracion">
+<h2>Instalación y configuración<a class="headerlink" href="#instalacion-y-configuracion" title="Permalink to this headline">¶</a></h2>
+<p>Una vez que las dependencias esten cubiertas hay que seguir los siguientes pasos para compilar la aplicación:</p>
+<ol class="arabic simple">
+<li>Dentro del directorio de la aplicación servidor existe una carpeta vacia llamada <strong>bin</strong>, entrar en la misma.</li>
+<li>Ejecutar <strong>CMake</strong> mediante el comando</li>
+</ol>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>cmake ../src
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>Compilar la aplicación ejecutando el comando <cite>make</cite></li>
+</ol>
+<p>Listo! La aplicación del servidor deberia compilar sin errores.</p>
+<p>Para correr la aplicación ejecutar en la terminal:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./serverMensajerO
+</pre></div>
+</div>
+</div>
+<div class="section" id="forma-de-uso">
+<h2>Forma de uso<a class="headerlink" href="#forma-de-uso" title="Permalink to this headline">¶</a></h2>
+<p>Para iniciar el servidor dentro de la aplicación debe presionar <strong>Y</strong> y luego enter.</p>
+<p>Para finalizar el servidor debe presionar <strong>X</strong> y luego enter.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Ambos comandos (X e Y) son en Mayuscula</p>
+</div>
+</div>
+<div class="section" id="testing">
+<h2>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h2>
+<p>La aplicación servidor posee una cantidad de tests que pueden ser corridos, existen dos formas de llevar esto a cabo:</p>
+<ul class="simple">
+<li>Ejecutar desde dentro de la carpeta <strong>bin</strong> el comando</li>
+</ul>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make <span class="nb">test</span>
+</pre></div>
+</div>
+<p>O</p>
+<ul class="simple">
+<li>Dentro de la carpeta <strong>bin</strong> existe otra carpeta llamada <strong>tests</strong> esta contiene, entre otras cosas, varios archivos ejecutables; Estos son los tests a correr.</li>
+</ul>
+<p>La diferencia entre las dos formas es que en la segunda se obtiene mas información sobre los tests que fallaron, pero ambas formas corren los mismos tests.</p>
+</div>
+<div class="section" id="code-coverage">
+<h2>Code coverage<a class="headerlink" href="#code-coverage" title="Permalink to this headline">¶</a></h2>
+<p>Para obtener los datos de <strong>code coverage</strong> se debe compilar la aplicación y luego ejecutar el comando</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>make <span class="nb">test </span>coverage
+</pre></div>
+</div>
+<p>, esto hara un par de cosas:</p>
+<ol class="arabic simple">
+<li>Correrá todos los tests de la aplicación.</li>
+<li>Capturará toda la información de <strong>code coverage</strong> de los tests sobre la aplicación.</li>
+<li>Generará un reporte en formato <strong>html</strong> dentro de la carpeta <strong>CoverageReport</strong>.</li>
+</ol>
+<p>Se debe abrir el archivo <strong>index.html</strong> para acceder al reporte.</p>
+</div>
+<div class="section" id="mantenimiento">
+<h2>Mantenimiento<a class="headerlink" href="#mantenimiento" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="documentacion">
+<h3>Documentación<a class="headerlink" href="#documentacion" title="Permalink to this headline">¶</a></h3>
+<p>El código fuente del servidor esta documentado con Doxygen, por lo tanto es necesario correr el comando:</p>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>doxygen
+</pre></div>
+</div>
+</div>
+<div class="section" id="third-party-libs">
+<h3>Third-party libs<a class="headerlink" href="#third-party-libs" title="Permalink to this headline">¶</a></h3>
+<p>El servidor utiliza un número de librerias externas, estas son:</p>
+<ul class="simple">
+<li>[Mongoose] (<a class="reference external" href="https://github.com/cesanta/mongoose">https://github.com/cesanta/mongoose</a> &#8220;Mongoose git repository&#8221;): Utilizado como web-server.</li>
+<li>[JsonCpp] (<a class="reference external" href="https://github.com/open-source-parsers/jsoncpp">https://github.com/open-source-parsers/jsoncpp</a> &#8220;JsonCpp git repository&#8221;): Utilizado para parsear los datos en formato JSON.</li>
+<li>[HumbleLogging] (<a class="reference external" href="http://humblelogging.insanefactory.com/">http://humblelogging.insanefactory.com/</a> &#8220;Página oficial de HumbleLogging&#8221;): Framework de loggeo.</li>
+<li>[Catch] (<a class="reference external" href="https://github.com/philsquared/Catch">https://github.com/philsquared/Catch</a> &#8220;Catch git repository&#8221;): Framework de testeo.</li>
+<li>[Hippomocks] (<a class="reference external" href="https://github.com/dascandy/hippomocks">https://github.com/dascandy/hippomocks</a> &#8220;Hippomocks git repository&#8221;): Framework de mockeo para los tests.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="known-issues">
+<h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h2>
+<p>No se encuentra resoluciones a problemas frecuentes por el momento.</p>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>No se encuentra resoluciones a problemas frecuentes por el momento.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Administrador del Servidor</a><ul>
+<li><a class="reference internal" href="#get-started">Get Started</a><ul>
+<li><a class="reference internal" href="#rocksdb">RocksDB</a></li>
+<li><a class="reference internal" href="#cmake">CMake</a></li>
+<li><a class="reference internal" href="#doxygen">Doxygen</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#instalacion-y-configuracion">Instalación y configuración</a></li>
+<li><a class="reference internal" href="#forma-de-uso">Forma de uso</a></li>
+<li><a class="reference internal" href="#testing">Testing</a></li>
+<li><a class="reference internal" href="#code-coverage">Code coverage</a></li>
+<li><a class="reference internal" href="#mantenimiento">Mantenimiento</a><ul>
+<li><a class="reference internal" href="#documentacion">Documentación</a></li>
+<li><a class="reference internal" href="#third-party-libs">Third-party libs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#known-issues">Known Issues</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Mensajes.html"
+                        title="previous chapter">Transmisión de Mensajes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Administrador.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Mensajes.html" title="Transmisión de Mensajes"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Grupo-7.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
