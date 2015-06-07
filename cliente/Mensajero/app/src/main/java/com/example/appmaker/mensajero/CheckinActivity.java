@@ -63,8 +63,6 @@ public class CheckinActivity extends FragmentActivity {
             longitude = gps.getLongitude();
             gps.stopUsingGPS();
             // \n is for new line
-            //TODO:Quitar es solo para debbug
-            Toast.makeText(getApplicationContext(), "Your Location is - \nLat: " + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
         }else{
             // can't get location
             // GPS or Network is not enabled
@@ -75,7 +73,7 @@ public class CheckinActivity extends FragmentActivity {
 
         Para poder probar la aplicacion con el emulador se debe hacer lo siguiente en una consola
         telnet localhost 5554
-        geo fix -34.617529 -58.368208
+        geo fix -58.368208 -34.617529
         Esto envia la latitud y longitud deseada al dispositivo
 
         */
@@ -87,7 +85,6 @@ public class CheckinActivity extends FragmentActivity {
         realizarCheckin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO enviar al servidor la location del usuario para que la registre y hacerlo tambien localmente
                 usuario.setPosicion(getLocation().latitude,getLocation().longitude);
                 new CheckInAPI().execute();
             }
@@ -112,7 +109,8 @@ public class CheckinActivity extends FragmentActivity {
                 Log.e("MensajerO", "Error al intentar guardar la posicion en el servidor");
                 Toast.makeText(getApplicationContext(), "Error al intentar guardar la posicion en el servidor", Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(getApplicationContext(), "Todos los cambios guardados", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Checkin Realizado: Se encuentra en:" + UsuarioProxy.getUsuario().getCheckin(), Toast.LENGTH_LONG).show();
+                finish();
             }
         }
 

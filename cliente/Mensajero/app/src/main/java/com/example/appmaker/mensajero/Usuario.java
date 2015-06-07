@@ -27,6 +27,9 @@ public class Usuario {
         this.foto = original.foto;
         this.conectado = original.conectado;
         this.token = original.token;
+        this.checkin = original.checkin;
+        this.longitud = original.longitud;
+        this.latitud = original.latitud;
     }
 
     public Usuario(String nombre, String password){
