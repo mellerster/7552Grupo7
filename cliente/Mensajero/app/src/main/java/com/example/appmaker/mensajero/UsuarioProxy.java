@@ -231,7 +231,7 @@ public class UsuarioProxy {
 
             int HttpResult = urlConnection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {
-                InputStream streamAParsear;
+                /*InputStream streamAParsear;
                 streamAParsear = urlConnection.getInputStream();
                 UsuarioParser parser = new UsuarioParser(streamAParsear);
                 aDevolver = parser.leerUsuario();
@@ -239,7 +239,8 @@ public class UsuarioProxy {
                     Log.i("MensajerO", "Perfil Actualizado correctamente");
                 } else {
                     Log.e("MensajerO", "El servidor devolvio estado ERR");
-                }
+                }*/
+                aDevolver = new Usuario(username);
             } else {
                 Log.e("MensajerO", urlConnection.getResponseMessage());
             }

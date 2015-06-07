@@ -1,6 +1,7 @@
 package com.example.appmaker.mensajero;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -9,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.List;
 
 
 public class VerEstadoActivity extends ActionBarActivity {
@@ -25,8 +28,9 @@ public class VerEstadoActivity extends ActionBarActivity {
         {
             nombreUsuario = extras.getString("usuario");
         }
-        usuario = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).verEstado(nombreUsuario);
+        usuario = new Usuario(nombreUsuario);
         cargarDatosUsuario();
+        //new VerEstadoAPI().execute(nombreUsuario);
 
     }
 
@@ -77,4 +81,23 @@ public class VerEstadoActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    private class VerEstadoAPI extends AsyncTask<String, Usuario, Usuario> {
+        @Override
+        protected Usuario doInBackground(String... params) {
+            try {
+                usuario = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).verEstado(params[0]);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return usuario;
+        }
+
+        protected void onPostExecute(Usuario user) {
+            //showProgress(false);
+            usuario = user;
+            cargarDatosUsuario();
+        }
+
+    } // end UsuarioAPI
 }

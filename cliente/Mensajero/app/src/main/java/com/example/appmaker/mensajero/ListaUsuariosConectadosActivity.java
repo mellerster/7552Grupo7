@@ -131,7 +131,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         public void onClick(View v)
         {
             String nombreUsuario = ((TextView)((LinearLayout)v).getChildAt(1)).getText().toString();
-            Intent verEstadoIntent =new Intent("com.example.appmaker.mensajero.VerEstadoActivity");
+            Intent verEstadoIntent = new Intent("com.example.appmaker.mensajero.VerEstadoActivity");
             Bundle extras = new Bundle();
             extras.putString("usuario",nombreUsuario);
             verEstadoIntent.putExtras(extras);
