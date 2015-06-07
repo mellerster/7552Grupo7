@@ -1,8 +1,6 @@
 #include "CheckinHandler.hpp"
 #include "dtos/CheckinDTO.hpp"
 
-
-
 CheckinHandler::CheckinHandler(IDataService &service) : RequestHandler(service) { }
 
 
@@ -10,7 +8,7 @@ CheckinHandler::~CheckinHandler() { }
 
 
 Response CheckinHandler::GetResponseData() {
-    // El checkin es un pedido de tipo POST
+    // El checkin es un pedido de tipo POST    
     CheckinDTO pedido( this->m_parsedParameters_ContentData );
 
     if ( !this->m_dataService.IsTokenActive(pedido.Token) ){

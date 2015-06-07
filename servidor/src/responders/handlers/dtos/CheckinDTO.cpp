@@ -10,8 +10,8 @@ CheckinDTO::CheckinDTO(Json::Value jData) : BaseDTO(jData), Descripcion("") {
     std::string tok = jData.get("Token", 0).asString();
     this->Token = std::stoul( tok );    // El token es numerico.
 
-    this->Latitud = jData.get("Latitud", "").asString();
-    this->Longitud = jData.get("Longitud", "").asString();
+    this->Latitud = jData.get("Latitud", "0").asString();
+    this->Longitud = jData.get("Longitud", "0").asString();
     this->Descripcion = jData.get("Descripcion", "").asString();
 }
 

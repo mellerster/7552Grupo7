@@ -60,6 +60,14 @@ add_subdirectory ( dataService )
 add_subdirectory ( responders )
 add_subdirectory ( tests )
 
+#Agrego archivo locaciones
+add_custom_command(
+            OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/locaciones"
+            COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/locaciones" "${CMAKE_CURRENT_BINARY_DIR}/locaciones"
+            DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/locaciones"
+        )
+    
+add_custom_target(data-target ALL DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/locaciones")
 
 #Define el ejecutable y linkea las librerias
 add_executable ( ${PROJECT_NAME} MainServer.cpp ) 

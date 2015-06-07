@@ -1,5 +1,6 @@
 #include "Posicionador.hpp"
 
+
 Posicionador::Posicionador()
 {
 	this->LoadLocaciones();
@@ -32,7 +33,7 @@ void Posicionador::LoadLocaciones(){
 
 std::string Posicionador::getLugarMasCercano(double latitud, double longitud)
 {
-	double minDistancia = 10000;
+	double minDistancia = 1000000;
 	std::string texto = "";
 	Posicion posicion(latitud, longitud, "");
 	for (std::list<Posicion>::iterator it = ubicaciones.begin(); it != ubicaciones.end(); it++)
