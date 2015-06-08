@@ -99,6 +99,15 @@ public class UsuarioParser {
                     String base64 = reader.nextString();
                     usuario.setFoto(base64);
                     break;
+                case "Status":
+                    String status = reader.nextString();
+                    statusOk = true;
+                    if (!status.equals("OK")) {
+                        Log.e("MensajerO", "Status es: " + status);
+                        statusOk = false;
+                        throw new EstadoRecibidoInvalidoException();
+                    }
+                    break;
                 default:
                     reader.skipValue();
             }

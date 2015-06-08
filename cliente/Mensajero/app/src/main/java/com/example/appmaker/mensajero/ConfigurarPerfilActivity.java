@@ -59,7 +59,8 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
 
         imageView= (ImageView) findViewById(R.id.imgFoto);
         lblUltimoCheckin = (TextView) findViewById(R.id.lblUltimoCheckin);
-        cargarDatosUsuario();
+        //cargarDatosUsuario();
+        new VerEstadoAPI().execute();
     }
 
     private void copiarUsuarioDelProxy() {
@@ -67,17 +68,19 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
     }
 
     private void cargarDatosUsuario(){
-        setEstadoSwitch(usuario.estaConectado());
+        if(usuario != null) {
+            setEstadoSwitch(usuario.estaConectado());
 
-        byte[] foto = usuario.getFoto();
-        if(foto != null){
-            imageView.setImageBitmap(usuario.getFotoBitmap());
+            byte[] foto = usuario.getFoto();
+            if (foto != null) {
+                imageView.setImageBitmap(usuario.getFotoBitmap());
+            }
+
+            lblUltimoCheckin.setText(usuario.getCheckin());
+
+            TextView lblUsuarioLogueado = (TextView) findViewById(R.id.lblUsuarioLogueado);
+            lblUsuarioLogueado.setText(usuario.getNombre());
         }
-
-        lblUltimoCheckin.setText(usuario.getCheckin());
-
-        TextView lblUsuarioLogueado = (TextView) findViewById(R.id.lblUsuarioLogueado);
-        lblUsuarioLogueado.setText(usuario.getNombre());
     }
 
     private void setEstadoSwitch(boolean estado){
@@ -218,5 +221,24 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
             cargarDatosUsuario();
         }
 
-    } // end UsuarioAPI
+    } // end ConfigurarPerfilAPI
+
+    private class VerEstadoAPI extends AsyncTask<String, Usuario, Usuario> {
+        @Override
+        protected Usuario doInBackground(String... params) {
+            try {
+                usuario = new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).verEstado(usuario.getNombre());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return usuario;
+        }
+
+        protected void onPostExecute(Usuario user) {
+            //showProgress(false);
+            usuario = user;
+            cargarDatosUsuario();
+        }
+
+    } // end VerEstadoAPI
 }

@@ -214,33 +214,26 @@ public class UsuarioProxy {
      * @return el Usuario con todos sus datos para mostrar
      */
     public Usuario verEstado(String username) {
-        String urlString = urlBase + "usuarios";
-        JSONObject params = new JSONObject();
+        String urlString = urlBase + "usuario";
         HttpURLConnection urlConnection = null;
-        Usuario aDevolver = null;
+        Usuario aDevolver = new Usuario(username);
         try {
-            params.put("Token", usuario.getToken());
-            params.put("NombreUsuario", username);
+            urlString += "?Token=" + usuario.getToken() + "&NombreUsuario=" + username;
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
-            urlConnection.setRequestMethod("GET");
             urlConnection.setRequestProperty("Content-Type", "application/json");
-            OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
-            out.write(params.toString());
-            out.close();
-
+            Log.i("MensajerO","Intento obtener informacion de: " + username);
             int HttpResult = urlConnection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {
-                /*InputStream streamAParsear;
+                InputStream streamAParsear;
                 streamAParsear = urlConnection.getInputStream();
                 UsuarioParser parser = new UsuarioParser(streamAParsear);
                 aDevolver = parser.leerUsuario();
                 if (parser.getStatusOk()) {
-                    Log.i("MensajerO", "Perfil Actualizado correctamente");
+                    Log.i("MensajerO", "Información obtenida correctamente");
                 } else {
                     Log.e("MensajerO", "El servidor devolvio estado ERR");
-                }*/
-                aDevolver = new Usuario(username);
+                }
             } else {
                 Log.e("MensajerO", urlConnection.getResponseMessage());
             }
@@ -249,8 +242,6 @@ public class UsuarioProxy {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
             e.printStackTrace();
         } finally {
             if (urlConnection != null)
