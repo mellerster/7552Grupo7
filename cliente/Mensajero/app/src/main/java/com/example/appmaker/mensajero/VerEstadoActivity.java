@@ -28,9 +28,7 @@ public class VerEstadoActivity extends ActionBarActivity {
         {
             nombreUsuario = extras.getString("usuario");
         }
-        usuario = new Usuario(nombreUsuario);
-        cargarDatosUsuario();
-        //new VerEstadoAPI().execute(nombreUsuario);
+        new VerEstadoAPI().execute(nombreUsuario);
 
     }
 
