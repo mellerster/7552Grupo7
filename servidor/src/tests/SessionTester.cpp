@@ -63,6 +63,19 @@ TEST_CASE ( "Testear manejor de session" ) {
 
         REQUIRE ( tok1 != tok2 );
     }
+
+    SECTION ( "Renovar sesion" ) {
+        mocker.OnCall( mockedDB, IDB::AutheticateUser).Return( true );
+
+        unsigned int oldToken = ds.StartSession( "pepe", "1234" );
+        unsigned int newToken = ds.StartSession( "pepe", "1234" );
+
+        // Renovar la sesion genera un token nuevo
+        REQUIRE ( 0 != oldToken );
+        REQUIRE ( 0 != newToken );
+        REQUIRE ( newToken != oldToken );
+    }
+
 }
 
 

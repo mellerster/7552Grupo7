@@ -72,3 +72,36 @@ TEST_CASE ( "Probar listado de usuario conectados" ) {
 }
 
 
+TEST_CASE ( "Modificar datos de usuario" ) {
+    // Mocks
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::Close );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser).Return( true );
+
+    // Se instancia el "SUT"
+    DataService ds( *mockedDB, *mockedPositionator );
+
+    // Se loggea el usuario en el sistema
+    unsigned int token = ds.StartSession( "pepe", "1234" );
+
+    SECTION ( "Modificar foto" ) {
+        mocker.ExpectCall( mockedDB, IDB::StoreUserFoto).With("pepe", ":-P" ).Return( true );
+
+        ds.ReplaceFoto( token, ":-P" );
+    }
+
+    SECTION ( "Modificar estado" ) {
+        // TODO
+    }
+
+    SECTION ( "Modificar ubicacion" ) {
+        // TODO
+    }
+}
+
+
+

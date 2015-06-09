@@ -1,5 +1,6 @@
 #include "DataService.hpp"
 
+#include <chrono>
 #include <random>
 #include <functional>
 
@@ -90,9 +91,11 @@ unsigned int DataService::ExisteSessionUsuario(std::string nombreUsuario) const 
 
 unsigned int DataService::GenerateTokenUnico(std::string nomUsuario) const {
     // Un valor random le da sabor a nuestro token
-    std::default_random_engine eng;
+    unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
+    std::default_random_engine generador(seed);
+
     std::uniform_int_distribution<unsigned int> rndGen;
-    std::string salt = std::to_string( rndGen(eng) );
+    std::string salt = std::to_string( rndGen(generador) );
 
     std::hash<std::string> hasher;
     unsigned int token = hasher(salt + nomUsuario);
@@ -123,7 +126,13 @@ std::vector<UserStatus> DataService::ListActiveUsers() {
 
 
 std::string DataService::GetCheckinLocations(double latitud, double longitud) {
-    return "";
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se trató de obtener la ubicación de un usuario no loggeado." );
+        return "";
+    }
+
+    // TODO: Analizar; deberia sacar la ubicación de un usuario dado o es un sevicio general?
+
 }
 
 
@@ -132,10 +141,22 @@ void DataService::ReplaceCheckinLocation(unsigned int token, double latitud, dou
 
 
 void DataService::ReplaceFoto(unsigned int token, std::string foto) {
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se trató de modificar la foto de un usuario no loggeado." );
+        return;
+    }
+
+    std::string userID = this->m_tokenContainer[token];
+    bool resul = this->m_rocaDB.StoreUserFoto( userID, foto );
+
+    if (!resul) {
+        HL_ERROR( logger, "Ocurrio un error al guardar la foto de un usuario" );
+    }
 }
 
 
-void DataService::ReplaceEstado(unsigned int token, std::string estado) {
+void DataService::ReplaceEstado(unsigned int, std::string) {
+    // TODO: Agregar soporte para esta funcionalidad en la base de datos...
 }
 
 
