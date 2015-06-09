@@ -126,11 +126,11 @@ std::vector<UserStatus> DataService::ListActiveUsers() {
 
 
 std::string DataService::GetCheckinLocations(double latitud, double longitud) {
-    if (!IsTokenActive(token)) {
+/*    if (!IsTokenActive(token)) {
         HL_ERROR( logger, "Se trató de obtener la ubicación de un usuario no loggeado." );
         return "";
-    }
-
+    }*/
+	return "";
     // TODO: Analizar; deberia sacar la ubicación de un usuario dado o es un sevicio general?
 
 }
