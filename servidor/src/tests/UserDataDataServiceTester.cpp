@@ -31,10 +31,7 @@ TEST_CASE ( "Probar listado de usuario conectados" ) {
 
     SECTION ( "Un usuario" ) {
         mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
-        mocker.OnCall( mockedDB, IDB::LoadUserFoto ).Do( [] (std::string user, std::string& foto) {
-                    foto = ":-)";
-                    return true;
-                } );
+        mocker.OnCall( mockedDB, IDB::LoadUserFoto ).With( "pepe", Out(":-)") ).Return( true );
 
         ds.StartSession( "pepe", "1234" );
         std::vector<UserStatus> lUsers = ds.ListActiveUsers();
@@ -46,10 +43,7 @@ TEST_CASE ( "Probar listado de usuario conectados" ) {
 
     SECTION ( "varios usuarios" ) {
         mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
-        mocker.OnCall( mockedDB, IDB::LoadUserFoto ).Do( [] (std::string user, std::string& foto) {
-                    foto = ":-)";
-                    return true;
-                } );
+        mocker.OnCall( mockedDB, IDB::LoadUserFoto ).With( _, Out(":-)") ).Return( true );
 
         ds.StartSession( "pepe", "12" );
         ds.StartSession( "pepa", "123" );
@@ -66,13 +60,12 @@ TEST_CASE ( "Probar listado de usuario conectados" ) {
                 REQUIRE ( false );
             }
         }
-
     }
 
 }
 
 
-TEST_CASE ( "Modificar datos de usuario" ) {
+TEST_CASE ( "Probar modificar la foto del usuario" ) {
     // Mocks
     MockRepository mocker;
     IDB* mockedDB = mocker.Mock<IDB>();
@@ -81,6 +74,7 @@ TEST_CASE ( "Modificar datos de usuario" ) {
     mocker.OnCall( mockedDB, IDB::Open );
     mocker.OnCall( mockedDB, IDB::Close );
     mocker.OnCall( mockedDB, IDB::AutheticateUser).Return( true );
+    mocker.ExpectCall( mockedDB, IDB::StoreUserFoto).With("pepe", ":-P" ).Return( true );
 
     // Se instancia el "SUT"
     DataService ds( *mockedDB, *mockedPositionator );
@@ -88,18 +82,46 @@ TEST_CASE ( "Modificar datos de usuario" ) {
     // Se loggea el usuario en el sistema
     unsigned int token = ds.StartSession( "pepe", "1234" );
 
-    SECTION ( "Modificar foto" ) {
-        mocker.ExpectCall( mockedDB, IDB::StoreUserFoto).With("pepe", ":-P" ).Return( true );
+    ds.ReplaceFoto( token, ":-P" );
+}
 
-        ds.ReplaceFoto( token, ":-P" );
+
+TEST_CASE ( "Probar checkin del usuario" ) {
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    // Expectativas del mock de la base de datos
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::Close );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser).Return( true );
+
+    // Se instancia el servicio de datos y se "loggea" al usuario
+    DataService ds( *mockedDB, *mockedPositionator );
+    unsigned int token = ds.StartSession( "pepe", "1234" );
+
+    SECTION ( "Recuperar checkin" ) {
+        // Mockea la llamada y su resultado
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("123.0"), Out("456.0") ).Return( true );
+        mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 123.0, 456.0 ).Return( "Narnia" );
+
+        // Act
+        std::string ubicacion = ds.GetCheckinLocations(token);
+
+        // Assert
+        REQUIRE ( "Narnia" == ubicacion );
     }
 
-    SECTION ( "Modificar estado" ) {
-        // TODO
-    }
+    SECTION ( "Guardar coordenadas" ) {
+        const double lati = 123.1;
+        const double longi = 456.2;
+        const std::string strLat = std::to_string(lati);
+        const std::string strLong = std::to_string(longi);
 
-    SECTION ( "Modificar ubicacion" ) {
-        // TODO
+        mocker.ExpectCall( mockedDB, IDB::StoreUserUbicacion ).With( "pepe", strLat, strLong ).Return( true );
+        
+        // Act & assert
+        ds.ReplaceCheckinLocation( token, lati, longi );
     }
 }
 

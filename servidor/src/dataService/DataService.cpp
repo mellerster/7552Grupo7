@@ -126,6 +126,7 @@ std::vector<UserStatus> DataService::ListActiveUsers() {
 
 
 UserProfile DataService::GetUserProfile(unsigned int token) {
+    // TODO
     return UserProfile();
 }
 
@@ -154,6 +155,17 @@ std::string DataService::GetCheckinLocations(unsigned int token) {
 
 
 void DataService::ReplaceCheckinLocation(unsigned int token, double latitud, double longitud) {
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se intentó guardar la ubicación de un usuario no conectado" );
+        return;
+    }
+
+    std::string userID = this->m_tokenContainer[token];
+    bool resul = this->m_rocaDB.StoreUserUbicacion( userID, std::to_string(latitud), std::to_string(longitud) );
+
+    if (!resul) {
+        HL_ERROR( logger, "Ocurrió un error al intentar guardar la ubicación del usuario." );
+    }
 }
 
 
