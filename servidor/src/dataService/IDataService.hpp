@@ -6,6 +6,7 @@
 #include <vector>
 
 #include "UserStatus.hpp"
+#include "UserProfile.hpp"
 
 
 
@@ -61,14 +62,22 @@ class IDataService {
         virtual std::vector<UserStatus> ListActiveUsers() = 0;
 
 
-        /** Devuelve un texto descriptivo del lugar mas cercano a las coordenadas dadas.
+        /** Devuelve los datos del usuario dado.
          *
-         * @param[in] latitud
-         * @param[in] longitud
+         * @param[in] token     El token asociado al usuario del que se desea obtener los datos.
          *
-         * @returns  Un texto asociado al lugar mas cercano a las coordenadas dadas.
+         * @returns  Los datos que conforman el perfil del usuario.
          * */
-        virtual std::string GetCheckinLocations(double latitud, double longitud) = 0;
+        virtual UserProfile GetUserProfile(unsigned int token) = 0;
+
+
+        /** Devuelve un texto descriptivo del lugar mas cercano al ultimo lugar reportado por el usuario.
+         *
+         * @param[in] token     El token asociado al usuario del que se desea obtener la ubicación.
+         *
+         * @returns  Un texto asociado al lugar mas cercano a la ubicacion del usuario.
+         * */
+        virtual std::string GetCheckinLocations(unsigned int token) = 0;
 
 
         /** Reemplaza los datos de la ubicación del usuario.

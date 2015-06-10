@@ -20,13 +20,15 @@ class DataService : public IDataService {
         DataService(IDB& dbRef, IPosicionador& posInator);
         virtual ~DataService();
 
-        virtual unsigned int StartSession(std::string nombreUsuario, std::string password);
-        virtual bool IsTokenActive(unsigned int tok);
-        virtual bool RegisterNewUser(std::string nombreUsuario, std::string password);
-
         virtual std::vector<UserStatus> ListActiveUsers();
 
-        virtual std::string GetCheckinLocations(double latitud, double longitud);
+        virtual unsigned int StartSession(std::string nombreUsuario, std::string password);
+        virtual bool RegisterNewUser(std::string nombreUsuario, std::string password);
+
+        virtual bool IsTokenActive(unsigned int tok);
+
+        virtual UserProfile GetUserProfile(unsigned int token);
+        virtual std::string GetCheckinLocations(unsigned int token);
 
         virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud);
         virtual void ReplaceFoto(unsigned int token, std::string foto);

@@ -26,7 +26,7 @@ Response CheckinHandler::GetResponseData() {
     // Se recupera la descripcion de la ubicación mas cercana
     CheckinDTO resul;
     resul.Status = "OK";
-    resul.Descripcion = this->m_dataService.GetCheckinLocations(lat, lon);
+    resul.Descripcion = this->m_dataService.GetCheckinLocations(pedido.Token);
 
     // Crea la respuesta
     Response resp( 200, resul.ToJSON() );

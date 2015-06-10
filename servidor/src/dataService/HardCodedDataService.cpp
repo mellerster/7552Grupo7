@@ -48,8 +48,13 @@ std::vector<UserStatus> HardCodedDataService::ListActiveUsers(){
 }
 
 
-std::string HardCodedDataService::GetCheckinLocations(double latitud, double longitud) {
-    return this->m_posicionador.getLugarMasCercano(latitud, longitud);
+UserProfile HardCodedDataService::GetUserProfile(unsigned int token) {
+    return UserProfile();
+}
+
+
+std::string HardCodedDataService::GetCheckinLocations(unsigned int token) {
+    return "TODO...";
 }
 
 

@@ -125,14 +125,31 @@ std::vector<UserStatus> DataService::ListActiveUsers() {
 }
 
 
-std::string DataService::GetCheckinLocations(double latitud, double longitud) {
-/*    if (!IsTokenActive(token)) {
+UserProfile DataService::GetUserProfile(unsigned int token) {
+    return UserProfile();
+}
+
+
+std::string DataService::GetCheckinLocations(unsigned int token) {
+    if (!IsTokenActive(token)) {
         HL_ERROR( logger, "Se trató de obtener la ubicación de un usuario no loggeado." );
         return "";
-    }*/
-	return "";
-    // TODO: Analizar; deberia sacar la ubicación de un usuario dado o es un sevicio general?
+    }
 
+    // A partir del token se obtiene el userID
+    std::string userID = this->m_tokenContainer[token];
+
+    // A partir del userID se obtiene la ultima coordenada del usuario.
+    std::string latitud = "";
+    std::string longitud = "";
+    bool resul = this->m_rocaDB.LoadUserUbicacion(userID, latitud, longitud);
+    if (!resul) {
+        HL_ERROR( logger, "Falló la obtención de la ubicación del usuario." );
+        return "";
+    }
+
+    // Se extrae la descripción del lugar mas cercano a las coordenadas del usuario.
+    return this->m_posicionador.getLugarMasCercano( std::stod(latitud), std::stod(longitud) );
 }
 
 
