@@ -28,7 +28,7 @@ class UserStatusDTO : public BaseDTO {
         std::string Foto;       /**< La fotografia codificada en base64. */
         std::string UltimaActividadHora;        /**< La hora de ultima actividad del usuario: En formato de 24hs. */
         std::string UltimaActividadFecha;       /**< La fecha de ultima actividad del usuario; En formato año, mes y dia. */
-
+	unsigned int Token;         /**< El token de autenticación del cliente.  */
 
         UserStatusDTO();        /**< Constructor por defecto */
         UserStatusDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON */

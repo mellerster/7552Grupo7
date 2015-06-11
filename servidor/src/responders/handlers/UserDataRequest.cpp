@@ -13,16 +13,16 @@ UserDataRequest::~UserDataRequest(){
 
 Response UserDataRequest::GetResponseData(){
     // List users es un pedido GET, solo va a existir m_parsedParameters_QueryString
-    /*UserStatusDTO dto( this->m_parsedParameters_QueryString );
+    UserStatusDTO dto( this->m_parsedParameters_QueryString );
 	
     // Chequea que el token sea valido
     if ( !this->m_dataService.IsTokenActive(dto.Token) ){
         Response invalid_resp( 403, "" );
         return invalid_resp;
-    }*/
+    }
 
 	UserStatusDTO us;
-	us.Nombre = "pepe";
+	us.Nombre = dto.Nombre;
 	us.Estado = "C";
 	us.Foto = "";
 	us.UltimaActividadHora = "12:53:25";

@@ -14,6 +14,9 @@ UserStatusDTO::UserStatusDTO(Json::Value jData) : BaseDTO(jData) {
     this->Estado = jData.get("Estado", "").asString();
     this->Foto = jData.get("Foto", "").asString();
 
+    std::string tok = jData.get("Token", 0).asString();
+    this->Token = std::stoul( tok );    // El token es numerico.
+
     this->UltimaActividadHora = jData.get("UltimaActividadHora", "").asString();
     this->UltimaActividadFecha = jData.get("UltimaActividadFecha", "").asString();
 }
