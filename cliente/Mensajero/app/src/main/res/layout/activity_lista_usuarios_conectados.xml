@@ -3,6 +3,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.example.appmaker.mensajero.ListaUsuariosConectadosActivity">
 
     <ProgressBar
@@ -13,11 +14,11 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/form_lista_usuarios"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="fill_parent">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -27,7 +28,7 @@
             android:backgroundTint="#b4b4b4"
             android:orientation="horizontal"
             android:gravity="center_horizontal"
-            android:layout_gravity="center_horizontal">
+            >
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,34 +61,40 @@
             android:id="@+id/gridUsuarios"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            />
+            android:orientation="vertical" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ImageButton
-                android:id="@+id/btnCheckin"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/checkin"/>
-            <ImageButton
-                android:id="@+id/btnBroadcast"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/broadcast"/>
-            <ImageButton
-                android:id="@+id/btnMiPerfil"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/mi_perfil"/>
-            <ImageButton
-                android:id="@+id/btnCerrarSesion"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/cerrar_sesion" />
-        </LinearLayout>
-    </LinearLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true" >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+                    <ImageButton
+                        android:id="@+id/btnCheckin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/checkin"/>
+                    <ImageButton
+                        android:id="@+id/btnBroadcast"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/broadcast"/>
+                    <ImageButton
+                        android:id="@+id/btnMiPerfil"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/mi_perfil"/>
+                    <ImageButton
+                        android:id="@+id/btnCerrarSesion"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/cerrar_sesion" />
+                </LinearLayout>
+        </RelativeLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>
