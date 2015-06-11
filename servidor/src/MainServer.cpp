@@ -3,10 +3,12 @@
 
 #include "humblelogging/api.h"
 
-#include "RequestHandlerFactory.hpp"
+#include "rocaDB/RocaDB.hpp"
 #include "posicionaitor/Posicionador.hpp"
-#include "HardCodedDataService.hpp"
+#include "RequestHandlerFactory.hpp"
+
 #include "MangostaServer.hpp"
+#include "DataService.hpp"
 
 
 using namespace std;
@@ -26,39 +28,44 @@ int main() {
     fac.registerAppender( new humble::logging::ConsoleAppender() );
     fac.changeGlobalLogLevel( humble::logging::LogLevel::Info );
 
-    // Loggea de diferentes niveles, en orden
-    HL_TRACE(logger, "Nivel de trace");
-    HL_DEBUG(logger, "Nivel de debug");
-    HL_INFO (logger, "Nivel de información");
-    HL_WARN (logger, "Nivel de advertencia");
-    HL_ERROR(logger, "Nivel de error");
-    HL_FATAL(logger, "Nivel de error fatal");
+    // Se abre la conexion hacia la base de datos
+    RocaDB db;
+    db.Open( "serverBinData" );
+    HL_INFO( logger, "Se abrió la conexión con la base de datos" );
 
-    // Se injectan los servicios en la factory
+    // Se injectan los servicios en la factory y la factory en el server
     Posicionador checkinProvider;
-    HardCodedDataService hardDS( checkinProvider );
-    RequestHandlerFactory factory( hardDS );
+    DataService realDS( db, checkinProvider );
 
-    // Se injecta la factory en el server
+    RequestHandlerFactory factory( realDS );
     MangostaServer ms( factory );
 
     string comando = "";
     while (comando != "X"){
-        cout << endl << "----------------------" << endl;
+        cout << "\n----------------------" << endl;
         cout << "X -> Para terminar" << endl;
         cout << "Y -> Para iniciar" << endl << endl;
         cout << "Ingrese comando: ";
         cin >> comando;
 
         if ( comando == "Y" ){
-            cout << "start!" << endl;
+            HL_INFO( logger, "Ejecutar comando: iniciar el servidor" );
+            cout << "\nstart!\n\n" << endl;
             ms.Start();
 
         } else if (comando == "X"){
-            cout << "Stop!" << endl;
+            HL_INFO( logger, "Ejecutar comando: detener el servidor" );
+            cout << "\nStop!\n\n" << endl;
             ms.Stop();
         }
+
+        // Limpia un poco la pantalla
+        cout << "\n\n\n\n\n\n\n\n\n\n\n\n" << endl;
     }
+
+    // Cierra la base de datos
+    db.Close();
+    HL_INFO( logger, "Se cerró la conexión con la base de datos" );
 
     cout << "Cerrando aplicacion" << endl;
 

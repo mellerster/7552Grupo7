@@ -5,7 +5,6 @@ add_subdirectory ( rocaDB )
 # Los archivos fuente que forman esta libreria
 set ( SRC 
         DataService.cpp 
-        HardCodedDataService.cpp 
         posicionaitor/Posicionador.cpp 
         posicionaitor/Posicion.cpp 
     )
