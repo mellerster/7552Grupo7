@@ -26,6 +26,7 @@ set ( SRC_HANDLERS
         handlers/UserDataRequest.cpp
         handlers/EditPerfilHandler.cpp
         handlers/ListConversationsRequest.cpp
+        handlers/MessageHandler.cpp
     )
 
 
