@@ -5,6 +5,7 @@
 #include "handlers/ListUsersRequest.hpp"
 #include "handlers/UserDataRequest.hpp"
 #include "handlers/CheckinHandler.hpp"
+#include "handlers/BroadcastHandler.hpp"
 #include "handlers/LoginRequest.hpp"
 #include "handlers/LogoutRequest.hpp"
 #include "handlers/EmptyRequest.hpp"
@@ -22,6 +23,7 @@ RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataServ
 
     m_factoryMap["POST /grupo7/api/usuarios"] = [] (IDataService& ds) { return new UserSignUpHandler(ds); };
     m_factoryMap["POST /grupo7/api/checkin"] = [] (IDataService& ds) { return new CheckinHandler(ds); };
+    m_factoryMap["POST /grupo7/api/broadcast"] = [] (IDataService& ds) { return new BroadcastHandler(ds); };    
 
     // TODO: Agregar los responders faltantes
 }

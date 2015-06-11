@@ -8,6 +8,7 @@ set ( SRC_DTOS
         handlers/dtos/RegistrationDTO.cpp
         handlers/dtos/PerfilDTO.cpp
         handlers/dtos/CheckinDTO.cpp
+        handlers/dtos/BroadcastDTO.cpp        
     )
 
 
@@ -19,6 +20,7 @@ set ( SRC_HANDLERS
         handlers/ListUsersRequest.cpp 
         handlers/UserSignUpHandler.cpp
         handlers/CheckinHandler.cpp
+        handlers/BroadcastHandler.cpp
         handlers/UserDataRequest.cpp
         handlers/EditPerfilHandler.cpp
     )
