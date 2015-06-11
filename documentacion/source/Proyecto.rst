@@ -9,7 +9,19 @@ División de Tareas
 Cesar Leguizamon
 ----------------
 
-Encargado de la aplicación Servidor
+Encargado de la aplicación Servidor, esto implica:
+
+* Diseño general del servidor.
+* Diseño de la base de datos.
+* Seteo del sistema de compilación.
+* Seteo del sistema de testeo.
+* Configuración de la documentación del servidor (Doxygen).
+* Configuración de la generación de *code coverage*.
+* Configuración de la librerias utilizadas.
+* Implemetación del servidor.
+* Implemetación de la base de datos.
+* Implemetación de los unit tests.
+* Documentación del servidor.
 
 Diego Meller
 ------------
