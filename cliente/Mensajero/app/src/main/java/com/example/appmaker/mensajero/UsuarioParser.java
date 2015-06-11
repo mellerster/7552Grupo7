@@ -76,7 +76,6 @@ public class UsuarioParser {
     public Usuario readUsuario(JsonReader reader) throws IOException {
         Usuario usuario = new Usuario();
         usuario.conectar();
-
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();

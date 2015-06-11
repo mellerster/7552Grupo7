@@ -87,6 +87,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
+        params.setMargins(2,2,5,2);
         if(usuarios != null) {
             for (Usuario usuario : usuarios) {
                 agregarUsuarioALista(usuario, params);
@@ -108,7 +109,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         ivFoto.setImageResource(R.drawable.no_user);
         LinearLayout.LayoutParams fotoParams = new LinearLayout.LayoutParams(fotoWidth,fotoHeight);
         ivFoto.setLayoutParams(fotoParams);
-        if(usuario.getFoto() != null){
+        if(usuario.getFotoBitmap() != null){
             ivFoto.setImageBitmap(Bitmap.createScaledBitmap(usuario.getFotoBitmap(), fotoWidth, fotoHeight, true));
         }
         llUsuario.addView(ivFoto);

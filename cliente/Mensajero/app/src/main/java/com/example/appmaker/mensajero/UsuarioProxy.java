@@ -86,9 +86,6 @@ public class UsuarioProxy {
         } catch (Exception ex) {
             Log.e("MensajerO", "No fue posible conectarse al servidor");
             Log.e("MensajerO", ex.toString());
-        } finally {
-            if (urlConnection != null)
-                urlConnection.disconnect();
         }
         try {
             UsuarioParser parser = new UsuarioParser(streamAParsear);
@@ -96,6 +93,9 @@ public class UsuarioProxy {
             Log.i("MensajerO","Lista de Usuarios Logueados traida y parseada");
         }catch (IOException ex){
             Log.e("MensajerO", ex.toString());
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
         }
         return usuarios;
     }
@@ -250,7 +250,7 @@ public class UsuarioProxy {
         HttpURLConnection urlConnection = null;
         Usuario aDevolver = null;
         try {
-            urlString += "?Token=" + usuario.getToken() + "&NombreUsuario=" + username;
+            urlString += "?Token=" + usuario.getToken() + "&Nombre=" + username;
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestProperty("Content-Type", "application/json");
