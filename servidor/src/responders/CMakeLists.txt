@@ -15,6 +15,7 @@ set ( SRC_DTOS
 set ( SRC_HANDLERS 
         handlers/EmptyRequest.cpp 
         handlers/LoginRequest.cpp 
+        handlers/LogoutRequest.cpp
         handlers/ListUsersRequest.cpp 
         handlers/UserSignUpHandler.cpp
         handlers/CheckinHandler.cpp

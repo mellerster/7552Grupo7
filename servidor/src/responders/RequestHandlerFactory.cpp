@@ -6,6 +6,7 @@
 #include "handlers/UserDataRequest.hpp"
 #include "handlers/CheckinHandler.hpp"
 #include "handlers/LoginRequest.hpp"
+#include "handlers/LogoutRequest.hpp"
 #include "handlers/EmptyRequest.hpp"
 
 
@@ -17,6 +18,7 @@ RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataServ
 
     m_factoryMap["PUT /grupo7/api/sesion"] = [] (IDataService& ds) { return new LoginRequest(ds); };
     m_factoryMap["PUT /grupo7/api/usuarios"] = [] (IDataService& ds) { return new EditPerfilHandler(ds); };
+    m_factoryMap["PUT /grupo7/api/logout"] = [] (IDataService& ds) { return new LogoutRequest(ds); };
 
     m_factoryMap["POST /grupo7/api/usuarios"] = [] (IDataService& ds) { return new UserSignUpHandler(ds); };
     m_factoryMap["POST /grupo7/api/checkin"] = [] (IDataService& ds) { return new CheckinHandler(ds); };
