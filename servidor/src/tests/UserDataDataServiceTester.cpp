@@ -8,6 +8,7 @@
 #include "DataService.hpp"
 
 #include "UserStatus.hpp"
+#include "UserProfile.hpp"
 
 
 
@@ -125,5 +126,34 @@ TEST_CASE ( "Probar checkin del usuario" ) {
     }
 }
 
+
+TEST_CASE ( "Probar perfil del usuario" ) {
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::Close );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser).Return( true );
+
+    // Se instancia el servicio de datos y se "loggea" al usuario
+    DataService ds( *mockedDB, *mockedPositionator );
+    unsigned int token = ds.StartSession( "pepe", "1234" );
+
+    mocker.autoExpect = false;  // No importa el orden de llamada
+    mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("111"), Out("222") ).Return( true );
+    mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepe", Out("-_-") ).Return( true );
+    mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
+
+    // Act
+    UserProfile up = ds.GetUserProfile(token);
+
+    // Assert
+    REQUIRE ( "pepe" == up.Nombre );
+    REQUIRE ( "-_-" == up.Foto );
+    REQUIRE ( "111" == up.latitud );
+    REQUIRE ( "222" == up.longitud );
+    REQUIRE ( "Hogwarts" == up.Ubicacion );
+}
 
 

@@ -126,8 +126,43 @@ std::vector<UserStatus> DataService::ListActiveUsers() {
 
 
 UserProfile DataService::GetUserProfile(unsigned int token) {
-    // TODO
-    return UserProfile();
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se trató de obtener el perfil de un usuario no loggeado." );
+        return UserProfile();
+    }
+
+    // Se recupera el nombre del usuario
+    std::string userID = this->m_tokenContainer[token];
+
+    // Se recuperan las coordenadas de la ubicación del usuario
+    std::string lati = "";
+    std::string longi = "";
+    bool ok = this->m_rocaDB.LoadUserUbicacion( userID, lati, longi );
+    if (!ok) {
+        HL_ERROR( logger, "Hubo un error al recuperar la ubicación del usuario" );
+        return UserProfile();
+    }
+
+    // Se recupera la descripcion de la ubicación del usuario
+    std::string descrip = this->m_posicionador.getLugarMasCercano( std::stod(lati), std::stod(longi) );
+
+    // Se recupera la foto del usuario
+    std::string foto = "";
+    ok = this->m_rocaDB.LoadUserFoto( userID, foto );
+    if (!ok) {
+        HL_ERROR( logger, "Hubo un error al recuperar la foto del usuario" );
+        return UserProfile();
+    }
+
+    // Se arma la respuesta
+    UserProfile userProf;
+    userProf.Nombre = userID;
+    userProf.Foto = foto;
+    userProf.latitud = lati;
+    userProf.longitud = longi;
+    userProf.Ubicacion = descrip;
+
+    return userProf;
 }
 
 
