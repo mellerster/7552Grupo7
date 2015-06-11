@@ -73,18 +73,22 @@ public class UsuarioProxy {
      * @return Un List tipado de Usuario
      */
     public List<Usuario> getUsuariosConectados() {
-        String urlString = urlBase + "usuarios";
+        String urlString = urlBase + "usuarios?Token=" + String.valueOf(getUsuario().getToken());
         Log.d("MensajerO", urlString);
         List<Usuario> usuarios = null;
         InputStream streamAParsear = null;
+        HttpURLConnection urlConnection = null;
         try {
             URL url = new URL(urlString);
-            HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection = (HttpURLConnection) url.openConnection();
             streamAParsear = urlConnection.getInputStream();
             Log.i("MensajerO", "Conexión al servidor exitosa");
         } catch (Exception ex) {
             Log.e("MensajerO", "No fue posible conectarse al servidor");
             Log.e("MensajerO", ex.toString());
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
         }
         try {
             UsuarioParser parser = new UsuarioParser(streamAParsear);
@@ -108,7 +112,6 @@ public class UsuarioProxy {
         JSONObject params = new JSONObject();
         HttpURLConnection urlConnection = null;
         try {
-            params.put("Token", "0");
             params.put("NombreUsuario", usuario.getNombre());
             params.put("Password", usuario.getPassword());
             URL url = new URL(urlString);
@@ -150,14 +153,43 @@ public class UsuarioProxy {
     }
 
     /**
-     * Marca en el servidor que el usuario aparecera como desconectado
+     * Hace que el token sea invalido en el servidor
      *
      * @param usuario a desconectar
      * @return el usuario desconectado
      */
     public void logout(Usuario usuario) {
-        //TODO: Hacer logout en el servidor
-        UsuarioProxy.usuario = null;
+        String urlString = urlBase + "logout";
+        JSONObject params = new JSONObject();
+        HttpURLConnection urlConnection = null;
+        try {
+            params.put("Token", usuario.getToken());
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setDoOutput(true);
+            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            OutputStreamWriter out = new   OutputStreamWriter(urlConnection.getOutputStream());
+            out.write(params.toString());
+            out.close();
+
+            int HttpResult =urlConnection.getResponseCode();
+            if(HttpResult ==HttpURLConnection.HTTP_OK) {
+                    UsuarioProxy.usuario = null;
+                    Log.i("MensajerO", "Usuario DesLogueado correctamente");
+            }else{
+                System.out.println(urlConnection.getResponseMessage());
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
     }
 
     /**
@@ -216,7 +248,7 @@ public class UsuarioProxy {
     public Usuario verEstado(String username) {
         String urlString = urlBase + "usuario";
         HttpURLConnection urlConnection = null;
-        Usuario aDevolver = new Usuario(username);
+        Usuario aDevolver = null;
         try {
             urlString += "?Token=" + usuario.getToken() + "&NombreUsuario=" + username;
             URL url = new URL(urlString);
@@ -277,17 +309,9 @@ public class UsuarioProxy {
 
             int HttpResult = urlConnection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {
-                /*InputStream streamAParsear;
-                streamAParsear = urlConnection.getInputStream();
-                UsuarioParser parser = new UsuarioParser(streamAParsear);
-                parser.parseStatus();
-                if (parser.getStatusOk()) {*/
-                    UsuarioProxy.usuario = new Usuario(usuario);
-                    Log.i("MensajerO", "Perfil Actualizado correctamente");
-                    statusOk = true;
-                /*} else {
-                    Log.e("MensajerO", "El servidor devolvio estado ERR");
-                }*/
+                UsuarioProxy.usuario = new Usuario(usuario);
+                Log.i("MensajerO", "Perfil Actualizado correctamente");
+                statusOk = true;
             } else {
                 statusOk = false;
                 Log.e("MensajerO", urlConnection.getResponseMessage());

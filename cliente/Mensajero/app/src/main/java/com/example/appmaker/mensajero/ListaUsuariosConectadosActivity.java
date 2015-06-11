@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 import java.util.List;
 
 
@@ -76,17 +78,7 @@ public class ListaUsuariosConectadosActivity extends Activity {
         btnCerrarSesion.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).logout(UsuarioProxy.getUsuario());
-                //Borro los datos del usuario conectado
-                SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-                SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
-                editorPreferenciasCompartidas.putString("usuario", "");
-                editorPreferenciasCompartidas.putString("contrasenia", "");
-                editorPreferenciasCompartidas.apply();
-                //Envío a la pantalla de login
-                Intent autentificacionIntent =new Intent("com.example.appmaker.mensajero.AutentificacionActivity");
-                startActivity(autentificacionIntent );
-                finish();
+                new UsuarioLogoutAPI().execute();
             }
         });
     }
@@ -99,6 +91,8 @@ public class ListaUsuariosConectadosActivity extends Activity {
             for (Usuario usuario : usuarios) {
                 agregarUsuarioALista(usuario, params);
             }
+        } else {
+            Toast.makeText(getApplicationContext(), "No se pudo obtener listado de usuarios del servidor", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -223,5 +217,35 @@ public class ListaUsuariosConectadosActivity extends Activity {
             MostrarUsuarios(usuarios);
         }
 
-    } // end UsuarioAPI
+    } // end ListaUsuariosAPI
+    //
+    private class UsuarioLogoutAPI extends AsyncTask<String, Void, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            //showProgress(true);
+            List<Usuario> usuarios = null;
+            Boolean success = true;
+            try {
+                new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).logout(UsuarioProxy.getUsuario());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                success = false;
+            }
+            return success;
+        }
+
+        protected void onPostExecute(Boolean success) {
+            //Borro los datos del usuario conectado
+            SharedPreferences preferenciasCompartidas = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            SharedPreferences.Editor editorPreferenciasCompartidas = preferenciasCompartidas.edit();
+            editorPreferenciasCompartidas.putString("usuario", "");
+            editorPreferenciasCompartidas.putString("contrasenia", "");
+            editorPreferenciasCompartidas.apply();
+            //Envío a la pantalla de login
+            Intent autentificacionIntent =new Intent("com.example.appmaker.mensajero.AutentificacionActivity");
+            startActivity(autentificacionIntent );
+            finish();
+        }
+
+    } // end UsuarioLogoutAPI
 }

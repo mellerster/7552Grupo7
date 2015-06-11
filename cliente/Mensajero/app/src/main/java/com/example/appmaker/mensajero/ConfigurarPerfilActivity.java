@@ -236,8 +236,13 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
 
         protected void onPostExecute(Usuario user) {
             //showProgress(false);
-            usuario = user;
-            cargarDatosUsuario();
+            if(user != null) {
+                usuario = user;
+                cargarDatosUsuario();
+            } else {
+                Toast.makeText(getApplicationContext(), "No se pudo obtener los datos del usuario en el servidor", Toast.LENGTH_LONG).show();
+                Log.e("MensajerO","No se pudo obtener los datos del usuario del servidor");
+            }
         }
 
     } // end VerEstadoAPI
