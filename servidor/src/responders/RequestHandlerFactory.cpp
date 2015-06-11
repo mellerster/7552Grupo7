@@ -9,6 +9,7 @@
 #include "handlers/LoginRequest.hpp"
 #include "handlers/LogoutRequest.hpp"
 #include "handlers/EmptyRequest.hpp"
+#include "handlers/ListConversationsRequest.hpp"
 
 
 
@@ -16,6 +17,7 @@ RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataServ
     // Cada request responder tiene una entrada en el mapa-factory
     m_factoryMap["GET /grupo7/api/usuarios"] = [] (IDataService& ds) { return new ListUsersRequest(ds); };
     m_factoryMap["GET /grupo7/api/usuario"] = [] (IDataService& ds) { return new UserDataRequest(ds); };
+    m_factoryMap["GET /grupo7/api/conversaciones"] = [] (IDataService& ds) { return new ListConversationsRequest(ds); };
 
     m_factoryMap["PUT /grupo7/api/sesion"] = [] (IDataService& ds) { return new LoginRequest(ds); };
     m_factoryMap["PUT /grupo7/api/usuarios"] = [] (IDataService& ds) { return new EditPerfilHandler(ds); };

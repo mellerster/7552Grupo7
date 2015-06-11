@@ -9,6 +9,8 @@ set ( SRC_DTOS
         handlers/dtos/PerfilDTO.cpp
         handlers/dtos/CheckinDTO.cpp
         handlers/dtos/BroadcastDTO.cpp        
+        handlers/dtos/ConversationDTO.cpp
+        handlers/dtos/ListConversationsDTO.cpp
     )
 
 
@@ -23,6 +25,7 @@ set ( SRC_HANDLERS
         handlers/BroadcastHandler.cpp
         handlers/UserDataRequest.cpp
         handlers/EditPerfilHandler.cpp
+        handlers/ListConversationsRequest.cpp
     )
 
 
