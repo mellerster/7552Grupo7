@@ -140,20 +140,79 @@ TEST_CASE ( "Probar perfil del usuario" ) {
     DataService ds( *mockedDB, *mockedPositionator );
     unsigned int token = ds.StartSession( "pepe", "1234" );
 
-    mocker.autoExpect = false;  // No importa el orden de llamada
-    mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("111"), Out("222") ).Return( true );
-    mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepe", Out("-_-") ).Return( true );
-    mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
+    SECTION ( "El perfil del mismo usuario" ) {
+        mocker.autoExpect = false;  // No importa el orden de llamada
+        mocker.ExpectCall( mockedDB, IDB::ExistsUser ).With( "pepe" ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("111"), Out("222") ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepe", Out("-_-") ).Return( true );
+        mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
 
-    // Act
-    UserProfile up = ds.GetUserProfile(token);
+        // Act
+        UserProfile up = ds.GetUserProfile(token, "pepe");
 
-    // Assert
-    REQUIRE ( "pepe" == up.Nombre );
-    REQUIRE ( "-_-" == up.Foto );
-    REQUIRE ( "111" == up.latitud );
-    REQUIRE ( "222" == up.longitud );
-    REQUIRE ( "Hogwarts" == up.Ubicacion );
+        // Assert
+        REQUIRE ( "pepe" == up.Nombre );
+        REQUIRE ( "-_-" == up.Foto );
+        REQUIRE ( "111" == up.latitud );
+        REQUIRE ( "222" == up.longitud );
+        REQUIRE ( "Hogwarts" == up.Ubicacion );
+    }
+
+    SECTION ( "El perfil de otro usuario conectado" ) {
+        ds.StartSession( "pepito", "4321" );
+
+        mocker.autoExpect = false;  // No importa el orden de llamada
+        mocker.ExpectCall( mockedDB, IDB::ExistsUser ).With( "pepito" ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepito", Out("111"), Out("222") ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepito", Out("-_-") ).Return( true );
+        mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
+
+        // Act
+        UserProfile up = ds.GetUserProfile(token, "pepito");
+
+        // Assert
+        REQUIRE ( "pepito" == up.Nombre );
+        REQUIRE ( "-_-" == up.Foto );
+        REQUIRE ( "111" == up.latitud );
+        REQUIRE ( "222" == up.longitud );
+        REQUIRE ( "Hogwarts" == up.Ubicacion );
+    }
+
+    SECTION ( "El perfil de otro usuario desconectado" ) {
+        mocker.autoExpect = false;  // No importa el orden de llamada
+        mocker.ExpectCall( mockedDB, IDB::ExistsUser ).With( "pepito" ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepito", Out("111"), Out("222") ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepito", Out("-_-") ).Return( true );
+        mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
+
+        // Act
+        UserProfile up = ds.GetUserProfile(token, "pepito");
+
+        // Assert
+        REQUIRE ( "pepito" == up.Nombre );
+        REQUIRE ( "-_-" == up.Foto );
+        REQUIRE ( "111" == up.latitud );
+        REQUIRE ( "222" == up.longitud );
+        REQUIRE ( "Hogwarts" == up.Ubicacion );
+    }
+
+    SECTION ( "El perfil de un usuario inexistente" ) {
+        mocker.autoExpect = false;  // No importa el orden de llamada
+        mocker.ExpectCall( mockedDB, IDB::ExistsUser ).Return( false );
+        mocker.OnCall( mockedDB, IDB::LoadUserUbicacion ).Return( false );
+        mocker.OnCall( mockedDB, IDB::LoadUserFoto ).Return( false );
+        mocker.OnCall( mockedPositionator, IPosicionador::getLugarMasCercano ).Return( "" );
+
+        // Act
+        UserProfile up = ds.GetUserProfile(token, "pepito");
+
+        // Assert
+        REQUIRE ( "" == up.Nombre );
+        REQUIRE ( "" == up.Foto );
+        REQUIRE ( "" == up.latitud );
+        REQUIRE ( "" == up.longitud );
+        REQUIRE ( "" == up.Ubicacion );
+    }
 }
 
 

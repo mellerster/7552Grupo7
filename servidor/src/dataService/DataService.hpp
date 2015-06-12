@@ -29,7 +29,7 @@ class DataService : public IDataService {
 
         virtual bool IsTokenActive(unsigned int tok);
 
-        virtual UserProfile GetUserProfile(unsigned int token);
+        virtual UserProfile GetUserProfile(unsigned int token, std::string userID);
         virtual std::string GetCheckinLocations(unsigned int token);
 
         virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud);

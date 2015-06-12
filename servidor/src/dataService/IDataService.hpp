@@ -74,10 +74,11 @@ class IDataService {
         /** Devuelve los datos del usuario dado.
          *
          * @param[in] token     El token asociado al usuario del que se desea obtener los datos.
+         * @param[in] userID    El ID del usuario del que se desea ver el perfil.
          *
          * @returns  Los datos que conforman el perfil del usuario.
          * */
-        virtual UserProfile GetUserProfile(unsigned int token) = 0;
+        virtual UserProfile GetUserProfile(unsigned int token, std::string userID) = 0;
 
 
         /** Devuelve un texto descriptivo del lugar mas cercano al ultimo lugar reportado por el usuario.

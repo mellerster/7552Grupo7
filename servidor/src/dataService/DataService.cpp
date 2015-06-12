@@ -138,14 +138,16 @@ std::vector<UserStatus> DataService::ListActiveUsers() {
 }
 
 
-UserProfile DataService::GetUserProfile(unsigned int token) {
+UserProfile DataService::GetUserProfile(unsigned int token, std::string userID) {
     if (!IsTokenActive(token)) {
-        HL_ERROR( logger, "Se trató de obtener el perfil de un usuario no loggeado." );
+        HL_ERROR( logger, "Se trató de obtener el perfil por un usuario no loggeado." );
         return UserProfile();
     }
 
-    // Se recupera el nombre del usuario
-    std::string userID = this->m_tokenContainer[token];
+    if (!this->m_rocaDB.ExistsUser( userID ) ){
+        HL_ERROR( logger, "Se trató de obtener el perfil de un usuario no existente." );
+        return UserProfile();
+    }
 
     // Se recuperan las coordenadas de la ubicación del usuario
     std::string lati = "";
