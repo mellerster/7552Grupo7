@@ -13,10 +13,13 @@ LogoutRequest::~LogoutRequest(){
 
 
 Response LogoutRequest::GetResponseData(){
-	//TODO: Realizar logout
+	// El logout seguramente sea un "DELETE", cuyos datos vienen como POST
+    LoginDTO dto( this->m_parsedParameters_ContentData );
 
-    Response resp( 200, "");
-    return resp;
+    this->m_dataService.EndSession( dto.Token );
+
+    // Devuelve un mensaje de OK, no hay mas que hacer
+    return Response( 200, "");
 }
 
 

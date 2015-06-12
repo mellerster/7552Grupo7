@@ -76,6 +76,22 @@ TEST_CASE ( "Testear manejor de session" ) {
         REQUIRE ( newToken != oldToken );
     }
 
+    SECTION ( "Terminar sesion" ) {
+        mocker.OnCall( mockedDB, IDB::AutheticateUser).Return( true );
+
+        unsigned int tok = ds.StartSession( "pepe", "1234" );
+        bool existeSesionInicial = ds.IsTokenActive( tok );
+
+        // Act
+        ds.EndSession( tok );
+        bool existeSesionFinal = ds.IsTokenActive( tok );
+
+        // Assert
+        REQUIRE ( 0 != tok );
+        REQUIRE ( existeSesionInicial );
+        REQUIRE_FALSE ( existeSesionFinal );
+    }
+
 }
 
 
