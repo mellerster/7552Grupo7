@@ -55,6 +55,19 @@ unsigned int DataService::StartSession(std::string nombreUsuario, std::string pa
 }
 
 
+void DataService::EndSession(unsigned int token) {
+    // Se intenta borrar
+    unsigned int cantBorrada = this->m_tokenContainer.erase( token );
+
+    if (cantBorrada == 1) {
+        HL_INFO( logger, "Sesión terminada" );
+
+    } else {
+        HL_WARN( logger, "Se intentó terminar una sesión inexistente" );
+    }
+}
+
+
 bool DataService::RegisterNewUser(std::string nombreUsuario, std::string password) {
     bool existe = this->m_rocaDB.ExistsUser( nombreUsuario );
     if (existe) {

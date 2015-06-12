@@ -23,6 +23,8 @@ class DataService : public IDataService {
         virtual std::vector<UserStatus> ListActiveUsers();
 
         virtual unsigned int StartSession(std::string nombreUsuario, std::string password);
+        virtual void EndSession(unsigned int token);
+
         virtual bool RegisterNewUser(std::string nombreUsuario, std::string password);
 
         virtual bool IsTokenActive(unsigned int tok);

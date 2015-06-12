@@ -42,6 +42,15 @@ class IDataService {
         virtual unsigned int StartSession(std::string nombreUsuario, std::string password) = 0;
 
 
+        /** Termina la sesión del usuario al que pertenece el token.
+         *
+         * Si el token no existe no hace nada.
+         *
+         * @param[in] token     El token asociado a un usuario.
+         * */
+        virtual void EndSession(unsigned int token) = 0;
+
+
         /** Registra un nuevo usuario en el sistema.
          *
          * Inicializa todos los elementos relacionados con un usuario del sistema.
