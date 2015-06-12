@@ -16,18 +16,24 @@
 
 RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataService(service) {
     // Cada request responder tiene una entrada en el mapa-factory
+    m_factoryMap["PUT /grupo7/api/sesion"] = [] (IDataService& ds) { return new LoginRequest(ds); };
+    m_factoryMap["DELETE /grupo7/api/sesion"] = [] (IDataService& ds) { return new LogoutRequest(ds); };
+
     m_factoryMap["GET /grupo7/api/usuarios"] = [] (IDataService& ds) { return new ListUsersRequest(ds); };
+    m_factoryMap["PUT /grupo7/api/usuarios"] = [] (IDataService& ds) { return new EditPerfilHandler(ds); };
+    m_factoryMap["POST /grupo7/api/usuarios"] = [] (IDataService& ds) { return new UserSignUpHandler(ds); };
+
     m_factoryMap["GET /grupo7/api/usuario"] = [] (IDataService& ds) { return new UserDataRequest(ds); };
+
     m_factoryMap["GET /grupo7/api/conversaciones"] = [] (IDataService& ds) { return new ListConversationsRequest(ds); };
 
-    m_factoryMap["PUT /grupo7/api/sesion"] = [] (IDataService& ds) { return new LoginRequest(ds); };
-    m_factoryMap["PUT /grupo7/api/usuarios"] = [] (IDataService& ds) { return new EditPerfilHandler(ds); };
-    m_factoryMap["PUT /grupo7/api/logout"] = [] (IDataService& ds) { return new LogoutRequest(ds); };
 
-    m_factoryMap["POST /grupo7/api/usuarios"] = [] (IDataService& ds) { return new UserSignUpHandler(ds); };
     m_factoryMap["POST /grupo7/api/checkin"] = [] (IDataService& ds) { return new CheckinHandler(ds); };
+
     m_factoryMap["POST /grupo7/api/broadcast"] = [] (IDataService& ds) { return new BroadcastHandler(ds); };    
+
     m_factoryMap["POST /grupo7/api/mensajes"] = [] (IDataService& ds) { return new MessageHandler(ds); };    
+
 
     // TODO: Agregar los responders faltantes
 }
