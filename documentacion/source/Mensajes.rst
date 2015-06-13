@@ -281,15 +281,58 @@ Donde:
 GET
 ===
 
-.. note:: Agregar
+Mediante este pedido se obtiene el listado de conversaciones del usuario.
 
 
-Parametros de entrada
----------------------
+Parametro de entrada
+--------------------
+
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
 
 Parametros de salida
 --------------------
 
+Un JSON con la siguiente estructura::
+
+    {
+        Status: "",
+        Conversaciones: [
+                { 
+                    Status: "",
+                    IdConversacion: 0,
+                    UltimoMensaje: "",
+                    Leido: ""
+                },
+                {
+                    ...
+                }
+            ]
+    }
+
+Donde:
+
+* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
+
+* **Conversaciones:** Un arreglo de objetos *conversación*, pueden ser cero o mas.
+
+  * **Status:** Cada dato de conversación tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
+
+  * **IdConversacion:** El identificador de la conversación en el servidor.
+
+  * **UltimoMensaje:** El último mensaje enviado en la conversación,
+
+  * **Leido:** Un flag (T o F) para marcar si este último mensaje fue leído por el usuario que pide el listado.
+
+.. note:: Ver si cambia luego, cambiarlo
 
 ************************
 /grupo7/api/conversacion
