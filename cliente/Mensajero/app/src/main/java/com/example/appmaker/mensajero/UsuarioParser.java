@@ -91,8 +91,14 @@ public class UsuarioParser {
                         usuario.desconectar();
                     }
                     break;
-                case "Checkin":
+                case "Ubicacion":
                     usuario.setCheckin(reader.nextString());
+                    break;
+                case "UltimaActividadHora":
+                    usuario.setUltimoCheckinHora(reader.nextString());
+                    break;
+                case "UltimaActividadFecha":
+                    usuario.setUltimoCheckinFecha(reader.nextString());
                     break;
                 case "Foto":
                     String base64 = reader.nextString();

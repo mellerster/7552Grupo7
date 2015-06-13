@@ -355,6 +355,7 @@ public class UsuarioProxy extends ProxyBase {
                 usuario.setCheckin(parser.parseCheckin());
                 if (parser.getStatusOk()) {
                     Log.d("MensajerO","El servidor devolvio la ubicacion: " + usuario.getCheckin());
+                    UsuarioProxy.usuario.setCheckin(usuario.getCheckin());
                     Log.i("MensajerO", "Checkin realizado correctamente");
                 } else {
                     Log.e("MensajerO", "El servidor devolvio estado ERR");

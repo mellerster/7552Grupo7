@@ -54,9 +54,12 @@ public class VerEstadoActivity extends ActionBarActivity {
         TextView txtEstado = (TextView)findViewById(R.id.txtEstado);
         txtEstado.setText(usuario.estaConectado() ? "Conectado" : "Desconectado");
         //Cargo el Checkin
-        ///TODO: Cargar el último check in cuando este programada esa funcionalidad
         TextView txtUltimoCheckin = (TextView)findViewById(R.id.txtUltimoCheckin);
-        txtUltimoCheckin.setText("El 15 de Septiembre de 2015 a las 14:30hs en Facultad de Ingeniería, UBA");
+        if(!usuario.getCheckin().isEmpty()) {
+            String ultimoCheckin = "El " + usuario.getUltimoCheckinFecha() + " a las " + usuario.getUltimoCheckinHora() +
+                    " en " + usuario.getCheckin();
+            txtUltimoCheckin.setText(ultimoCheckin);
+        }
         //Cargo la imagen
         ImageView ivFoto = (ImageView)findViewById(R.id.imgFoto);
         ivFoto.setImageResource(R.drawable.no_user);

@@ -109,7 +109,7 @@ public class CheckinActivity extends FragmentActivity {
                 Log.e("MensajerO", "Error al intentar guardar la posicion en el servidor");
                 Toast.makeText(getApplicationContext(), "Error al intentar guardar la posicion en el servidor", Toast.LENGTH_LONG).show();
             }else {
-                Toast.makeText(getApplicationContext(), "Checkin Realizado: Se encuentra en:" + UsuarioProxy.getUsuario().getCheckin(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Checkin Realizado: Se encuentra en:" + usuario.getCheckin(), Toast.LENGTH_LONG).show();
                 finish();
             }
         }

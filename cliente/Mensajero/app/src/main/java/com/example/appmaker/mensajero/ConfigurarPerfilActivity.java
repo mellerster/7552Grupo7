@@ -76,7 +76,12 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
                 imageView.setImageBitmap(usuario.getFotoBitmap());
             }
 
-            lblUltimoCheckin.setText(usuario.getCheckin());
+
+            if(!usuario.getCheckin().isEmpty()) {
+                String ultimoCheckin = "El " + usuario.getUltimoCheckinFecha() + " a las " + usuario.getUltimoCheckinHora() +
+                        " en " + usuario.getCheckin();
+                lblUltimoCheckin.setText(ultimoCheckin);
+            }
 
             TextView lblUsuarioLogueado = (TextView) findViewById(R.id.lblUsuarioLogueado);
             lblUsuarioLogueado.setText(usuario.getNombre());

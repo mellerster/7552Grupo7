@@ -2,7 +2,6 @@ package com.example.appmaker.mensajero;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.util.Base64;
 
 /**
@@ -17,6 +16,8 @@ public class Usuario {
     private double latitud;
     private double longitud;
     private String checkin;
+    private String UltimoCheckinFecha;
+    private String UltimoCheckinHora;
 
     public Usuario(){
     }
@@ -30,6 +31,8 @@ public class Usuario {
         this.checkin = original.checkin;
         this.longitud = original.longitud;
         this.latitud = original.latitud;
+        this.setUltimoCheckinFecha(original.getUltimoCheckinFecha());
+        this.setUltimoCheckinHora(original.getUltimoCheckinHora());
     }
 
     public Usuario(String nombre, String password){
@@ -115,5 +118,21 @@ public class Usuario {
 
     public void setCheckin(String checkin) {
         this.checkin = checkin;
+    }
+
+    public String getUltimoCheckinFecha() {
+        return UltimoCheckinFecha;
+    }
+
+    public void setUltimoCheckinFecha(String ultimoCheckinFecha) {
+        UltimoCheckinFecha = ultimoCheckinFecha;
+    }
+
+    public String getUltimoCheckinHora() {
+        return UltimoCheckinHora;
+    }
+
+    public void setUltimoCheckinHora(String ultimoCheckinHora) {
+        UltimoCheckinHora = ultimoCheckinHora;
     }
 }
