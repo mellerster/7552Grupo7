@@ -36,10 +36,8 @@ import java.util.List;
  * Created by diego on 19/04/15.
  */
 
-public class UsuarioProxy {
-    String url = "http://10.0.2.2";
-    String puerto = "8080";
-    String urlBase = url+":"+puerto+"/grupo7/api/";
+public class UsuarioProxy extends ProxyBase {
+
 
     /**
      * Usuario que tiene el token para hablar con el servidor
@@ -60,11 +58,7 @@ public class UsuarioProxy {
      * @param sharedPref que tiene la actividad para saber a donde conectarse
      */
     public UsuarioProxy(SharedPreferences sharedPref){
-        String urlBase = sharedPref.getString("urlBase", url);
-        String puertoBase =sharedPref.getString("puertoBase", puerto);
-        this.url = urlBase;
-        this.puerto = puertoBase;
-        this.urlBase = url+":"+puerto+"/grupo7/api/";
+        super(sharedPref);
     }
 
     /**
@@ -342,7 +336,7 @@ public class UsuarioProxy {
         JSONObject params = new JSONObject();
         HttpURLConnection urlConnection = null;
         try {
-            params.put("Token", usuario.getToken());
+            params.put("Token", getUsuario().getToken());
             params.put("Latitud", usuario.getLatitud());
             params.put("Longitud", usuario.getLongitud());
             URL url = new URL(urlString);
@@ -361,7 +355,7 @@ public class UsuarioProxy {
                 UsuarioParser parser = new UsuarioParser(streamAParsear);
                 usuario.setCheckin(parser.parseCheckin());
                 if (parser.getStatusOk()) {
-                    UsuarioProxy.usuario = new Usuario(usuario);
+                    UsuarioProxy.usuario.setCheckin(usuario.getCheckin());
                     Log.d("MensajerO","El servidor devolvio la ubicacion: " + usuario.getCheckin());
                     Log.i("MensajerO", "Checkin realizado correctamente");
                 } else {
