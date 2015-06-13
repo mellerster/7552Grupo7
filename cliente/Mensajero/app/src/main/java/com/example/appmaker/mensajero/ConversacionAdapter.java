@@ -27,7 +27,7 @@ public class ConversacionAdapter extends ArrayAdapter<Conversacion> {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View conversacionView = inflater.inflate(R.layout.conversacion_adapter, parent, false);
         TextView nombreContacto = (TextView) conversacionView.findViewById(R.id.nombre_contacto);
-        nombreContacto.setText(conversaciones[position].getConversanteDos());
+        nombreContacto.setText(conversaciones[position].getConversanteDos().getNombre());
         TextView ultimoMensaje = (TextView) conversacionView.findViewById(R.id.ultimo_mensaje);
         ultimoMensaje.setText(conversaciones[position].getUltimoMensaje());
         return conversacionView;

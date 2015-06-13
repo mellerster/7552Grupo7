@@ -18,7 +18,6 @@ import java.util.List;
  * Created by diego on 12/06/15.
  */
 public class ConversacionProxy extends ProxyBase {
-    //TODO: Cambiar valores devueltos por los metodos
 
     public ConversacionProxy(SharedPreferences sharedPref){
         super(sharedPref);
@@ -27,29 +26,28 @@ public class ConversacionProxy extends ProxyBase {
     public Conversacion[] getConversaciones(){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "conversaciones?Token=" + String.valueOf(token);
-        String NOMBRE_PROPIO = "Tomas";
-        Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
-        List<Mensaje> mensajes = new ArrayList<Mensaje>();
-        mensajes.add(mensajeUno);
-        Conversacion conversacionUno = new Conversacion(mensajes, NOMBRE_PROPIO, "Diego");
-        Conversacion conversacionDos = new Conversacion(mensajes, NOMBRE_PROPIO, "Pablo");
-        Conversacion conversacionTres = new Conversacion(mensajes, NOMBRE_PROPIO, "Juan");
-        Conversacion conversacionCuatro = new Conversacion(mensajes, NOMBRE_PROPIO, "Matias");
-        Conversacion conversacionCinco = new Conversacion(mensajes, NOMBRE_PROPIO, "Mariano");
-        Conversacion conversacionSeis = new Conversacion(mensajes, NOMBRE_PROPIO, "Tomas");
-        Conversacion conversacionSiete = new Conversacion(mensajes, NOMBRE_PROPIO, "Nahuel");
-        Conversacion conversacionOcho = new Conversacion(mensajes, NOMBRE_PROPIO, "Victor");
-        Conversacion conversacionNueve = new Conversacion(mensajes, NOMBRE_PROPIO, "Oscar");
-        Conversacion conversacionDiez = new Conversacion(mensajes, NOMBRE_PROPIO, "Pedro");
-        Conversacion conversacionOnce = new Conversacion(mensajes, NOMBRE_PROPIO, "Mateo");
-        Conversacion conversacionDoce = new Conversacion(mensajes, NOMBRE_PROPIO, "Marcos");
-        Conversacion conversacionCatorce = new Conversacion(mensajes, NOMBRE_PROPIO, "Lucas");
-        Conversacion conversacionQuince = new Conversacion(mensajes, NOMBRE_PROPIO, "Romina");
-        Conversacion conversacionDieciseis = new Conversacion(mensajes, NOMBRE_PROPIO, "Camila");
-        Conversacion conversacionDecisiete = new Conversacion(mensajes, NOMBRE_PROPIO, "Agustina");
-        Conversacion conversacionDeciocho = new Conversacion(mensajes, NOMBRE_PROPIO, "Carolina");
-        Conversacion conversacionDecinueve = new Conversacion(mensajes, NOMBRE_PROPIO, "Florencia");
-        Conversacion conversacionVeinte = new Conversacion(mensajes, NOMBRE_PROPIO, "Abril");
+        Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Ultimo Mensaje");
+        Conversacion conversacionUno = new Conversacion(1,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Diego"));
+        mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Ultimo Mensaje No Leido",false);
+        Conversacion conversacionDos = new Conversacion(2,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Pablo"));
+        Conversacion conversacionTres = new Conversacion(3,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Juan"));
+        mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Ultimo Mensaje");
+        Conversacion conversacionCuatro = new Conversacion(4,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Matias"));
+        Conversacion conversacionCinco = new Conversacion(5,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Mariano"));
+        Conversacion conversacionSeis = new Conversacion(6,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Tomas"));
+        Conversacion conversacionSiete = new Conversacion(7,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Nahuel"));
+        Conversacion conversacionOcho = new Conversacion(8,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Victor"));
+        Conversacion conversacionNueve = new Conversacion(9,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Oscar"));
+        Conversacion conversacionDiez = new Conversacion(10,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Pedro"));
+        Conversacion conversacionOnce = new Conversacion(11,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Mateo"));
+        Conversacion conversacionDoce = new Conversacion(12,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Marcos"));
+        Conversacion conversacionCatorce = new Conversacion(14,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Lucas"));
+        Conversacion conversacionQuince = new Conversacion(15,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Romina"));
+        Conversacion conversacionDieciseis = new Conversacion(16,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Camila"));
+        Conversacion conversacionDecisiete = new Conversacion(17,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Agustina"));
+        Conversacion conversacionDeciocho = new Conversacion(18,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Carolina"));
+        Conversacion conversacionDecinueve = new Conversacion(19,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Florencia"));
+        Conversacion conversacionVeinte = new Conversacion(20,mensajeUno, UsuarioProxy.getUsuario(), new Usuario("Abril"));
         Conversacion array[] = new Conversacion[] {conversacionUno, conversacionDos,
                 conversacionTres, conversacionCuatro, conversacionCinco, conversacionCinco,
                 conversacionSeis, conversacionSiete, conversacionOcho, conversacionNueve,
@@ -66,7 +64,7 @@ public class ConversacionProxy extends ProxyBase {
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
         List<Mensaje> mensajes = new ArrayList<Mensaje>();
         mensajes.add(mensajeUno);
-        return new Conversacion(mensajes, UsuarioProxy.getUsuario().getNombre(), "Diego");
+        return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
     }
 
     public Conversacion getConversacion(String nombreUsuario){
@@ -76,27 +74,29 @@ public class ConversacionProxy extends ProxyBase {
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
         List<Mensaje> mensajes = new ArrayList<Mensaje>();
         mensajes.add(mensajeUno);
-        return new Conversacion(mensajes, UsuarioProxy.getUsuario().getNombre(), "Diego");
+        return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
     }
 
-    public List<Mensaje> getMensajesNuevos(int id_conversacion){
+    public List<Mensaje> getMensajesNuevos(int idConversacion){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "mensajes?Token=" + String.valueOf(token);
-        urlString += "&idConversacion=" + String.valueOf(id_conversacion);
+        urlString += "&idConversacion=" + String.valueOf(idConversacion);
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
         List<Mensaje> mensajes = new ArrayList<Mensaje>();
         mensajes.add(mensajeUno);
         return mensajes;
     }
 
-    public boolean enviarMensaje(Mensaje mensaje){
+    public boolean enviarMensaje(Mensaje mensaje, Conversacion conversacion){
         boolean statusOk = false;
         long token = UsuarioProxy.getUsuario().getToken();
-        String urlString = urlBase + "mensajes"; //TODO: ver si mensaje o mensajes
+        String urlString = urlBase + "mensajes";
         JSONObject params = new JSONObject();
         HttpURLConnection urlConnection = null;
         try {
             params.put("Token", token);
+            params.put("Mensaje", mensaje.getMensaje());
+            params.put("Conversacion", conversacion.getIdConversacion());
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
@@ -135,6 +135,7 @@ public class ConversacionProxy extends ProxyBase {
         HttpURLConnection urlConnection = null;
         try {
             params.put("Token", token);
+            params.put("Mensaje", mensaje.getMensaje());
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);

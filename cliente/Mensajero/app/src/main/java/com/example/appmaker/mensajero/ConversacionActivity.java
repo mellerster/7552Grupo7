@@ -31,7 +31,7 @@ public class ConversacionActivity  extends Activity {
      */
     private void inicializarAtributosConversacion() {
         conversacionMantenida = Conversacion.actual;
-        nombrePropio = conversacionMantenida.getConversanteUno();
+        nombrePropio = conversacionMantenida.getConversanteUno().getNombre();
     }
 
     @Override

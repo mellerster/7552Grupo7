@@ -13,10 +13,18 @@ public class Mensaje {
 
     private Usuario remitente;
     private String mensaje;
+    private boolean leido;
 
     public Mensaje(Usuario remitente, String mensaje) {
         this.remitente = remitente;
         this.mensaje = mensaje;
+        this.leido = true;
+    }
+
+    public Mensaje(Usuario remitente, String mensaje, boolean leido){
+        this.remitente = remitente;
+        this.mensaje = mensaje;
+        this.leido = leido;
     }
 
     @Override
@@ -94,5 +102,9 @@ public class Mensaje {
 
     public String getMensaje() {
         return mensaje;
+    }
+
+    public boolean fueLeido(){
+        return this.leido;
     }
 }
