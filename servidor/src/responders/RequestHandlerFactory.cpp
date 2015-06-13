@@ -11,6 +11,7 @@
 #include "handlers/EmptyRequest.hpp"
 #include "handlers/ListConversationsRequest.hpp"
 #include "handlers/MessageHandler.hpp"
+#include "handlers/ConversationRequest.hpp"
 
 
 
@@ -26,6 +27,8 @@ RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataServ
     m_factoryMap["GET /grupo7/api/usuario"] = [] (IDataService& ds) { return new UserDataRequest(ds); };
 
     m_factoryMap["GET /grupo7/api/conversaciones"] = [] (IDataService& ds) { return new ListConversationsRequest(ds); };
+    
+    m_factoryMap["GET /grupo7/api/conversacion"] = [] (IDataService& ds) { return new ConversationRequest(ds); };
 
 
     m_factoryMap["POST /grupo7/api/checkin"] = [] (IDataService& ds) { return new CheckinHandler(ds); };
