@@ -226,14 +226,53 @@ Donde:
 GET
 ===
 
-.. note:: Agregar
+Mediante este pedido se obtiene los datos del perfil de un usuario especifico
 
 Parametros de entrada
 ---------------------
 
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        Nombre: ""
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+* **Nombre:** El nombre del usuario a obtener la información.
+
 Parametros de salida
 --------------------
 
+Un JSON con la siguiente estructura::
+
+    {
+        Status: "",
+	Nombre: "",
+	Estado: "",
+	Foto: "<base64>",
+	Ubicacion: "",
+	UltimaActividadHora: "",
+	UltimaActividadFecha: ""
+    }
+Donde:
+
+* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
+
+* **Nombre:** El nombre del usuario.
+
+* **Estado:** El estado del usuario,
+
+* **Foto:** La fotografia que el correspondiente usuario ha cargado en el sistema, en base64.
+
+* **Ubicacion:** La ubicacion del usuario cuando se registró el ultimo checkin.
+
+* **UltimaActividadHora:** La hora cuando se registró el ultimo checkin.
+
+* **UltimaActividadFecha:** La fecha cuando se registró el ultimo checkin.
 
 **************************
 /grupo7/api/conversaciones
