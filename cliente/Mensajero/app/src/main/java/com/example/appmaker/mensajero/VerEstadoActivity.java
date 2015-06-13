@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -30,7 +32,18 @@ public class VerEstadoActivity extends ActionBarActivity {
             nombreUsuario = extras.getString("usuario");
         }
         new VerEstadoAPI().execute(nombreUsuario);
-
+        Button btnEnviarMensaje = (Button) findViewById(R.id.btnNuevoMensaje);
+        btnEnviarMensaje.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent conversacionIntent = new Intent("com.example.appmaker.mensajero.ConversacionActivity");
+                Bundle extras = new Bundle();
+                extras.putString("usuario", usuario.getNombre());
+                conversacionIntent.putExtras(extras);
+                startActivity(conversacionIntent);
+                finish();
+            }
+        });
     }
 
     private void cargarDatosUsuario(){
@@ -72,10 +85,10 @@ public class VerEstadoActivity extends ActionBarActivity {
         }else if (id == R.id.action_enviar_mensaje){
             Intent conversacionIntent = new Intent("com.example.appmaker.mensajero.ConversacionActivity");
             Bundle extras = new Bundle();
-            extras.putString("usuario",usuario.getNombre());
+            extras.putString("usuario", usuario.getNombre());
             conversacionIntent.putExtras(extras);
             startActivity(conversacionIntent);
-            Log.d("Event","Se quiere enviar un mensaje a " + usuario.getNombre());
+            finish();
         }
 
         return super.onOptionsItemSelected(item);

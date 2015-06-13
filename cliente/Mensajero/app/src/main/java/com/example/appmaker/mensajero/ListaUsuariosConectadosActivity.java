@@ -90,7 +90,10 @@ public class ListaUsuariosConectadosActivity extends Activity {
         params.setMargins(2,2,5,2);
         if(usuarios != null) {
             for (Usuario usuario : usuarios) {
-                agregarUsuarioALista(usuario, params);
+                if (!usuario.getNombre().equals(UsuarioProxy.getUsuario().getNombre())){
+                    if(usuario.estaConectado())
+                        agregarUsuarioALista(usuario, params);
+                }
             }
         } else {
             Toast.makeText(getApplicationContext(), "No se pudo obtener listado de usuarios del servidor", Toast.LENGTH_LONG).show();

@@ -85,7 +85,11 @@
             android:layout_gravity="center|top"
             android:layout_row="3"
             android:src="@mipmap/ic_launcher" />
-
+        <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnNuevoMensaje"
+            android:text="Enviar Mensaje"/>
 
     </LinearLayout>
 
