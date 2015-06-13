@@ -159,7 +159,7 @@ public class UsuarioProxy {
      * @return el usuario desconectado
      */
     public void logout(Usuario usuario) {
-        String urlString = urlBase + "logout";
+        String urlString = urlBase + "sesion";
         JSONObject params = new JSONObject();
         HttpURLConnection urlConnection = null;
         try {
@@ -167,7 +167,7 @@ public class UsuarioProxy {
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
-            urlConnection.setRequestMethod("PUT");
+            urlConnection.setRequestMethod("DELETE");
             urlConnection.setRequestProperty("Content-Type", "application/json");
             OutputStreamWriter out = new   OutputStreamWriter(urlConnection.getOutputStream());
             out.write(params.toString());
