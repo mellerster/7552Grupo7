@@ -23,6 +23,10 @@ public class ConversacionProxy extends ProxyBase {
         super(sharedPref);
     }
 
+    /**
+     * Obtiene el listado de chats del servidor
+     * @return listado de conversaciones con el ultimo mensaje de la conversacion
+     */
     public Conversacion[] getConversaciones(){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "conversaciones?Token=" + String.valueOf(token);
@@ -57,36 +61,57 @@ public class ConversacionProxy extends ProxyBase {
         return array;
     }
 
-    public Conversacion getConversacion(int id_conversacion){
+    /**
+     * Obtiene una conversacion y todos sus mensajes por el id de la conversacion
+     * @param idConversacion a buscar en el servidor
+     * @return La conversacion cargada con todos los mensajes que mande el servidor
+     */
+    public Conversacion getConversacion(int idConversacion){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "conversacion?Token=" + String.valueOf(token);
-        urlString += "&idConversacion=" + String.valueOf(id_conversacion);
+        urlString += "&idConversacion=" + String.valueOf(idConversacion);
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
-        List<Mensaje> mensajes = new ArrayList<Mensaje>();
+        List<Mensaje> mensajes = new ArrayList<>();
         mensajes.add(mensajeUno);
         return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
     }
 
+    /**
+     * Obtiene una conversacion y todos sus mensajes por el nombre de usuario
+     * @param nombreUsuario a buscar en el servidor la conversacion
+     * @return La conversacion cargada con todos los mensajes que mande el servidor
+     */
     public Conversacion getConversacion(String nombreUsuario){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "conversacion?Token=" + String.valueOf(token);
         urlString += "&idUsuario=" + nombreUsuario;
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
-        List<Mensaje> mensajes = new ArrayList<Mensaje>();
+        List<Mensaje> mensajes = new ArrayList<>();
         mensajes.add(mensajeUno);
         return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
     }
 
+    /**
+     * Obtiene todos los mensajes que no obtuve todavía de la conversacion actual
+     * @param idConversacion identificador de la conversacion en el servidor
+     * @return Un listado con los mensajes no leidos
+     */
     public List<Mensaje> getMensajesNuevos(int idConversacion){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "mensajes?Token=" + String.valueOf(token);
         urlString += "&idConversacion=" + String.valueOf(idConversacion);
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
-        List<Mensaje> mensajes = new ArrayList<Mensaje>();
+        List<Mensaje> mensajes = new ArrayList<>();
         mensajes.add(mensajeUno);
         return mensajes;
     }
 
+    /**
+     * Envia un mensaje a otro usuario via servidor
+     * @param mensaje con el texto a enviar
+     * @param conversacion para referenciar a la conversacion actual
+     * @return Un booleano para ver si el servidor respondio correctamente
+     */
     public boolean enviarMensaje(Mensaje mensaje, Conversacion conversacion){
         boolean statusOk = false;
         long token = UsuarioProxy.getUsuario().getToken();
@@ -127,6 +152,12 @@ public class ConversacionProxy extends ProxyBase {
         return statusOk;
     }
 
+
+    /**
+     * Envia un mensaje a todos los usuarios que se encuentran activos en el servidor
+     * @param mensaje con el texto a enviar
+     * @return Un booleano para ver si el servidor respondio correctamente
+     */
     public boolean enviarBroadcast(Mensaje mensaje){
         boolean statusOk = false;
         long token = UsuarioProxy.getUsuario().getToken();
