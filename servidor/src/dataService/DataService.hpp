@@ -6,8 +6,8 @@
 
 #include "IDataService.hpp"
 #include "rocaDB/IDB.hpp"
-#include "SessionStateHandler.hpp"
-#include "posicionaitor/IPosicionador.hpp"
+#include "helpers/SessionStateHandler.hpp"
+#include "helpers/IPosicionador.hpp"
 
 #include "humblelogging/api.h"
 

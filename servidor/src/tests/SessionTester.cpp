@@ -4,7 +4,7 @@
 #include "include/hippomocks.h"
 
 #include "rocaDB/IDB.hpp"
-#include "posicionaitor/IPosicionador.hpp"
+#include "helpers/IPosicionador.hpp"
 #include "DataService.hpp"
 
 

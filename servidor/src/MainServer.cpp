@@ -4,7 +4,7 @@
 #include "humblelogging/api.h"
 
 #include "rocaDB/RocaDB.hpp"
-#include "posicionaitor/Posicionador.hpp"
+#include "helpers/Posicionador.hpp"
 #include "RequestHandlerFactory.hpp"
 
 #include "MangostaServer.hpp"
