@@ -37,7 +37,11 @@ public class ConversacionActivity  extends Activity {
         setContentView(R.layout.activity_conversacion);
         conversacionMantenida = null;
         conversacion = (TextView) findViewById(R.id.conversacion);
-        new ConversacionMensajesAPI().execute();
+        String usuario = "";
+        Bundle extras =getIntent().getExtras();
+        if(extras != null)
+            usuario = extras.getString("usuario");
+        new ConversacionMensajesAPI().execute(usuario);
         inicializarNuevoMensaje();
         inicializarEnviarButton();
     }
@@ -139,7 +143,11 @@ public class ConversacionActivity  extends Activity {
         @Override
         protected Boolean doInBackground(String... params) {
             try {
-                conversacionMantenida = new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getConversacion(Conversacion.actual.getIdConversacion());
+                String usuario = params[0];
+                if(usuario == null || usuario.isEmpty())
+                    conversacionMantenida = new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getConversacion(Conversacion.actual.getIdConversacion());
+                else
+                    conversacionMantenida = new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getConversacion(usuario);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
