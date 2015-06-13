@@ -11,10 +11,10 @@ public class Mensaje {
     private static final String CODIGO_COLOR_MENSAJE_PROPIO = "009DA5";
     private static final String CODIGO_COLOR_MENSAJE_AJENO = "00A555";
 
-    private String remitente;
+    private Usuario remitente;
     private String mensaje;
 
-    public Mensaje(String remitente, String mensaje) {
+    public Mensaje(Usuario remitente, String mensaje) {
         this.remitente = remitente;
         this.mensaje = mensaje;
     }
@@ -24,7 +24,7 @@ public class Mensaje {
      * @return representacion del mensaje para ser mostrada en una conversacion
      */
     public String toString() {
-       return remitente +" dice" + ": \n" + mensaje + "\n\n";
+       return remitente.getNombre() +" dice" + ": \n" + mensaje + "\n\n";
     }
 
     /**
@@ -34,7 +34,7 @@ public class Mensaje {
      * ajeno
      */
     public String getStringSegunRemitente(String remitente) {
-        if (this.remitente.equals(remitente)) {
+        if (this.remitente.getNombre().equals(remitente)) {
             return getStringRemitentePropioSinFormatear();
         }
         return getStringRemitenteAjenoSinFormatear();
@@ -88,7 +88,7 @@ public class Mensaje {
         return texto;
     }
 
-    public String getRemitente() {
+    public Usuario getRemitente() {
         return remitente;
     }
 

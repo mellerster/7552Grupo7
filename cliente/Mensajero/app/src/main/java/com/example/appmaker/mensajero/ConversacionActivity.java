@@ -74,7 +74,7 @@ public class ConversacionActivity  extends Activity {
         public void onClick(View view) {
             if (nuevoMensaje.getText().length() > 0) {
                 // TODO enviar al servidor y recepcion de OK
-                Mensaje mensajeEnviado = new Mensaje(nombrePropio, nuevoMensaje.getText().toString());
+                Mensaje mensajeEnviado = new Mensaje(UsuarioProxy.getUsuario(), nuevoMensaje.getText().toString());
                 agregarTextoAConversacion(mensajeEnviado.getStringRemitentePropio());
                 nuevoMensaje.setText("");
             }
@@ -89,7 +89,7 @@ public class ConversacionActivity  extends Activity {
                 int ciclo = 1;
                 String NOMBRE_AJENO = "Diego";
                 while (seguirEscuchando) {
-                    final Mensaje mensajeRecibido = new Mensaje(NOMBRE_AJENO,
+                    final Mensaje mensajeRecibido = new Mensaje(new Usuario(NOMBRE_AJENO),
                             "Hola soy Diego" + Integer.toString(ciclo));
                     ++ciclo;
                     conversacion.post(new Runnable() {

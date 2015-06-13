@@ -30,7 +30,7 @@ public class BroadcastActivity extends Activity {
         public void onClick(View view) {
             if (nuevoMensaje.getText().length() > 0) {
                 // TODO enviar al servidor y recepcion de OK
-                Mensaje mensajeEnviado = new Mensaje(UsuarioProxy.getUsuario().getNombre(), nuevoMensaje.getText().toString());
+                Mensaje mensajeEnviado = new Mensaje(UsuarioProxy.getUsuario(), nuevoMensaje.getText().toString());
                 nuevoMensaje.setText("");
                 Toast.makeText(getApplicationContext(), "Mensaje Enviado a todos los usuarios conectados correctamente", Toast.LENGTH_LONG).show();
             }
