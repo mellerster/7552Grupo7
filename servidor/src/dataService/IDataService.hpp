@@ -111,14 +111,12 @@ class IDataService {
         virtual void ReplaceFoto(unsigned int token, std::string foto) = 0;
 
 
-        /** Reemplaza el estado del usuario.
+        /** Cambia el estado de un usuario conectado.
          * 
-         * Se identifica al usuario mediante su token.
-         *
          * @param[in] token El token asociado al usuario que se desea modificar.
-         * @param[in] estado  El nuevo estado asociado al usuario.
+         * @param[in] estado  El nuevo estado asociado al usuario: "C" o "D".
          * */
-        virtual void ReplaceEstado(unsigned int token, std::string estado) = 0;
+        virtual void ChangeEstado(unsigned int token, std::string estado) = 0;
 
 
         virtual ~IDataService() { } 
