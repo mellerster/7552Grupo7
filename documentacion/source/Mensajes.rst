@@ -458,14 +458,40 @@ Donde:
 POST
 ====
 
-.. note:: Agregar
+Mediante este pedido se envia un mensaje a todos los usuarios conectados.
 
 Parametros de entrada
 ---------------------
 
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        Mensaje: "",
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+* **Mensaje:** El mensaje a enviar.
+
+
 Parametros de salida
 --------------------
 
+
+El parametro de salida es en formato JSON::
+
+    {
+        Status: ""
+    }
+
+Donde:
+
+* **Status:** El resultado de la operación; "OK" o "ERR".
+
+.. note:: Ver si cambia luego, cambiarlo
 
 ********************
 /grupo7/api/mensajes
@@ -481,6 +507,16 @@ Parametros de entrada
 
 Parametros de salida
 --------------------
+
+El parametro de salida es en formato JSON::
+
+    {
+        Status: ""
+    }
+
+Donde:
+
+* **Status:** El resultado de la operación; "OK" o "ERR".
 
 GET
 ===
