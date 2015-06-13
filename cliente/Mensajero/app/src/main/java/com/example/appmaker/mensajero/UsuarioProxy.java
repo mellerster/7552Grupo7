@@ -294,7 +294,7 @@ public class UsuarioProxy {
         HttpURLConnection urlConnection = null;
         boolean statusOk = false;
         try {
-            params.put("Token", usuario.getToken());
+            params.put("Token", getUsuario().getToken());
             if(usuario.getFoto() != null)
                 params.put("Foto", usuario.getFotoBase64());
             params.put("Estado", usuario.estaConectado() ? "C" : "D");
