@@ -1,8 +1,5 @@
 #include "DataService.hpp"
 
-#include <chrono>
-#include <random>
-#include <functional>
 
 
 HUMBLE_LOGGER( logger, "default" );
@@ -26,8 +23,7 @@ DataService::~DataService() {
 
 
 bool DataService::IsTokenActive(unsigned int tok) {
-    size_t cant = this->m_tokenContainer.count( tok );
-    return (cant == 1);
+    return this->m_sessionHandler.IsSessionTokenValid( tok );
 }
 
 
@@ -39,16 +35,8 @@ unsigned int DataService::StartSession(std::string nombreUsuario, std::string pa
         return 0;
     }
 
-    // Si el usuario ya tiene una session, la elimina
-    unsigned int currToken = ExisteSessionUsuario(nombreUsuario);
-    if (currToken != 0) {
-        this->m_tokenContainer.erase( currToken );
-    }
-
     // Registra la nueva session
-    unsigned int newToken = GenerateTokenUnico(nombreUsuario);
-    this->m_tokenContainer[newToken] = nombreUsuario;
-
+    unsigned int newToken = this->m_sessionHandler.StartSession( nombreUsuario );
     HL_INFO( logger, "Nueva session iniciada" );
 
     return newToken;
@@ -57,9 +45,9 @@ unsigned int DataService::StartSession(std::string nombreUsuario, std::string pa
 
 void DataService::EndSession(unsigned int token) {
     // Se intenta borrar
-    unsigned int cantBorrada = this->m_tokenContainer.erase( token );
+    bool exito = this->m_sessionHandler.EndSession( token );
 
-    if (cantBorrada == 1) {
+    if (exito) {
         HL_INFO( logger, "Sesión terminada" );
 
     } else {
@@ -91,43 +79,14 @@ bool DataService::RegisterNewUser(std::string nombreUsuario, std::string passwor
 //-----------------------------------------------------------------------------
 
 
-unsigned int DataService::ExisteSessionUsuario(std::string nombreUsuario) const {
-    for (auto it = this->m_tokenContainer.cbegin(); it != this->m_tokenContainer.cend(); ++it) {
-        if ( it->second == nombreUsuario ) {
-            return it->first;
-        }
-    }
-
-    return 0;
-}
-
-
-unsigned int DataService::GenerateTokenUnico(std::string nomUsuario) const {
-    // Un valor random le da sabor a nuestro token
-    unsigned int seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine generador(seed);
-
-    std::uniform_int_distribution<unsigned int> rndGen;
-    std::string salt = std::to_string( rndGen(generador) );
-
-    std::hash<std::string> hasher;
-    unsigned int token = hasher(salt + nomUsuario);
-
-    return token;
-}
-
-
-//-----------------------------------------------------------------------------
-
-
 std::vector<UserStatus> DataService::ListActiveUsers() {
     std::vector<UserStatus> lista;
 
-    // Hay que ver todos los usuario conectados
-    for (auto it = this->m_tokenContainer.cbegin(); it != this->m_tokenContainer.cend(); ++it) {
+    // Recorre la lista de tokens
+    for ( unsigned int tok : this->m_sessionHandler.GetAllActiveSessionTokens() ) {
         UserStatus us;
-        us.Nombre = it->second;
-        us.Estado = "Conectado";
+        us.Nombre = this->m_sessionHandler.GetAssociatedUserID( tok );  // UserID
+        us.Estado = this->m_sessionHandler.GetAssociatedUserState( tok );   // Estado
 
         this->m_rocaDB.LoadUserFoto(us.Nombre, us.Foto);    // Carga la foto
 
@@ -177,6 +136,8 @@ UserProfile DataService::GetUserProfile(unsigned int token, std::string userID) 
     userProf.longitud = longi;
     userProf.Ubicacion = descrip;
 
+    userProf.Estado = this->m_sessionHandler.GetAssociatedUserStateByUserID( userID );
+
     return userProf;
 }
 
@@ -188,7 +149,7 @@ std::string DataService::GetCheckinLocations(unsigned int token) {
     }
 
     // A partir del token se obtiene el userID
-    std::string userID = this->m_tokenContainer[token];
+    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
 
     // A partir del userID se obtiene la ultima coordenada del usuario.
     std::string latitud = "";
@@ -210,7 +171,7 @@ void DataService::ReplaceCheckinLocation(unsigned int token, double latitud, dou
         return;
     }
 
-    std::string userID = this->m_tokenContainer[token];
+    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
     bool resul = this->m_rocaDB.StoreUserUbicacion( userID, std::to_string(latitud), std::to_string(longitud) );
 
     if (!resul) {
@@ -225,7 +186,7 @@ void DataService::ReplaceFoto(unsigned int token, std::string foto) {
         return;
     }
 
-    std::string userID = this->m_tokenContainer[token];
+    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
     bool resul = this->m_rocaDB.StoreUserFoto( userID, foto );
 
     if (!resul) {
@@ -234,10 +195,10 @@ void DataService::ReplaceFoto(unsigned int token, std::string foto) {
 }
 
 
-void DataService::ReplaceEstado(unsigned int, std::string) {
-    // TODO: Agregar soporte para esta funcionalidad en la base de datos...
-}
-
-
-
+void DataService::ChangeEstado(unsigned int token, std::string estado) {
+    bool exito = this->m_sessionHandler.SetAssociatedUserState( token, estado );
+    if (!exito) {
+        HL_ERROR( logger, "Ocurrio un error cambiar el estado de un usuario" );
+    }
+} 
 

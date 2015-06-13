@@ -11,7 +11,7 @@ class UserProfile {
     public:
         std::string Nombre; /**< El nombre del usuario. */
 
-        std::string Estado; /**< Conectado, etc. */
+        std::string Estado; /**< "C" o "D". */
 
         std::string Foto;   /**< La foto de perfil del usuario. */
 
