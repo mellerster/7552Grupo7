@@ -1,14 +1,19 @@
 package com.example.appmaker.mensajero;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import java.util.List;
 
 /**
  * Muestra una pantalla donde se ve la conversacion que se ha tenido con un contacto y un campo para
@@ -21,28 +26,20 @@ public class ConversacionActivity  extends Activity {
     private Button enviarButton;
 
     private Conversacion conversacionMantenida;
-    //TODO ver de reemplazar por clase como en Conversacion
-    private String nombrePropio;
     private static final int demora = 5000;
     private boolean seguirEscuchando = true;
+    private boolean fueInicializado = false;
 
-    /**
-     * Inicializa la conversacion con la conversacion previa entre estos dos usuarios.
-     */
-    private void inicializarAtributosConversacion() {
-        conversacionMantenida = Conversacion.actual;
-        nombrePropio = conversacionMantenida.getConversanteUno().getNombre();
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversacion);
-
-        inicializarConversacion();
+        conversacionMantenida = null;
+        conversacion = (TextView) findViewById(R.id.conversacion);
+        new ConversacionMensajesAPI().execute();
         inicializarNuevoMensaje();
         inicializarEnviarButton();
-        escucharLlegadaDeMensajes();
     }
 
     @Override
@@ -51,9 +48,21 @@ public class ConversacionActivity  extends Activity {
         seguirEscuchando = false;
     }
 
+    @Override
+    protected void onPause() {
+        super.onDestroy();
+        seguirEscuchando = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onDestroy();
+        seguirEscuchando = true;
+        if(conversacionMantenida != null && fueInicializado)
+            escucharLlegadaDeMensajes();
+    }
+
     private void inicializarConversacion() {
-        conversacion = (TextView) findViewById(R.id.conversacion);
-        inicializarAtributosConversacion();
         conversacion.setText(conversacionMantenida.getStringFormateado());
         conversacion.setMovementMethod(new ScrollingMovementMethod());
     }
@@ -85,19 +94,21 @@ public class ConversacionActivity  extends Activity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //TODO en este ciclo preguntarle al servidor si hay nuevo mensaje
-                int ciclo = 1;
-                String NOMBRE_AJENO = "Diego";
+
                 while (seguirEscuchando) {
-                    final Mensaje mensajeRecibido = new Mensaje(new Usuario(NOMBRE_AJENO),
-                            "Hola soy Diego" + Integer.toString(ciclo));
-                    ++ciclo;
-                    conversacion.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            agregarTextoAConversacion(mensajeRecibido.getStringRemitenteAjeno());
-                        }
-                    });
+                    List<Mensaje> mensajesRecibidos = new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getMensajesNuevos(conversacionMantenida.getIdConversacion());
+                    for(final Mensaje mensajeRecibido : mensajesRecibidos){
+                        conversacion.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(mensajeRecibido.getRemitente().getNombre().equals(UsuarioProxy.getUsuario().getNombre())){
+                                    agregarTextoAConversacion(mensajeRecibido.getStringRemitentePropio());
+                                }else {
+                                    agregarTextoAConversacion(mensajeRecibido.getStringRemitenteAjeno());
+                                }
+                            }
+                        });
+                    }
                     try {
                         Thread.sleep(demora);
                     } catch (InterruptedException e) {
@@ -123,5 +134,26 @@ public class ConversacionActivity  extends Activity {
             }
         }
     }
+
+    private class ConversacionMensajesAPI extends AsyncTask<String, Boolean, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                conversacionMantenida = new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getConversacion(Conversacion.actual.getIdConversacion());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return conversacionMantenida != null;
+        }
+
+        protected void onPostExecute(Boolean devolvioAlgo) {
+            if(devolvioAlgo) {
+                inicializarConversacion();
+                escucharLlegadaDeMensajes();
+                fueInicializado = true;
+            }
+        }
+
+    } // end ConversacionMensajesAPI
 
 }

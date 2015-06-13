@@ -66,14 +66,14 @@ public class ConversacionProxy extends ProxyBase {
      * @param idConversacion a buscar en el servidor
      * @return La conversacion cargada con todos los mensajes que mande el servidor
      */
-    public Conversacion getConversacion(int idConversacion){
+    public Conversacion getConversacion(long idConversacion){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "conversacion?Token=" + String.valueOf(token);
         urlString += "&idConversacion=" + String.valueOf(idConversacion);
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
         List<Mensaje> mensajes = new ArrayList<>();
         mensajes.add(mensajeUno);
-        return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
+        return new Conversacion(idConversacion,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
     }
 
     /**
@@ -96,13 +96,16 @@ public class ConversacionProxy extends ProxyBase {
      * @param idConversacion identificador de la conversacion en el servidor
      * @return Un listado con los mensajes no leidos
      */
-    public List<Mensaje> getMensajesNuevos(int idConversacion){
+    public List<Mensaje> getMensajesNuevos(long idConversacion){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "mensajes?Token=" + String.valueOf(token);
         urlString += "&idConversacion=" + String.valueOf(idConversacion);
-        Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
+        Usuario otro = new Usuario("Juan001");
         List<Mensaje> mensajes = new ArrayList<>();
-        mensajes.add(mensajeUno);
+        mensajes.add(new Mensaje(otro, "Todo bien, vos?"));
+        mensajes.add(new Mensaje(UsuarioProxy.getUsuario(), "Bien tambien, Chau"));
+        mensajes.add(new Mensaje(otro, "Chau"));
+        mensajes.add(new Mensaje(UsuarioProxy.getUsuario(), "Hola, que tal?"));
         return mensajes;
     }
 
