@@ -1,6 +1,7 @@
 #include "UserDataRequest.hpp"
 
 #include "dtos/UserStatusDTO.hpp"
+#include <iostream>
 
 UserDataRequest::UserDataRequest(IDataService &service) : RequestHandler(service) {
 }
@@ -20,11 +21,12 @@ Response UserDataRequest::GetResponseData(){
         Response invalid_resp( 403, "" );
         return invalid_resp;
     }
-
+    
+    UserProfile up = this->m_dataService.GetUserProfile(dto.Token,dto.Nombre);
 	UserStatusDTO us;
-	us.Nombre = dto.Nombre;
-	us.Estado = "C";
-	us.Foto = "";
+	us.Nombre = up.Nombre;
+	us.Estado = up.Estado;
+	us.Foto = up.Foto;
 	us.UltimaActividadHora = "12:53:25";
 	us.UltimaActividadFecha = "13/05/2015";
 

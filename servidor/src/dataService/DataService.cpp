@@ -118,7 +118,10 @@ UserProfile DataService::GetUserProfile(unsigned int token, std::string userID) 
     }
 
     // Se recupera la descripcion de la ubicación del usuario
-    std::string descrip = this->m_posicionador.getLugarMasCercano( std::stod(lati), std::stod(longi) );
+    std::string descrip = "";
+    if (!lati.empty() && !longi.empty()) {
+	    descrip = this->m_posicionador.getLugarMasCercano( std::stod(lati), std::stod(longi) );
+    }
 
     // Se recupera la foto del usuario
     std::string foto = "";

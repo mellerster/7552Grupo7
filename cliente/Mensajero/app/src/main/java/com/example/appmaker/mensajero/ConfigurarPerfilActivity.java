@@ -142,6 +142,9 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
             byte[] b = getBytesFromLocalImage(data);
             usuario.setFoto(b);
             new ConfigurarPerfilAPI().execute();
+        } else {
+            Toast.makeText(getApplicationContext(), "No se pudo cargar la foto, intente de nuevo mas tarde", Toast.LENGTH_LONG).show();
+            Log.e("MensajerO","Error al cargar la foto, el result fue: "+ resultCode);
         }
     }
 
