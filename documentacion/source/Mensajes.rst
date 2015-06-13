@@ -258,6 +258,7 @@ Un JSON con la siguiente estructura::
 	UltimaActividadHora: "",
 	UltimaActividadFecha: ""
     }
+    
 Donde:
 
 * **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
@@ -394,7 +395,7 @@ Donde:
 
 * **Mensajes:** Un arreglo de objetos *mensaje*, pueden ser cero o mas.
 
-  * **Status:** Cada dato de conversación tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
+  * **Status:** Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
 
   * **IdMensaje:** El identificador del mensaje en el servidor.
 
@@ -500,10 +501,26 @@ Donde:
 POST
 ====
 
-.. note:: Agregar
+Mediante este pedido se envia un mensaje a un usuario en una conversacion.
 
 Parametros de entrada
 ---------------------
+
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        IdConversacion: 0,
+        Mensaje: ""
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+* **IdConversacion:** El identificador de la conversación a la que se envio el mensaje.
+
+* **Mensaje:** El mensaje a enviar.
 
 Parametros de salida
 --------------------
@@ -518,13 +535,61 @@ Donde:
 
 * **Status:** El resultado de la operación; "OK" o "ERR".
 
+.. note:: Ver si cambia luego, cambiarlo
+
 GET
 ===
 
-.. note:: Agregar
+Mediante este pedido se obtienen los mensajes sin leer por el usuario de una conversación
 
 Parametros de entrada
 ---------------------
 
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        IdConversacion: 0,
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+* **IdConversacion:** Contiene el identificador unico de la conversación en el servidor.
+
 Parametros de salida
 --------------------
+
+Un JSON con la siguiente estructura::
+
+    {
+        Status: "",
+        Mensajes: [
+                { 
+                    Status: "",
+                    IdMensaje: 0,
+                    IdParticipante: "",
+                    Mensaje: ""
+                },
+                {
+                    ...
+                }
+            ]
+    }
+
+Donde:
+
+* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
+
+* **Mensajes:** Un arreglo de objetos *mensaje*, pueden ser cero o mas.
+
+  * **Status:** Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
+
+  * **IdMensaje:** El identificador del mensaje en el servidor.
+
+  * **IdParticipante:** El nombre del usuario que envio dicho mensaje,
+
+  * **Mensaje:** El texto del mensaje enviado.
+
+.. note:: Ver si cambia luego, cambiarlo
