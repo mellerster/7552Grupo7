@@ -127,3 +127,88 @@ TEST_CASE ( "Registrar nuevos usuarios" ) {
 }
 
 
+TEST_CASE ( "Manejar estados de usuarios" ) {
+    // Mocks
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::Close );
+    mocker.OnCall( mockedDB, IDB::ExistsUser ).Return( true );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
+
+    mocker.OnCall( mockedDB, IDB::LoadUserFoto ).With( _, Out(":-)") ).Return( true );
+    mocker.OnCall( mockedDB, IDB::LoadUserUbicacion ).With( _, Out("1"), Out("2") ).Return( true );
+
+    mocker.OnCall( mockedPositionator, IPosicionador::getLugarMasCercano ).Return( "Kyoto" );
+
+    // Se instancia el servicio
+    DataService ds( *mockedDB, *mockedPositionator );
+
+    unsigned int token = ds.StartSession( "pepe", "1234" );
+
+    SECTION ( "iniciar conectado" ) {
+        UserProfile prof = ds.GetUserProfile( token, "pepe" );
+
+        REQUIRE ( "C" == prof.Estado );
+    }
+
+    SECTION ( "No estar conectado" ) {
+        UserProfile prof = ds.GetUserProfile( token, "pepito" );
+
+        REQUIRE ( "D" == prof.Estado );
+    }
+
+    SECTION ( "Desconectarse" ) {
+        // "Pepito" obtiene el estado de "pepe"
+        unsigned int tokenito = ds.StartSession( "pepito", "1234" );
+        UserProfile profConn = ds.GetUserProfile( tokenito, "pepe" );
+
+        // Se desloggea "pepe" y "pepito" pide su estado
+        ds.EndSession( token );
+        UserProfile profDesc = ds.GetUserProfile( tokenito, "pepe" );
+
+        REQUIRE ( "C" == profConn.Estado );
+        REQUIRE ( "D" == profDesc.Estado );
+    }
+
+
+    SECTION ( "Cambiar estado: Conectado" ) {
+        // Act
+        ds.ChangeEstado( token, "C" );
+        UserProfile prof = ds.GetUserProfile( token, "pepe" );
+
+        // Assert
+        REQUIRE ( "C" == prof.Estado );
+    }
+
+    SECTION ( "Cambiar estado: Des-conectado" ) {
+        // Act
+        ds.ChangeEstado( token, "D" );
+        UserProfile prof = ds.GetUserProfile( token, "pepe" );
+
+        // Assert
+        REQUIRE ( "D" == prof.Estado );
+    }
+
+    SECTION ( "Cambiar estado: Estado invalido de un usuario conectado" ) {
+        // Act
+        ds.ChangeEstado( token, "goool!" );
+        UserProfile prof = ds.GetUserProfile( token, "pepe" );
+
+        // Assert
+        REQUIRE ( "C" == prof.Estado );
+    }
+
+    SECTION ( "Cambiar estado: Estado invalido de un usuario desconectado" ) {
+        // Act
+        ds.ChangeEstado( token, "goool!" );
+        UserProfile prof = ds.GetUserProfile( token, "pepito" );
+
+        // Assert
+        REQUIRE ( "D" == prof.Estado );
+    }
+}
+
+

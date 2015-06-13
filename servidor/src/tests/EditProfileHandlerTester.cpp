@@ -38,7 +38,7 @@ TEST_CASE ( "EditPerfil handler" ) {
     SECTION ( "No hay nada para guardar" ) {
         mocker.ExpectCall( mockService, IDataService::IsTokenActive ).Return( true );
         mocker.NeverCall( mockService, IDataService::ReplaceFoto );
-        mocker.NeverCall( mockService, IDataService::ReplaceEstado );
+        mocker.NeverCall( mockService, IDataService::ChangeEstado );
 
         // Act
         handler.LoadParameters( queryString, data, dataLen );
@@ -54,7 +54,7 @@ TEST_CASE ( "EditPerfil handler" ) {
 
         mocker.ExpectCall( mockService, IDataService::IsTokenActive ).Return( true );
         mocker.ExpectCall( mockService, IDataService::ReplaceFoto );
-        mocker.NeverCall( mockService, IDataService::ReplaceEstado );
+        mocker.NeverCall( mockService, IDataService::ChangeEstado );
 
         // Act
         handler.LoadParameters( queryString, data, dataLen );
@@ -69,7 +69,7 @@ TEST_CASE ( "EditPerfil handler" ) {
         dataLen = strlen(data) +1;
 
         mocker.ExpectCall( mockService, IDataService::IsTokenActive ).Return( true );
-        mocker.ExpectCall( mockService, IDataService::ReplaceEstado );
+        mocker.ExpectCall( mockService, IDataService::ChangeEstado );
         mocker.NeverCall( mockService, IDataService::ReplaceFoto );
 
         // Act
@@ -86,7 +86,7 @@ TEST_CASE ( "EditPerfil handler" ) {
 
         mocker.ExpectCall( mockService, IDataService::IsTokenActive ).With(99).Return( true );
         mocker.ExpectCall( mockService, IDataService::ReplaceFoto ).With(99, "dos");
-        mocker.ExpectCall( mockService, IDataService::ReplaceEstado ).With(99, "uno");
+        mocker.ExpectCall( mockService, IDataService::ChangeEstado ).With(99, "uno");
 
         // Act
         handler.LoadParameters( queryString, data, dataLen );
