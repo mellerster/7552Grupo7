@@ -60,14 +60,33 @@ Donde:
 DELETE
 ======
 
-.. note:: Agregar
+Mediante este pedido se cierra una sesión del cliente en el servidor
 
-Parametros de entrada
----------------------
-
-Parametros de salida
+Parametro de entrada
 --------------------
 
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0
+    }
+
+Donde:
+
+* **Token:** Debe ser el token del cliente y estar activo en el sistema.
+
+Parametro de salida
+-------------------
+
+El parametro de salida es en formato JSON::
+
+    {
+        Status: ""
+    }
+
+Donde:
+
+* **Status:** El resultado de la operación; "OK" o "ERR".
 
 
 *******************
