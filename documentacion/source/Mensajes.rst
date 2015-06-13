@@ -341,15 +341,68 @@ Donde:
 GET
 ===
 
-.. note:: Agregar
+Mediante este pedido se obtienen todos los mensajes de una conversación
 
 
 Parametros de entrada
 ---------------------
 
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        IdConversacion: 0,
+        IdUsuario: ""
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+* **IdConversacion:** Contiene el identificador unico de la conversación en el servidor.
+
+o
+
+* **IdUsuario:** Contiene el nombre de otro usuario participante en la conversación.
+
 Parametros de salida
 --------------------
 
+Un JSON con la siguiente estructura::
+
+    {
+        Status: "",
+        IdConversacion: 0,
+        Mensajes: [
+                { 
+                    Status: "",
+                    IdMensaje: 0,
+                    IdParticipante: "",
+                    Mensaje: ""
+                },
+                {
+                    ...
+                }
+            ]
+    }
+
+Donde:
+
+* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
+
+* **IdConversacion** El identificador de la conversación en el servidor.
+
+* **Mensajes:** Un arreglo de objetos *mensaje*, pueden ser cero o mas.
+
+  * **Status:** Cada dato de conversación tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
+
+  * **IdMensaje:** El identificador del mensaje en el servidor.
+
+  * **IdParticipante:** El nombre del usuario que envio dicho mensaje,
+
+  * **Mensaje:** El texto del mensaje enviado.
+
+.. note:: Ver si cambia luego, cambiarlo
 
 
 ******************
