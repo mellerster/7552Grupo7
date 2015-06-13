@@ -17,8 +17,7 @@ Response EditPerfilHandler::GetResponseData() {
 
     // Chequea que el token sea valido
     if ( !this->m_dataService.IsTokenActive(dto.Token) ){
-        Response invalid_resp( 403, "" );
-        return invalid_resp;
+        return Response( 403, "" );
     }
 
     // Si hay una foto definida se almacena
@@ -28,12 +27,11 @@ Response EditPerfilHandler::GetResponseData() {
 
     // So hay algún estado definido se almacena
     if (!dto.Estado.empty()) {
-        this->m_dataService.ReplaceEstado( dto.Token, dto.Estado );
+        this->m_dataService.ChangeEstado( dto.Token, dto.Estado );
     }
 
     // Crea la respuesta
-    Response resp( 200, "" );
-    return resp;
+    return Response( 200, "" );
 }
 
 
