@@ -1,21 +1,21 @@
-#include "MessageHandler.hpp"
+#include "MessageRequest.hpp"
 
 //#include "dtos/RegistrationDTO.hpp"
 
 
 
-MessageHandler::MessageHandler(IDataService &service) : RequestHandler(service) {
+MessageRequest::MessageRequest(IDataService &service) : RequestHandler(service) {
 }
 
 
-MessageHandler::~MessageHandler() { }
+MessageRequest::~MessageRequest() { }
 
 
 
-Response MessageHandler::GetResponseData(){
-    // El pedido de registracion es POST
+Response MessageRequest::GetResponseData(){
+    // El pedido de pooling es get
     /*
-    RegistrationDTO dto( this->m_parsedParameters_ContentData );
+    RegistrationDTO dto( this->m_parsedParameters_QueryString );
 
     bool success = this->m_dataService.RegisterNewUser( dto.NombreUsuario, dto.Password );
     if (success){
@@ -31,7 +31,7 @@ Response MessageHandler::GetResponseData(){
     */
     
     //TODO: Implementar
-    Response r(201,"");
+    Response r(200,"");
     return r;
 }
 

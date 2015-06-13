@@ -10,7 +10,8 @@
 #include "handlers/LogoutRequest.hpp"
 #include "handlers/EmptyRequest.hpp"
 #include "handlers/ListConversationsRequest.hpp"
-#include "handlers/MessageHandler.hpp"
+#include "handlers/SendMessageHandler.hpp"
+#include "handlers/MessageRequest.hpp"
 #include "handlers/ConversationRequest.hpp"
 
 
@@ -35,7 +36,8 @@ RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataServ
 
     m_factoryMap["POST /grupo7/api/broadcast"] = [] (IDataService& ds) { return new BroadcastHandler(ds); };    
 
-    m_factoryMap["POST /grupo7/api/mensajes"] = [] (IDataService& ds) { return new MessageHandler(ds); };    
+    m_factoryMap["POST /grupo7/api/mensajes"] = [] (IDataService& ds) { return new SendMessageHandler(ds); };    
+    m_factoryMap["GET /grupo7/api/mensajes"] = [] (IDataService& ds) { return new MessageRequest(ds); };    
 
 
     // TODO: Agregar los responders faltantes

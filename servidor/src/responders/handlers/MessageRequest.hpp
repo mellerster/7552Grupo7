@@ -1,5 +1,5 @@
-#ifndef MESSAGE_HANDLER_H
-#define MESSAGE_HANDLER_H
+#ifndef MESSAGE_REQUEST_H
+#define MESSAGE_REQUEST_H
 
 #include "RequestHandler.hpp"
 #include "IDataService.hpp"
@@ -10,10 +10,10 @@
 /**
  * Clase encargada de realizar la registracion de los usuarios nuevos en el sistema.
  * */
-class MessageHandler : public RequestHandler {
+class MessageRequest : public RequestHandler {
     public:
-        MessageHandler(IDataService &service);
-        virtual ~MessageHandler();
+        MessageRequest(IDataService &service);
+        virtual ~MessageRequest();
         
         virtual Response GetResponseData();
 };
