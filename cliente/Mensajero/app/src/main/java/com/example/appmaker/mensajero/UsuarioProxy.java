@@ -303,7 +303,6 @@ public class UsuarioProxy extends ProxyBase {
 
             int HttpResult = urlConnection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_OK) {
-                UsuarioProxy.usuario = new Usuario(usuario);
                 Log.i("MensajerO", "Perfil Actualizado correctamente");
                 statusOk = true;
             } else {
@@ -355,7 +354,6 @@ public class UsuarioProxy extends ProxyBase {
                 UsuarioParser parser = new UsuarioParser(streamAParsear);
                 usuario.setCheckin(parser.parseCheckin());
                 if (parser.getStatusOk()) {
-                    UsuarioProxy.usuario.setCheckin(usuario.getCheckin());
                     Log.d("MensajerO","El servidor devolvio la ubicacion: " + usuario.getCheckin());
                     Log.i("MensajerO", "Checkin realizado correctamente");
                 } else {
