@@ -29,6 +29,7 @@ Json::Value UserStatusDTO::ToJSON() const {
     j["Foto"] = this->Foto;
     j["UltimaActividadHora"] = this->UltimaActividadHora;
     j["UltimaActividadFecha"] = this->UltimaActividadFecha;
+    j["Ubicacion"] = this->Ubicacion;
 
     return j;
 }

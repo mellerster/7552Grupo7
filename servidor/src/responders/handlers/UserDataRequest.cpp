@@ -27,8 +27,9 @@ Response UserDataRequest::GetResponseData(){
 	us.Nombre = up.Nombre;
 	us.Estado = up.Estado;
 	us.Foto = up.Foto;
-	us.UltimaActividadHora = "12:53:25";
-	us.UltimaActividadFecha = "13/05/2015";
+	us.Ubicacion = up.Ubicacion;
+	us.UltimaActividadHora = "12:53:25 hs";
+	us.UltimaActividadFecha = "13 de mayo de 2015";
 
     
     // Crea la respuesta
