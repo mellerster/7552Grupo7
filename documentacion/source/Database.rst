@@ -34,6 +34,8 @@ Dentro de este dominio se guardan los siguientes datos:
 
 * **Latitud** y **Longitud:** Correnponde a la ultima ubicación geográfica conocida del usuario.
 
+* **Fecha-Hora:** Es un string que contiene la descripción de la fecha y hora del registro de la ultima posición del usuario.
+
 * **Foto:** Una fotografia del usuario codificada en *base64*.
 
 * **IdConversaciones:** Un listado con los ids de todas las conversaciones en las que participa el usuario.
