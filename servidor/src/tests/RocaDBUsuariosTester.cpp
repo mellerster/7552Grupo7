@@ -91,36 +91,45 @@ TEST_CASE ( "Guardar y recuperar datos del usuario" ) {
     db.CreateUser( "dos", "222" );
 
     SECTION ( "Ubicación" ) {
-        db.StoreUserUbicacion( "uno", "123", "456" );
+        const std::string latitudOrig = "123";
+        const std::string longitudOrig = "456";
+        const std::string fechaHoraOrig = "01:55hs 2015/06/14";
+        db.StoreUserUbicacion( "uno", latitudOrig, longitudOrig, fechaHoraOrig );
 
         SECTION ( "Recuperar ubicación" ) {
             std::string lat = "";
             std::string lon = "";
-            bool exito = db.LoadUserUbicacion( "uno", lat, lon );
+            std::string fechaHora = "";
+            bool exito = db.LoadUserUbicacion( "uno", lat, lon, fechaHora );
 
             REQUIRE ( exito );
-            REQUIRE ( "123" == lat );
-            REQUIRE ( "456" == lon );
+            REQUIRE ( latitudOrig == lat );
+            REQUIRE ( longitudOrig == lon );
+            REQUIRE ( fechaHoraOrig == fechaHora );
         }
 
         SECTION ( "Recuperar ubicación - no hay ubicación cargada" ) {
             std::string lat = "";
             std::string lon = "";
-            bool exito = db.LoadUserUbicacion( "dos", lat, lon );
+            std::string fechaHora = "";
+            bool exito = db.LoadUserUbicacion( "dos", lat, lon, fechaHora );
 
             REQUIRE ( exito );
             REQUIRE ( lat.empty() );
             REQUIRE ( lon.empty() );
+            REQUIRE ( fechaHora.empty() );
         }
 
         SECTION ( "Recuperar ubicación - no existe el usuario" ) {
             std::string lat = "";
             std::string lon = "";
-            bool exito = db.LoadUserUbicacion( "tres", lat, lon );
+            std::string fechaHora = "";
+            bool exito = db.LoadUserUbicacion( "tres", lat, lon, fechaHora );
 
             REQUIRE_FALSE ( exito );
             REQUIRE ( lat.empty() );
             REQUIRE ( lon.empty() );
+            REQUIRE ( fechaHora.empty() );
         }
     }
 
