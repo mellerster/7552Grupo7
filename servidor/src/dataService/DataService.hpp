@@ -32,7 +32,7 @@ class DataService : public IDataService {
         virtual UserProfile GetUserProfile(unsigned int token, std::string userID);
         virtual std::string GetCheckinLocations(unsigned int token);
 
-        virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud);
+        virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud, std::string fechaHora);
         virtual void ReplaceFoto(unsigned int token, std::string foto);
 
         virtual void ChangeEstado(unsigned int token, std::string estado);

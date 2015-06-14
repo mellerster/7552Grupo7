@@ -97,8 +97,9 @@ class IDataService {
          * @param[in] token     El token asociado al usuario que se desea modificar.
          * @param[in] latitud
          * @param[in] longitud
+         * @param[in] fechaHora La fecha y hora cuando el usuario informó su ubicación.
          * */
-        virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud) = 0;
+        virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud, std::string fechaHora) = 0;
 
 
         /** Reemplaza la foto del perfil del usuario.

@@ -111,7 +111,8 @@ UserProfile DataService::GetUserProfile(unsigned int token, std::string userID) 
     // Se recuperan las coordenadas de la ubicación del usuario
     std::string lati = "";
     std::string longi = "";
-    bool ok = this->m_rocaDB.LoadUserUbicacion( userID, lati, longi );
+    std::string fechaHora = "";
+    bool ok = this->m_rocaDB.LoadUserUbicacion( userID, lati, longi, fechaHora );
     if (!ok) {
         HL_ERROR( logger, "Hubo un error al recuperar la ubicación del usuario" );
         return UserProfile();
@@ -135,8 +136,9 @@ UserProfile DataService::GetUserProfile(unsigned int token, std::string userID) 
     UserProfile userProf;
     userProf.Nombre = userID;
     userProf.Foto = foto;
-    userProf.latitud = lati;
-    userProf.longitud = longi;
+    userProf.Latitud = lati;
+    userProf.Longitud = longi;
+    userProf.FechaHora = fechaHora;
     userProf.Ubicacion = descrip;
 
     userProf.Estado = this->m_sessionHandler.GetAssociatedUserStateByUserID( userID );
@@ -157,7 +159,8 @@ std::string DataService::GetCheckinLocations(unsigned int token) {
     // A partir del userID se obtiene la ultima coordenada del usuario.
     std::string latitud = "";
     std::string longitud = "";
-    bool resul = this->m_rocaDB.LoadUserUbicacion(userID, latitud, longitud);
+    std::string fechaHora = "";
+    bool resul = this->m_rocaDB.LoadUserUbicacion( userID, latitud, longitud, fechaHora );
     if (!resul) {
         HL_ERROR( logger, "Falló la obtención de la ubicación del usuario." );
         return "";
@@ -168,14 +171,14 @@ std::string DataService::GetCheckinLocations(unsigned int token) {
 }
 
 
-void DataService::ReplaceCheckinLocation(unsigned int token, double latitud, double longitud) {
+void DataService::ReplaceCheckinLocation(unsigned int token, double latitud, double longitud, std::string fechaHora) {
     if (!IsTokenActive(token)) {
         HL_ERROR( logger, "Se intentó guardar la ubicación de un usuario no conectado" );
         return;
     }
 
     std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
-    bool resul = this->m_rocaDB.StoreUserUbicacion( userID, std::to_string(latitud), std::to_string(longitud) );
+    bool resul = this->m_rocaDB.StoreUserUbicacion( userID, std::to_string(latitud), std::to_string(longitud), fechaHora );
 
     if (!resul) {
         HL_ERROR( logger, "Ocurrió un error al intentar guardar la ubicación del usuario." );

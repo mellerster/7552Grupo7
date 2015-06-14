@@ -15,8 +15,9 @@ class UserProfile {
 
         std::string Foto;   /**< La foto de perfil del usuario. */
 
-        std::string latitud;    /**< La coordenada de latitud del usuario. */
-        std::string longitud;   /**< La coordenada de longitud del usuario. */
+        std::string Latitud;    /**< La coordenada de latitud del usuario. */
+        std::string Longitud;   /**< La coordenada de longitud del usuario. */
+        std::string FechaHora;  /**< La fecha y hora cuando el usuario cargo su ubicación. */
 
         std::string Ubicacion;  /**< Una descripción del lugar mas cercano a las ultimas coordenadas del usuario. */
 };
