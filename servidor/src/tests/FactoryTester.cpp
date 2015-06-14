@@ -15,8 +15,18 @@
 
 #include "handlers/EmptyRequest.hpp"
 #include "handlers/LoginRequest.hpp"
+#include "handlers/LogoutRequest.hpp"
+#include "handlers/CheckinHandler.hpp"
+#include "handlers/MessageRequest.hpp"
+#include "handlers/UserDataRequest.hpp"
+#include "handlers/BroadcastHandler.hpp"
 #include "handlers/ListUsersRequest.hpp"
 #include "handlers/UserSignUpHandler.hpp"
+#include "handlers/EditPerfilHandler.hpp"
+#include "handlers/SendMessageHandler.hpp"
+#include "handlers/ConversationRequest.hpp"
+#include "handlers/ListConversationsRequest.hpp"
+
 #include "mocks/MockedRequestHandler.hpp"
 
 
@@ -28,7 +38,7 @@ TEST_CASE ( "Request handlers esperados" ){
 
     RequestHandlerFactory fac(*mockService);
 
-    SECTION ("Crear List users request"){
+    SECTION ("Request: GET /grupo7/api/usuarios"){
         const char* method = "GET";
         const char* uri = "/grupo7/api/usuarios";
 
@@ -41,7 +51,7 @@ TEST_CASE ( "Request handlers esperados" ){
         REQUIRE ( castRes != nullptr );
     }
 
-    SECTION ("Crear login user request"){
+    SECTION ("Request: PUT /grupo7/api/sesion"){
         const char* method = "PUT";
         const char* uri = "/grupo7/api/sesion";
 
@@ -54,7 +64,7 @@ TEST_CASE ( "Request handlers esperados" ){
         REQUIRE ( castRes != nullptr );
     }
 
-    SECTION ("Crear registration user request"){
+    SECTION ("Request: POST /grupo7/api/usuarios"){
         const char* method = "POST";
         const char* uri = "/grupo7/api/usuarios";
 
@@ -67,7 +77,125 @@ TEST_CASE ( "Request handlers esperados" ){
         REQUIRE ( castRes != nullptr );
     }
 
+    SECTION ( "Request: PUT /grupo7/api/usuarios" ) {
+        const char* method = "PUT";
+        const char* uri = "/grupo7/api/usuarios";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+        
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        EditPerfilHandler* castRes = dynamic_cast<EditPerfilHandler*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: DELETE /grupo7/api/sesion" ) {
+        const char* method = "DELETE";
+        const char* uri = "/grupo7/api/sesion";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        LogoutRequest* castRes = dynamic_cast<LogoutRequest*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: GET /grupo7/api/usuario" ) {
+        const char* method = "GET";
+        const char* uri = "/grupo7/api/usuario";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        UserDataRequest* castRes = dynamic_cast<UserDataRequest*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: GET /grupo7/api/conversaciones" ) {
+        const char* method = "GET";
+        const char* uri = "/grupo7/api/conversaciones";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        ListConversationsRequest* castRes = dynamic_cast<ListConversationsRequest*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: GET /grupo7/api/conversacion" ) {
+        const char* method = "GET";
+        const char* uri = "/grupo7/api/conversacion";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        ConversationRequest* castRes = dynamic_cast<ConversationRequest*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: POST /grupo7/api/checkin" ) {
+        const char* method = "POST";
+        const char* uri = "/grupo7/api/checkin";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        CheckinHandler* castRes = dynamic_cast<CheckinHandler*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: POST /grupo7/api/broadcast" ) {
+        const char* method = "POST";
+        const char* uri = "/grupo7/api/broadcast";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        BroadcastHandler* castRes = dynamic_cast<BroadcastHandler*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: POST /grupo7/api/mensajes" ) {
+        const char* method = "POST";
+        const char* uri = "/grupo7/api/mensajes";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        SendMessageHandler* castRes = dynamic_cast<SendMessageHandler*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
+    SECTION ( "Request: GET /grupo7/api/mensajes" ) {
+        const char* method = "GET";
+        const char* uri = "/grupo7/api/mensajes";
+
+        std::unique_ptr<RequestHandler> resul = fac.CreateResponder( method, uri );
+
+        // Assert
+        REQUIRE ( resul.get() != nullptr );
+
+        MessageRequest* castRes = dynamic_cast<MessageRequest*>( resul.get() );
+        REQUIRE ( castRes != nullptr );
+    }
+
 }
+
 
 
 TEST_CASE ( "Crear manejador de autenticacion" ){
