@@ -8,7 +8,7 @@
 
 
 /**
- * Devuelve la lista de todos los usuarios conectados actualmente.
+ * Devuelve los datos (perfil) del usuario pedido.
  * */
 class UserDataRequest : public RequestHandler {
     public:
