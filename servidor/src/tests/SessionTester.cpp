@@ -139,7 +139,7 @@ TEST_CASE ( "Manejar estados de usuarios" ) {
     mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
 
     mocker.OnCall( mockedDB, IDB::LoadUserFoto ).With( _, Out(":-)") ).Return( true );
-    mocker.OnCall( mockedDB, IDB::LoadUserUbicacion ).With( _, Out("1"), Out("2") ).Return( true );
+    mocker.OnCall( mockedDB, IDB::LoadUserUbicacion ).With( _, Out("1"), Out("2"), Out("Marte") ).Return( true );
 
     mocker.OnCall( mockedPositionator, IPosicionador::getLugarMasCercano ).Return( "Kyoto" );
 
@@ -172,7 +172,6 @@ TEST_CASE ( "Manejar estados de usuarios" ) {
         REQUIRE ( "C" == profConn.Estado );
         REQUIRE ( "D" == profDesc.Estado );
     }
-
 
     SECTION ( "Cambiar estado: Conectado" ) {
         // Act

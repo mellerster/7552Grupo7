@@ -453,6 +453,8 @@ TEST_CASE ( "PerfilDTO - deCodificar desde JSON" ) {
 TEST_CASE ( "CheckinDTO - codificar a JSON" ) {
     CheckinDTO dto;
     dto.Token = 123;
+    dto.Hora = "02:17";
+    dto.Fecha = "2015/06/14";
     dto.Latitud = "456.458";
     dto.Longitud = "-6.77";
     dto.Descripcion = "algo cualquiera";
@@ -491,6 +493,19 @@ TEST_CASE ( "CheckinDTO - codificar a JSON" ) {
         REQUIRE ( dto.Descripcion == desc );
     }
 
+    SECTION ( "Extraccion de Fecha" ) {
+        Json::Value resul = dto.ToJSON();
+
+        std::string fec = resul.get("Fecha", "x").asString();
+        REQUIRE ( dto.Fecha == fec );
+    }
+
+    SECTION ( "Extraccion de Hora" ) {
+        Json::Value resul = dto.ToJSON();
+
+        std::string hora = resul.get("Hora", "x").asString();
+        REQUIRE ( dto.Hora == hora );
+    }
 }
 
 
@@ -499,6 +514,8 @@ TEST_CASE ( "CheckinDTO - deCodificar desde JSON" ) {
     j["Token"] = "123";
     j["Latitud"] = "-78.12345";
     j["Longitud"] = "44.65432";
+    j["Hora"] = "02:19";
+    j["Fecha"] = "2015/06/14";
     j["Descripcion"] = "Superman!";
 
     SECTION ( "No Explota" ) {
@@ -529,6 +546,18 @@ TEST_CASE ( "CheckinDTO - deCodificar desde JSON" ) {
         CheckinDTO dto(j);
 
         REQUIRE ( dto.Descripcion == "Superman!" );
+    }
+
+    SECTION ( "Carga la fecha" ) {
+        CheckinDTO dto(j);
+
+        REQUIRE ( dto.Fecha == "2015/06/14" );
+    }
+
+    SECTION ( "Carga la hora" ) {
+        CheckinDTO dto(j);
+
+        REQUIRE ( dto.Hora == "02:19" );
     }
 }
 

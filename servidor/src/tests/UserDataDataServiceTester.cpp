@@ -103,7 +103,7 @@ TEST_CASE ( "Probar checkin del usuario" ) {
 
     SECTION ( "Recuperar checkin" ) {
         // Mockea la llamada y su resultado
-        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("123.0"), Out("456.0") ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("123.0"), Out("456.0"), Out("1600 2016-07-30") ).Return( true );
         mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 123.0, 456.0 ).Return( "Narnia" );
 
         // Act
@@ -116,13 +116,14 @@ TEST_CASE ( "Probar checkin del usuario" ) {
     SECTION ( "Guardar coordenadas" ) {
         const double lati = 123.1;
         const double longi = 456.2;
+        const std::string fecHora = "21:00hs 2100-12-01";
         const std::string strLat = std::to_string(lati);
         const std::string strLong = std::to_string(longi);
 
-        mocker.ExpectCall( mockedDB, IDB::StoreUserUbicacion ).With( "pepe", strLat, strLong ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::StoreUserUbicacion ).With( "pepe", strLat, strLong, fecHora ).Return( true );
         
         // Act & assert
-        ds.ReplaceCheckinLocation( token, lati, longi );
+        ds.ReplaceCheckinLocation( token, lati, longi, fecHora );
     }
 }
 
@@ -143,7 +144,7 @@ TEST_CASE ( "Probar perfil del usuario" ) {
     SECTION ( "El perfil del mismo usuario" ) {
         mocker.autoExpect = false;  // No importa el orden de llamada
         mocker.ExpectCall( mockedDB, IDB::ExistsUser ).With( "pepe" ).Return( true );
-        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("111"), Out("222") ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepe", Out("111"), Out("222"), Out("2015") ).Return( true );
         mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepe", Out("-_-") ).Return( true );
         mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
 
@@ -153,8 +154,9 @@ TEST_CASE ( "Probar perfil del usuario" ) {
         // Assert
         REQUIRE ( "pepe" == up.Nombre );
         REQUIRE ( "-_-" == up.Foto );
-        REQUIRE ( "111" == up.latitud );
-        REQUIRE ( "222" == up.longitud );
+        REQUIRE ( "111" == up.Latitud );
+        REQUIRE ( "222" == up.Longitud );
+        REQUIRE ( "2015" == up.FechaHora );
         REQUIRE ( "Hogwarts" == up.Ubicacion );
     }
 
@@ -163,7 +165,7 @@ TEST_CASE ( "Probar perfil del usuario" ) {
 
         mocker.autoExpect = false;  // No importa el orden de llamada
         mocker.ExpectCall( mockedDB, IDB::ExistsUser ).With( "pepito" ).Return( true );
-        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepito", Out("111"), Out("222") ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepito", Out("111"), Out("222"), Out("2016") ).Return( true );
         mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepito", Out("-_-") ).Return( true );
         mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
 
@@ -173,15 +175,16 @@ TEST_CASE ( "Probar perfil del usuario" ) {
         // Assert
         REQUIRE ( "pepito" == up.Nombre );
         REQUIRE ( "-_-" == up.Foto );
-        REQUIRE ( "111" == up.latitud );
-        REQUIRE ( "222" == up.longitud );
+        REQUIRE ( "111" == up.Latitud );
+        REQUIRE ( "222" == up.Longitud );
+        REQUIRE ( "2016" == up.FechaHora );
         REQUIRE ( "Hogwarts" == up.Ubicacion );
     }
 
     SECTION ( "El perfil de otro usuario desconectado" ) {
         mocker.autoExpect = false;  // No importa el orden de llamada
         mocker.ExpectCall( mockedDB, IDB::ExistsUser ).With( "pepito" ).Return( true );
-        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepito", Out("111"), Out("222") ).Return( true );
+        mocker.ExpectCall( mockedDB, IDB::LoadUserUbicacion ).With( "pepito", Out("111"), Out("222"), Out("2017") ).Return( true );
         mocker.ExpectCall( mockedDB, IDB::LoadUserFoto ).With( "pepito", Out("-_-") ).Return( true );
         mocker.ExpectCall( mockedPositionator, IPosicionador::getLugarMasCercano ).With( 111, 222 ).Return( "Hogwarts" );
 
@@ -191,8 +194,9 @@ TEST_CASE ( "Probar perfil del usuario" ) {
         // Assert
         REQUIRE ( "pepito" == up.Nombre );
         REQUIRE ( "-_-" == up.Foto );
-        REQUIRE ( "111" == up.latitud );
-        REQUIRE ( "222" == up.longitud );
+        REQUIRE ( "111" == up.Latitud );
+        REQUIRE ( "222" == up.Longitud );
+        REQUIRE ( "2017" == up.FechaHora );
         REQUIRE ( "Hogwarts" == up.Ubicacion );
     }
 
@@ -209,8 +213,9 @@ TEST_CASE ( "Probar perfil del usuario" ) {
         // Assert
         REQUIRE ( "" == up.Nombre );
         REQUIRE ( "" == up.Foto );
-        REQUIRE ( "" == up.latitud );
-        REQUIRE ( "" == up.longitud );
+        REQUIRE ( "" == up.Latitud );
+        REQUIRE ( "" == up.Longitud );
+        REQUIRE ( "" == up.FechaHora );
         REQUIRE ( "" == up.Ubicacion );
     }
 }
