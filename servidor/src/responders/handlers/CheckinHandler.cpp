@@ -12,16 +12,17 @@ Response CheckinHandler::GetResponseData() {
     CheckinDTO pedido( this->m_parsedParameters_ContentData );
 
     if ( !this->m_dataService.IsTokenActive(pedido.Token) ){
-        Response invalid_resp( 403, "" );
-        return invalid_resp;
+        return Response( 403, "" );
     }
 
     // Convertir los strings en doubles
     double lat = std::stod(pedido.Latitud);
     double lon = std::stod(pedido.Longitud);
 
+    std::string fechaHora = pedido.Fecha + " " + pedido.Hora;
+
     // Se guarda la nueva ubicación del usuario
-    this->m_dataService.ReplaceCheckinLocation(pedido.Token, lat, lon);
+    this->m_dataService.ReplaceCheckinLocation(pedido.Token, lat, lon, fechaHora );
 
     // Se recupera la descripcion de la ubicación mas cercana
     CheckinDTO resul;
@@ -29,8 +30,7 @@ Response CheckinHandler::GetResponseData() {
     resul.Descripcion = this->m_dataService.GetCheckinLocations(pedido.Token);
 
     // Crea la respuesta
-    Response resp( 200, resul.ToJSON() );
-    return resp;
+    return Response( 200, resul.ToJSON() );
 }
 
 

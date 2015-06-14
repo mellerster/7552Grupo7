@@ -14,6 +14,8 @@
  *      {
  *        Token: 0,
  *        Status: "",
+ *        Hora: "",
+ *        Fecha: "",
  *        Latitud: "",
  *        Longitud: "",
  *        Descripcion: ""
@@ -25,6 +27,9 @@ class CheckinDTO : public BaseDTO {
         std::string Latitud;
         std::string Longitud;
         std::string Descripcion;    /**< La respuesta que contiene la descripción del lugar mas cercano a la coordenada dada. */
+
+        std::string Hora;          /**< La hora de cuando se realizó el checkin. */
+        std::string Fecha;          /**< La fecha de cuando se realizó el checkin. */
 
 
         CheckinDTO();        /**< Constructor por defecto */

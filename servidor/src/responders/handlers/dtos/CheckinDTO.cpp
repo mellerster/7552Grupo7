@@ -2,7 +2,9 @@
 
 
 
-CheckinDTO::CheckinDTO() : BaseDTO(), Token(0), Latitud(""), Longitud(""), Descripcion("") {
+CheckinDTO::CheckinDTO() : BaseDTO(), Token(0), Latitud(""), Longitud(""), Descripcion(""),
+    Hora(""), Fecha("")
+{
 }
 
 
@@ -13,6 +15,9 @@ CheckinDTO::CheckinDTO(Json::Value jData) : BaseDTO(jData), Descripcion("") {
     this->Latitud = jData.get("Latitud", "0").asString();
     this->Longitud = jData.get("Longitud", "0").asString();
     this->Descripcion = jData.get("Descripcion", "").asString();
+
+    this->Hora = jData.get("Hora", "").asString();
+    this->Fecha = jData.get("Fecha", "").asString();
 }
 
 
@@ -22,6 +27,9 @@ Json::Value CheckinDTO::ToJSON() const {
     j["Latitud"] = this->Latitud;
     j["Longitud"] = this->Longitud;
     j["Descripcion"] = this->Descripcion;
+
+    j["Hora"] = this->Hora;
+    j["Fecha"] = this->Fecha;
 
     return j;
 }
