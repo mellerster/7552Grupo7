@@ -53,13 +53,10 @@ TEST_CASE ( "Probar listado de usuario conectados" ) {
         std::vector<UserStatus> lUsers = ds.ListActiveUsers();
 
         REQUIRE ( 3 == lUsers.size() );
+        
         for ( UserStatus us : lUsers ) {
-            if ( us.Nombre == "pepe" || us.Nombre == "pepa" ||us.Nombre == "pepito" ) {
-                REQUIRE ( true );
-
-            } else {
-                REQUIRE ( false );
-            }
+            bool matcheaUnNombreEsperado = ( us.Nombre == "pepe" || us.Nombre == "pepa" || us.Nombre == "pepito" );
+            REQUIRE ( matcheaUnNombreEsperado );
         }
     }
 
