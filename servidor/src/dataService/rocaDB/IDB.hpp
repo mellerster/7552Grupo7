@@ -53,10 +53,11 @@ class IDB {
          * @param[in] userID    El ID de usuario.
          * @param[in] latitud   La coordenada de latitud.
          * @param[in] longitud   La coordenada de longitud.
+         * @param[in] fechaHora   La fecha y hora del checkin.
          *
          * @returns     True si la operación fue exitosa, false si no.
          * */
-        virtual bool StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud) = 0;
+        virtual bool StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud, std::string fechaHora) = 0;
 
 
         /** Recupera la ubicación de un usuario.
@@ -64,10 +65,11 @@ class IDB {
          * @param[in] userID    El ID de usuario.
          * @param[out] latitud   La coordenada de latitud.
          * @param[out] longitud   La coordenada de longitud.
+         * @param[out] fechaHora   La fecha y hora del checkin.
          *
          * @returns     True si la operación fue exitosa, false si no.
          * */
-        virtual bool LoadUserUbicacion(std::string userID, std::string &latitud, std::string &longitud) = 0;
+        virtual bool LoadUserUbicacion(std::string userID, std::string &latitud, std::string &longitud, std::string &fechaHora) = 0;
 
 
         /** Guarda la fotografia de un usuario.

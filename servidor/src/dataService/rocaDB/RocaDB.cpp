@@ -69,7 +69,7 @@ bool RocaDB::AutheticateUser(std::string userID, std::string password) {
 }
 
 
-bool RocaDB::StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud) {
+bool RocaDB::StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud, std::string fechaHora) {
     std::string val;
     rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &val );
 
@@ -80,6 +80,7 @@ bool RocaDB::StoreUserUbicacion(std::string userID, std::string latitud, std::st
     Json::Value jUser = SliceToJson( val );
     jUser["Latitud"] = latitud;
     jUser["Longitud"] = longitud;
+    jUser["Fecha-Hora"] = fechaHora;
 
     st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetUserKey(userID), JsonToSlice(jUser) );
 
@@ -87,7 +88,7 @@ bool RocaDB::StoreUserUbicacion(std::string userID, std::string latitud, std::st
 }
 
 
-bool RocaDB::LoadUserUbicacion(std::string userID, std::string &latitud, std::string &longitud) {
+bool RocaDB::LoadUserUbicacion(std::string userID, std::string &latitud, std::string &longitud, std::string &fechaHora) {
     std::string val;
     rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetUserKey(userID), &val);
 
@@ -98,6 +99,7 @@ bool RocaDB::LoadUserUbicacion(std::string userID, std::string &latitud, std::st
     Json::Value jUser = SliceToJson( val );
     latitud = jUser.get("Latitud", "").asString();
     longitud = jUser.get("Longitud", "").asString();
+    fechaHora = jUser.get("Fecha-Hora", "").asString();
 
     return true;
 }
