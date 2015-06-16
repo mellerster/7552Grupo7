@@ -15,6 +15,13 @@ ConversationDTO::ConversationDTO(Json::Value jData) : BaseDTO(jData) {
 
 Json::Value ConversationDTO::ToJSON() const {
     Json::Value j = BaseDTO::ToJSON();
+    j["IDConversacion"] = this->IDConversacion;
+    j["UltimoMensaje"] = this->UltimoMensaje;
+    j["UltimoMensajeLeido"] = this->UltimoMensajeLeido;
+    for (unsigned int i = 0; i < this->Participantes.size(); ++i){
+        j["Participantes"][i] = this->Participantes[i];
+    }
+    
     return j;
 }
 

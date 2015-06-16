@@ -20,7 +20,13 @@ class ConversationDTO : public BaseDTO {
     public:
 
 	unsigned int Token;         /**< El token de autenticación del cliente.  */
+	unsigned int IDConversacion;    /**< El ID único de la conversación. */
 
+        std::string UltimoMensaje;      /**< El texto del ultimo mensaje que forma parte de la conversación. */
+        bool UltimoMensajeLeido;        /**< Indica si el ultimo mensaje de la conversación fue leido. */
+
+        std::vector<std::string> Participantes;  /**< Los UserIDs de los participantes de la conversación. */
+        
         ConversationDTO();        /**< Constructor por defecto */
         ConversationDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON */
 
