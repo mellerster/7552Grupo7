@@ -57,6 +57,7 @@ add_executable ( DataServiceTester
         MainLoggedTester.cpp 
         SessionTester.cpp 
         UserDataDataServiceTester.cpp 
+        ConversacionDataServiceTester.cpp
         )
 target_link_libraries ( DataServiceTester dataService humblelogging )
 
