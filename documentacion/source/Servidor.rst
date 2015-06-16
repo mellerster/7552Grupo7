@@ -18,9 +18,9 @@ El servidor debe ser capaz de cumplir un número de funciones; estan son:
 Diseño
 ******
 
-.. figure:: server_diagram.png
+.. figure:: server_diagramV2.png
 
-   Diagrama del servidor (v2)
+   Diagrama del servidor (v3)
 
 
 En la figura se muestra el diseño del servidor y sus partes mas importantes; estas son detalladas a continuación:
@@ -77,9 +77,13 @@ Debido al costo que implican estas operaciones, el **Data Service** esta dividid
 
 * *IDataService*: Una interfaz que define las operaciones con los datos.
 
-* *DBService*: Una implementación de la anterior interfaz.
+* *DataService*: Una implementación de la anterior interfaz.
 
-* *Models*: Un conjunto de clases que definen los datos con los que trabajará este servidio.
+* *IRocaDB*: Una interfaz que define las operaciones relacionadas con la base de datos.
+
+* *RocaDB*: Una implementación de la anterior interfaz.
+
+* *SessionHandler*: Un clase "helper" que se encarga del manejo de las sesiones de los usuarios.
 
 
 
