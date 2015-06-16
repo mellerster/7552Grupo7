@@ -18,12 +18,12 @@ Dentro de las funcionalidades de la aplicación esta:
 * Ver el listado de usuarios conectados
 * Configurar Mi Perfil
 * Ver el perfil de otro usuario
+* Realizar Checkin para que todos sepan mi ubicación
 
 .. note:: Para la proxima entrega van a estar:
 
 * Ver el listado de conversaciones
 * Enviar Mensajes con otros usuarios
-* Realizar Checkin para que todos sepan mi ubicación
 * Enviar un mensaje a todos los usuarios conectados (Broadcast)
 
 **********
@@ -35,7 +35,7 @@ El cliente es una aplicación nativa Android, la misma va a estar generada en un
 Versión minima del sistema operativo
 ====================================
 
-La aplicación esta compilada para correr en la API 21
+La aplicación esta compilada para correr en Android a partir de `Lollipop 5.0 (API 21) <http://www.android.com/versions/lollipop-5-0/>`_
 
 Instalación
 ===========
@@ -43,31 +43,8 @@ Instalación
 En un dispositivo movil real
 ----------------------------
 
-Copiar el archivo apk al dispositivo movil y abrirlo, al hacerlo se instalara la aplicación. 
+Copiar el archivo apk al dispositivo movil y abrirlo, al hacerlo seguir los pasos del instalador para instalar la aplicación. 
 
-En el emulador de Android
--------------------------
-
-En caso de utilizar un emulador los pasos a seguir son:
-
-* Abrir el emulador (con el Android Device Manager o similar)
-
-* Abrir una consola y ejecutar:
-
-.. sourcecode:: bash
-
-	$ abd install [ruta hasta el apk]
-
-Ejemplos
-........
-
-.. sourcecode:: bash
-
-	$ abd install ./archivos/mensajero.apk
-
-.. sourcecode:: batch
-
-	> abd install C:\archivos\mensajero.apk
 
 Configuración
 =============
