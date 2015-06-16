@@ -7,6 +7,7 @@
 
 #include "UserStatus.hpp"
 #include "UserProfile.hpp"
+#include "Conversacion.hpp"
 
 
 
@@ -69,6 +70,15 @@ class IDataService {
          * @returns  Una lista con los datos de los usuarios conectados
          * */
         virtual std::vector<UserStatus> ListActiveUsers() = 0;
+
+
+        /** Devuelve un arreglo con el resumen de las conversaciones activas del usuario.
+         *
+         * @param[in] token   Asociado al usuario activo.
+         *
+         * @returns Una lista con el resumen de las conversaciones activas del usuario dado.
+         * */
+        virtual std::vector<Conversacion> ListActiveConversations(unsigned int token) = 0;
 
 
         /** Devuelve los datos del usuario dado.

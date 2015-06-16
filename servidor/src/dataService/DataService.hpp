@@ -21,6 +21,7 @@ class DataService : public IDataService {
         virtual ~DataService();
 
         virtual std::vector<UserStatus> ListActiveUsers();
+        virtual std::vector<Conversacion> ListActiveConversations(unsigned int token);
 
         virtual unsigned int StartSession(std::string nombreUsuario, std::string password);
         virtual void EndSession(unsigned int token);

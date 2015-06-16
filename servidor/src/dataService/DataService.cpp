@@ -208,3 +208,41 @@ void DataService::ChangeEstado(unsigned int token, std::string estado) {
     }
 } 
 
+
+//-----------------------------------------------------------------------------
+
+
+std::vector<Conversacion> DataService::ListActiveConversations(unsigned int token) {
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se trató de recuperar conversaciones de un usuario no loggeado." );
+        return std::vector<Conversacion>();
+    }
+
+    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
+    std::vector<unsigned int> conversaciones = this->m_rocaDB.GetConversaciones( userID );
+
+    std::vector<Conversacion> resul;
+    for ( unsigned int convID : conversaciones ) {
+
+        Conversacion c;
+        c.IDConversacion = convID;
+
+        // Obtiene todos los mensajes de una conversación
+        std::vector<unsigned int> msgs = this->m_rocaDB.GetMensajesConversacion( convID );
+
+        if ( !msgs.empty() ) {
+            // Compara el ultimo mensaje recibido con el ultimo mensaje de la conversación
+            unsigned int ultimoMsgRecibido = this->m_rocaDB.GetIDUltimoMensaje( userID, convID );
+            unsigned int ultimoMsgEnviado = msgs.back();
+
+            c.UltimoMensaje = this->m_rocaDB.GetMensaje( ultimoMsgEnviado );
+            c.UltimoMensajeLeido = (ultimoMsgRecibido == ultimoMsgEnviado);
+        }
+
+        resul.push_back( c );
+    }
+
+    return resul;
+}
+
+
