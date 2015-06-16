@@ -118,8 +118,6 @@ Un JSON con la siguiente estructura::
                     Nombre: "",
                     Estado: "",
                     Foto: "<base64>",
-                    UltimaActividadHora: "",
-                    UltimaActividadFecha: ""
                 },
                 {
                     ...
@@ -140,10 +138,6 @@ Donde:
   * **Estado:** El estado del usuario,
 
   * **Foto:** La fotografia que el correspondiente usuario ha cargado en el sistema, en base64.
-
-  * **UltimaActividadHora:** La hora cuando se registró la ultima actividad de ese usuario.
-
-  * **UltimaActividadFecha:** La fecha cuando se registró la ultima actividad de ese usuario.
   
 PUT
 ===
@@ -255,8 +249,7 @@ Un JSON con la siguiente estructura::
 	Estado: "",
 	Foto: "<base64>",
 	Ubicacion: "",
-	UltimaActividadHora: "",
-	UltimaActividadFecha: ""
+	CheckInFechaHora: "",
     }
     
 Donde:
@@ -271,9 +264,8 @@ Donde:
 
 * **Ubicacion:** La ubicacion del usuario cuando se registró el ultimo checkin.
 
-* **UltimaActividadHora:** La hora cuando se registró el ultimo checkin.
+* **CheckInFechaHora:** La Fecha y Hora cuando se registró el ultimo checkin.
 
-* **UltimaActividadFecha:** La fecha cuando se registró el ultimo checkin.
 
 **************************
 /grupo7/api/conversaciones
@@ -311,7 +303,13 @@ Un JSON con la siguiente estructura::
                     Status: "",
                     IdConversacion: 0,
                     UltimoMensaje: "",
-                    Leido: ""
+                    UltimoMensajeLeido: true,
+                    Participantes: [
+                    {
+                    	FALTA DEFINIR
+                    },
+                    ...
+                    ]
                 },
                 {
                     ...
@@ -331,7 +329,9 @@ Donde:
 
   * **UltimoMensaje:** El último mensaje enviado en la conversación,
 
-  * **Leido:** Un flag (T o F) para marcar si este último mensaje fue leído por el usuario que pide el listado.
+  * **UltimoMensajeLeido:** Un flag (true o false) para marcar si este último mensaje fue leído por el usuario que pide el listado.
+  
+  * **Participantes:** Un arreglo con los participantes.
 
 .. note:: Ver si cambia luego, cambiarlo
 
