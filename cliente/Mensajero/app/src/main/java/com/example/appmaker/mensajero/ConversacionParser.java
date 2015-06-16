@@ -15,7 +15,8 @@ import java.util.List;
 public class ConversacionParser {
 
     public Conversacion[] readConversaciones(InputStream stream) throws IOException{
-        List<Conversacion> conversaciones = new ArrayList<>();
+        List<Conversacion> conversacionesNoLeidas = new ArrayList<>();
+        List<Conversacion> conversacionesLeidas = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
         try {
             reader.beginObject();
@@ -32,7 +33,16 @@ public class ConversacionParser {
                     case "Conversaciones":
                         reader.beginArray();
                         while (reader.hasNext()) {
-                            conversaciones.add(readConversacion(reader));
+                            Conversacion conversacion =readConversacion(reader);
+                            if(!conversacion.getMensajes().isEmpty()){
+                                if(conversacion.getMensajes().get(0).fueLeido()){
+                                    conversacionesLeidas.add(conversacion);
+                                }else {
+                                    conversacionesNoLeidas.add(conversacion);
+                                }
+                            } else {
+                                conversacionesLeidas.add(conversacion);
+                            }
                         }
                         reader.endArray();
                         break;
@@ -44,8 +54,8 @@ public class ConversacionParser {
         } finally {
             reader.close();
         }
-
-        return conversaciones.toArray(new Conversacion[conversaciones.size()]);
+        conversacionesNoLeidas.addAll(conversacionesLeidas);
+        return conversacionesNoLeidas.toArray(new Conversacion[conversacionesNoLeidas.size()]);
     }
 
     private Conversacion readConversacion(JsonReader reader) throws IOException{

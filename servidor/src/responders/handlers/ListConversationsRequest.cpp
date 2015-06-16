@@ -39,17 +39,23 @@ Response ListConversationsRequest::GetResponseData(){
     }
     
     //TODO:Quitar cuando se pueda mandar mensajes posta y entonces el usuario tenga conversaciones
-    ConversationDTO conv;
-        conv.IDConversacion = 1;
-        conv.UltimoMensaje = "Prueba";
-        conv.UltimoMensajeLeido = false;
+	ConversationDTO conv;
+	conv.IDConversacion = 1;
+	conv.UltimoMensaje = "Prueba";
+	conv.UltimoMensajeLeido = false;
+	resul.Conversaciones.push_back( conv );
 
-        resul.Conversaciones.push_back( conv );
-        ConversationDTO conv2;
-        conv.IDConversacion = 2;
-        conv.UltimoMensaje = "Prueba 2";
-        conv.UltimoMensajeLeido = true;
-        resul.Conversaciones.push_back( conv );
+	ConversationDTO conv2;
+	conv2.IDConversacion = 2;
+	conv2.UltimoMensaje = "Prueba 2";
+	conv2.UltimoMensajeLeido = true;
+	resul.Conversaciones.push_back( conv2 );
+
+	ConversationDTO conv3;
+	conv3.IDConversacion = 3;
+	conv3.UltimoMensaje = "Prueba 3";
+	conv3.UltimoMensajeLeido = false;
+	resul.Conversaciones.push_back( conv3 );
     
     // Crea la respuesta
     Response resp( 200, resul.ToJSON() );
