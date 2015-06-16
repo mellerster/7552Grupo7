@@ -16,8 +16,7 @@ public class Usuario {
     private double latitud;
     private double longitud;
     private String checkin;
-    private String UltimoCheckinFecha;
-    private String UltimoCheckinHora;
+    private String CheckInFechaHora;
 
     public Usuario(){
     }
@@ -31,8 +30,7 @@ public class Usuario {
         this.checkin = original.checkin;
         this.longitud = original.longitud;
         this.latitud = original.latitud;
-        this.setUltimoCheckinFecha(original.getUltimoCheckinFecha());
-        this.setUltimoCheckinHora(original.getUltimoCheckinHora());
+        this.CheckInFechaHora = original.CheckInFechaHora;
     }
 
     public Usuario(String nombre, String password){
@@ -120,19 +118,11 @@ public class Usuario {
         this.checkin = checkin;
     }
 
-    public String getUltimoCheckinFecha() {
-        return UltimoCheckinFecha;
+    public String getCheckInFechaHora() {
+        return CheckInFechaHora;
     }
 
-    public void setUltimoCheckinFecha(String ultimoCheckinFecha) {
-        UltimoCheckinFecha = ultimoCheckinFecha;
-    }
-
-    public String getUltimoCheckinHora() {
-        return UltimoCheckinHora;
-    }
-
-    public void setUltimoCheckinHora(String ultimoCheckinHora) {
-        UltimoCheckinHora = ultimoCheckinHora;
+    public void setCheckInFechaHora(String checkInFechaHora) {
+        CheckInFechaHora = checkInFechaHora;
     }
 }

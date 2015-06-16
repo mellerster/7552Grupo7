@@ -78,7 +78,7 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
 
 
             if(!usuario.getCheckin().isEmpty()) {
-                String ultimoCheckin = "El " + usuario.getUltimoCheckinFecha() + " a las " + usuario.getUltimoCheckinHora() +
+                String ultimoCheckin = "El " + usuario.getCheckInFechaHora()  +
                         " en " + usuario.getCheckin();
                 lblUltimoCheckin.setText(ultimoCheckin);
             }

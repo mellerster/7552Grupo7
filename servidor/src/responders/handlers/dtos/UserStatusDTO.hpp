@@ -26,8 +26,7 @@ class UserStatusDTO : public BaseDTO {
         std::string Nombre;     /**< El nombre del usuario. */
         std::string Estado;     /**< El estado del usuario: Conectado, etc. */
         std::string Foto;       /**< La fotografia codificada en base64. */
-        std::string UltimaActividadHora;        /**< La hora de ultima actividad del usuario: En formato de 24hs. */
-        std::string UltimaActividadFecha;       /**< La fecha de ultima actividad del usuario; En formato año, mes y dia. */
+        std::string CheckInFechaHora;        /**< La Fecha y Hora del último checkin*/
         std::string Ubicacion;
         unsigned int Token;         /**< El token de autenticación del cliente.  */
 

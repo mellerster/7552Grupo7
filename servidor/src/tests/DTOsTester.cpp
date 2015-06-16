@@ -53,8 +53,7 @@ TEST_CASE ( "UserStatus - Codificar a JSON" ) {
     dto.Nombre = "Pepe";
     dto.Estado = "Testeando";
     dto.Foto = ":-)";
-    dto.UltimaActividadHora = "10:15";
-    dto.UltimaActividadFecha = "1816/07/09";
+    dto.CheckInFechaHora = "15/05/15 a las 10:15:13 hs.";
 
     SECTION ( "El parseo es exitoso" ) {
         Json::Value parsed = dto.ToJSON();
@@ -83,18 +82,11 @@ TEST_CASE ( "UserStatus - Codificar a JSON" ) {
         REQUIRE ( dto.Foto == foto );
     }
 
-    SECTION ( "La ultima fecha de actividad fue extraida" ) {
+    SECTION ( "CheckInFechaHora fue extraida" ) {
         Json::Value parsed = dto.ToJSON();
 
-        std::string lastDate = parsed.get("UltimaActividadFecha", "0000/00/00").asString();
-        REQUIRE ( lastDate == dto.UltimaActividadFecha );
-    }
-
-    SECTION ( "La ultima hora de actividad fue extraida" ) {
-        Json::Value parsed = dto.ToJSON();
-
-        std::string lastTime = parsed.get("UltimaActividadHora", "00:00").asString();
-        REQUIRE ( lastTime == dto.UltimaActividadHora );
+        std::string lastDate = parsed.get("CheckInFechaHora", "0000/00/00").asString();
+        REQUIRE ( lastDate == dto.CheckInFechaHora);
     }
 }
 
@@ -104,8 +96,6 @@ TEST_CASE ( "UserStatus - Decodificar desde JSON" ) {
     jUserStatus["Nombre"] = "jason";
     jUserStatus["Estado"] = "Testeando";
     jUserStatus["Foto"] = ":-p";
-    jUserStatus["UltimaActividadHora"] = "18:23";
-    jUserStatus["UltimaActividadFecha"] = "1995/11/27";
 
 
     SECTION ( "No Explota" ) {
@@ -118,8 +108,6 @@ TEST_CASE ( "UserStatus - Decodificar desde JSON" ) {
         REQUIRE ( dto.Nombre != "" );
         REQUIRE ( dto.Estado != "" );
         REQUIRE ( dto.Foto != "" );
-        REQUIRE ( dto.UltimaActividadHora != "" );
-        REQUIRE ( dto.UltimaActividadFecha != "" );
     }
 
     SECTION ( "Carga el nombre correctamente" ) {
@@ -138,18 +126,6 @@ TEST_CASE ( "UserStatus - Decodificar desde JSON" ) {
         UserStatusDTO dto( jUserStatus );
 
         REQUIRE ( dto.Foto == ":-p" );
-    }
-
-    SECTION ( "Carga la ultima hora de actividad correctamente" ) {
-        UserStatusDTO dto( jUserStatus );
-
-        REQUIRE ( dto.UltimaActividadHora == "18:23" );
-    }
-
-    SECTION ( "Carga la ultima fecha de actividad correctamente" ) {
-        UserStatusDTO dto( jUserStatus );
-
-        REQUIRE ( dto.UltimaActividadFecha == "1995/11/27" );
     }
 }
 

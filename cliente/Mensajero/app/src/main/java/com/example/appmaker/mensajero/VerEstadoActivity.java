@@ -56,7 +56,7 @@ public class VerEstadoActivity extends ActionBarActivity {
         //Cargo el Checkin
         TextView txtUltimoCheckin = (TextView)findViewById(R.id.txtUltimoCheckin);
         if(!usuario.getCheckin().isEmpty()) {
-            String ultimoCheckin = "El " + usuario.getUltimoCheckinFecha() + " a las " + usuario.getUltimoCheckinHora() +
+            String ultimoCheckin = "El " + usuario.getCheckInFechaHora() +
                     " en " + usuario.getCheckin();
             txtUltimoCheckin.setText(ultimoCheckin);
         }

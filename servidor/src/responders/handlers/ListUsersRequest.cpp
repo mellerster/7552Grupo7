@@ -32,8 +32,6 @@ Response ListUsersRequest::GetResponseData(){
         us.Nombre = stat.Nombre;
         us.Estado = stat.Estado;
         us.Foto = stat.Foto;
-        us.UltimaActividadHora = stat.UltimaActividadHora;
-        us.UltimaActividadFecha = stat.UltimaActividadFecha;
 
         resul.Usuarios.push_back( us );
     }

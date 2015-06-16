@@ -1,5 +1,6 @@
 #include "CheckinHandler.hpp"
 #include "dtos/CheckinDTO.hpp"
+#include <time.h>
 
 CheckinHandler::CheckinHandler(IDataService &service) : RequestHandler(service) { }
 
@@ -19,7 +20,12 @@ Response CheckinHandler::GetResponseData() {
     double lat = std::stod(pedido.Latitud);
     double lon = std::stod(pedido.Longitud);
 
-    std::string fechaHora = pedido.Fecha + " " + pedido.Hora;
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%d/%m/%y a las %H:%M:%S hs.", &tstruct);
+    std::string fechaHora =  buf;
 
     // Se guarda la nueva ubicación del usuario
     this->m_dataService.ReplaceCheckinLocation(pedido.Token, lat, lon, fechaHora );
