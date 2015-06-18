@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.appmaker.mensajero.ConversacionActivity">
+    <item android:id="@+id/action_ver_estado"
+        android:title="Ver Estado"
+        android:icon="@drawable/ic_person_black_24dp"
+        app:showAsAction="ifRoom"
+        android:orderInCategory="1"/>
+</menu>

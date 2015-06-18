@@ -1,13 +1,16 @@
 package com.example.appmaker.mensajero;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v7.app.ActionBarActivity;
 import android.text.Layout;
 import android.text.Spanned;
 import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,6 +27,7 @@ public class ConversacionActivity  extends Activity {
     private TextView conversacion;
     private EditText nuevoMensaje;
     private Button enviarButton;
+    private String usuarioConvesacionCon = "";
 
     private Conversacion conversacionMantenida;
     private static final int demora = 5000;
@@ -39,11 +43,14 @@ public class ConversacionActivity  extends Activity {
         conversacion = (TextView) findViewById(R.id.conversacion);
         String usuario = "";
         Bundle extras =getIntent().getExtras();
-        if(extras != null)
+        if(extras != null) {
             usuario = extras.getString("usuario");
+            //getSupportActionBar().setTitle(usuario);
+        }
         new ConversacionMensajesAPI().execute(usuario);
         inicializarNuevoMensaje();
         inicializarEnviarButton();
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -69,6 +76,8 @@ public class ConversacionActivity  extends Activity {
     private void inicializarConversacion() {
         conversacion.setText(conversacionMantenida.getStringFormateado());
         conversacion.setMovementMethod(new ScrollingMovementMethod());
+        usuarioConvesacionCon =conversacionMantenida.getConversanteDos().getNombre();
+        //getSupportActionBar().setTitle(usuarioConvesacionCon);
     }
 
     private void inicializarNuevoMensaje() {
@@ -137,6 +146,33 @@ public class ConversacionActivity  extends Activity {
                 conversacion.scrollBy(0, scrollDelta);
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_conversacion, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_ver_estado){
+            Intent estadoIntent = new Intent("com.example.appmaker.mensajero.VerEstadoActivity");
+            Bundle extras = new Bundle();
+            extras.putString("usuario", usuarioConvesacionCon);
+            estadoIntent.putExtras(extras);
+            startActivity(estadoIntent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private class ConversacionMensajesAPI extends AsyncTask<String, Boolean, Boolean> {
