@@ -16,5 +16,15 @@
     <string name="title_activity_checkin">Checkin</string>
     <string name="title_activity_settings">Ajustes</string>
     <string name="title_activity_broadcast">Mensaje de Broadcast</string>
+    <string name="title_activity_tab_base">TabBaseActivity</string>
+
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_listas_tabbed">Mensajero</string>
+
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
 
 </resources>

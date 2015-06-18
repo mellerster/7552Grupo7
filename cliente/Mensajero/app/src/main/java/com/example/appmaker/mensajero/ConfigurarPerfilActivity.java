@@ -59,7 +59,8 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
 
         imageView= (ImageView) findViewById(R.id.imgFoto);
         lblUltimoCheckin = (TextView) findViewById(R.id.lblUltimoCheckin);
-        //cargarDatosUsuario();
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         new VerEstadoAPI().execute();
     }
 
@@ -133,9 +134,6 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_volver) {
-            finish();
-        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -169,6 +167,7 @@ public class ConfigurarPerfilActivity extends ActionBarActivity {
         cursor.close();
 
         Bitmap bp = BitmapFactory.decodeFile(picturePath);
+        bp = Bitmap.createScaledBitmap(bp, 300, 300, true);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bp.compress(Bitmap.CompressFormat.PNG, 100, baos);

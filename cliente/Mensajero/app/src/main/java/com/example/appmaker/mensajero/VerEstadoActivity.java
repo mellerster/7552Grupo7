@@ -44,6 +44,8 @@ public class VerEstadoActivity extends ActionBarActivity {
                 finish();
             }
         });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle(nombreUsuario);
     }
 
     private void cargarDatosUsuario(){
@@ -83,9 +85,7 @@ public class VerEstadoActivity extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_volver) {
-            finish();
-        }else if (id == R.id.action_enviar_mensaje){
+        if (id == R.id.action_enviar_mensaje){
             Intent conversacionIntent = new Intent("com.example.appmaker.mensajero.ConversacionActivity");
             Bundle extras = new Bundle();
             extras.putString("usuario", usuario.getNombre());
