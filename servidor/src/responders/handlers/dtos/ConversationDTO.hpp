@@ -7,7 +7,7 @@
 
 
 /**
- * Contiene los datos de estado de un usuario conectado.
+ * Contiene los datos de una conversación.
  *
  * Se mapea a un JSON de la siguiente forma:
  *

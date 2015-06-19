@@ -19,13 +19,22 @@ Response ConversationRequest::GetResponseData(){
 
     // Chequea que el token sea valido
     if ( !this->m_dataService.IsTokenActive(dto.Token) ){
-        Response invalid_resp( 403, "" );
-        return invalid_resp;
+        return Response( 403, "" );
     }
 
+    if (dto.IDConversacion == 0) {
+        // Crea una nueva conversación
+        // Supongo que la lista de participantes solo tiene dos, primero el del token y segundo el destinatario
+        dto.IDConversacion = this->m_dataService.GetConversacion( dto.Token, dto.Participantes.back() );
+    }
+
+    // TODO: Cargar los mensajes en el DTO
     ConversationDTO resul;
 
-    //TODO: Llamar al dataservice y obtener la conversacion
+    /*
+    for ( auto msj : this->m_dataService.GetMensajes(dto.Token, dto.IDConversacion) ) {
+    }
+    */
     
     // Crea la respuesta
     Response resp( 200, resul.ToJSON() );
