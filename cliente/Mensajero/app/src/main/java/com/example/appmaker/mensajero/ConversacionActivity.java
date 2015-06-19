@@ -1,6 +1,5 @@
 package com.example.appmaker.mensajero;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -22,7 +21,7 @@ import java.util.List;
  * Muestra una pantalla donde se ve la conversacion que se ha tenido con un contacto y un campo para
  * continuar enviandole mensajes.
  */
-public class ConversacionActivity  extends Activity {
+public class ConversacionActivity  extends ActionBarActivity {
 
     private TextView conversacion;
     private EditText nuevoMensaje;
@@ -45,12 +44,12 @@ public class ConversacionActivity  extends Activity {
         Bundle extras =getIntent().getExtras();
         if(extras != null) {
             usuario = extras.getString("usuario");
-            //getSupportActionBar().setTitle(usuario);
+            getSupportActionBar().setTitle(usuario);
         }
         new ConversacionMensajesAPI().execute(usuario);
         inicializarNuevoMensaje();
         inicializarEnviarButton();
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     @Override
@@ -61,13 +60,13 @@ public class ConversacionActivity  extends Activity {
 
     @Override
     protected void onPause() {
-        super.onDestroy();
+        super.onPause();
         seguirEscuchando = false;
     }
 
     @Override
     protected void onResume() {
-        super.onDestroy();
+        super.onResume();
         seguirEscuchando = true;
         if(conversacionMantenida != null && fueInicializado)
             escucharLlegadaDeMensajes();
@@ -77,7 +76,7 @@ public class ConversacionActivity  extends Activity {
         conversacion.setText(conversacionMantenida.getStringFormateado());
         conversacion.setMovementMethod(new ScrollingMovementMethod());
         usuarioConvesacionCon =conversacionMantenida.getConversanteDos().getNombre();
-        //getSupportActionBar().setTitle(usuarioConvesacionCon);
+        getSupportActionBar().setTitle(usuarioConvesacionCon);
     }
 
     private void inicializarNuevoMensaje() {
