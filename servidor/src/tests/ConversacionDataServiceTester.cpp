@@ -256,3 +256,82 @@ TEST_CASE ( "Listado de mensajes" ) {
 }
 
 
+TEST_CASE ( "Get conversacion por usuarios" ) {
+    // Mocks
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
+    mocker.OnCall( mockedDB, IDB::Close );
+
+    DataService ds( *mockedDB, *mockedPositionator );
+    unsigned int tok_1 = ds.StartSession( "pepe", "1234" );
+    unsigned int tok_2 = ds.StartSession( "pepa", "4321" );
+
+    SECTION ( "Existe conversacion" ) {
+        std::vector<unsigned int> v1;
+        v1.push_back( 5 );
+
+        std::vector<unsigned int> v2;
+        v2.push_back( 5 );
+
+        mocker.autoExpect = false;
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "pepe" ).Return( v1 );
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "pepa" ).Return( v2 );
+        mocker.NeverCall( mockedDB, IDB::CreateNewConversacion );
+
+        // Act
+        unsigned int convID = ds.GetConversacion( tok_1, "pepa" );
+
+        // Assert
+        REQUIRE ( 5 == convID );
+    }
+
+    SECTION ( "Existe conversacion" ) {
+        std::vector<unsigned int> v1;
+        v1.push_back( 9 );
+        v1.push_back( 5 );
+        v1.push_back( 3 );
+
+        std::vector<unsigned int> v2;
+        v1.push_back( 4 );
+        v2.push_back( 5 );
+
+        mocker.autoExpect = false;
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "pepe" ).Return( v1 );
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "pepa" ).Return( v2 );
+        mocker.NeverCall( mockedDB, IDB::CreateNewConversacion );
+
+        // Act
+        unsigned int convID = ds.GetConversacion( tok_2, "pepe" );
+
+        // Assert
+        REQUIRE ( 5 == convID );
+    }
+
+
+    SECTION ( "No existe conversacion" ) {
+        std::vector<unsigned int> v1;
+        v1.push_back( 9 );
+
+        std::vector<unsigned int> v2;
+        v2.push_back( 5 );
+
+        mocker.autoExpect = false;
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "pepe" ).Return( v1 );
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "pepa" ).Return( v2 );
+        mocker.ExpectCall( mockedDB, IDB::CreateNewConversacion ).Return( 999 );
+
+        // Act
+        unsigned int convID = ds.GetConversacion( tok_2, "pepe" );
+
+        // Assert
+        REQUIRE ( 999 == convID );
+    }
+
+}
+
+
+
