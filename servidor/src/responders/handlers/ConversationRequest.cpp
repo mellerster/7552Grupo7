@@ -22,8 +22,8 @@ Response ConversationRequest::GetResponseData(){
         return Response( 403, "" );
     }
 
+    // Si no existe ya una conversación crea una nueva
     if (dto.IDConversacion == 0) {
-        // Crea una nueva conversación
         // Supongo que la lista de participantes solo tiene dos, primero el del token y segundo el destinatario
         dto.IDConversacion = this->m_dataService.GetConversacion( dto.Token, dto.Participantes.back() );
     }
