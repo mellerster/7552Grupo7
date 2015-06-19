@@ -246,3 +246,31 @@ std::vector<Conversacion> DataService::ListActiveConversations(unsigned int toke
 }
 
 
+unsigned int DataService::CreateConversacion(unsigned int token, std::string userID1, std::string userID2) {
+    return 0;
+}
+
+
+std::vector<Mensaje> DataService::GetMensajes(unsigned int token, unsigned int convID) {
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se trató de recuperar mensajes de un usuario no loggeado." );
+        return std::vector<Mensaje>();
+    }
+
+    // Se recuperan los ID de todos los mensajes de la conversación
+    std::vector<unsigned int> lMensajeIDs = this->m_rocaDB.GetMensajesConversacion( convID );
+
+    std::vector<Mensaje> vecMsjs;
+    for ( unsigned int msgID : lMensajeIDs ) {
+        Mensaje m;
+        m.Texto = this->m_rocaDB.GetMensaje( msgID );
+        m.IDRemitente = this->m_rocaDB.GetRemitente( msgID );
+
+        vecMsjs.push_back( m );
+    }
+
+    return vecMsjs;
+}
+
+
+

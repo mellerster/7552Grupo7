@@ -38,6 +38,9 @@ class DataService : public IDataService {
 
         virtual void ChangeEstado(unsigned int token, std::string estado);
 
+        virtual unsigned int CreateConversacion(unsigned int token, std::string userID1, std::string userID2);
+        virtual std::vector<Mensaje> GetMensajes(unsigned int token, unsigned int convID);
+
 
     private:
 

@@ -7,6 +7,7 @@
 
 #include "UserStatus.hpp"
 #include "UserProfile.hpp"
+#include "Mensaje.hpp"
 #include "Conversacion.hpp"
 
 
@@ -79,6 +80,27 @@ class IDataService {
          * @returns Una lista con el resumen de las conversaciones activas del usuario dado.
          * */
         virtual std::vector<Conversacion> ListActiveConversations(unsigned int token) = 0;
+
+        
+        /** Devuelve los mensajes de la conversación dada.
+         *
+         * @param[in] token     El token de un usuario conectado.
+         * @param[in] convID    El ID de la conversación cuyos mensajes se desea.
+         *
+         * @returns Una lista con TODOS los mensajes de la conversación.
+         * */
+        virtual std::vector<Mensaje> GetMensajes(unsigned int token, unsigned int convID) = 0;
+
+
+        /** Crea una nueva conversación entre los usuarios dados.
+         *
+         * @param[in] token     El token de un usuario conectado.
+         * @param[in] userID1    El ID de uno de los integrantes de la conversación.
+         * @param[in] userID2    El ID del otro integrante de la conversación.
+         *
+         * @returns El ID de una nueva conversación.
+         * */
+        virtual unsigned int CreateConversacion(unsigned int token, std::string userID1, std::string userID2) = 0;
 
 
         /** Devuelve los datos del usuario dado.
