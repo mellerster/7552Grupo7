@@ -281,6 +281,11 @@ std::string RocaDB::GetMensaje(unsigned int mensajeID) {
 }
 
 
+std::string RocaDB::GetRemitente(unsigned int) {
+    return "TODO";
+}
+
+
 std::string RocaDB::GetConversationKey(unsigned int convID) const {
     return std::string( "C/" + convID );
 }

@@ -158,6 +158,15 @@ class IDB {
         virtual std::string GetMensaje(unsigned int mensajeID) = 0;
 
 
+        /** Recupera el user ID del remitente de un mensaje.
+         *
+         * @param[in] mensajeID     El ID del mensaje que se desea obtener el remitente.
+         *
+         * @returns     El user ID del remitente del mensaje.
+         * */
+        virtual std::string GetRemitente(unsigned int mensajeID) = 0;
+
+
         virtual ~IDB() { }
 };
 
