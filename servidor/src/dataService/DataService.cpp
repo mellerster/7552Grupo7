@@ -246,8 +246,47 @@ std::vector<Conversacion> DataService::ListActiveConversations(unsigned int toke
 }
 
 
-unsigned int DataService::CreateConversacion(unsigned int token, std::string userID1, std::string userID2) {
-    return 0;
+unsigned int DataService::GetConversacion(unsigned int token, std::string IDdestinatario) {
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se trató de crear/obtener una conversación para un usuario no loggeado." );
+        return 0;
+    }
+
+    // El user ID del creador de la conversación
+    std::string IDfuente = this->m_sessionHandler.GetAssociatedUserID( token );
+
+    // Se obtienen todas las conversaciones de ambos usuarios
+    std::vector<unsigned int> convs_1 = this->m_rocaDB.GetConversaciones( IDfuente );
+    std::vector<unsigned int> convs_2 = this->m_rocaDB.GetConversaciones( IDdestinatario );
+
+    // Se busca una conversación en común
+    unsigned int convID = GetInterseccion( convs_1, convs_2 );
+
+    if (convID == 0) {
+        std::vector<std::string> vecIDs;
+        vecIDs.push_back( IDfuente );
+        vecIDs.push_back( IDdestinatario );
+
+        HL_INFO( logger, "Se crea una nueva conversación" );
+        return this->m_rocaDB.CreateNewConversacion( vecIDs );
+
+    } else {
+        HL_INFO( logger, "Se encontró una conversación en común" );
+        return convID;
+    }
+}
+
+
+unsigned int DataService::GetInterseccion( std::vector<unsigned int> v1, std::vector<unsigned int> v2 ) {
+    for ( unsigned int i : v1 ) {
+        for ( unsigned int j : v2 ) {
+            if (i == j) {
+                return i;   // Encontrado
+            }
+        }
+    }
+
+    return 0;   // No encontrado
 }
 
 

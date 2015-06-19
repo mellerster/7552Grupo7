@@ -92,15 +92,14 @@ class IDataService {
         virtual std::vector<Mensaje> GetMensajes(unsigned int token, unsigned int convID) = 0;
 
 
-        /** Crea una nueva conversación entre los usuarios dados.
+        /** Devuelve el ID de la conversación entre los dos usuarios o crea una nueva si no existe.
          *
-         * @param[in] token     El token de un usuario conectado.
-         * @param[in] userID1    El ID de uno de los integrantes de la conversación.
-         * @param[in] userID2    El ID del otro integrante de la conversación.
+         * @param[in] token     El token de un usuario conectado que participa en la conversación.
+         * @param[in] IDdestinatario    El ID del otro participante de la conversación.
          *
          * @returns El ID de una nueva conversación.
          * */
-        virtual unsigned int CreateConversacion(unsigned int token, std::string userID1, std::string userID2) = 0;
+        virtual unsigned int GetConversacion(unsigned int token, std::string IDdestinatario) = 0;
 
 
         /** Devuelve los datos del usuario dado.

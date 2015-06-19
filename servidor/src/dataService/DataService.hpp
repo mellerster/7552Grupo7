@@ -38,7 +38,7 @@ class DataService : public IDataService {
 
         virtual void ChangeEstado(unsigned int token, std::string estado);
 
-        virtual unsigned int CreateConversacion(unsigned int token, std::string userID1, std::string userID2);
+        virtual unsigned int GetConversacion(unsigned int token, std::string IDdestinatario);
         virtual std::vector<Mensaje> GetMensajes(unsigned int token, unsigned int convID);
 
 
@@ -50,6 +50,10 @@ class DataService : public IDataService {
 
         SessionStateHandler m_sessionHandler;   /**< Mantiene la relación entre un token y un user ID. */
 
+
+        /** Devuelve el primer item que pertenece a ambos vectores.
+         * */
+        unsigned int GetInterseccion( std::vector<unsigned int> v1, std::vector<unsigned int> v2 );
 };
 
 
