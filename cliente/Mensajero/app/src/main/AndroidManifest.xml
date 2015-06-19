@@ -12,7 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_chat_black_24dp"
+        android:icon="@mipmap/ic_chat_black_24dp"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -21,50 +21,40 @@
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".RegistracionActivity"
             android:label="@string/title_activity_registracion" >
-            <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.RegistracionActivity" />
-                ​​​​​​​​​​​​​​​​
+            <intent-filter>​
+                <action android:name="com.example.appmaker.mensajero.RegistracionActivity" />​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".VerEstadoActivity"
             android:label="@string/title_activity_estado"
-            android:parentActivityName="com.example.appmaker.mensajero.ListasTabbedActivity">
-            <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.VerEstadoActivity" />
-                ​​​​​​​​​​​​​​​​
+            android:parentActivityName=".ListasTabbedActivity" >
+            <intent-filter>​
+                <action android:name="com.example.appmaker.mensajero.VerEstadoActivity" />​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ConfigurarPerfilActivity"
             android:label="@string/title_activity_configurar_perfil"
-            android:parentActivityName="com.example.appmaker.mensajero.ListasTabbedActivity"
-            >
-            <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.ConfigurarPerfilActivity" />
-                ​​​​​​​​​​​​​​​​
+            android:parentActivityName=".ListasTabbedActivity" >
+            <intent-filter>​
+                <action android:name="com.example.appmaker.mensajero.ConfigurarPerfilActivity" />​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ListaUsuariosConectadosActivity"
             android:label="@string/title_activity_lista_usuarios_conectados" >
-            <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.ListaUsuariosConectadosActivity" />
-                ​​​​​​​​​​​​​​​​
+            <intent-filter>​
+                <action android:name="com.example.appmaker.mensajero.ListaUsuariosConectadosActivity" />​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -74,19 +64,15 @@
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
                 <action android:name="com.example.appmaker.mensajero.AutentificacionActivity" />
-
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ConversacionActivity"
             android:label="@string/app_name"
-            android:parentActivityName="com.example.appmaker.mensajero.ListasTabbedActivity"
-             >
+            android:parentActivityName=".ListasTabbedActivity" >
             <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.ConversacionActivity" />
-                ​​​​​​​​​​​​​​​​
+                ​<action android:name="com.example.appmaker.mensajero.ConversacionActivity" />​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -95,9 +81,7 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustResize|stateVisible" >
             <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.ConversacionesActivity" />
-                ​​​​​​​​​​​​​​​​
+                <action android:name="com.example.appmaker.mensajero.ConversacionesActivity" />​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -109,37 +93,29 @@
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="@string/google_maps_key" />
-
         <activity
             android:name=".CheckinActivity"
             android:label="@string/title_activity_checkin"
-            android:parentActivityName="com.example.appmaker.mensajero.ListasTabbedActivity"
-            >
-            <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.CheckinActivity" />
-                ​​​​​​​​​​​​​​​​
+            android:parentActivityName=".ListasTabbedActivity" >
+            <intent-filter>​
+                <action android:name="com.example.appmaker.mensajero.CheckinActivity" />​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings" >
-            <intent-filter>
-                ​
-                <action android:name="com.example.appmaker.mensajero.SettingsActivity" />
-                ​​​​​​​​​​​​​​​​
+            <intent-filter>​
+                <action android:name="com.example.appmaker.mensajero.SettingsActivity" />​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity
             android:name=".BroadcastActivity"
             android:label="@string/title_activity_broadcast"
-            android:parentActivityName="com.example.appmaker.mensajero.ListasTabbedActivity">
+            android:parentActivityName=".ListasTabbedActivity" >
             <intent-filter>
-                ​
                 <action android:name="com.example.appmaker.mensajero.BroadcastActivity" />
-                ​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -147,11 +123,21 @@
             android:name=".ListasTabbedActivity"
             android:label="@string/title_activity_listas_tabbed" >
             <intent-filter>
-                ​
                 <action android:name="com.example.appmaker.mensajero.ListasTabbedActivity" />
-                ​​​​​​​​​​​​​​​​
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".Conversacion2Activity"
+            android:label="@string/title_activity_conversacion2"
+            android:parentActivityName=".ListasTabbedActivity" >
+            <intent-filter>
+                <action android:name="com.example.appmaker.mensajero.Conversacion2Activity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.appmaker.mensajero.ListasTabbedActivity" />
         </activity>
     </application>
 

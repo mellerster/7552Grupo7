@@ -75,8 +75,8 @@ public class ConversacionesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Conversacion.actual = conversaciones[position];
-                Intent configurarPerfilIntent = new Intent("com.example.appmaker.mensajero.ConversacionActivity");
-                startActivity(configurarPerfilIntent);
+                Intent conversacionIntent = new Intent("com.example.appmaker.mensajero.ConversacionActivity");
+                startActivity(conversacionIntent);
             }
         });
     }

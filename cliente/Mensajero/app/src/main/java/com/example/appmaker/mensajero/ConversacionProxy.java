@@ -76,7 +76,7 @@ public class ConversacionProxy extends ProxyBase {
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
         List<Mensaje> mensajes = new ArrayList<>();
         mensajes.add(mensajeUno);
-        return new Conversacion(idConversacion,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
+        return new Conversacion(idConversacion,mensajes, UsuarioProxy.getUsuario(), new Usuario("Jose"));
     }
 
     /**
@@ -91,7 +91,7 @@ public class ConversacionProxy extends ProxyBase {
         Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
         List<Mensaje> mensajes = new ArrayList<>();
         mensajes.add(mensajeUno);
-        return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario("Diego"));
+        return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario(nombreUsuario));
     }
 
     /**
