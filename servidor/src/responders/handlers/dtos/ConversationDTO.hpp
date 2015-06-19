@@ -12,15 +12,23 @@
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
- *        Status: ""
+ *        Status: "",
+ *        Token: "",
+ *        IDConversacion: "",
+ *        UltimoMensaje: "",
+ *        UltimoMensajeLeido: "",
+ *        Participantes: [
+ *            "<userID>",
+ *            "<userID>"
+ *            ]
  *      } 
  *
  * */
 class ConversationDTO : public BaseDTO {
     public:
 
-	unsigned int Token;         /**< El token de autenticación del cliente.  */
-	unsigned int IDConversacion;    /**< El ID único de la conversación. */
+        unsigned int Token;         /**< El token de autenticación del cliente.  */
+        unsigned int IDConversacion;    /**< El ID único de la conversación. */
 
         std::string UltimoMensaje;      /**< El texto del ultimo mensaje que forma parte de la conversación. */
         bool UltimoMensajeLeido;        /**< Indica si el ultimo mensaje de la conversación fue leido. */
