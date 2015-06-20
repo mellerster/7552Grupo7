@@ -23,7 +23,8 @@ import android.widget.Toast;
 import java.util.List;
 
 public class ListadoUsuariosConectadosFragment extends Fragment {
-
+    private boolean seguirEscuchando = true;
+    private static int demora = 5000;
     LinearLayout gridUsuarios;
     private View mProgressView;
     private View mListaUsuariosFormView;
@@ -47,8 +48,44 @@ public class ListadoUsuariosConectadosFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        demora = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext()).getInt("tiempoUsuarios",15000);
         if (getArguments() != null) {
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        seguirEscuchando = false;
+    }
+
+    @Override
+    public void onPause() {
+        super.onDestroy();
+        seguirEscuchando = false;
+    }
+
+    @Override
+    public void onResume() {
+        super.onDestroy();
+        seguirEscuchando = true;
+        escucharUsuariosConectados();
+    }
+
+    private void escucharUsuariosConectados() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (seguirEscuchando) {
+                    new ListaUsuariosAPI().execute();
+                    try {
+                        Thread.sleep(demora);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }).start();
     }
 
     private void asignarListenersABotones() {
@@ -90,6 +127,7 @@ public class ListadoUsuariosConectadosFragment extends Fragment {
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
         params.setMargins(2,2,5,2);
+        gridUsuarios.removeAllViews();
         if(usuarios != null) {
             for (Usuario usuario : usuarios) {
                 if (!usuario.getNombre().equals(UsuarioProxy.getUsuario().getNombre())){
@@ -150,7 +188,7 @@ public class ListadoUsuariosConectadosFragment extends Fragment {
         mListaUsuariosFormView = v.findViewById(R.id.form_lista_usuarios);
         mProgressView = v.findViewById(R.id.lista_usuarios_progress);
 
-        new ListaUsuariosAPI().execute();
+        //new ListaUsuariosAPI().execute();
 
         asignarListenersABotones();
         return v;

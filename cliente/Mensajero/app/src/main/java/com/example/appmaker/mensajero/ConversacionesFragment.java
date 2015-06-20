@@ -23,7 +23,7 @@ import android.widget.ListView;
 public class ConversacionesFragment extends Fragment {
     Conversacion[] conversaciones;
     private boolean seguirEscuchando = true;
-    private static final int demora = 5000;
+    private static int demora = 5000;
     private View viewFragment;
 
     /**
@@ -44,6 +44,7 @@ public class ConversacionesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        demora = PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext()).getInt("tiempoConversaciones",15000);
         if (getArguments() != null) {
         }
     }
@@ -90,7 +91,6 @@ public class ConversacionesFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_conversaciones, container, false);
         viewFragment = v;
-        //escucharLlegadaDeMensajes();
         return v;
     }
 

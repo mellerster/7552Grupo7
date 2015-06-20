@@ -29,7 +29,7 @@ public class ConversacionActivity  extends ActionBarActivity {
     private String usuarioConvesacionCon = "";
 
     private Conversacion conversacionMantenida;
-    private static final int demora = 5000;
+    private static int demora = 5000;
     private boolean seguirEscuchando = true;
     private boolean fueInicializado = false;
 
@@ -49,6 +49,7 @@ public class ConversacionActivity  extends ActionBarActivity {
         } else {
             usuarioConvesacionCon = "";
         }
+        demora = PreferenceManager.getDefaultSharedPreferences(getBaseContext()).getInt("tiempoConversacion",5000);
         new ConversacionMensajesAPI().execute(usuario);
         inicializarNuevoMensaje();
         inicializarEnviarButton();

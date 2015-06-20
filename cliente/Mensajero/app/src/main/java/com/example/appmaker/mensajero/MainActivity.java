@@ -23,15 +23,7 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        String urlBase = sharedPref.getString("urlBase", "");
-        String puertoBase =sharedPref.getString("puertoBase", "");
-        SharedPreferences.Editor editorPreferenciasCompartidas = sharedPref.edit();
-        if(urlBase.isEmpty())
-            editorPreferenciasCompartidas.putString("urlBase", "http://10.0.2.2");
-        if(puertoBase.isEmpty())
-            editorPreferenciasCompartidas.putString("puertoBase","8080");
-
-        editorPreferenciasCompartidas.apply();
+        InicializarPreferencias(sharedPref);
 
         String usuarioGuardado= sharedPref.getString("usuario","");
 
@@ -70,6 +62,30 @@ public class MainActivity extends ActionBarActivity {
                 }
             });
         }
+    }
+
+    private void InicializarPreferencias(SharedPreferences sharedPref) {
+        String urlBase = sharedPref.getString("urlBase", "");
+        String puertoBase =sharedPref.getString("puertoBase", "");
+        int tiempoEsperaListadoConversaciones = sharedPref.getInt("tiempoConversaciones",-1);
+        int tiempoEsperaEnConversacion= sharedPref.getInt("tiempoConversacion",-1);
+        int tiempoEsperaListadoUsuarios= sharedPref.getInt("tiempoUsuarios",-1);
+        SharedPreferences.Editor editorPreferenciasCompartidas = sharedPref.edit();
+        if(urlBase.isEmpty())
+            editorPreferenciasCompartidas.putString("urlBase", "http://10.0.2.2");
+        if(puertoBase.isEmpty())
+            editorPreferenciasCompartidas.putString("puertoBase","8080");
+        if(tiempoEsperaListadoConversaciones == -1){
+            editorPreferenciasCompartidas.putInt("tiempoConversaciones",15000);
+        }
+        if(tiempoEsperaEnConversacion == -1){
+            editorPreferenciasCompartidas.putInt("tiempoConversacion",5000);
+        }
+        if(tiempoEsperaListadoUsuarios == -1){
+            editorPreferenciasCompartidas.putInt("tiempoUsuarios",15000);
+        }
+
+        editorPreferenciasCompartidas.apply();
     }
 
     @Override
