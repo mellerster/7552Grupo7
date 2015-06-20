@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -100,9 +101,8 @@ public class ConversacionActivity  extends ActionBarActivity {
         @Override
         public void onClick(View view) {
             if (nuevoMensaje.getText().length() > 0) {
-                // TODO enviar al servidor y recepcion de OK
-                Mensaje mensajeEnviado = new Mensaje(UsuarioProxy.getUsuario(), nuevoMensaje.getText().toString());
-                agregarTextoAConversacion(mensajeEnviado.getStringRemitentePropio());
+                String mensaje = nuevoMensaje.getText().toString();
+                new EnviarMensajeAPI().execute(mensaje);
                 nuevoMensaje.setText("");
             }
         }
@@ -204,5 +204,26 @@ public class ConversacionActivity  extends ActionBarActivity {
         }
 
     } // end ConversacionMensajesAPI
+
+    private class EnviarMensajeAPI extends AsyncTask<String, Boolean, Boolean> {
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                String mensaje = params[0];
+                return new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).enviarMensaje(new Mensaje(UsuarioProxy.getUsuario(),mensaje),conversacionMantenida);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return false;
+            }
+        }
+
+        protected void onPostExecute(Boolean devolvioAlgo) {
+            if(!devolvioAlgo) {
+                Toast.makeText(getApplicationContext(), "No se pudo enviar el mensaje", Toast.LENGTH_LONG).show();
+            } else {
+            }
+        }
+
+    } // end EnviarMensajeAPI
 
 }

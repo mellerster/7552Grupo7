@@ -157,10 +157,6 @@ public class ConversacionProxy extends ProxyBase {
         urlString += "&IDConversacion=" + String.valueOf(idConversacion);
         Usuario otro = new Usuario("Juan001");
         List<Mensaje> mensajes = new ArrayList<>();
-        mensajes.add(new Mensaje(otro, "Todo bien, vos?"));
-        mensajes.add(new Mensaje(UsuarioProxy.getUsuario(), "Bien tambien, Chau"));
-        mensajes.add(new Mensaje(otro, "Chau"));
-        mensajes.add(new Mensaje(UsuarioProxy.getUsuario(), "Hola, que tal?"));
         return mensajes;
     }
 
@@ -179,7 +175,7 @@ public class ConversacionProxy extends ProxyBase {
         try {
             params.put("Token", token);
             params.put("Mensaje", mensaje.getMensaje());
-            params.put("Conversacion", conversacion.getIdConversacion());
+            params.put("IDConversacion", conversacion.getIdConversacion());
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setDoOutput(true);
@@ -188,10 +184,11 @@ public class ConversacionProxy extends ProxyBase {
             OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
             out.write(params.toString());
             out.close();
+            Log.i("MensajerO", "Intento enviar mensaje");
             int HttpResult = urlConnection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_CREATED) {
                 statusOk = true;
-                Log.i("MensajerO", "");
+                Log.i("MensajerO", "Mensaje enviado correctamente");
           } else {
                 Log.e("MensajerO", urlConnection.getResponseMessage());
             }
