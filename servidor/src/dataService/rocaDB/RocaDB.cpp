@@ -301,8 +301,16 @@ std::string RocaDB::GetMensaje(unsigned int mensajeID) {
 }
 
 
-std::string RocaDB::GetRemitente(unsigned int) {
-    return "TODO";
+std::string RocaDB::GetRemitente(unsigned int mensajeID) {
+    std::string m;
+    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(),GetMessageKey(mensajeID), &m );
+
+    if (st.IsNotFound()) {
+        return "";   // El mensaje no existe
+    }
+
+    Json::Value jMsg = SliceToJson(m);
+    return jMsg["IDUsuario"].asString();
 }
 
 

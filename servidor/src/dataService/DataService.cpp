@@ -236,7 +236,7 @@ std::vector<Conversacion> DataService::ListActiveConversations(unsigned int toke
             // Compara el ultimo mensaje recibido con el ultimo mensaje de la conversación
             unsigned int ultimoMsgRecibido = this->m_rocaDB.GetIDUltimoMensaje( userID, convID );
             unsigned int ultimoMsgEnviado = msgs.back();
-            std::string usuarioUltimoMensaje = this->m_rocaDB.GetRemitente( ultimoMsgRecibido );
+            std::string usuarioUltimoMensaje = this->m_rocaDB.GetRemitente( ultimoMsgEnviado );
 
             c.UltimoMensaje = usuarioUltimoMensaje + ": " + this->m_rocaDB.GetMensaje( ultimoMsgEnviado );
             c.UltimoMensajeLeido = (ultimoMsgRecibido == ultimoMsgEnviado);
