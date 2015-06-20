@@ -31,7 +31,6 @@ RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataServ
     
     m_factoryMap["GET /grupo7/api/conversacion"] = [] (IDataService& ds) { return new ConversationRequest(ds); };
 
-
     m_factoryMap["POST /grupo7/api/checkin"] = [] (IDataService& ds) { return new CheckinHandler(ds); };
 
     m_factoryMap["POST /grupo7/api/broadcast"] = [] (IDataService& ds) { return new BroadcastHandler(ds); };    

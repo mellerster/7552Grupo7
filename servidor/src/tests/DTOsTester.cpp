@@ -5,10 +5,12 @@
 #include "handlers/dtos/BaseDTO.hpp"
 #include "handlers/dtos/LoginDTO.hpp"
 #include "handlers/dtos/PerfilDTO.hpp"
+#include "handlers/dtos/MensajeDTO.hpp"
 #include "handlers/dtos/CheckinDTO.hpp"
 #include "handlers/dtos/ListUsersDTO.hpp"
 #include "handlers/dtos/UserStatusDTO.hpp"
 #include "handlers/dtos/RegistrationDTO.hpp"
+#include "handlers/dtos/ListaMensajesDTO.hpp"
 
 
 
@@ -538,4 +540,148 @@ TEST_CASE ( "CheckinDTO - deCodificar desde JSON" ) {
 }
 
 
+TEST_CASE ( "Mensaje DTO - codificar" ) {
+    MensajeDTO dto;
+    dto.IDRemitente = "Monalisa";
+    dto.Mensaje = "No necesito bendiciones...";
 
+    SECTION ( "El parseo es exitoso" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "El remitente es extraido" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string rem = parsed.get("IDRemitente", "X").asString();
+        REQUIRE ( dto.IDRemitente == rem );
+    }
+
+    SECTION ( "El mensaje es extraido" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string men = parsed.get("Mensaje", "X").asString();
+        REQUIRE ( dto.Mensaje == men );
+    }
+}
+
+
+TEST_CASE ( "Mensaje DTO - De-codificar" ) {
+    Json::Value j;
+    j["IDRemitente"] = "Misaka";
+    j["Mensaje"] = "Only my railgun";
+
+    SECTION ( "No Explota" ) {
+        REQUIRE_NOTHROW ( 
+                MensajeDTO dto( j )
+        );
+    }
+
+    SECTION ( "Remitente" ) {
+        MensajeDTO dto(j);
+
+        REQUIRE ( "Misaka" == dto.IDRemitente );
+    }
+
+    SECTION ( "Mensaje" ) {
+        MensajeDTO dto(j);
+
+        REQUIRE ( "Only my railgun" == dto.Mensaje );
+    }
+}
+
+
+TEST_CASE ( "Lista de mensajes DTO - codificar" ) {
+    ListaMensajesDTO dto;
+    dto.Token = 456;
+    dto.IDConversacion = 789;
+    dto.IDUsuario = "pepe";
+
+    SECTION ( "El parseo es exitoso" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "Token" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        unsigned int tok = parsed.get("Token", 0).asUInt();
+        REQUIRE ( tok == dto.Token );
+    }
+
+    SECTION ( "IDConversacion" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        unsigned int conv = parsed.get("IDConversacion", 0).asUInt();
+        REQUIRE ( conv == dto.IDConversacion );
+    }
+
+    SECTION ( "IDUsuario" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        std::string user = parsed.get("IDUsuario", "X").asString();
+        REQUIRE ( user == dto.IDUsuario );
+    }
+
+    SECTION ( "Mensaje" ) {
+        MensajeDTO m1;
+        m1.Mensaje = "I can see the ending!";
+        m1.IDRemitente = "Keima";
+
+        dto.Mensajes.push_back( m1 );
+
+        // Act
+        Json::Value parsed = dto.ToJSON();
+        Json::Value men = parsed["Mensajes"];
+
+        // Assert
+        REQUIRE ( men.type() == Json::ValueType::arrayValue );
+        REQUIRE ( 1 == men.size() );
+
+        REQUIRE ( m1.Mensaje == men[0].get("Mensaje", "x").asString() );
+        REQUIRE ( m1.IDRemitente == men[0].get("IDRemitente", "x").asString() );
+    }
+}
+
+
+TEST_CASE ( "Lista de mensajes DTO - De-codificar" ) {
+    Json::Value j;
+    j["Token"] = 123;
+    j["IDConversacion"] = 456;
+    j["IDUsuario"] = "Elsie";
+
+    MensajeDTO m1;
+    m1.Mensaje = "I can see the ending!";
+    m1.IDRemitente = "Keima";
+
+    j["Mensajes"][0] = m1.ToJSON();
+
+    SECTION ( "No Explota" ) {
+        REQUIRE_NOTHROW ( 
+                ListaMensajesDTO dto( j )
+        );
+    }
+
+    SECTION ( "Token y conversacion" ) {
+        ListaMensajesDTO dto(j);
+
+        REQUIRE ( 123 == dto.Token );
+        REQUIRE ( 456 == dto.IDConversacion );
+    }
+
+    SECTION ( "ID usuario" ) {
+        ListaMensajesDTO dto(j);
+
+        REQUIRE ( "Elsie" == dto.IDUsuario );
+    }
+
+    SECTION ( "Mensajes" ) {
+        ListaMensajesDTO dto(j);
+
+        REQUIRE ( 1 == dto.Mensajes.size() );
+        REQUIRE ( m1.Mensaje == dto.Mensajes.front().Mensaje );
+        REQUIRE ( m1.IDRemitente == dto.Mensajes.front().IDRemitente );
+    }
+}

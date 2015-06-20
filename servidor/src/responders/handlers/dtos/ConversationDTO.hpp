@@ -7,7 +7,7 @@
 
 
 /**
- * Contiene los datos de una conversación.
+ * Contiene los ultimos datos de una conversación.
  *
  * Se mapea a un JSON de la siguiente forma:
  *

@@ -1,21 +1,13 @@
 #include "ConversationRequest.hpp"
 
-#include "dtos/ConversationDTO.hpp"
-
-
-
-ConversationRequest::ConversationRequest(IDataService &service) : RequestHandler(service) {
-}
-
-
-ConversationRequest::~ConversationRequest(){
-}
+#include "dtos/ListaMensajesDTO.hpp"
+#include "dtos/MensajeDTO.hpp"
 
 
 
 Response ConversationRequest::GetResponseData(){
-    // List users es un pedido GET, solo va a existir m_parsedParameters_QueryString
-    ConversationDTO dto( this->m_parsedParameters_QueryString );
+    // Listado de conversaciones es un request de tipo GET
+    ListaMensajesDTO dto( this->m_parsedParameters_QueryString );
 
     // Chequea que el token sea valido
     if ( !this->m_dataService.IsTokenActive(dto.Token) ){
@@ -24,19 +16,20 @@ Response ConversationRequest::GetResponseData(){
 
     // Si no existe ya una conversación crea una nueva
     if (dto.IDConversacion == 0) {
-        // Supongo que la lista de participantes solo tiene dos, primero el del token y segundo el destinatario
-        dto.IDConversacion = this->m_dataService.GetConversacion( dto.Token, dto.Participantes.back() );
+        dto.IDConversacion = this->m_dataService.GetConversacion( dto.Token, dto.IDUsuario );
     }
 
-    // TODO: Cargar los mensajes en el DTO
-    ConversationDTO resul;
+    ListaMensajesDTO resul;
+    resul.IDConversacion = dto.IDConversacion;
 
-    /*
     for ( auto msj : this->m_dataService.GetMensajes(dto.Token, dto.IDConversacion) ) {
+        MensajeDTO m;
+        m.Mensaje = msj.Texto;
+        m.IDRemitente = msj.IDRemitente;
+
+        resul.Mensajes.push_back( m );
     }
-    */
     
     // Crea la respuesta
-    Response resp( 200, resul.ToJSON() );
-    return resp;
+    return Response( 200, resul.ToJSON() );
 }

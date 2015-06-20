@@ -8,12 +8,13 @@
 
 
 /**
- * Devuelve la lista de todos las convesaciones de un usuario.
+ * Devuelve todos los mensajes de una conversación.
  * */
 class ConversationRequest : public RequestHandler {
     public:
-        ConversationRequest(IDataService &service);
-        virtual ~ConversationRequest();
+        ConversationRequest(IDataService &service) : RequestHandler(service) { }
+
+        virtual ~ConversationRequest() { }
 
 
         virtual Response GetResponseData();

@@ -11,6 +11,8 @@ set ( SRC_DTOS
         handlers/dtos/BroadcastDTO.cpp        
         handlers/dtos/ConversationDTO.cpp
         handlers/dtos/ListConversationsDTO.cpp
+        handlers/dtos/MensajeDTO.cpp
+        handlers/dtos/ListaMensajesDTO.cpp
     )
 
 

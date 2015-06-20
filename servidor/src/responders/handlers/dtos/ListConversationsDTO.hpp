@@ -10,7 +10,7 @@
 
 
 /**
- * Contiene todos los datos relacionados con el pedido de listado de usuarios.
+ * Contiene todas conversaciones de un usuario dado.
  *
  * Se mapea a un JSON de la siguiente forma:
  *
