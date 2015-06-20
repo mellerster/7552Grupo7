@@ -250,7 +250,6 @@ public class ListadoUsuariosConectadosFragment extends Fragment {
         @Override
         protected Boolean doInBackground(String... params) {
             //showProgress(true);
-            List<Usuario> usuarios = null;
             Boolean success = true;
             try {
                 new UsuarioProxy(PreferenceManager.getDefaultSharedPreferences(getActivity().getBaseContext())).logout(UsuarioProxy.getUsuario());
