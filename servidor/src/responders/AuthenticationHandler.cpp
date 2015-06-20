@@ -6,7 +6,7 @@
 
 
 
-void AuthenticationHandler::LoadParameters(const char*, const char*, size_t){
+void AuthenticationHandler::LoadParameters(const char* queryString, const char* data, size_t data_len){
     // Pärsea el query string que viene con los GET
     if (queryString != nullptr){   
         this->m_parsedParameters_QueryString = parseQueryStringData( queryString );

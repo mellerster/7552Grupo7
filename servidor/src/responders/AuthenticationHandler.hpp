@@ -83,11 +83,5 @@ class AuthenticationHandler {
         std::pair<std::string, std::string> toKeyValuePair(std::string keyVal) const;
 };
 
-
-#endif
-
-};
-
-
 #endif
 
