@@ -13,8 +13,8 @@
  * */
 class AuthenticationHandler {
     public:
-        AuthenticationHandler(IDataService &service);
-        virtual ~AuthenticationHandler();
+        AuthenticationHandler(IDataService &service) : m_dataService(service) { }
+        virtual ~AuthenticationHandler() { }
 
 
         /** Carga los parametros del pedido.
@@ -48,6 +48,43 @@ class AuthenticationHandler {
         /** El JSON correspondiente al 'query string'.
          * */
         Json::Value m_parsedParameters_QueryString;
+
+
+    private:
+
+        /**
+         * Parsea el JSON contenido en el content data del request.
+         *
+         * @param[in] data   Datos binarios en formato JSON.
+         * @param[in] dataLen   Cantidad de bytes que conforman los datos.
+         *
+         * @returns Un JSON con los datos conetnidos dentro del parametro 'data'.
+         * */
+        Json::Value parseContentData(const char* data, size_t dataLen) const;
+
+
+        /**
+         * Parsea el query string y lo transforma a JSON.
+         *
+         * @param[in] qStr   Datos en forma de query string.
+         *
+         * @returns Un JSON con los datos del query string.
+         * */
+        Json::Value parseQueryStringData(std::string qStr) const;
+
+
+        /**
+         * Utilidad que separa un par clave-valor mediante un signo '='.
+         *
+         * @param[in] keyVal    Contiene la clave y el valor separados por un '='.
+         *
+         * @returns Un objeto 'pair' con la clave y el valor en el primer y segundo lugar respectivamente.
+         * */
+        std::pair<std::string, std::string> toKeyValuePair(std::string keyVal) const;
+};
+
+
+#endif
 
 };
 
