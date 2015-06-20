@@ -232,6 +232,26 @@ std::vector<unsigned int> RocaDB::GetMensajesConversacion(unsigned int conversac
     return vResul;
 }
 
+std::vector<std::string> RocaDB::GetParticipantesConversacion(unsigned int conversacionID){
+    std::string val;
+    rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetConversationKey(conversacionID), &val );
+
+    if (st.IsNotFound()) {  // No existe la conversación
+        return std::vector<std::string>();
+    }
+
+    Json::Value jConv = SliceToJson( val );
+
+    std::vector<std::string> vResul;
+    for (unsigned int i = 0; i < jConv["IDUsuarios"].size(); ++i) {
+        std::string userID = jConv["IDUsuarios"][i].asString();
+
+        vResul.push_back( userID );
+    }
+
+    return vResul;
+}
+
 
 unsigned int RocaDB::AgregarMensaje(std::string userID, unsigned int IDConversacion, std::string texto) {
     std::string conv;

@@ -33,7 +33,7 @@ public class ConversacionParser {
                     case "Conversaciones":
                         reader.beginArray();
                         while (reader.hasNext()) {
-                            Conversacion conversacion =readConversacion(reader);
+                            Conversacion conversacion =readConversacionDeLista(reader);
                             if(!conversacion.getMensajes().isEmpty()){
                                 if(conversacion.getMensajes().get(0).fueLeido()){
                                     conversacionesLeidas.add(conversacion);
@@ -58,7 +58,7 @@ public class ConversacionParser {
         return conversacionesNoLeidas.toArray(new Conversacion[conversacionesNoLeidas.size()]);
     }
 
-    private Conversacion readConversacion(JsonReader reader) throws IOException{
+    private Conversacion readConversacionDeLista(JsonReader reader) throws IOException{
         int IdConversacion = -1;
         String UltimoMensaje = "";
         boolean leido = true;
@@ -86,8 +86,27 @@ public class ConversacionParser {
                     }
                     reader.endArray();
                     break;
+                default:
+                    reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return new Conversacion(IdConversacion,new Mensaje(participantes.get(0),UltimoMensaje,leido),UsuarioProxy.getUsuario(),participantes.get(0));
+    }
+
+    private Conversacion readConversacion(JsonReader reader) throws IOException {
+        int IdConversacion = -1;
+        Usuario usuarioConversacionCon = null;
+        List<Mensaje> mensajes = new ArrayList<>();
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "IDConversacion":
+                    IdConversacion = reader.nextInt();
+                    break;
                 case "IDUsuario":
-                    participantes.add(new Usuario(reader.nextString()));
+                    usuarioConversacionCon = new Usuario(reader.nextString());
                     break;
                 case "Mensajes":
                     reader.beginArray();
@@ -101,9 +120,7 @@ public class ConversacionParser {
             }
         }
         reader.endObject();
-        //TODO: SACAR CUANDO DEVUELVA LOS PARTICIPANTES O EL IDUSUARIO CORRECTAMENTE
-        participantes.add(new Usuario("Jose"));
-        return new Conversacion(IdConversacion,new Mensaje(participantes.get(0),UltimoMensaje,leido),UsuarioProxy.getUsuario(),participantes.get(0));
+        return new Conversacion(IdConversacion,mensajes,UsuarioProxy.getUsuario(),usuarioConversacionCon);
     }
 
     public Conversacion readConversacion(InputStream stream) throws IOException{

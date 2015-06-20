@@ -110,13 +110,21 @@ class IDB {
         virtual std::vector<unsigned int> GetConversaciones(std::string userID) = 0;
 
 
-        /** Devuelve los IDs de todos los mensajes contenidos en la conversación data.
+        /** Devuelve los IDs de todos los mensajes contenidos en la conversación dada.
          *
          * @param[in] conversacionID    El ID de la conversación de la cual se quieren los mensajes.
          *
          * @returns     Una lista de todos los mensajes contenidos en la conversación.
          * */
         virtual std::vector<unsigned int> GetMensajesConversacion(unsigned int conversacionID) = 0;
+        
+        /** Devuelve los IDs de todos los participantes contenidos en la conversación dada.
+         *
+         * @param[in] conversacionID    El ID de la conversación de la cual se quieren los mensajes.
+         *
+         * @returns     Una lista de todos los participantes contenidos en la conversación.
+         * */
+        virtual std::vector<std::string> GetParticipantesConversacion(unsigned int conversacionID) = 0;
 
 
         /** Devuelve el ID del ultimo mensaje recibido por el usuario en la conversación dada.
