@@ -24,7 +24,9 @@ Response ConversationRequest::GetResponseData(){
     if(dto.IDUsuario.compare("") != 0){
     	resul.IDUsuario = dto.IDUsuario;
     } else {
-    	//TODO: Obtener participantes de la conversacion y agregar al participante que no es el del token en el resul
+    	std::vector<std::string> participantes = this->m_dataService.GetParticipantes(dto.Token,dto.IDConversacion);
+    	if(participantes.size() > 0)
+    		resul.IDUsuario = participantes[0];
     }
 
     for ( auto msj : this->m_dataService.GetMensajes(dto.Token, dto.IDConversacion) ) {

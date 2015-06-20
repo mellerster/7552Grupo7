@@ -292,6 +292,19 @@ unsigned int DataService::GetInterseccion( std::vector<unsigned int> v1, std::ve
     return 0;   // No encontrado
 }
 
+std::vector<std::string> DataService::GetParticipantes(unsigned int token, unsigned int convID) {
+	std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
+	std::vector<std::string> participantes =this->m_rocaDB.GetParticipantesConversacion( convID );
+	unsigned int posUsuario = -1;
+	for (unsigned int i = 0; i < participantes.size(); i++) {
+		if(participantes[i].compare(userID) == 0){
+			posUsuario = i;
+			break;
+		}
+	}
+	participantes.erase(participantes.begin()+posUsuario);
+	return participantes;
+}
 
 std::vector<Mensaje> DataService::GetMensajes(unsigned int token, unsigned int convID) {
     if (!IsTokenActive(token)) {
