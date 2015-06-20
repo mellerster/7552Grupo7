@@ -63,8 +63,7 @@ public class ConversacionParser {
         String UltimoMensaje = "";
         boolean leido = true;
         List<Usuario> participantes = new ArrayList<>();
-        //TODO: SACAR
-        participantes.add(new Usuario("Jose"));
+        List<Mensaje> mensajes = new ArrayList<>();
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
@@ -87,15 +86,55 @@ public class ConversacionParser {
                     }
                     reader.endArray();
                     break;
+                case "IDUsuario":
+                    participantes.add(new Usuario(reader.nextString()));
+                    break;
                 case "Mensajes":
-                    //TODO: Leer mensajes
-                    reader.skipValue();
+                    reader.beginArray();
+                    while (reader.hasNext()){
+                        mensajes.add(readMensaje(reader));
+                    }
+                    reader.endArray();
                     break;
                 default:
                     reader.skipValue();
             }
         }
         reader.endObject();
+        //TODO: SACAR CUANDO DEVUELVA LOS PARTICIPANTES O EL IDUSUARIO CORRECTAMENTE
+        participantes.add(new Usuario("Jose"));
         return new Conversacion(IdConversacion,new Mensaje(participantes.get(0),UltimoMensaje,leido),UsuarioProxy.getUsuario(),participantes.get(0));
+    }
+
+    public Conversacion readConversacion(InputStream stream) throws IOException{
+        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+        Conversacion conversacion = null;
+        try {
+            conversacion = readConversacion(reader);
+        } finally {
+            reader.close();
+        }
+        return  conversacion;
+    }
+
+    private Mensaje readMensaje(JsonReader reader) throws IOException{
+        String idRemitente = "";
+        String mensajeCuerpo = "";
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            switch (name) {
+                case "IDRemitente":
+                    idRemitente = reader.nextString();
+                    break;
+                case "Mensaje":
+                    mensajeCuerpo = reader.nextString();
+                    break;
+                default:
+                    reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return new Mensaje(new Usuario(idRemitente),mensajeCuerpo);
     }
 }

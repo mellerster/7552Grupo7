@@ -118,7 +118,7 @@ public class MainActivity extends ActionBarActivity {
         @Override
         protected void onPostExecute(final Boolean success) {
             if (success) {
-                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
+                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListasTabbedActivity");
                 startActivity(listaUsuariosConectadosIntent);
                 finish();
             }

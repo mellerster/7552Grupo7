@@ -44,7 +44,10 @@ public class ConversacionActivity  extends ActionBarActivity {
         Bundle extras =getIntent().getExtras();
         if(extras != null) {
             usuario = extras.getString("usuario");
+            usuarioConvesacionCon = usuario;
             getSupportActionBar().setTitle(usuario);
+        } else {
+            usuarioConvesacionCon = "";
         }
         new ConversacionMensajesAPI().execute(usuario);
         inicializarNuevoMensaje();
@@ -75,8 +78,10 @@ public class ConversacionActivity  extends ActionBarActivity {
     private void inicializarConversacion() {
         conversacion.setText(conversacionMantenida.getStringFormateado());
         conversacion.setMovementMethod(new ScrollingMovementMethod());
-        usuarioConvesacionCon =conversacionMantenida.getConversanteDos().getNombre();
-        getSupportActionBar().setTitle(usuarioConvesacionCon);
+        if(usuarioConvesacionCon.isEmpty()) {
+            usuarioConvesacionCon = conversacionMantenida.getConversanteDos().getNombre();
+            getSupportActionBar().setTitle(usuarioConvesacionCon);
+        }
     }
 
     private void inicializarNuevoMensaje() {

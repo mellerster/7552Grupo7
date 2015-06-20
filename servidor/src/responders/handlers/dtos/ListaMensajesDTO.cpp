@@ -5,7 +5,7 @@
 
 ListaMensajesDTO::ListaMensajesDTO(Json::Value jData) : BaseDTO(jData) {
     std::string tok = jData.get("Token", 0).asString();
-    std::string idConv = jData.get("IDConversacion", "").asString();
+    std::string idConv = jData.get("IDConversacion", "0").asString();
 
     // El token y el ID de conversacion son numericos
     this->Token = std::stoul( tok );

@@ -45,7 +45,7 @@ public class ConversacionProxy extends ProxyBase {
                 streamAParsear = urlConnection.getInputStream();
                 ConversacionParser parser = new ConversacionParser();
                 conversaciones = parser.readConversaciones(streamAParsear);
-                Log.i("MensajerO", "Información obtenida correctamente");
+                Log.i("MensajerO", "Listado de Conversaciones obtenido correctamente");
             } else {
                 Log.e("MensajerO", urlConnection.getResponseMessage());
             }
@@ -55,7 +55,7 @@ public class ConversacionProxy extends ProxyBase {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
-            Log.e("MensajerO", "No se pudo parsar correctamente las conversaciones");
+            Log.e("MensajerO", "No se pudo parsear correctamente las conversaciones");
         } finally {
             if (urlConnection != null)
                 urlConnection.disconnect();
@@ -72,11 +72,37 @@ public class ConversacionProxy extends ProxyBase {
     public Conversacion getConversacion(long idConversacion){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "conversacion?Token=" + String.valueOf(token);
-        urlString += "&idConversacion=" + String.valueOf(idConversacion);
-        Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
-        List<Mensaje> mensajes = new ArrayList<>();
-        mensajes.add(mensajeUno);
-        return new Conversacion(idConversacion,mensajes, UsuarioProxy.getUsuario(), new Usuario("Jose"));
+        urlString += "&IDConversacion=" + String.valueOf(idConversacion);
+        Conversacion conversacion = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            Log.i("MensajerO","Obtengo Conversacion por idConversacion: " + String.valueOf(idConversacion));
+            int HttpResult = urlConnection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                InputStream streamAParsear;
+                streamAParsear = urlConnection.getInputStream();
+                ConversacionParser parser = new ConversacionParser();
+                conversacion = parser.readConversacion(streamAParsear);
+                Log.i("MensajerO", "Conversacion obtenida correctamente");
+            } else {
+                Log.e("MensajerO", urlConnection.getResponseMessage());
+            }
+        } catch (EstadoRecibidoInvalidoException e){
+            Log.e("MensajerO", e.getMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("MensajerO", "No se pudo parsear correctamente la conversacion");
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
+
+        return conversacion;
     }
 
     /**
@@ -87,11 +113,37 @@ public class ConversacionProxy extends ProxyBase {
     public Conversacion getConversacion(String nombreUsuario){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "conversacion?Token=" + String.valueOf(token);
-        urlString += "&idUsuario=" + nombreUsuario;
-        Mensaje mensajeUno = new Mensaje(UsuarioProxy.getUsuario(), "Hola, como andas?");
-        List<Mensaje> mensajes = new ArrayList<>();
-        mensajes.add(mensajeUno);
-        return new Conversacion(-1,mensajes, UsuarioProxy.getUsuario(), new Usuario(nombreUsuario));
+        urlString += "&IDUsuario=" + nombreUsuario;
+        Conversacion conversacion = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            Log.i("MensajerO","Obtengo Conversacion por idUsuario: " + nombreUsuario);
+            int HttpResult = urlConnection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                InputStream streamAParsear;
+                streamAParsear = urlConnection.getInputStream();
+                ConversacionParser parser = new ConversacionParser();
+                conversacion = parser.readConversacion(streamAParsear);
+                Log.i("MensajerO", "Conversacion obtenida correctamente");
+            } else {
+                Log.e("MensajerO", urlConnection.getResponseMessage());
+            }
+        } catch (EstadoRecibidoInvalidoException e){
+            Log.e("MensajerO", e.getMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("MensajerO", "No se pudo parsear correctamente la conversacion");
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
+
+        return conversacion;
     }
 
     /**
@@ -102,7 +154,7 @@ public class ConversacionProxy extends ProxyBase {
     public List<Mensaje> getMensajesNuevos(long idConversacion){
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "mensajes?Token=" + String.valueOf(token);
-        urlString += "&idConversacion=" + String.valueOf(idConversacion);
+        urlString += "&IDConversacion=" + String.valueOf(idConversacion);
         Usuario otro = new Usuario("Juan001");
         List<Mensaje> mensajes = new ArrayList<>();
         mensajes.add(new Mensaje(otro, "Todo bien, vos?"));

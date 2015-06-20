@@ -226,6 +226,7 @@ std::vector<Conversacion> DataService::ListActiveConversations(unsigned int toke
 
         Conversacion c;
         c.IDConversacion = convID;
+        //TODO: Obtener los participantes de la conversacion y enviarlos
 
         // Obtiene todos los mensajes de una conversación
         std::vector<unsigned int> msgs = this->m_rocaDB.GetMensajesConversacion( convID );

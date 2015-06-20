@@ -21,12 +21,16 @@ Response ConversationRequest::GetResponseData(){
 
     ListaMensajesDTO resul;
     resul.IDConversacion = dto.IDConversacion;
+    if(dto.IDUsuario.compare("") != 0){
+    	resul.IDUsuario = dto.IDUsuario;
+    } else {
+    	//TODO: Obtener participantes de la conversacion y agregar al participante que no es el del token en el resul
+    }
 
     for ( auto msj : this->m_dataService.GetMensajes(dto.Token, dto.IDConversacion) ) {
         MensajeDTO m;
         m.Mensaje = msj.Texto;
         m.IDRemitente = msj.IDRemitente;
-
         resul.Mensajes.push_back( m );
     }
     
