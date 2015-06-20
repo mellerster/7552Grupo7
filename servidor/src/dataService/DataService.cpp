@@ -327,5 +327,19 @@ std::vector<Mensaje> DataService::GetMensajes(unsigned int token, unsigned int c
     return vecMsjs;
 }
 
+bool DataService::AgregarMensaje(unsigned int token, unsigned int IDConversacion , std::string texto) {
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Trató de enviar un mensaje un usuario no loggeado." );
+        return false;
+    }
+    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
+    
+    if(this->m_rocaDB.AgregarMensaje(userID, IDConversacion, texto ) == 0) {
+    	HL_ERROR( logger, "Se intento enviar un mensaje pero este no se grabo correctamente." );
+    	return false;
+    }
+    return true;
+}
+
 
 
