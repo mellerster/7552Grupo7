@@ -115,7 +115,7 @@ public class RegistracionActivity extends ActionBarActivity {
                 Log.e("MensajerO", "Error al intentar registrarse en el servidor");
                 Toast.makeText(getApplicationContext(), "No se pudo registrar el usuario en el servidor", Toast.LENGTH_LONG).show();
             }else {
-                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListaUsuariosConectadosActivity");
+                Intent listaUsuariosConectadosIntent = new Intent("com.example.appmaker.mensajero.ListasTabbedActivity");
                 startActivity(listaUsuariosConectadosIntent);
                 finish();
             }
