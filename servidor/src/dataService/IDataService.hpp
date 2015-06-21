@@ -91,15 +91,27 @@ class IDataService {
          * */
         virtual std::vector<Mensaje> GetMensajes(unsigned int token, unsigned int convID) = 0;
 
-	/** Devuelve los participantes de la conversación dada.
+
+        /** Devuelve los mensajes de una conversación marcados como no-leidos.
+         *
+         * @param[in] token     El token de un usuario conectado.
+         * @param[in] convID    El ID de la conversación cuyos mensajes se desea.
+         *
+         * @returns Una lista con los mensajes no leidos de la conversación.
+         * */
+        virtual std::vector<Mensaje> GetMensajesNoLeidos(unsigned int token, unsigned int convID) = 0;
+
+
+        /** Devuelve los participantes de la conversación dada.
          *
          * @param[in] token     El token de un usuario conectado.
          * @param[in] convID    El ID de la conversación cuyos mensajes se desea.
          *
          * @returns Una lista con los participantes de la conversación que no es el usuario del token.
          * */
-	virtual std::vector<std::string> GetParticipantes(unsigned int token, unsigned int convID) = 0;
+        virtual std::vector<std::string> GetParticipantes(unsigned int token, unsigned int convID) = 0;
 	 
+
         /** Devuelve el ID de la conversación entre los dos usuarios o crea una nueva si no existe.
          *
          * @param[in] token     El token de un usuario conectado que participa en la conversación.
@@ -109,18 +121,17 @@ class IDataService {
          * */
         virtual unsigned int GetConversacion(unsigned int token, std::string IDdestinatario) = 0;
 
-	/** Agrega un nuevo mensaje a una conversacion por un usuario en el sistema.
-         *
-         * Inicializa todos los elementos relacionados con un usuario del sistema.
-         * El nombre de usuario debe ser unico ya que es la forma de identificar a cada usuario que pertenece al sistema.
+
+        /** Agrega un nuevo mensaje a una conversacion por un usuario en el sistema.
          *
          * @param[in] token     El token de un usuario conectado.
          * @param[in] IDConversacion   El ID de la conversación del mensaje que se agrega.
          * @param[in] texto   El cuerpo del mensaje que se agrega.         
          *
-         * @returns  True si se completó la registración en forma exitosa, false si no.
+         * @returns  True si se completó la operación en forma exitosa, false si no.
          * */
-	virtual bool AgregarMensaje(unsigned int token, unsigned int IDConversacion , std::string texto) = 0;
+        virtual bool AgregarMensaje(unsigned int token, unsigned int IDConversacion , std::string texto) = 0;
+
 	
         /** Devuelve los datos del usuario dado.
          *

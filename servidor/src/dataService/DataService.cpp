@@ -327,6 +327,37 @@ std::vector<Mensaje> DataService::GetMensajes(unsigned int token, unsigned int c
     return vecMsjs;
 }
 
+
+std::vector<Mensaje> DataService::GetMensajesNoLeidos(unsigned int token, unsigned int convID) {
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Se trató de recuperar mensajes de un usuario no loggeado." );
+        return std::vector<Mensaje>();
+    }
+
+    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
+    unsigned int idUltimoMensaje = this->m_rocaDB.GetIDUltimoMensaje( userID, convID );
+
+    std::vector<Mensaje> lMensajes;
+    std::vector<unsigned int> lAllMensajes = this->m_rocaDB.GetMensajesConversacion( convID );
+
+    for ( unsigned int idMsj : lAllMensajes ) {
+        // Si el mensaje es posterior al ultimo mensaje recibido por el usuario: enviarlo
+        if (idMsj > idUltimoMensaje) {
+            Mensaje m;
+            m.Texto = this->m_rocaDB.GetMensaje( idMsj );
+            m.IDRemitente = this->m_rocaDB.GetRemitente( idMsj );
+
+            lMensajes.push_back( m );
+        }
+    }
+
+    // Todos los mensajes enviados se consideran leidos
+    this->m_rocaDB.SetIDUltimoMensaje( userID, convID, lAllMensajes.back() );
+
+    return lMensajes;
+}
+
+
 bool DataService::AgregarMensaje(unsigned int token, unsigned int IDConversacion , std::string texto) {
     if (!IsTokenActive(token)) {
         HL_ERROR( logger, "Trató de enviar un mensaje un usuario no loggeado." );
