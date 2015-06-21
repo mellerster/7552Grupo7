@@ -42,6 +42,7 @@ class DataService : public IDataService {
         virtual std::vector<Mensaje> GetMensajes(unsigned int token, unsigned int convID);
         virtual std::vector<std::string> GetParticipantes(unsigned int token, unsigned int convID);
         virtual bool AgregarMensaje(unsigned int token, unsigned int IDConversacion , std::string texto);
+        virtual bool EnviarBroadcast(unsigned int token, std::string texto);
 
 
     private:

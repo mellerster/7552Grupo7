@@ -364,16 +364,20 @@ unsigned int RocaDB::GenerateNewID() {
     const std::string secuenceKey = "SecuenceKeyGenerator-9000";
 
     // Recupera el ultimo Id generado
-    std::string val;
+    std::string val = "1";
     rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), secuenceKey, &val );
 
     if ( st.IsNotFound() ) {
         val = "1";
     }
-
+    unsigned int newGeneratedID = 1;
     // En base al anterior genera uno nuevo
-    unsigned int newGeneratedID = std::stoul(val) + 1;
-
+    try{
+    	 newGeneratedID = std::stoul(val) + 1;
+    } catch (...) {
+    	 HL_ERROR( logger, "Falló generar el nuevo id\n");
+    	 newGeneratedID = 100;
+    }
     // Guarda el nuevo Id y lo devuelve para ser usado
     this->m_rockdb->Put( rocksdb::WriteOptions(), secuenceKey, std::to_string(newGeneratedID) );
 

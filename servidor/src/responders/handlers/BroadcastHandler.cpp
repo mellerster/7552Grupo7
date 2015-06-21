@@ -16,11 +16,15 @@ Response BroadcastHandler::GetResponseData() {
         return invalid_resp;
     }
 	
-	//TODO: Manejar Broadcast
+    // Envia el mensaje en el dataService
+    bool success = this->m_dataService.EnviarBroadcast( pedido.Token, pedido.Mensaje );
+    if (success){
+        Response r(201, "");    // Created status code
+        return r;
+    }
 
-    // Crea la respuesta
-    Response resp( 201, "");
-    return resp;
+    Response invalid_resp( 403, "" );
+    return invalid_resp;
 }
 
 

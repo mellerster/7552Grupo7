@@ -18,6 +18,7 @@
 class BroadcastDTO : public BaseDTO {
     public:
         unsigned int Token;         /**< El token de autenticación del cliente.  */
+        std::string Mensaje;
 
         BroadcastDTO();        /**< Constructor por defecto */
         BroadcastDTO(Json::Value jData);     /**< Inicializa el objeto con los datos del JSON. */

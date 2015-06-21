@@ -169,6 +169,13 @@ class IDataService {
          * @param[in] estado  El nuevo estado asociado al usuario: "C" o "D".
          * */
         virtual void ChangeEstado(unsigned int token, std::string estado) = 0;
+        
+        /**
+         *
+         * @param[in] token El token asociado al usuario que se desea modificar.
+         * @param[in] texto  El cuerpo del mensaje a hacer broadcast.
+         * */
+        virtual bool EnviarBroadcast(unsigned int token, std::string texto) = 0;
 
 
         virtual ~IDataService() { } 

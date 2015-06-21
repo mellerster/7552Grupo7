@@ -341,5 +341,31 @@ bool DataService::AgregarMensaje(unsigned int token, unsigned int IDConversacion
     return true;
 }
 
+bool DataService::EnviarBroadcast(unsigned int token, std::string texto) {
+	if (!IsTokenActive(token)) {
+		HL_ERROR( logger, "Se trató de hacer broadcast con un usuario no loggeado." );
+		return false;
+	}
+	std::vector<unsigned int> tokens = this->m_sessionHandler.GetAllActiveSessionTokens();
+	HL_INFO( logger, "Se envia un mensaje de broadcast" );
+	for (unsigned int otroUserToken : tokens){
+		int idConv = -1;
+		// Veo si es el usuario logueado o no
+		if(otroUserToken != token){
+			// Obtengo la conversacion entre estos dos usuarios
+			std::string otroUserID = this->m_sessionHandler.GetAssociatedUserID( otroUserToken );
+			idConv = GetConversacion(token,otroUserID);
+			if(idConv > 0){
+				// Envio el mensaje a ese usuario
+				bool estado = AgregarMensaje(token, idConv, texto);
+				if(!estado){
+					HL_ERROR( logger, "Se intento enviar un mensaje de broadcast a " + otroUserID + " pero este no se grabo bien. Conversacion: " + std::to_string(idConv) );
+				}
+			}
+		}
+	}
+	return true;
+}
+
 
 
