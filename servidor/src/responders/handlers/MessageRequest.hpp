@@ -7,13 +7,12 @@
 
 
 
-/**
- * Clase encargada de realizar la registracion de los usuarios nuevos en el sistema.
+/** Se encarga de responder los pedidos de polling del cliente.
  * */
 class MessageRequest : public RequestHandler {
     public:
-        MessageRequest(IDataService &service);
-        virtual ~MessageRequest();
+        MessageRequest(IDataService &service) : RequestHandler(service) { }
+        virtual ~MessageRequest() { }
         
         virtual Response GetResponseData();
 };
