@@ -258,6 +258,7 @@ unsigned int RocaDB::AgregarMensaje(std::string userID, unsigned int IDConversac
     rocksdb::Status st = this->m_rockdb->Get( rocksdb::ReadOptions(), GetConversationKey(IDConversacion), &conv );
 
     if (st.IsNotFound()) {
+        HL_ERROR( logger, "Se trató de insertar un mensaje en una conversación no existente" );
         return 0;   // La conversación no existe
     }
 
@@ -275,12 +276,14 @@ unsigned int RocaDB::AgregarMensaje(std::string userID, unsigned int IDConversac
     // Se guarda el mensaje
     st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetMessageKey(msgKey), JsonToSlice(jMsg) );
     if (!st.ok()) {
+        HL_ERROR( logger, "Falló la inserción de un nuevo mensaje" );
         return 0;
     }
 
     // Se guarda la conversación
     st = this->m_rockdb->Put( rocksdb::WriteOptions(), GetConversationKey(IDConversacion), JsonToSlice(jConv) );
     if (!st.ok()) {
+        HL_ERROR( logger, "Falló la inserción de un nuevo mensaje a una conversación" );
         return 0;
     }
 

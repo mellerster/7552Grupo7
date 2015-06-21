@@ -152,7 +152,7 @@ class IDB {
          * @param[in] IDConversacion    El ID de la conversación a la que se agregará el mensaje.
          * @param[in] texto     El texto del mensaje.
          *
-         * @returns     El ID del nuevo mensaje, 0 si no falló.
+         * @returns     El ID del nuevo mensaje, "0" si falló.
          * */
         virtual unsigned int AgregarMensaje(std::string userID, unsigned int IDConversacion, std::string texto) = 0;
 
