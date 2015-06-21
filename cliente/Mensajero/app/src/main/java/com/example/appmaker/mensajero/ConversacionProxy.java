@@ -230,10 +230,11 @@ public class ConversacionProxy extends ProxyBase {
             OutputStreamWriter out = new OutputStreamWriter(urlConnection.getOutputStream());
             out.write(params.toString());
             out.close();
+            Log.i("MensajerO", "Intento Enviar un Mensaje de Broadcast");
             int HttpResult = urlConnection.getResponseCode();
             if (HttpResult == HttpURLConnection.HTTP_CREATED) {
                 statusOk = true;
-                Log.i("MensajerO", "");
+                Log.i("MensajerO", "Mensaje de Broadcast enviado correctamente");
             } else {
                 Log.e("MensajerO", urlConnection.getResponseMessage());
             }
