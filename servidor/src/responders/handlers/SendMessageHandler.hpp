@@ -12,8 +12,8 @@
  * */
 class SendMessageHandler : public RequestHandler {
     public:
-        SendMessageHandler(IDataService &service);
-        virtual ~SendMessageHandler();
+        SendMessageHandler(IDataService &service) : RequestHandler(service) { }
+        virtual ~SendMessageHandler() { }
         
         virtual Response GetResponseData();
 };

@@ -1,38 +1,27 @@
 #include "SendMessageHandler.hpp"
 
-#include "dtos/ListaMensajesDTO.hpp"
-#include "dtos/MensajeDTO.hpp"
-
-
-
-SendMessageHandler::SendMessageHandler(IDataService &service) : RequestHandler(service) {
-}
-
-
-SendMessageHandler::~SendMessageHandler() { }
+#include "dtos/SentMensajeDTO.hpp"
 
 
 
 Response SendMessageHandler::GetResponseData(){
     // El pedido de enviar mensaje es POST
-    
-    ListaMensajesDTO dto( this->m_parsedParameters_ContentData );
-    MensajeDTO mensajeDTO( this->m_parsedParameters_ContentData );
+    SentMensajeDTO dto( this->m_parsedParameters_ContentData );
+
     // Chequea que el token sea valido
     if ( !this->m_dataService.IsTokenActive(dto.Token) ){
-        Response invalid_resp( 403, "" );
-        return invalid_resp;
+        return Response( 403, "" );
     }
 
     // Envia el mensaje en el dataService
-    bool success = this->m_dataService.AgregarMensaje( dto.Token, dto.IDConversacion, mensajeDTO.Mensaje );
-    if (success){
-        Response r(201, "");    // Created status code
-        return r;
-    }
+    bool success = this->m_dataService.AgregarMensaje( dto.Token, dto.ConversacionID, dto.Texto );
 
-    Response invalid_resp( 403, "" );
-    return invalid_resp;
+    if (success) {
+        return Response(201, "");    // Created status code
+
+    } else {
+        return Response( 403, "" );
+    }
 }
 
 
