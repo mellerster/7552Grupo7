@@ -26,16 +26,20 @@ TEST_CASE ( "Listado de convesaciones" ) {
     unsigned int token = ds.StartSession( "pepe", "1234" );
 
     SECTION ( "Listar conversacion - todos los mensajes leidos" ) {
+        std::vector<std::string> participantes;
         std::vector<unsigned int> DBConvs;
         std::vector<unsigned int> DBMsgs;
 
         DBConvs.push_back( 555 );
         DBMsgs.push_back( 444 );
+        participantes.push_back( "pepa" );
 
         mocker.OnCall( mockedDB, IDB::GetConversaciones ).Return( DBConvs );
         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).With( 555 ).Return( DBMsgs );
         mocker.OnCall( mockedDB, IDB::GetIDUltimoMensaje ).With( "pepe", 555 ).Return( 444 );
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 444 ).Return( "Kick it up a notch!" );
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 555 ).Return( participantes );
+        mocker.OnCall( mockedDB, IDB::GetRemitente ).Return( "pepe" );
 
         // Act
         std::vector<Conversacion> convs = ds.ListActiveConversations( token );
@@ -43,11 +47,14 @@ TEST_CASE ( "Listado de convesaciones" ) {
         // Assert
         REQUIRE ( 1 == convs.size() );
         REQUIRE ( 555 == convs.front().IDConversacion );
-        REQUIRE ( "Kick it up a notch!"  == convs.front().UltimoMensaje );
+        REQUIRE ( "pepe: Kick it up a notch!"  == convs.front().UltimoMensaje );
         REQUIRE ( convs.front().UltimoMensajeLeido );
     }
 
     SECTION ( "Listar conversacion - mensaje sin leer" ) {
+        std::vector<std::string> participantes;
+        participantes.push_back( "pepa" );
+
         std::vector<unsigned int> DBConvs;
         std::vector<unsigned int> DBMsgs;
 
@@ -60,6 +67,8 @@ TEST_CASE ( "Listado de convesaciones" ) {
         mocker.OnCall( mockedDB, IDB::GetIDUltimoMensaje ).With( "pepe", 555 ).Return( 444 );
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 444 ).Return( "Kick it up a notch!" );
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 445 ).Return( "I gotta an evil love" );
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 555 ).Return( participantes );
+        mocker.OnCall( mockedDB, IDB::GetRemitente ).Return( "pepe" );
 
         // Act
         std::vector<Conversacion> convs = ds.ListActiveConversations( token );
@@ -67,7 +76,7 @@ TEST_CASE ( "Listado de convesaciones" ) {
         // Assert
         REQUIRE ( 1 == convs.size() );
         REQUIRE ( 555 == convs.front().IDConversacion );
-        REQUIRE ( "I gotta an evil love"  == convs.front().UltimoMensaje );
+        REQUIRE ( "pepe: I gotta an evil love"  == convs.front().UltimoMensaje );
         REQUIRE_FALSE ( convs.front().UltimoMensajeLeido );
     }
 
@@ -81,6 +90,10 @@ TEST_CASE ( "Listado de convesaciones" ) {
         DBMsgs1.push_back( 444 );
         DBMsgs2.push_back( 555 );
 
+        std::vector<std::string> participantes;
+        participantes.push_back( "pepa" );
+        participantes.push_back( "peitoa" );
+
         mocker.OnCall( mockedDB, IDB::GetConversaciones ).Return( DBConvs );
         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).With( 111 ).Return( DBMsgs1 );
         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).With( 222 ).Return( DBMsgs2 );
@@ -91,6 +104,11 @@ TEST_CASE ( "Listado de convesaciones" ) {
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 444 ).Return( "I know what we are gonna do today" );
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 555 ).Return( "Hey Ferb!" );
 
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 111 ).Return( participantes );
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 222 ).Return( participantes );
+
+        mocker.OnCall( mockedDB, IDB::GetRemitente ).Return( "pepe" );
+
         // Act
         std::vector<Conversacion> convs = ds.ListActiveConversations( token );
 
@@ -100,8 +118,8 @@ TEST_CASE ( "Listado de convesaciones" ) {
         REQUIRE ( 111 == convs.front().IDConversacion );
         REQUIRE ( 222 == convs.back().IDConversacion );
         
-        REQUIRE ( "I know what we are gonna do today"  == convs.front().UltimoMensaje );
-        REQUIRE ( "Hey Ferb!"  == convs.back().UltimoMensaje );
+        REQUIRE ( "pepe: I know what we are gonna do today"  == convs.front().UltimoMensaje );
+        REQUIRE ( "pepe: Hey Ferb!"  == convs.back().UltimoMensaje );
 
         REQUIRE ( convs.front().UltimoMensajeLeido );
         REQUIRE ( convs.back().UltimoMensajeLeido );
@@ -120,6 +138,10 @@ TEST_CASE ( "Listado de convesaciones" ) {
         DBMsgs2.push_back( 22 );
         DBMsgs2.push_back( 23 );
 
+        std::vector<std::string> participantes;
+        participantes.push_back( "pepa" );
+        participantes.push_back( "peitoa" );
+
         mocker.OnCall( mockedDB, IDB::GetConversaciones ).Return( DBConvs );
 
         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).With( 1 ).Return( DBMsgs1 );
@@ -131,6 +153,11 @@ TEST_CASE ( "Listado de convesaciones" ) {
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 12 ).Return( "what'cha doing" );
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 23 ).Return( "You're going down!" );
 
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 1 ).Return( participantes );
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 2 ).Return( participantes );
+
+        mocker.OnCall( mockedDB, IDB::GetRemitente ).Return( "pepe" );
+
         // Act
         std::vector<Conversacion> convs = ds.ListActiveConversations( token );
 
@@ -139,8 +166,8 @@ TEST_CASE ( "Listado de convesaciones" ) {
         REQUIRE ( 1 == convs.front().IDConversacion );
         REQUIRE ( 2 == convs.back().IDConversacion );
 
-        REQUIRE ( "what'cha doing"  == convs.front().UltimoMensaje );
-        REQUIRE ( "You're going down!"  == convs.back().UltimoMensaje );
+        REQUIRE ( "pepe: what'cha doing"  == convs.front().UltimoMensaje );
+        REQUIRE ( "pepe: You're going down!"  == convs.back().UltimoMensaje );
 
         REQUIRE_FALSE ( convs.front().UltimoMensajeLeido );
         REQUIRE_FALSE ( convs.back().UltimoMensajeLeido );
@@ -157,6 +184,10 @@ TEST_CASE ( "Listado de convesaciones" ) {
         DBMsgs2.push_back( 22 );
         DBMsgs2.push_back( 222 );
 
+        std::vector<std::string> participantes;
+        participantes.push_back( "pepa" );
+        participantes.push_back( "peitoa" );
+
         mocker.OnCall( mockedDB, IDB::GetConversaciones ).Return( DBConvs );
 
         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).With( 1 ).Return( DBMsgs1 );
@@ -168,6 +199,11 @@ TEST_CASE ( "Listado de convesaciones" ) {
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 11 ).Return( "The days are longer" );
         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 222 ).Return( "The nights are shorter" );
 
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 1 ).Return( participantes );
+        mocker.OnCall( mockedDB, IDB::GetParticipantesConversacion ).With( 2 ).Return( participantes );
+
+        mocker.OnCall( mockedDB, IDB::GetRemitente ).Return( "pepe" );
+
         // Act
         std::vector<Conversacion> convs = ds.ListActiveConversations( token );
 
@@ -176,8 +212,8 @@ TEST_CASE ( "Listado de convesaciones" ) {
         REQUIRE ( 1 == convs.front().IDConversacion );
         REQUIRE ( 2 == convs.back().IDConversacion );
 
-        REQUIRE ( "The days are longer"  == convs.front().UltimoMensaje );
-        REQUIRE ( "The nights are shorter"  == convs.back().UltimoMensaje );
+        REQUIRE ( "pepe: The days are longer"  == convs.front().UltimoMensaje );
+        REQUIRE ( "pepe: The nights are shorter"  == convs.back().UltimoMensaje );
 
         REQUIRE ( convs.front().UltimoMensajeLeido );
         REQUIRE_FALSE ( convs.back().UltimoMensajeLeido );
