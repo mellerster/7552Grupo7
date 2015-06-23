@@ -18,7 +18,7 @@ Json::Value SentMensajeDTO::ToJSON() const {
     Json::Value j = BaseDTO::ToJSON();
     j["Token"] = this->Token;
     j["Texto"] = this->Texto;
-    j["IDUsuario"] = this->ConversacionID;
+    j["IDConversacion"] = this->ConversacionID;
 
     return j;
 }
