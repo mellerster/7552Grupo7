@@ -36,7 +36,7 @@ public class Mensaje {
     }
 
     /**
-     *
+     * Obtiene el cuerpo del mensaje formateado
      * @return si el remitente pasado por parametro es igual al remitente de este mensaje devuelve
      * el mensaje formateado para un remitente propio, caso contrario lo hace para un remitente
      * ajeno
@@ -49,7 +49,7 @@ public class Mensaje {
     }
 
     /**
-     *
+     * Obtiene el cuerpo del mensaje formateado con el color del usuario logueado
      * @return representacion del mensaje para ser mostrada en una conversacion cuando el remitente
      * es el usuario de la aplicacion
      */
@@ -58,7 +58,7 @@ public class Mensaje {
     }
 
     /**
-     *
+     * Obtiene el cuerpo del mensaje formateado con el color del usuario remoto
      * @return representacion del mensaje para ser mostrada en una conversacion cuando el remitente
      * es un contacto del usuario de la aplicacion
      */
@@ -66,6 +66,11 @@ public class Mensaje {
         return getMensajeFormateado(CODIGO_COLOR_MENSAJE_AJENO);
     }
 
+    /**
+     * Formatea el mensaje segun el codigo del color
+     * @param codigoColor a mostrar el mensaje
+     * @return el mensaje formateado con el color
+     */
     private Spanned getMensajeFormateado(String codigoColor) {
         String texto = "<font color=#" + codigoColor + ">" + remitente +" dice" + ": <br>" + mensaje +
                 "<br><br></font>";
@@ -73,7 +78,7 @@ public class Mensaje {
     }
 
     /**
-     *
+     * Devuelve el cuerpo del mensaje sin formatear
      * @return representacion del mensaje para ser mostrada en una conversacion cuando el remitente
      * es el usuario de la aplicacion sin formatear
      */
@@ -82,7 +87,7 @@ public class Mensaje {
     }
 
     /**
-     *
+     * Devuelve el cuerpo del mensaje sin formatear
      * @return representacion del mensaje para ser mostrada en una conversacion cuando el remitente
      * es un contacto del usuario de la aplicacion sin formatear
      */
@@ -90,20 +95,37 @@ public class Mensaje {
         return getMensajeSinFormatear(CODIGO_COLOR_MENSAJE_AJENO);
     }
 
+    /**
+     * Devuelve el cuerpo del mensaje sin formatear
+     * @param codigoColor
+     * @return
+     */
     private String getMensajeSinFormatear(String codigoColor) {
         String texto = "<font color=#" + codigoColor + ">" + remitente +" dice" + ": <br>" + mensaje +
                 "<br><br></font>";
         return texto;
     }
 
+    /**
+     * Obtiene el usuario remitente del mensaje
+     * @return un objeto usuario
+     */
     public Usuario getRemitente() {
         return remitente;
     }
 
+    /**
+     * Obtiene el cuerpo del mensaje en formato string
+     * @return un string con el cuerpo del mensaje
+     */
     public String getMensaje() {
         return mensaje;
     }
 
+    /**
+     * Obtiene un flag si el mensaje fue leido en el servidor
+     * @return un boolean con el flag
+     */
     public boolean fueLeido(){
         return this.leido;
     }
