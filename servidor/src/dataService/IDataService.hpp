@@ -93,6 +93,7 @@ class IDataService {
 
 
         /** Devuelve los mensajes de una conversación marcados como no-leidos.
+         * A diferencia del metodo `GetMensajes` este metodo marca a los mensajes recuperados como leidos.
          *
          * @param[in] token     El token de un usuario conectado.
          * @param[in] convID    El ID de la conversación cuyos mensajes se desea.

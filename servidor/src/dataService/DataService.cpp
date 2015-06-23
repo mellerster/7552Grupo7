@@ -293,8 +293,18 @@ unsigned int DataService::GetInterseccion( std::vector<unsigned int> v1, std::ve
 }
 
 std::vector<std::string> DataService::GetParticipantes(unsigned int token, unsigned int convID) {
-	std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
+    if (!IsTokenActive(token)) {
+        HL_ERROR( logger, "Un usuario no loggeado trató de recuperar los participantes de una conversación." );
+        return std::vector<std::string>();
+    }
+
 	std::vector<std::string> participantes =this->m_rocaDB.GetParticipantesConversacion( convID );
+    if (participantes.empty()) {
+        HL_WARN( logger, "La conversación no existe o esta no tiene participantes" );
+        return std::vector<std::string>();
+    }
+    
+	std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
 	unsigned int posUsuario = -1;
 	for (unsigned int i = 0; i < participantes.size(); i++) {
 		if(participantes[i].compare(userID) == 0){
