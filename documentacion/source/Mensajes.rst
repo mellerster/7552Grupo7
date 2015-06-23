@@ -266,146 +266,6 @@ Donde:
 
 * **CheckInFechaHora:** La Fecha y Hora cuando se registró el ultimo checkin.
 
-
-**************************
-/grupo7/api/conversaciones
-**************************
-
-GET
-===
-
-Mediante este pedido se obtiene el listado de conversaciones del usuario.
-
-
-Parametro de entrada
---------------------
-
-El parametro de entrada es en formato JSON::
-
-    {
-        Token: 0
-    }
-
-Donde:
-
-* **Token:** Contiene el token que identifica al usuario.
-
-
-Parametros de salida
---------------------
-
-Un JSON con la siguiente estructura::
-
-    {
-        Status: "",
-        Conversaciones: [
-                { 
-                    Status: "",
-                    IdConversacion: 0,
-                    UltimoMensaje: "",
-                    UltimoMensajeLeido: true,
-                    Participantes: [
-                    {
-                    	FALTA DEFINIR
-                    },
-                    ...
-                    ]
-                },
-                {
-                    ...
-                }
-            ]
-    }
-
-Donde:
-
-* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
-
-* **Conversaciones:** Un arreglo de objetos *conversación*, pueden ser cero o mas.
-
-  * **Status:** Cada dato de conversación tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
-
-  * **IdConversacion:** El identificador de la conversación en el servidor.
-
-  * **UltimoMensaje:** El último mensaje enviado en la conversación,
-
-  * **UltimoMensajeLeido:** Un flag (true o false) para marcar si este último mensaje fue leído por el usuario que pide el listado.
-  
-  * **Participantes:** Un arreglo con los participantes.
-
-.. note:: Ver si cambia luego, cambiarlo
-
-************************
-/grupo7/api/conversacion
-************************
-
-GET
-===
-
-Mediante este pedido se obtienen todos los mensajes de una conversación
-
-
-Parametros de entrada
----------------------
-
-El parametro de entrada es en formato JSON::
-
-    {
-        Token: 0,
-        IdConversacion: 0,
-        IdUsuario: ""
-    }
-
-Donde:
-
-* **Token:** Contiene el token que identifica al usuario.
-
-* **IdConversacion:** Contiene el identificador unico de la conversación en el servidor.
-
-o
-
-* **IdUsuario:** Contiene el nombre de otro usuario participante en la conversación.
-
-Parametros de salida
---------------------
-
-Un JSON con la siguiente estructura::
-
-    {
-        Status: "",
-        IdConversacion: 0,
-        Mensajes: [
-                { 
-                    Status: "",
-                    IdMensaje: 0,
-                    IdParticipante: "",
-                    Mensaje: ""
-                },
-                {
-                    ...
-                }
-            ]
-    }
-
-Donde:
-
-* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
-
-* **IdConversacion** El identificador de la conversación en el servidor.
-
-* **Mensajes:** Un arreglo de objetos *mensaje*, pueden ser cero o mas.
-
-  * **Status:** Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
-
-  * **IdMensaje:** El identificador del mensaje en el servidor.
-
-  * **IdParticipante:** El nombre del usuario que envio dicho mensaje,
-
-  * **Mensaje:** El texto del mensaje enviado.
-
-.. note:: Ver si cambia luego, cambiarlo
-
-
 ******************
 grupo7/api/checkin
 ******************
@@ -452,6 +312,142 @@ Donde:
 
 * **Descripcion:** Una pequeña descripción del lugar conocido mas cercano a la ubicación del usuario.
 
+**************************
+/grupo7/api/conversaciones
+**************************
+
+GET
+===
+
+Mediante este pedido se obtiene el listado de conversaciones del usuario.
+
+
+Parametro de entrada
+--------------------
+
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+
+Parametros de salida
+--------------------
+
+Un JSON con la siguiente estructura::
+
+    {
+        Status: "",
+        Conversaciones: [
+                { 
+                    Status: "",
+                    IdConversacion: 0,
+                    UltimoMensaje: "",
+                    UltimoMensajeLeido: true,
+                    Participantes: [
+                    {
+                    	"Usuario1",
+                    	"Usuario2",
+                    	...
+                    },
+                    ...
+                    ]
+                },
+                {
+                    ...
+                }
+            ]
+    }
+
+Donde:
+
+* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
+
+* **Conversaciones:** Un arreglo de objetos *conversación*, pueden ser cero o mas.
+
+  * **Status:** Cada dato de conversación tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
+
+  * **IdConversacion:** El identificador de la conversación en el servidor.
+
+  * **UltimoMensaje:** El último mensaje enviado en la conversación con el formato "Remitente: texto ",
+
+  * **UltimoMensajeLeido:** Un flag (true o false) para marcar si este último mensaje fue leído por el usuario que pide el listado.
+  
+  * **Participantes:** Un arreglo con los nombres de usuario de los participantes.
+
+************************
+/grupo7/api/conversacion
+************************
+
+GET
+===
+
+Mediante este pedido se obtienen todos los mensajes de una conversación
+
+
+Parametros de entrada
+---------------------
+
+El parametro de entrada es en formato JSON::
+
+    {
+        Token: 0,
+        IDConversacion: 0,
+        IDUsuario: ""
+    }
+
+Donde:
+
+* **Token:** Contiene el token que identifica al usuario.
+
+* **IdConversacion:** Contiene el identificador unico de la conversación en el servidor.
+
+o
+
+* **IdUsuario:** Contiene el nombre de otro usuario participante en la conversación.
+
+Parametros de salida
+--------------------
+
+Un JSON con la siguiente estructura::
+
+    {
+        Status: "",
+        IDConversacion: 0,
+        IDUsuario: ""
+        Mensajes: [
+                { 
+                    Status: "",
+                    IDRemitente: "",
+                    Mensaje: ""
+                },
+                {
+                    ...
+                }
+            ]
+    }
+
+Donde:
+
+* **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
+
+* **IDConversacion** El identificador de la conversación en el servidor.
+
+* **IDUsuario** El nombre del otro usuario en la conversación.
+
+* **Mensajes:** Un arreglo de objetos *mensaje*, pueden ser cero o mas.
+
+  * **Status:** Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
+
+  * **IDRemitente:** El nombre del usuario que envio dicho mensaje,
+
+  * **Mensaje:** El texto del mensaje enviado.
+
 ************************
 /grupo7/api/broadcast
 ************************
@@ -492,8 +488,6 @@ Donde:
 
 * **Status:** El resultado de la operación; "OK" o "ERR".
 
-.. note:: Ver si cambia luego, cambiarlo
-
 ********************
 /grupo7/api/mensajes
 ********************
@@ -510,17 +504,17 @@ El parametro de entrada es en formato JSON::
 
     {
         Token: 0,
-        IdConversacion: 0,
-        Mensaje: ""
+        IDConversacion: 0,
+        Texto: ""
     }
 
 Donde:
 
 * **Token:** Contiene el token que identifica al usuario.
 
-* **IdConversacion:** El identificador de la conversación a la que se envio el mensaje.
+* **IDConversacion:** El identificador de la conversación a la que se envio el mensaje.
 
-* **Mensaje:** El mensaje a enviar.
+* **Texto:** El mensaje a enviar.
 
 Parametros de salida
 --------------------
@@ -535,8 +529,6 @@ Donde:
 
 * **Status:** El resultado de la operación; "OK" o "ERR".
 
-.. note:: Ver si cambia luego, cambiarlo
-
 GET
 ===
 
@@ -549,14 +541,14 @@ El parametro de entrada es en formato JSON::
 
     {
         Token: 0,
-        IdConversacion: 0,
+        IDConversacion: 0,
     }
 
 Donde:
 
 * **Token:** Contiene el token que identifica al usuario.
 
-* **IdConversacion:** Contiene el identificador unico de la conversación en el servidor.
+* **IDConversacion:** Contiene el identificador unico de la conversación en el servidor.
 
 Parametros de salida
 --------------------
@@ -565,11 +557,11 @@ Un JSON con la siguiente estructura::
 
     {
         Status: "",
+        IDConversacion: 0,
         Mensajes: [
                 { 
                     Status: "",
-                    IdMensaje: 0,
-                    IdParticipante: "",
+                    IDRemitente: "",
                     Mensaje: ""
                 },
                 {
@@ -582,14 +574,13 @@ Donde:
 
 * **Status** El estado del resultado de la operación, pudiendo ser esta: "OK" o "ERR".
 
+* **IDConversacion** El identificador de la conversación.
+
 * **Mensajes:** Un arreglo de objetos *mensaje*, pueden ser cero o mas.
 
   * **Status:** Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
 
-  * **IdMensaje:** El identificador del mensaje en el servidor.
 
-  * **IdParticipante:** El nombre del usuario que envio dicho mensaje,
+  * **IDRemitente:** El nombre del usuario que envio dicho mensaje,
 
   * **Mensaje:** El texto del mensaje enviado.
-
-.. note:: Ver si cambia luego, cambiarlo
