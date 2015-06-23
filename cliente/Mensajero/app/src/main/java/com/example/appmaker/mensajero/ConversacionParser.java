@@ -154,4 +154,29 @@ public class ConversacionParser {
         reader.endObject();
         return new Mensaje(new Usuario(idRemitente),mensajeCuerpo);
     }
+
+    public List<Mensaje> readMensajes(InputStream stream) throws IOException {
+        List<Mensaje> mensajes = new ArrayList<>();
+        JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
+        reader.beginObject();
+        while(reader.hasNext()){
+            String name = reader.nextName();
+            switch (name) {
+                case "IDConversacion":
+                    reader.skipValue();
+                    break;
+                case "Mensajes":
+                    reader.beginArray();
+                    while (reader.hasNext()) {
+                        Mensaje mensaje = readMensaje(reader);
+                        mensajes.add(mensaje);
+                    }
+                    reader.endArray();
+                    break;
+                default:
+                    reader.skipValue();
+            }
+        }
+        return mensajes;
+    }
 }

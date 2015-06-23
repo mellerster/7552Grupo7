@@ -155,8 +155,36 @@ public class ConversacionProxy extends ProxyBase {
         long token = UsuarioProxy.getUsuario().getToken();
         String urlString = urlBase + "mensajes?Token=" + String.valueOf(token);
         urlString += "&IDConversacion=" + String.valueOf(idConversacion);
-        Usuario otro = new Usuario("Juan001");
-        List<Mensaje> mensajes = new ArrayList<>();
+        Log.d("MensajerO",urlString);
+        List<Mensaje> mensajes = null;
+        HttpURLConnection urlConnection = null;
+        try {
+            URL url = new URL(urlString);
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestProperty("Content-Type", "application/json");
+            Log.i("MensajerO","Obtengo Mensajes (pool) por idConversacion: " + String.valueOf(idConversacion));
+            int HttpResult = urlConnection.getResponseCode();
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
+                InputStream streamAParsear;
+                streamAParsear = urlConnection.getInputStream();
+                ConversacionParser parser = new ConversacionParser();
+                mensajes = parser.readMensajes(streamAParsear);
+                Log.i("MensajerO", "Mensajes obtenidos correctamente");
+            } else {
+                Log.e("MensajerO", urlConnection.getResponseMessage());
+            }
+        } catch (EstadoRecibidoInvalidoException e){
+            Log.e("MensajerO", e.getMessage());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.e("MensajerO", "No se pudo parsear correctamente los nuevos mensajes");
+        } finally {
+            if (urlConnection != null)
+                urlConnection.disconnect();
+        }
+
         return mensajes;
     }
 
@@ -174,7 +202,7 @@ public class ConversacionProxy extends ProxyBase {
         HttpURLConnection urlConnection = null;
         try {
             params.put("Token", token);
-            params.put("Mensaje", mensaje.getMensaje());
+            params.put("Texto", mensaje.getMensaje());
             params.put("IDConversacion", conversacion.getIdConversacion());
             URL url = new URL(urlString);
             urlConnection = (HttpURLConnection) url.openConnection();

@@ -80,6 +80,7 @@ public class ConversacionActivity  extends ActionBarActivity {
     private void inicializarConversacion() {
         conversacion.setText(conversacionMantenida.getStringFormateado());
         conversacion.setMovementMethod(new ScrollingMovementMethod());
+        ponerScrollAlFinal();
         if(usuarioConvesacionCon.isEmpty()) {
             usuarioConvesacionCon = conversacionMantenida.getConversanteDos().getNombre();
             getSupportActionBar().setTitle(usuarioConvesacionCon);
@@ -112,21 +113,8 @@ public class ConversacionActivity  extends ActionBarActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-
                 while (seguirEscuchando) {
-                    List<Mensaje> mensajesRecibidos = new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getMensajesNuevos(conversacionMantenida.getIdConversacion());
-                    for(final Mensaje mensajeRecibido : mensajesRecibidos){
-                        conversacion.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                if(mensajeRecibido.getRemitente().getNombre().equals(UsuarioProxy.getUsuario().getNombre())){
-                                    agregarTextoAConversacion(mensajeRecibido.getStringRemitentePropio());
-                                }else {
-                                    agregarTextoAConversacion(mensajeRecibido.getStringRemitenteAjeno());
-                                }
-                            }
-                        });
-                    }
+                    new MensajePoolAPI().execute();
                     try {
                         Thread.sleep(demora);
                     } catch (InterruptedException e) {
@@ -137,12 +125,33 @@ public class ConversacionActivity  extends ActionBarActivity {
         }).start();
     }
 
+    private void recibirMensajesServidor(List<Mensaje> mensajesRecibidos){
+        if(mensajesRecibidos.size() > 0) {
+            for (final Mensaje mensajeRecibido : mensajesRecibidos) {
+                conversacion.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (mensajeRecibido.getRemitente().getNombre().equals(UsuarioProxy.getUsuario().getNombre())) {
+                            agregarTextoAConversacion(mensajeRecibido.getStringRemitentePropio());
+                        } else {
+                            agregarTextoAConversacion(mensajeRecibido.getStringRemitenteAjeno());
+                        }
+                    }
+                });
+            }
+        }
+    }
+
     /**
      * Agrega un nuevo mensaje a la conversacion y mueve el scroll hacia abajo automaticamente.
      * @param text sera agregado a la conversacion
      */
     private void agregarTextoAConversacion(Spanned text) {
         conversacion.append(text);
+        ponerScrollAlFinal();
+    }
+
+    private void ponerScrollAlFinal() {
         final Layout layout = conversacion.getLayout();
         if(layout != null){
             int scrollDelta = layout.getLineBottom(conversacion.getLineCount() - 1) -
@@ -221,6 +230,27 @@ public class ConversacionActivity  extends ActionBarActivity {
             if(!devolvioAlgo) {
                 Toast.makeText(getApplicationContext(), "No se pudo enviar el mensaje", Toast.LENGTH_LONG).show();
             } else {
+                new MensajePoolAPI().execute();
+            }
+        }
+
+    } // end EnviarMensajeAPI
+
+    private class MensajePoolAPI extends AsyncTask<String, Boolean, Boolean> {
+        private  List<Mensaje> mensajes;
+        @Override
+        protected Boolean doInBackground(String... params) {
+            try {
+                mensajes = new ConversacionProxy(PreferenceManager.getDefaultSharedPreferences(getBaseContext())).getMensajesNuevos(conversacionMantenida.getIdConversacion());
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+            return mensajes != null;
+        }
+
+        protected void onPostExecute(Boolean devolvioAlgo) {
+            if(devolvioAlgo) {
+                recibirMensajesServidor(mensajes);
             }
         }
 
