@@ -8,6 +8,7 @@
 
 #include "Response.hpp"
 #include "handlers/ListConversationsRequest.hpp"
+#include "handlers/ConversationRequest.hpp"
 
 
 
@@ -71,6 +72,79 @@ TEST_CASE ( "Obtener el listado de conversaciones") {
         REQUIRE ( 403 == resp.GetStatus() );
     }
 }
+
+
+TEST_CASE ( "Conversacion handler" ) {
+    // Mocks
+    MockRepository mocker;
+    IDataService* mockService = mocker.Mock<IDataService>();
+
+    const size_t dataLen = 0;
+    const char* data = nullptr;
+
+    ConversationRequest handler( *mockService );
+
+    SECTION ( "Con ID de conversacion" ) {
+        const char* queryString = "Token=999&IDConversacion=888";
+        handler.LoadParameters( queryString, data, dataLen );
+
+        std::vector<std::string> vecPartis;
+        vecPartis.push_back( "pepa" );
+
+        Mensaje m;
+        m.Texto = "Squirels in my pants";
+        m.IDRemitente = "Squirels";
+
+        std::vector<Mensaje> vecMsgs;
+        vecMsgs.push_back( m );
+    
+        mocker.OnCall( mockService, IDataService::IsTokenActive ).Return( true );
+        mocker.OnCall( mockService, IDataService::GetParticipantes ).With( 999, 888 ).Return( vecPartis );
+        mocker.OnCall( mockService, IDataService::GetMensajes ).With( 999, 888 ).Return( vecMsgs );
+
+        // Act
+        Response resp = handler.GetResponseData();
+
+        // Assert
+        REQUIRE ( 200 == resp.GetStatus() );
+    }
+
+    SECTION ( "Con user ID" ) {
+        const char* queryString = "Token=999&IDUsuario=pepa";
+        handler.LoadParameters( queryString, data, dataLen );
+
+        Mensaje m;
+        m.Texto = "Squirels in my pants";
+        m.IDRemitente = "Squirels";
+
+        std::vector<Mensaje> vecMsgs;
+        vecMsgs.push_back( m );
+
+        mocker.OnCall( mockService, IDataService::IsTokenActive ).Return( true );
+        mocker.OnCall( mockService, IDataService::GetConversacion ).With( 999, "pepa" ).Return( 22 );
+        mocker.OnCall( mockService, IDataService::GetMensajes ).With( 999, 22 ).Return( vecMsgs );
+
+        // Act
+        Response resp = handler.GetResponseData();
+
+        // Assert
+        REQUIRE ( 200 == resp.GetStatus() );
+    }
+
+    SECTION ( "Invalid token" ) {
+        const char* queryString = "Token=999";
+        mocker.OnCall( mockService, IDataService::IsTokenActive ).Return( false );
+
+        handler.LoadParameters( queryString, data, dataLen );
+
+        // Act
+        Response resp = handler.GetResponseData();
+
+        // Assert
+        REQUIRE ( 403 == resp.GetStatus() );
+    }
+}
+
 
 
 
