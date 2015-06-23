@@ -191,3 +191,106 @@ TEST_CASE ( "Obtener los mensajes no leidos" ) {
 }
 
 
+TEST_CASE ( "Postear un mensaje" ) {
+    // Mocks
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
+    mocker.OnCall( mockedDB, IDB::Close );
+
+    DataService ds( *mockedDB, *mockedPositionator );
+    unsigned int token = ds.StartSession( "pepe", "1234" );
+
+    SECTION ( "Exito" ) {
+        mocker.ExpectCall( mockedDB, IDB::AgregarMensaje ).With( "pepe", 99, "S.I.M.P." ).Return( true );
+
+        // Act
+        bool success = ds.AgregarMensaje( token, 99, "S.I.M.P." );
+
+        // Assert
+        REQUIRE ( success );
+    }
+
+    SECTION ( "Fracaso" ) {
+        mocker.ExpectCall( mockedDB, IDB::AgregarMensaje ).Return( false );
+
+        // Act
+        bool success = ds.AgregarMensaje( token, 99, "S.I.M.P." );
+
+        // Assert
+        REQUIRE_FALSE ( success );
+    }
+
+    SECTION ( "Invalid token" ) {
+        ds.EndSession( token );
+        mocker.NeverCall( mockedDB, IDB::AgregarMensaje );
+
+        // Act
+        bool success = ds.AgregarMensaje( token, 99, "S.I.M.P." );
+
+        // Assert
+        REQUIRE_FALSE ( success );
+    }
+}
+
+
+TEST_CASE ( "Enviar broadcast" ) {
+    // Mocks
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
+    mocker.OnCall( mockedDB, IDB::Close );
+
+    DataService ds( *mockedDB, *mockedPositionator );
+
+    SECTION ( "Solo un usuario - No envia a nadie" ) {
+        unsigned int token = ds.StartSession( "pepe", "1234" );
+
+        mocker.NeverCall( mockedDB, IDB::GetConversaciones );
+        mocker.NeverCall( mockedDB, IDB::CreateNewConversacion );
+        mocker.NeverCall( mockedDB, IDB::AgregarMensaje );
+
+        // Act
+        bool sucess = ds.EnviarBroadcast( token, "and ruber snakes" );
+
+        // Assert
+        REQUIRE ( sucess );
+
+    }
+
+    SECTION ( "Varios usuarios" ) {
+        unsigned int tok_1 = ds.StartSession( "pepe", "1234" );
+        unsigned int tok_2 = ds.StartSession( "perry", "456" );
+
+        std::vector<unsigned int> vecPepe;
+        std::vector<unsigned int> vecPerry;
+        vecPepe.push_back( 2015 );
+        vecPerry.push_back( 2015 );
+
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "pepe" ).Return( vecPepe );
+        mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( "perry" ).Return( vecPerry );
+
+        mocker.ExpectCall( mockedDB, IDB::AgregarMensaje ).With( "pepe" , 2015, "summer rocks!" ).Return( 9999 );
+
+        // Act
+        bool success = ds.EnviarBroadcast( tok_1, "summer rocks!" );
+
+        // Assert
+        REQUIRE ( success );
+    }
+
+    SECTION ( "invalid token" ) {
+        bool success = ds.EnviarBroadcast( 9785, "Agent P." );
+
+        REQUIRE_FALSE ( success );
+    }
+}
+
+
+
