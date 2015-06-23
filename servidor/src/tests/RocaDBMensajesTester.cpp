@@ -112,4 +112,76 @@ TEST_CASE ( "Recuperar los ultimos mensajes" ) {
 }
 
 
+TEST_CASE ( "Obtener los participantes de un conversacion" ) {
+    RocaDB db;
+    db.Open("DBTestsParticupantes.bin");
+
+    db.CreateUser( "pepe", "123" );
+    db.CreateUser( "pepa", "456" );
+
+    std::vector<std::string> vecUsus;
+    vecUsus.push_back ( "pepe" );
+    vecUsus.push_back ( "pepa" );
+
+    unsigned int convID = db.CreateNewConversacion( vecUsus );
+
+    SECTION ( "No existe la conversacion" ) {
+        // Act
+        std::vector<std::string> vecParticupantes = db.GetParticipantesConversacion( convID-1 );
+
+        // Assert
+        REQUIRE ( vecParticupantes.empty() );
+    }
+
+    SECTION ( "Exito" ) {
+        // Act
+        std::vector<std::string> vecParticupantes = db.GetParticipantesConversacion( convID );
+
+        // Assert
+        REQUIRE ( 2 == vecParticupantes.size() );
+        REQUIRE ( "pepe" == vecParticupantes.front() );
+        REQUIRE ( "pepa" == vecParticupantes.back() );
+    }
+
+    db.Close();
+    rocksdb::DestroyDB( "DBTestsParticupantes.bin", rocksdb::Options() );
+}
+
+
+
+TEST_CASE ( "Obtener el remitente de un mensaje" ) {
+    RocaDB db;
+    db.Open("DBTestsRemitentes.bin");
+
+    std::vector<std::string> vecUsus;
+    vecUsus.push_back ( "pepe" );
+    vecUsus.push_back ( "pepa" );
+
+    db.CreateUser( vecUsus.front(), "123" );
+    db.CreateUser( vecUsus.back(), "456" );
+
+    unsigned int convID = db.CreateNewConversacion( vecUsus );
+
+    SECTION ( "Exito" ) {
+        unsigned int msgID = db.AgregarMensaje( vecUsus.front(), convID, "Oh yeah!" );
+
+        // Act
+        std::string remitente = db.GetRemitente( msgID );
+
+        // Assert
+        REQUIRE ( vecUsus.front() == remitente );
+    }
+
+    SECTION ( "No existe el mensaje" ) {
+        // Act
+        std::string remitente = db.GetRemitente( 64321 );
+
+        // Assert
+        REQUIRE ( remitente.empty() );
+    }
+
+    db.Close();
+    rocksdb::DestroyDB( "DBTestsRemitentes.bin", rocksdb::Options() );
+}
+
 
