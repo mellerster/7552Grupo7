@@ -33,6 +33,7 @@ add_executable ( HandlerTester
         CheckinHandlerTester.cpp
         EditProfileHandlerTester.cpp
         UserDataRequestTester.cpp
+        ConversacionHandlerTester.cpp
         )
 target_link_libraries ( HandlerTester requestHandlers )
 

@@ -9,8 +9,7 @@ ListConversationsRequest::ListConversationsRequest(IDataService &service) : Requ
 }
 
 
-ListConversationsRequest::~ListConversationsRequest(){
-}
+ListConversationsRequest::~ListConversationsRequest() { }
 
 
 
@@ -20,13 +19,12 @@ Response ListConversationsRequest::GetResponseData(){
 
     // Chequea que el token sea valido
     if ( !this->m_dataService.IsTokenActive(dto.Token) ){
-        Response invalid_resp( 403, "" );
-        return invalid_resp;
+        return Response( 403, "" );
     }
 
     ListConversationsDTO resul;
 
-// Extrae de la BD la lista de usuarios conectados y sus estados
+    // Extrae de la BD la lista de usuarios conectados y sus estados
     for ( auto stat : this->m_dataService.ListActiveConversations(dto.Token) ){
         // Carga el listado de usuarios conectados y sus estados
         ConversationDTO conv;
@@ -39,6 +37,5 @@ Response ListConversationsRequest::GetResponseData(){
     }
     
     // Crea la respuesta
-    Response resp( 200, resul.ToJSON() );
-    return resp;
+    return Response( 200, resul.ToJSON() );
 }
