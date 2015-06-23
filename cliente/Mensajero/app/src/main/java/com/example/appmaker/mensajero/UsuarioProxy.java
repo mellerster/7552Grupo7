@@ -34,6 +34,7 @@ import java.util.List;
 
 /**
  * Created by diego on 19/04/15.
+ * Clase encargada de conectarse con el server y hacer los request
  */
 
 public class UsuarioProxy extends ProxyBase {
