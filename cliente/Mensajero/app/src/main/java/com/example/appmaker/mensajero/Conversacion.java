@@ -35,7 +35,7 @@ public class Conversacion implements Serializable {
     }
 
     /**
-     *
+     * Agrega un mensaje a la conversación
      * @param mensaje sera agregado a los mensajes de la conversacion
      */
     public void agregarMensaje(Mensaje mensaje) {
@@ -43,7 +43,7 @@ public class Conversacion implements Serializable {
     }
 
     /**
-     *
+     * Obtiene un listado tipado de objetos Mensaje con los mensajes de la conversación
      * @return todos los mensajes de esta conversacion
      */
     public List<Mensaje> getMensajes() {
@@ -51,7 +51,7 @@ public class Conversacion implements Serializable {
     }
 
     /**
-     *
+     * Obtiene el texto del mensaje pero formateado
      * @return representacion de toda la conversacion en un unico String formateado mediante html
      */
     public Spanned getStringFormateado() {
@@ -62,23 +62,25 @@ public class Conversacion implements Serializable {
         return Html.fromHtml(resultado);
     }
 
-    private Spanned inicializarConversacion() {
-        if (mensajes.get(0).getRemitente().equals(conversanteUno)) {
-            return mensajes.get(0).getStringRemitentePropio();
-        }
-        return mensajes.get(0).getStringRemitenteAjeno();
-    }
-
+    /**
+     * Obtiene el conversante uno de la conversacion (el usuario logueado)
+     * @return el usuario logueado
+     */
     public Usuario getConversanteUno() {
         return conversanteUno;
     }
 
+    /**
+     * Obtiene el conversarte dos de la conversacion (el usuario remoto)
+     * @return el usuario remoto
+     */
     public Usuario getConversanteDos() {
         return conversanteDos;
     }
 
     /**
-     *
+     * Obtiene el ultimo mensaje de la conversacion para el listado, lo devuelve formateado
+     * en negrita si no fue leido
      * @return cuerpo del ultimo mensaje de esta conversacion
      */
     public Spanned getUltimoMensaje() {
@@ -95,8 +97,8 @@ public class Conversacion implements Serializable {
     }
 
     /**
-     *
-     * @return el id de la conversacion para comunicacion con el servidor
+     * Obtiene el id de la conversación para comunicación con el servidor
+     * @return el id de la conversacion
      */
     public long getIdConversacion(){
         return this.idConversacion;
