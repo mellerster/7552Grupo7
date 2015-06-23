@@ -6,13 +6,13 @@
 
 
 
-/**
- * Contiene todos los datos necesarios para hacer la consulta de checkin.
+/** Contiene todos los datos necesarios realizar un broadcast.
  *
  * Se mapea a un JSON de la siguiente forma:
  *
  *      {
  *        Token: 0,
+ *        Mensaje: "",
  *      } 
  * */
 class BroadcastDTO : public BaseDTO {
