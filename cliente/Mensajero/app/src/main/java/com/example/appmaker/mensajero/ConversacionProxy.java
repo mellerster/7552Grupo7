@@ -17,16 +17,21 @@ import java.util.List;
 
 /**
  * Created by diego on 12/06/15.
+ * Clase encargada de conectarse con el server y hacer los request
  */
 public class ConversacionProxy extends ProxyBase {
 
+    /**
+     * Crea un proxy para comunicarse con el servidor
+     * @param sharedPref que tiene la actividad para saber a donde conectarse
+     */
     public ConversacionProxy(SharedPreferences sharedPref){
         super(sharedPref);
     }
 
     /**
      * Obtiene el listado de chats del servidor
-     * @return listado de conversaciones con el ultimo mensaje de la conversacion
+     * @return vector de conversaciones con el ultimo mensaje de la conversacion
      */
     public Conversacion[] getConversaciones(){
         long token = UsuarioProxy.getUsuario().getToken();
