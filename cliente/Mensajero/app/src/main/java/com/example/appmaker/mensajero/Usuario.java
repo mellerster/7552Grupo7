@@ -6,6 +6,8 @@ import android.util.Base64;
 
 /**
  * Created by diego on 07/04/15.
+ * Clase que contiene toda la información de un usuario, para pasarla entre las activities
+ * o contra el servidor.
  */
 public class Usuario {
     private String nombre;
