@@ -4,13 +4,17 @@
 #include "json/json.h"
 #include "handlers/dtos/BaseDTO.hpp"
 #include "handlers/dtos/LoginDTO.hpp"
+#include "handlers/dtos/BroadcastDTO.hpp"
 #include "handlers/dtos/PerfilDTO.hpp"
 #include "handlers/dtos/MensajeDTO.hpp"
 #include "handlers/dtos/CheckinDTO.hpp"
 #include "handlers/dtos/ListUsersDTO.hpp"
 #include "handlers/dtos/UserStatusDTO.hpp"
+#include "handlers/dtos/SentMensajeDTO.hpp"
 #include "handlers/dtos/RegistrationDTO.hpp"
+#include "handlers/dtos/ConversationDTO.hpp"
 #include "handlers/dtos/ListaMensajesDTO.hpp"
+#include "handlers/dtos/ListConversationsDTO.hpp"
 
 
 
@@ -685,3 +689,241 @@ TEST_CASE ( "Lista de mensajes DTO - De-codificar" ) {
         REQUIRE ( m1.IDRemitente == dto.Mensajes.front().IDRemitente );
     }
 }
+
+
+TEST_CASE ( "Conversaciones - codificar en JSON" ) {
+    ConversationDTO dto;
+    dto.Token = 123;
+    dto.IDConversacion = 456;
+    dto.UltimoMensaje = "I lost the beat";
+    dto.UltimoMensajeLeido = false;
+    dto.Participantes.push_back( "pepe" );
+    dto.Participantes.push_back( "pepa" );
+
+    SECTION ( "El parseo es exitoso" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "Token e ID conversacion" ) {
+        Json::Value j = dto.ToJSON();
+
+        REQUIRE ( dto.Token == j.get("Token", 0).asUInt() );
+        REQUIRE ( dto.IDConversacion == j.get("IDConversacion", 0).asUInt() );
+    }
+
+    SECTION ( "Mensajes" ) {
+        Json::Value j = dto.ToJSON();
+
+        REQUIRE ( dto.UltimoMensaje == j.get("UltimoMensaje", "x").asString() );
+        REQUIRE ( dto.UltimoMensajeLeido == j.get("UltimoMensajeLeido", false).asBool() );
+    }
+
+    SECTION ( "Participantes" ) {
+        Json::Value j = dto.ToJSON();
+
+        REQUIRE ( j["Participantes"].type() == Json::ValueType::arrayValue );
+        REQUIRE ( j["Participantes"].size() == 2 );
+
+        REQUIRE ( j["Participantes"][0].asString() == "pepe" );
+        REQUIRE ( j["Participantes"][1].asString() == "pepa" );
+    }
+}
+
+
+TEST_CASE ( "Conversaciones - decodificar" ) {
+    Json::Value j;
+    j["Token"] = 123;
+    j["IDConversacion"] = 456;
+    j["UltimoMensaje"] = "Zany";
+    j["UltimoMensajeLeido"] = true;
+
+    j["Participantes"][0] = "Ferb";
+    j["Participantes"][1] = "Not Ferb";
+
+    SECTION ( "Funca" ) {
+        REQUIRE_NOTHROW (
+                ConversationDTO dto( j )
+            );
+    }
+
+    SECTION ( "Token e id conversacion" ) {
+        ConversationDTO dto( j );
+
+        REQUIRE ( 123 == dto.Token );
+        REQUIRE ( 456 == dto.IDConversacion );
+    }
+
+    SECTION ( "Mensajes" ) {
+        ConversationDTO dto( j );
+
+        REQUIRE ( dto.UltimoMensajeLeido );
+        REQUIRE ( "Zany" == dto.UltimoMensaje );
+    }
+
+    SECTION ( "Participantes" ) {
+        ConversationDTO dto( j );
+
+        REQUIRE ( 2 == dto.Participantes.size() );
+        REQUIRE ( "Ferb" == dto.Participantes[0] );
+        REQUIRE ( "Not Ferb" == dto.Participantes[1] );
+    }
+}
+
+
+TEST_CASE ( "Lista de conversaciones - codificar en JSON" ) {
+    ConversationDTO c1;
+    c1.IDConversacion = 456;
+    c1.UltimoMensaje = "Take it a level or two";
+    c1.UltimoMensajeLeido = true;
+
+    ConversationDTO c2;
+    c2.IDConversacion = 466;
+    c2.UltimoMensaje = "Sneakers full of feet";
+    c2.UltimoMensajeLeido = false;
+
+    ListConversationsDTO dto;
+    dto.Token = 789;
+    dto.Conversaciones.push_back( c1 );
+    dto.Conversaciones.push_back( c2 );
+
+    SECTION ( "Parseo a JSON" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "Token" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( dto.Token == parsed.get("Token", 0).asUInt() );
+    }
+
+    SECTION ( "Conversaciones" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed["Conversaciones"].type() == Json::ValueType::arrayValue );
+        REQUIRE ( parsed["Conversaciones"].size() == 2 );
+    }
+}
+
+
+TEST_CASE ( "Lista de conversaciones - decodificar" ) {
+    ConversationDTO c1;
+    c1.IDConversacion = 456;
+    c1.UltimoMensaje = "Take it a level or two";
+    c1.UltimoMensajeLeido = true;
+
+    Json::Value j;
+    j["Token"] = 147;
+    j["Conversaciones"][0] = c1.ToJSON();
+
+    SECTION ( "Parseo" ) {
+        REQUIRE_NOTHROW (
+            ListConversationsDTO dto( j )
+        );
+    }
+
+    SECTION ( "Token" ) {
+        ListConversationsDTO dto( j );
+        REQUIRE ( 147 == dto.Token );
+    }
+
+    SECTION ( "conversaciones" ) {
+        ListConversationsDTO dto( j );
+
+        REQUIRE ( 1 == dto.Conversaciones.size() );
+
+        REQUIRE ( c1.IDConversacion == dto.Conversaciones[0].IDConversacion );
+        REQUIRE ( c1.UltimoMensaje == dto.Conversaciones[0].UltimoMensaje );
+        REQUIRE ( c1.UltimoMensajeLeido == dto.Conversaciones[0].UltimoMensajeLeido );
+    }
+}
+
+
+TEST_CASE ( "Enviar mensaje - codif" ) {
+    SentMensajeDTO dto;
+    dto.Token = 123;
+    dto.ConversacionID = 456;
+    dto.Texto = "Machanized melee";
+
+    SECTION ( "Parseo a JSON" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "Params" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( dto.Token == parsed.get("Token", 0).asUInt() );
+        REQUIRE ( dto.Texto == parsed.get("Texto", "").asString() );
+        REQUIRE ( dto.ConversacionID == parsed.get("IDConversacion", 0).asUInt() );
+    }
+}
+
+
+TEST_CASE ( "Enviar mensaje - decodif" ) {
+    Json::Value j;
+    j["Token"] = 789;
+    j["IDConversacion"] = 963;
+    j["Texto"] = "Android armagedon";
+
+    SECTION ( "Parseo" ) {
+        REQUIRE_NOTHROW (
+                SentMensajeDTO dto( j )
+            );
+    }
+
+    SECTION ( "Parametros" ) {
+        SentMensajeDTO dto( j );
+
+        REQUIRE ( 789 == dto.Token );
+        REQUIRE ( 963 == dto.ConversacionID );
+        REQUIRE ( "Android armagedon" == dto.Texto );
+    }
+}
+
+
+TEST_CASE ( "Broadcast - codif" ) {
+    BroadcastDTO dto;
+    dto.Token = 888;
+    dto.Mensaje = "And make it an A";
+
+    SECTION ( "parseo" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( parsed.type() != Json::ValueType::nullValue );
+    }
+
+    SECTION ( "Params" ) {
+        Json::Value parsed = dto.ToJSON();
+
+        REQUIRE ( dto.Token == parsed.get("Token", 0).asUInt() );
+        REQUIRE ( dto.Mensaje == parsed.get("Mensaje", "").asString() );
+    }
+}
+
+
+TEST_CASE ( "Broadcast - decodif" ) {
+    Json::Value j;
+    j["Token"] = 456;
+    j["Mensaje"] = "but you got that beat";
+
+    SECTION ( "Parseo" ) {
+        REQUIRE_NOTHROW (
+            BroadcastDTO dto( j )
+        );
+    }
+
+    SECTION ( "Params" ) {
+        BroadcastDTO dto( j );
+
+        REQUIRE ( 456 == dto.Token );
+        REQUIRE ( "but you got that beat" == dto.Mensaje );
+    }
+}
+
+
+
