@@ -27,7 +27,7 @@ Dentro de las funcionalidades de la aplicación estan:
 Aplicación
 **********
 
-El cliente es una aplicación nativa Android, la misma va a estar generada en un archivo apk.
+El cliente es una aplicación nativa Android, la misma va a estar generada en un archivo apk. `Descargar de aquí <https://github.com/mellerster/7552Grupo7/blob/Entrega_Final/documentacion/DocumentacionGenerada/MensajerO.apk>`_
 
 Versión minima del sistema operativo
 ====================================
@@ -104,6 +104,11 @@ ConversacionParser
 
 Clase encargada de parsear el stream que envía el servidor hacia el cliente sobre conversaciones.
 
+*************
+Código Fuente
+*************
+
+El código fuente se encuentra documentado con doxygen `aquí <https://github.com/mellerster/7552Grupo7/tree/Entrega_Final/documentacion/DocumentacionGenerada/Documentacion_Codigo_Cliente>`_
 
 ************
 Known Issues

@@ -60,6 +60,8 @@ Cronograma
 
 .. figure:: tareas_semanas_9a13.png
 
+.. figure:: tareas_semanas_14a16.png
+
 Control de Versiones y workflow
 ===============================
 
@@ -71,12 +73,10 @@ En el mismo se realizaron un branch por cada entrega:
 
 * `Segundo Checkpoint <https://github.com/mellerster/7552Grupo7/tree/segundo_checkpoint>`_
 
-* `Entrega Final <>`_
+* `Entrega Final <https://github.com/mellerster/7552Grupo7/tree/Entrega_Final/>`_
 
-.. note:: Falta Entrega Final
-
-Sistema Ticketing
-=================
+Sistema Ticketing (ChangeLog)
+=============================
 
 El sistema de ticketing utilizado fue el de GitHub el mismo se encuentra en `https://github.com/mellerster/7552Grupo7/issues <https://github.com/mellerster/7552Grupo7/issues>`_
 
