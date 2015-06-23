@@ -39,7 +39,7 @@ Pantalla de Lista de Usuarios Conectados
 	:scale: 15 %
 	:align: center
 
-Desde aquí se vera un listado de los usuarios que estan autentificados en el sistema, si toca sobre un usuario podra :ref:`ver el estado <verEstadoPantalla>` del mismo, desde el menu podra ir a :ref:`Mi Perfil <configurarPerfilPantalla>`, :ref:`enviar un mensaje de Broadcast <broadcast>`, realizar el :ref:`Checkin <checkin>` o cerrar sesión de usuario. En la barra superior o con un swipe hacia la derecha podra ir al :ref:`listado de conversaciones <chats>` del usuario autentificado (Chats).
+Desde aquí se vera un listado de los usuarios que estan autentificados en el sistema, si toca sobre un usuario podrá :ref:`ver el estado <verEstadoPantalla>` del mismo, desde el menu podra ir a :ref:`Mi Perfil <configurarPerfilPantalla>`, :ref:`enviar un mensaje de Broadcast <broadcast>`, realizar el :ref:`Checkin <checkin>` o cerrar sesión de usuario. En la barra superior o con un swipe hacia la derecha podra ir al :ref:`listado de conversaciones <chats>` del usuario autentificado (Chats).
 
 .. _configurarPerfilPantalla:
 
@@ -80,10 +80,11 @@ Pantalla de Conversación
 ========================
 
 .. figure:: pantallas_cliente/conversacion.png
-	:scale: 50 %
+	:scale: 15 %
 	:align: center
 
-Aqui podra escribir mensajes hacia otro usuario y recibir los que le envíe este. Sus mensajes apareceran en Celeste y los del otro usuario en verde, para escribir un mensaje toque en el texto "Escriba un mensaje", escriba el mensaje y presione el botón "ENVIAR"
+Aqui podra escribir mensajes hacia otro usuario y recibir los que le envíe este. Sus mensajes apareceran en Celeste y los del otro usuario en verde, para escribir un mensaje toque en el texto "Escriba un mensaje", escriba el mensaje y presione el botón "ENVIAR".
+Desde el menú superior podrá :ref:`ver el estado <verEstadoPantalla>` del usuario de la conversación presionando en el icono con imagen de persona en negro. También podrá regresar al :ref:`listado de usuarios conectados<users>` o :ref:`el de conversaciones<chats>` presionando el icono con la flecha <- o con el boton atras de su dispositivo.
 
 
 .. _broadcast:
