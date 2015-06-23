@@ -7,7 +7,6 @@
 #include "helpers/IPosicionador.hpp"
 #include "DataService.hpp"
 
-#include "Mensaje.hpp"
 #include "Conversacion.hpp"
 
 
@@ -222,76 +221,6 @@ TEST_CASE ( "Listado de convesaciones" ) {
 }
 
 
-TEST_CASE ( "Listado de mensajes" ) {
-    // Mocks
-    MockRepository mocker;
-    IDB* mockedDB = mocker.Mock<IDB>();
-    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
-
-    mocker.OnCall( mockedDB, IDB::Open );
-    mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
-    mocker.OnCall( mockedDB, IDB::Close );
-
-    DataService ds( *mockedDB, *mockedPositionator );
-    unsigned int token = ds.StartSession( "pepe", "1234" );
-
-    SECTION ( "obtener mensaje" ) {
-        std::vector<unsigned int> vecMsjs;
-        vecMsjs.push_back( 890 );
-
-        mocker.ExpectCall( mockedDB, IDB::GetMensajesConversacion ).With( 9 ).Return( vecMsjs );
-        mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 890 ).Return( "Come home Perry" );
-        mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 890 ).Return( "Gravity" );
-
-        // Act
-        std::vector<Mensaje> vecRes = ds.GetMensajes( token, 9 );
-
-        // Assert
-        REQUIRE ( 1 == vecRes.size() );
-
-        REQUIRE ( "Come home Perry" == vecRes.front().Texto );
-        REQUIRE ( "Gravity" == vecRes.front().IDRemitente );
-    }
-
-    SECTION ( "obtener mensajes" ) {
-        std::vector<unsigned int> vecMsjs;
-        vecMsjs.push_back( 890 );
-        vecMsjs.push_back( 891 );
-
-        mocker.ExpectCall( mockedDB, IDB::GetMensajesConversacion ).With( 9 ).Return( vecMsjs );
-        mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 890 ).Return( "Come home Perry" );
-        mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 890 ).Return( "Gravity" );
-
-        mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 891 ).Return( "Summer rocks!" );
-        mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 891 ).Return( "Evil" );
-
-        // Act
-        std::vector<Mensaje> vecRes = ds.GetMensajes( token, 9 );
-
-        // Assert
-        REQUIRE ( 2 == vecRes.size() );
-
-        REQUIRE ( "Come home Perry" == vecRes.front().Texto );
-        REQUIRE ( "Gravity" == vecRes.front().IDRemitente );
-
-        REQUIRE ( "Summer rocks!" == vecRes.back().Texto );
-        REQUIRE ( "Evil" == vecRes.back().IDRemitente );
-    }
-
-    SECTION ( "no hay mensajes" ) {
-        mocker.ExpectCall( mockedDB, IDB::GetMensajesConversacion ).With( 9 ).Return( std::vector<unsigned int>() );
-        mocker.NeverCall( mockedDB, IDB::GetMensaje );
-        mocker.NeverCall( mockedDB, IDB::GetRemitente );
-
-        // Act
-        std::vector<Mensaje> vecRes = ds.GetMensajes( token, 9 );
-
-        // Assert
-        REQUIRE ( 0 == vecRes.size() );
-    }
-}
-
-
 TEST_CASE ( "Get conversacion por usuarios" ) {
     // Mocks
     MockRepository mocker;
@@ -347,7 +276,6 @@ TEST_CASE ( "Get conversacion por usuarios" ) {
         REQUIRE ( 5 == convID );
     }
 
-
     SECTION ( "No existe conversacion" ) {
         std::vector<unsigned int> v1;
         v1.push_back( 9 );
@@ -369,5 +297,55 @@ TEST_CASE ( "Get conversacion por usuarios" ) {
 
 }
 
+
+TEST_CASE ( "Get participantes de una conversacion" ) {
+    // Mocks
+    MockRepository mocker;
+    IDB* mockedDB = mocker.Mock<IDB>();
+    IPosicionador* mockedPositionator = mocker.Mock<IPosicionador>();
+
+    mocker.OnCall( mockedDB, IDB::Open );
+    mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );
+    mocker.OnCall( mockedDB, IDB::Close );
+
+    DataService ds( *mockedDB, *mockedPositionator );
+    unsigned int tok_1 = ds.StartSession( "pepe", "1234" );
+    unsigned int tok_2 = ds.StartSession( "pepa", "4321" );
+
+    SECTION ( "No hay conversacion con los participantes" ) {
+        std::vector<std::string> vecPartis;
+        mocker.ExpectCall( mockedDB, IDB::GetParticipantesConversacion ).Return( vecPartis );
+
+        // Act
+        std::vector<std::string> vecParticipantes = ds.GetParticipantes( tok_1, 5 );
+
+        // Assert
+        REQUIRE ( vecPartis.empty() );
+    }
+
+    SECTION ( "Hay una conversacion con los participantes" ) {
+        std::vector<std::string> vecPartis;
+        vecPartis.push_back( "pepe" );
+        vecPartis.push_back( "pepa" );
+
+        mocker.ExpectCall( mockedDB, IDB::GetParticipantesConversacion ).Return( vecPartis );
+
+        SECTION ( "pedido de Pepe" ) {
+            // Act
+            std::vector<std::string> vecParticipantes = ds.GetParticipantes( tok_1, 5 );
+
+            REQUIRE ( 1 == vecParticipantes.size() );
+            REQUIRE ( "pepa" == vecParticipantes.front() );
+        }
+
+        SECTION ( "pedido de Pepa" ) {
+            // Act
+            std::vector<std::string> vecParticipantes = ds.GetParticipantes( tok_2, 5 );
+
+            REQUIRE ( 1 == vecParticipantes.size() );
+            REQUIRE ( "pepe" == vecParticipantes.front() );
+        }
+    }
+}
 
 

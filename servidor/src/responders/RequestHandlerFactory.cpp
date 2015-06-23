@@ -37,9 +37,6 @@ RequestHandlerFactory::RequestHandlerFactory(IDataService &service) : m_dataServ
 
     m_factoryMap["POST /grupo7/api/mensajes"] = [] (IDataService& ds) { return new SendMessageHandler(ds); };    
     m_factoryMap["GET /grupo7/api/mensajes"] = [] (IDataService& ds) { return new MessageRequest(ds); };    
-
-
-    // TODO: Agregar los responders faltantes
 }
 
 
