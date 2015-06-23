@@ -11,7 +11,21 @@ Funciones
 
 El servidor debe ser capaz de cumplir un número de funciones; estan son:
 
-**TODO**: Listar funciones
+* Servicio de Autenticación
+
+* Servicio de registración de usuarios
+
+* Servicio para delivery de conversaciones
+
+* Servicio para delivery de difusión
+
+* Almacenamiento de conversaciones
+
+* Servicio de consulta de usuarios disponibles
+
+* Checkin de usuarios
+
+* Servicio de administración de perfíl de usuario.
 
 
 ******
@@ -50,6 +64,8 @@ Los diversos tipos de pedidos definidos en el servidor son:
 
 * **Login Request handler**: Permite que un cliente inicie una sesión con el servidor.
 
+* **Logout Request handler**: Permite que un cliente cierre una sesión con el servidor.
+
 * **List Users Request handler**: Devuelve al cliente una lista con todos los usuarios que actualmente tienen una sesión activa en el servidor.
 
 * **User Sign Up Request handler**: Permite que un nuevo usuario se registre en el sistema.
@@ -58,9 +74,15 @@ Los diversos tipos de pedidos definidos en el servidor son:
 
 * **Checkin handler**: Tiene una doble función; guarda la ubucación del usuario y devuelve una descripción del punto conocido mas cercano.
 
+* **Broadcast handler**: Permite que un usuario del sistema envie un mensaje a todos los usuarios conectados.
 
-**TODO:** Listar los otros request handlers
+* **Conversation Request handler**: Permite obtener todos los mensajes de una conversación.
 
+* **List Conversations Request handler**: Permite obtener el listado de conversaciones de un usuario logueado.
+
+* **Message Request handler**: Permite obtener todos los mensajes que no han sido leidos por el usuario logueado.
+
+* **Send Message handler**: Permite al usuario logueado enviar un mensaje a otro usuario del sistema.
 
 Authentication handler
 ----------------------
@@ -84,14 +106,5 @@ Debido al costo que implican estas operaciones, el **Data Service** esta dividid
 * *RocaDB*: Una implementación de la anterior interfaz.
 
 * *SessionHandler*: Un clase "helper" que se encarga del manejo de las sesiones de los usuarios.
-
-
-
-*********
-Operación
-*********
-
-**TODO:** Explicar como controlar el servidor
-
 
 

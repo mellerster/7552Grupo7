@@ -157,11 +157,9 @@ El servidor utiliza un número de librerias externas, estas son:
 Known Issues
 ************
 
-No se encuentra resoluciones a problemas frecuentes por el momento.
 
 ***************
 Troubleshooting
 ***************
 
-No se encuentra resoluciones a problemas frecuentes por el momento.
 
