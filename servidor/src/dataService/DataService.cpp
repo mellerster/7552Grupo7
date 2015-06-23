@@ -326,12 +326,18 @@ std::vector<Mensaje> DataService::GetMensajes(unsigned int token, unsigned int c
     std::vector<unsigned int> lMensajeIDs = this->m_rocaDB.GetMensajesConversacion( convID );
 
     std::vector<Mensaje> vecMsjs;
+    unsigned int lastIdMsg = -1;
     for ( unsigned int msgID : lMensajeIDs ) {
         Mensaje m;
         m.Texto = this->m_rocaDB.GetMensaje( msgID );
         m.IDRemitente = this->m_rocaDB.GetRemitente( msgID );
-
+	lastIdMsg = msgID;
         vecMsjs.push_back( m );
+    }
+    if(vecMsjs.size() > 0){
+	    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
+	    // Todos los mensajes enviados se consideran leidos
+	    this->m_rocaDB.SetIDUltimoMensaje( userID, convID, lastIdMsg );
     }
 
     return vecMsjs;
@@ -343,27 +349,25 @@ std::vector<Mensaje> DataService::GetMensajesNoLeidos(unsigned int token, unsign
         HL_ERROR( logger, "Se trató de recuperar mensajes de un usuario no loggeado." );
         return std::vector<Mensaje>();
     }
-
     std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
     unsigned int idUltimoMensaje = this->m_rocaDB.GetIDUltimoMensaje( userID, convID );
 
     std::vector<Mensaje> lMensajes;
     std::vector<unsigned int> lAllMensajes = this->m_rocaDB.GetMensajesConversacion( convID );
+	if(lAllMensajes.size() > 0){
+	    for ( unsigned int idMsj : lAllMensajes ) {
+		// Si el mensaje es posterior al ultimo mensaje recibido por el usuario: enviarlo
+		if (idMsj > idUltimoMensaje) {
+		    Mensaje m;
+		    m.Texto = this->m_rocaDB.GetMensaje( idMsj );
+		    m.IDRemitente = this->m_rocaDB.GetRemitente( idMsj );
 
-    for ( unsigned int idMsj : lAllMensajes ) {
-        // Si el mensaje es posterior al ultimo mensaje recibido por el usuario: enviarlo
-        if (idMsj > idUltimoMensaje) {
-            Mensaje m;
-            m.Texto = this->m_rocaDB.GetMensaje( idMsj );
-            m.IDRemitente = this->m_rocaDB.GetRemitente( idMsj );
-
-            lMensajes.push_back( m );
-        }
-    }
-
-    // Todos los mensajes enviados se consideran leidos
-    this->m_rocaDB.SetIDUltimoMensaje( userID, convID, lAllMensajes.back() );
-
+		    lMensajes.push_back( m );
+		}
+	    }
+	    // Todos los mensajes enviados se consideran leidos
+	    this->m_rocaDB.SetIDUltimoMensaje( userID, convID, lAllMensajes.back() );
+	}
     return lMensajes;
 }
 
@@ -375,8 +379,8 @@ bool DataService::AgregarMensaje(unsigned int token, unsigned int IDConversacion
     }
 
     std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
-    
-    if (this->m_rocaDB.AgregarMensaje(userID, IDConversacion, texto ) == 0) {
+    unsigned int msgId = this->m_rocaDB.AgregarMensaje(userID, IDConversacion, texto );
+    if (msgId == 0) {
     	HL_ERROR( logger, "Se intento enviar un mensaje pero este no se grabo correctamente." );
     	return false;
     }

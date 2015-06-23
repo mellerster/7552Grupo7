@@ -148,7 +148,6 @@ std::string RocaDB::GetUserKey(std::string userID) const {
 unsigned int RocaDB::CreateNewConversacion(std::vector<std::string> listaUsuarios) {
     // Se genera un ID para la conversación
     unsigned int convID = GenerateNewID();
-
     // Se crea la conversación
     Json::Value jConv;
     jConv["IDMensajes"] = Json::Value( Json::arrayValue );  // Array vacio
