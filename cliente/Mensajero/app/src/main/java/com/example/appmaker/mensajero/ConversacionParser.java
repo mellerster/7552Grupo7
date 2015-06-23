@@ -11,9 +11,16 @@ import java.util.List;
 
 /**
  * Created by diego on 16/06/15.
+ * Clase encargada de transformar la respuesta del servidor en objetos del cliente
  */
 public class ConversacionParser {
 
+    /**
+     * Lee la respuesta del servidor y la tranforma en un vector de conversaciones
+     * @param stream del servidor a leer
+     * @return vector con las conversaciones, primero las no leidas y luego las leidas
+     * @throws IOException
+     */
     public Conversacion[] readConversaciones(InputStream stream) throws IOException{
         List<Conversacion> conversacionesNoLeidas = new ArrayList<>();
         List<Conversacion> conversacionesLeidas = new ArrayList<>();
@@ -58,6 +65,12 @@ public class ConversacionParser {
         return conversacionesNoLeidas.toArray(new Conversacion[conversacionesNoLeidas.size()]);
     }
 
+    /**
+     * Lee una conversacion de la lista, es un metodo interno para agrupar codigo.
+     * @param reader el jsonreader con la información.
+     * @return una conversacion con el último mensaje enviado de la misma.
+     * @throws IOException
+     */
     private Conversacion readConversacionDeLista(JsonReader reader) throws IOException{
         int IdConversacion = -1;
         String UltimoMensaje = "";
@@ -94,6 +107,12 @@ public class ConversacionParser {
         return new Conversacion(IdConversacion,new Mensaje(participantes.get(0),UltimoMensaje,leido),UsuarioProxy.getUsuario(),participantes.get(0));
     }
 
+    /**
+     * Lee una conversacion completa
+     * @param reader jsonreader con la información
+     * @return Una conversacion con todos sus mensajes.
+     * @throws IOException
+     */
     private Conversacion readConversacion(JsonReader reader) throws IOException {
         int IdConversacion = -1;
         Usuario usuarioConversacionCon = null;
@@ -123,6 +142,12 @@ public class ConversacionParser {
         return new Conversacion(IdConversacion,mensajes,UsuarioProxy.getUsuario(),usuarioConversacionCon);
     }
 
+    /**
+     * Metodo publico para leer una conversacion con todos sus mensajes
+     * @param stream el stream que envia el servidor
+     * @return un objeto Conversacion completo
+     * @throws IOException
+     */
     public Conversacion readConversacion(InputStream stream) throws IOException{
         JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
         Conversacion conversacion = null;
@@ -134,6 +159,12 @@ public class ConversacionParser {
         return  conversacion;
     }
 
+    /**
+     * Metodo privado para parsear un mensaje
+     * @param reader el jsonreader con la información a parsear
+     * @return Un objeto Mensaje con el usuario remitente y el cuerpo del mismo
+     * @throws IOException
+     */
     private Mensaje readMensaje(JsonReader reader) throws IOException{
         String idRemitente = "";
         String mensajeCuerpo = "";
@@ -155,28 +186,39 @@ public class ConversacionParser {
         return new Mensaje(new Usuario(idRemitente),mensajeCuerpo);
     }
 
+    /**
+     * Obtiene un listado de mensajes a partir del stream que envia el servidor
+     * @param stream que envia el servidor con la información
+     * @return Un listado tipado de objetos Mensaje
+     * @throws IOException
+     */
     public List<Mensaje> readMensajes(InputStream stream) throws IOException {
         List<Mensaje> mensajes = new ArrayList<>();
         JsonReader reader = new JsonReader(new InputStreamReader(stream, "UTF-8"));
-        reader.beginObject();
-        while(reader.hasNext()){
-            String name = reader.nextName();
-            switch (name) {
-                case "IDConversacion":
-                    reader.skipValue();
-                    break;
-                case "Mensajes":
-                    reader.beginArray();
-                    while (reader.hasNext()) {
-                        Mensaje mensaje = readMensaje(reader);
-                        mensajes.add(mensaje);
-                    }
-                    reader.endArray();
-                    break;
-                default:
-                    reader.skipValue();
-            }
+        try{
+		reader.beginObject();
+		while(reader.hasNext()){
+		    String name = reader.nextName();
+		    switch (name) {
+		        case "IDConversacion":
+		            reader.skipValue();
+		            break;
+		        case "Mensajes":
+		            reader.beginArray();
+		            while (reader.hasNext()) {
+		                Mensaje mensaje = readMensaje(reader);
+		                mensajes.add(mensaje);
+		            }
+		            reader.endArray();
+		            break;
+		        default:
+		            reader.skipValue();
+		    }
+		}
+        } finally {
+        	reader.close();
         }
+        
         return mensajes;
     }
 }
