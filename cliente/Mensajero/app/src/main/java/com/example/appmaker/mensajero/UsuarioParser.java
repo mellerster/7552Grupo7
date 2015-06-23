@@ -13,22 +13,31 @@ import java.util.List;
 
 /**
  * Created by diego on 04/05/15.
+ * Clase encargada de transformar la respuesta del servidor en objetos del cliente
  */
 public class UsuarioParser {
     Usuario usuario;
     InputStream stream;
     boolean statusOk = false;
 
+    /**
+     * Constructor del parser
+     * @param inputStream recibe el stream del servidor para parsear
+     */
     public UsuarioParser(InputStream inputStream) {
         this.stream = inputStream;
     }
 
+    /**
+     * Devuelve el estado que envio el servidor
+     * @return estado del request
+     */
     public boolean getStatusOk(){
         return this.statusOk;
     }
 
     /**
-     * Pasea la lista de usuarios conectados enviada por el servidor
+     * Parsea la lista de usuarios conectados enviada por el servidor
      * @return Una lista generica de usuarios
      * @throws IOException
      */
@@ -69,7 +78,7 @@ public class UsuarioParser {
 
     /**
      * Lee un usuario del Stream enviado por el servidor
-     * @param reader
+     * @param reader el json reader que contiene la información
      * @return el usuario con sus datos cargados
      * @throws IOException
      */
