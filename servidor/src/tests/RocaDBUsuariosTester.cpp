@@ -78,6 +78,12 @@ TEST_CASE ( "Crear y chequear usuario" ) {
         REQUIRE_FALSE ( correcto );
     }
 
+    SECTION ( "Loggear usuario no registrado" ) {
+        bool correcto = db.AutheticateUser( "pepe", "111" );
+
+        REQUIRE_FALSE ( correcto );
+    }
+
     db.Close();
     rocksdb::DestroyDB( "DBUsers.bin", rocksdb::Options() );
 }
