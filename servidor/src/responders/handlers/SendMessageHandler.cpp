@@ -17,10 +17,10 @@ Response SendMessageHandler::GetResponseData(){
     bool success = this->m_dataService.AgregarMensaje( dto.Token, dto.ConversacionID, dto.Texto );
 
     if (success) {
-        return Response(201, "");    // Created status code
+        return Response(200, "");
 
     } else {
-        return Response( 403, "" );
+        return Response(500, "");
     }
 }
 
