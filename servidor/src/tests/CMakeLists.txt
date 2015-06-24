@@ -34,6 +34,7 @@ add_executable ( HandlerTester
         EditProfileHandlerTester.cpp
         UserDataRequestTester.cpp
         ConversacionHandlerTester.cpp
+        MensajesRequestHandlerTester.cpp
         )
 target_link_libraries ( HandlerTester requestHandlers )
 
