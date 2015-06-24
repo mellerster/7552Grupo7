@@ -316,6 +316,7 @@ std::vector<std::string> DataService::GetParticipantes(unsigned int token, unsig
 	return participantes;
 }
 
+
 std::vector<Mensaje> DataService::GetMensajes(unsigned int token, unsigned int convID) {
     if (!IsTokenActive(token)) {
         HL_ERROR( logger, "Se trató de recuperar mensajes de un usuario no loggeado." );
@@ -326,18 +327,18 @@ std::vector<Mensaje> DataService::GetMensajes(unsigned int token, unsigned int c
     std::vector<unsigned int> lMensajeIDs = this->m_rocaDB.GetMensajesConversacion( convID );
 
     std::vector<Mensaje> vecMsjs;
-    unsigned int lastIdMsg = -1;
     for ( unsigned int msgID : lMensajeIDs ) {
         Mensaje m;
         m.Texto = this->m_rocaDB.GetMensaje( msgID );
         m.IDRemitente = this->m_rocaDB.GetRemitente( msgID );
-	lastIdMsg = msgID;
+
         vecMsjs.push_back( m );
     }
-    if(vecMsjs.size() > 0){
+
+    // Se marcan todos los mensajes recuperados como leidos
+    if (!vecMsjs.empty()) {
 	    std::string userID = this->m_sessionHandler.GetAssociatedUserID( token );
-	    // Todos los mensajes enviados se consideran leidos
-	    this->m_rocaDB.SetIDUltimoMensaje( userID, convID, lastIdMsg );
+	    this->m_rocaDB.SetIDUltimoMensaje( userID, convID, lMensajeIDs.back() );
     }
 
     return vecMsjs;
