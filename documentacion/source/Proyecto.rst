@@ -73,7 +73,13 @@ En el mismo se realizaron un branch por cada entrega:
 
 * `Segundo Checkpoint <https://github.com/mellerster/7552Grupo7/tree/segundo_checkpoint>`_
 
+<<<<<<< HEAD
 * `Entrega Final <https://github.com/mellerster/7552Grupo7/tree/Entrega_Final/>`_
+=======
+* `Entrega Final <https://github.com/mellerster/7552Grupo7/tree/Entrega_Final>`_
+
+
+>>>>>>> 9317de83db5ff26d841448fabb53ce5d36b483e3
 
 Sistema Ticketing (ChangeLog)
 =============================

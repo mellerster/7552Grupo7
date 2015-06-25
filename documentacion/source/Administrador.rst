@@ -8,11 +8,12 @@ Get Started
 
 Para poder compilar y/o correr la aplicación servidor necesitarán:
 
-1. [RocksDB] (https://github.com/facebook/rocksdb "Repositorio github de rocksDB")
+1. `RocksDB <https://github.com/facebook/rocksdb>`_: Repositorio github de rocksDB
 
-2. [CMake] (http://www.cmake.org "Sitio oficial de CMake")
+2. `CMake <http://www.cmake.org>`_: Sitio oficial de CMake
 
-3. [Doxygen] (http://www.stack.nl/~dimitri/doxygen/index.html "Sitio oficial de Doxygen") - **Opcional**
+3. `Doxygen <http://www.stack.nl/~dimitri/doxygen/index.html>`_: Sitio oficial de Doxygen - **Opcional**
+
 
 RocksDB
 =======
@@ -142,15 +143,15 @@ Third-party libs
 
 El servidor utiliza un número de librerias externas, estas son:
 
-* [Mongoose] (https://github.com/cesanta/mongoose "Mongoose git repository"): Utilizado como web-server.
+* `Mongoose <https://github.com/cesanta/mongoose>`_: Mongoose web-server.
 
-* [JsonCpp] (https://github.com/open-source-parsers/jsoncpp "JsonCpp git repository"): Utilizado para parsear los datos en formato JSON.
+* `JsonCpp <https://github.com/open-source-parsers/jsoncpp>`_: JsonCpp parser JSON.
 
-* [HumbleLogging] (http://humblelogging.insanefactory.com/ "Página oficial de HumbleLogging"): Framework de loggeo.
+* `HumbleLogging <http://humblelogging.insanefactory.com/>`_: Framework de loggeo.
 
-* [Catch] (https://github.com/philsquared/Catch "Catch git repository"): Framework de testeo.
+* `Catch <https://github.com/philsquared/Catch>`_: Framework de testeo.
 
-* [Hippomocks] (https://github.com/dascandy/hippomocks "Hippomocks git repository"): Framework de mockeo para los tests.
+* `Hippomocks <https://github.com/dascandy/hippomocks>`_: Framework de mockeo para los tests.
 
 
 ************
