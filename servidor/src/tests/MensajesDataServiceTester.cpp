@@ -31,6 +31,7 @@ TEST_CASE ( "Listado de mensajes" ) {
         mocker.ExpectCall( mockedDB, IDB::GetMensajesConversacion ).With( 9 ).Return( vecMsjs );
         mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 890 ).Return( "Come home Perry" );
         mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 890 ).Return( "Gravity" );
+        mocker.ExpectCall( mockedDB, IDB::SetIDUltimoMensaje ).With( "pepe", 9, 890 );
 
         // Act
         std::vector<Mensaje> vecRes = ds.GetMensajes( token, 9 );
@@ -53,6 +54,8 @@ TEST_CASE ( "Listado de mensajes" ) {
 
         mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 891 ).Return( "Summer rocks!" );
         mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 891 ).Return( "Evil" );
+
+        mocker.ExpectCall( mockedDB, IDB::SetIDUltimoMensaje ).With( "pepe", 9, 891 );
 
         // Act
         std::vector<Mensaje> vecRes = ds.GetMensajes( token, 9 );

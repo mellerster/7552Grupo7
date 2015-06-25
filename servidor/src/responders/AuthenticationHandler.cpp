@@ -19,8 +19,8 @@ void AuthenticationHandler::LoadParameters(const char* queryString, const char* 
 }
 
 
-bool AuthenticationHandler::IsResourceAccesible(std::string httpVerb, std::string httpURI){
-    // TODO: Validar que el token este activo para todos los recursos, excepto el login.
+bool AuthenticationHandler::IsResourceAccesible(std::string, std::string){
+    // TODO: Validar que el token este activo para todos los recursos que necesiten validacion
     return true;
 }
 

@@ -1,6 +1,8 @@
 #include "BroadcastHandler.hpp"
 #include "dtos/BroadcastDTO.hpp"
 
+
+
 BroadcastHandler::BroadcastHandler(IDataService &service) : RequestHandler(service) { }
 
 
@@ -12,19 +14,18 @@ Response BroadcastHandler::GetResponseData() {
     BroadcastDTO pedido( this->m_parsedParameters_ContentData );
 
     if ( !this->m_dataService.IsTokenActive(pedido.Token) ){
-        Response invalid_resp( 403, "" );
-        return invalid_resp;
+        return Response( 403, "" );
     }
 	
     // Envia el mensaje en el dataService
     bool success = this->m_dataService.EnviarBroadcast( pedido.Token, pedido.Mensaje );
-    if (success){
-        Response r(201, "");    // Created status code
-        return r;
-    }
 
-    Response invalid_resp( 403, "" );
-    return invalid_resp;
+    if (success){
+        return Response(200, "");
+
+    } else {
+        return Response(500, "");
+    }
 }
 
 
