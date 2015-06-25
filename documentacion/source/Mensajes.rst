@@ -15,9 +15,9 @@ Mensajes GET
 Los parametros de estos mensajes son transmitidos mediante *query strings* en la misma dirección URL.
 
 
-*****************
-grupo7/api/sesion
-*****************
+******************
+/grupo7/api/sesion
+******************
 
 PUT
 ===
@@ -89,9 +89,9 @@ Donde:
 * **Status:** El resultado de la operación; "OK" o "ERR".
 
 
-*******************
-grupo7/api/usuarios
-*******************
+********************
+/grupo7/api/usuarios
+********************
 
 GET
 ===
@@ -266,9 +266,9 @@ Donde:
 
 * **CheckInFechaHora:** La Fecha y Hora cuando se registró el ultimo checkin.
 
-******************
-grupo7/api/checkin
-******************
+*******************
+/grupo7/api/checkin
+*******************
 
 POST
 ====
@@ -448,9 +448,9 @@ Donde:
 
   * **Mensaje:** El texto del mensaje enviado.
 
-************************
+*********************
 /grupo7/api/broadcast
-************************
+*********************
 
 POST
 ====
@@ -580,7 +580,8 @@ Donde:
 
   * **Status:** Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.
 
-
   * **IDRemitente:** El nombre del usuario que envio dicho mensaje,
 
   * **Mensaje:** El texto del mensaje enviado.
+
+
