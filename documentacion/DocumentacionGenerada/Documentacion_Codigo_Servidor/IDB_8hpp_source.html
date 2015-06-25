@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MensajerO - Server: Fichero Fuente src/dataService/rocaDB/IDB.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MensajerO - Server
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Servidor de MensajerO</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_685019b3d6f24dd413d56537e4a2a550.html">dataService</a></li><li class="navelem"><a class="el" href="dir_de73f9386396b5b661977100e2b939ad.html">rocaDB</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">IDB.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef I_DATABASE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define I_DATABASE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classIDB.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classIDB.html">IDB</a> {</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classIDB.html#a1ae15f56d39034b0d7f27f71f1034798">Open</a>(std::string fileName) = 0;</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classIDB.html#addff040fdc9a439d950d1145157ced52">Close</a>() = 0;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDB.html#acd05d90f5de59c2307a44c524ab4a955">CreateUser</a>(std::string userID, std::string password) = 0;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDB.html#ade5facced6f2ec809ee896b43b24e6aa">ExistsUser</a>(std::string userID) = 0;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDB.html#a73aaaf17c64ee29d1d54b05df2d938c0">AutheticateUser</a>(std::string userID, std::string password) = 0;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDB.html#a2878e8d9141b227f21ab7bde2e68b9cc">StoreUserUbicacion</a>(std::string userID, std::string latitud, std::string longitud, std::string fechaHora) = 0;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDB.html#a746ab67b324efc3a2e76e44166c9c910">LoadUserUbicacion</a>(std::string userID, std::string &amp;latitud, std::string &amp;longitud, std::string &amp;fechaHora) = 0;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDB.html#a22fb0f52a7fb88becd04fab09063590a">StoreUserFoto</a>(std::string userID, std::string foto) = 0;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classIDB.html#aab2685abeeeff35e29a9f7d423728e39">LoadUserFoto</a>(std::string userID, std::string &amp;foto) = 0;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classIDB.html#a846acf7da2aacb74e01d5f7a44f7f359">CreateNewConversacion</a>(std::vector&lt;std::string&gt; listaUsuarios) = 0;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;unsigned int&gt; <a class="code" href="classIDB.html#a142c375dc75a17c25cb2e9613304e2ea">GetConversaciones</a>(std::string userID) = 0;</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;unsigned int&gt; <a class="code" href="classIDB.html#a48af41ff37251cb83470051bcb238623">GetMensajesConversacion</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> conversacionID) = 0;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classIDB.html#a0e7549e5355738f54900a85d2a95a30d">GetParticipantesConversacion</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> conversacionID) = 0;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classIDB.html#adca92f0c59d87b2bfe9f51e090f1c215">GetIDUltimoMensaje</a>(std::string userID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> conversacionID) = 0;</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classIDB.html#ad9047de01f756901976427042392513f">SetIDUltimoMensaje</a>(std::string userID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> conversacionID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mensajeID) = 0;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classIDB.html#a3dbf136ca16e574b4710b42a190abd01">AgregarMensaje</a>(std::string userID, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> IDConversacion, std::string texto) = 0;</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classIDB.html#ae394f6b9a07a2878629e0933468d101b">GetMensaje</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mensajeID) = 0;</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classIDB.html#a5ca2bb261a630b6d32414b86d78f46f6">GetRemitente</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mensajeID) = 0;</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classIDB.html">IDB</a>() { }</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;};</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;</div>
+<div class="ttc" id="classIDB_html_aab2685abeeeff35e29a9f7d423728e39"><div class="ttname"><a href="classIDB.html#aab2685abeeeff35e29a9f7d423728e39">IDB::LoadUserFoto</a></div><div class="ttdeci">virtual bool LoadUserFoto(std::string userID, std::string &amp;foto)=0</div><div class="ttdoc">Recupera la fotografia de un usuario. </div></div>
+<div class="ttc" id="classIDB_html_a2878e8d9141b227f21ab7bde2e68b9cc"><div class="ttname"><a href="classIDB.html#a2878e8d9141b227f21ab7bde2e68b9cc">IDB::StoreUserUbicacion</a></div><div class="ttdeci">virtual bool StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud, std::string fechaHora)=0</div><div class="ttdoc">Guarda la ubicación de un usuario. </div></div>
+<div class="ttc" id="classIDB_html_ade5facced6f2ec809ee896b43b24e6aa"><div class="ttname"><a href="classIDB.html#ade5facced6f2ec809ee896b43b24e6aa">IDB::ExistsUser</a></div><div class="ttdeci">virtual bool ExistsUser(std::string userID)=0</div><div class="ttdoc">Indica si ya existe el nombre de usuario en la base. </div></div>
+<div class="ttc" id="classIDB_html_a22fb0f52a7fb88becd04fab09063590a"><div class="ttname"><a href="classIDB.html#a22fb0f52a7fb88becd04fab09063590a">IDB::StoreUserFoto</a></div><div class="ttdeci">virtual bool StoreUserFoto(std::string userID, std::string foto)=0</div><div class="ttdoc">Guarda la fotografia de un usuario. </div></div>
+<div class="ttc" id="classIDB_html"><div class="ttname"><a href="classIDB.html">IDB</a></div><div class="ttdoc">La interfaz de la base de datos. </div><div class="ttdef"><b>Definition:</b> IDB.hpp:12</div></div>
+<div class="ttc" id="classIDB_html_a846acf7da2aacb74e01d5f7a44f7f359"><div class="ttname"><a href="classIDB.html#a846acf7da2aacb74e01d5f7a44f7f359">IDB::CreateNewConversacion</a></div><div class="ttdeci">virtual unsigned int CreateNewConversacion(std::vector&lt; std::string &gt; listaUsuarios)=0</div><div class="ttdoc">Crea una nueva conversación en la base. </div></div>
+<div class="ttc" id="classIDB_html_a3dbf136ca16e574b4710b42a190abd01"><div class="ttname"><a href="classIDB.html#a3dbf136ca16e574b4710b42a190abd01">IDB::AgregarMensaje</a></div><div class="ttdeci">virtual unsigned int AgregarMensaje(std::string userID, unsigned int IDConversacion, std::string texto)=0</div><div class="ttdoc">Agrega un nuevo mensaje a una conversación. </div></div>
+<div class="ttc" id="classIDB_html_a746ab67b324efc3a2e76e44166c9c910"><div class="ttname"><a href="classIDB.html#a746ab67b324efc3a2e76e44166c9c910">IDB::LoadUserUbicacion</a></div><div class="ttdeci">virtual bool LoadUserUbicacion(std::string userID, std::string &amp;latitud, std::string &amp;longitud, std::string &amp;fechaHora)=0</div><div class="ttdoc">Recupera la ubicación de un usuario. </div></div>
+<div class="ttc" id="classIDB_html_a0e7549e5355738f54900a85d2a95a30d"><div class="ttname"><a href="classIDB.html#a0e7549e5355738f54900a85d2a95a30d">IDB::GetParticipantesConversacion</a></div><div class="ttdeci">virtual std::vector&lt; std::string &gt; GetParticipantesConversacion(unsigned int conversacionID)=0</div><div class="ttdoc">Devuelve los IDs de todos los participantes contenidos en la conversación dada. </div></div>
+<div class="ttc" id="classIDB_html_a48af41ff37251cb83470051bcb238623"><div class="ttname"><a href="classIDB.html#a48af41ff37251cb83470051bcb238623">IDB::GetMensajesConversacion</a></div><div class="ttdeci">virtual std::vector&lt; unsigned int &gt; GetMensajesConversacion(unsigned int conversacionID)=0</div><div class="ttdoc">Devuelve los IDs de todos los mensajes contenidos en la conversación dada. </div></div>
+<div class="ttc" id="classIDB_html_adca92f0c59d87b2bfe9f51e090f1c215"><div class="ttname"><a href="classIDB.html#adca92f0c59d87b2bfe9f51e090f1c215">IDB::GetIDUltimoMensaje</a></div><div class="ttdeci">virtual unsigned int GetIDUltimoMensaje(std::string userID, unsigned int conversacionID)=0</div><div class="ttdoc">Devuelve el ID del ultimo mensaje recibido por el usuario en la conversación dada. </div></div>
+<div class="ttc" id="classIDB_html_a142c375dc75a17c25cb2e9613304e2ea"><div class="ttname"><a href="classIDB.html#a142c375dc75a17c25cb2e9613304e2ea">IDB::GetConversaciones</a></div><div class="ttdeci">virtual std::vector&lt; unsigned int &gt; GetConversaciones(std::string userID)=0</div><div class="ttdoc">Devuelve todas las conversaciónes de un usuario dado. </div></div>
+<div class="ttc" id="classIDB_html_a5ca2bb261a630b6d32414b86d78f46f6"><div class="ttname"><a href="classIDB.html#a5ca2bb261a630b6d32414b86d78f46f6">IDB::GetRemitente</a></div><div class="ttdeci">virtual std::string GetRemitente(unsigned int mensajeID)=0</div><div class="ttdoc">Recupera el user ID del remitente de un mensaje. </div></div>
+<div class="ttc" id="classIDB_html_acd05d90f5de59c2307a44c524ab4a955"><div class="ttname"><a href="classIDB.html#acd05d90f5de59c2307a44c524ab4a955">IDB::CreateUser</a></div><div class="ttdeci">virtual bool CreateUser(std::string userID, std::string password)=0</div><div class="ttdoc">Crea un usuario en la base, si ya existe lo reemplaza. </div></div>
+<div class="ttc" id="classIDB_html_addff040fdc9a439d950d1145157ced52"><div class="ttname"><a href="classIDB.html#addff040fdc9a439d950d1145157ced52">IDB::Close</a></div><div class="ttdeci">virtual void Close()=0</div><div class="ttdoc">Closes the database, if it&#39;s open. </div></div>
+<div class="ttc" id="classIDB_html_ad9047de01f756901976427042392513f"><div class="ttname"><a href="classIDB.html#ad9047de01f756901976427042392513f">IDB::SetIDUltimoMensaje</a></div><div class="ttdeci">virtual void SetIDUltimoMensaje(std::string userID, unsigned int conversacionID, unsigned int mensajeID)=0</div><div class="ttdoc">Setea el mensaje dado como ultimo mensaje recibido. </div></div>
+<div class="ttc" id="classIDB_html_a1ae15f56d39034b0d7f27f71f1034798"><div class="ttname"><a href="classIDB.html#a1ae15f56d39034b0d7f27f71f1034798">IDB::Open</a></div><div class="ttdeci">virtual void Open(std::string fileName)=0</div><div class="ttdoc">Opens the database contained in the given file. </div></div>
+<div class="ttc" id="classIDB_html_ae394f6b9a07a2878629e0933468d101b"><div class="ttname"><a href="classIDB.html#ae394f6b9a07a2878629e0933468d101b">IDB::GetMensaje</a></div><div class="ttdeci">virtual std::string GetMensaje(unsigned int mensajeID)=0</div><div class="ttdoc">Recupera el texto del mensaje dado. </div></div>
+<div class="ttc" id="classIDB_html_a73aaaf17c64ee29d1d54b05df2d938c0"><div class="ttname"><a href="classIDB.html#a73aaaf17c64ee29d1d54b05df2d938c0">IDB::AutheticateUser</a></div><div class="ttdeci">virtual bool AutheticateUser(std::string userID, std::string password)=0</div><div class="ttdoc">Chequea que el password corresponda al usuario dado. </div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado el Miércoles, 24 de Junio de 2015 22:24:37 para MensajerO - Server por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

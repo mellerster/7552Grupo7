@@ -1,0 +1,276 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - dataService/IDataService.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">dataService</a> - IDataService.hpp<span style="font-size: 80%;"> (source / <a href="IDataService.hpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-24</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">2</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryLo">66.7 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #ifndef IDATA_SERVICE_H</a>
+<span class="lineNum">       2 </span>            : #define IDATA_SERVICE_H
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span>            : #include &lt;string&gt;
+<span class="lineNum">       6 </span>            : #include &lt;vector&gt;
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : #include &quot;UserStatus.hpp&quot;
+<span class="lineNum">       9 </span>            : #include &quot;UserProfile.hpp&quot;
+<span class="lineNum">      10 </span>            : #include &quot;Mensaje.hpp&quot;
+<span class="lineNum">      11 </span>            : #include &quot;Conversacion.hpp&quot;
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : 
+<a name="15"><span class="lineNum">      15 </span>            : /** La interfaz que todos los servicios de persistencia de datos deben implementar.</a>
+<span class="lineNum">      16 </span>            :  * */
+<span class="lineNum">      17 </span><span class="lineCov">        100 : class IDataService {</span>
+<span class="lineNum">      18 </span>            :     public:
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span>            :         /** Indica si el token esta relacionado con alguna sesión activa.
+<span class="lineNum">      21 </span>            :          *
+<span class="lineNum">      22 </span>            :          * Un token activo es aquel que se encuentra asociado a un usuario conectado al sistema.
+<span class="lineNum">      23 </span>            :          *
+<span class="lineNum">      24 </span>            :          * @param[in] tok   El token a validar
+<span class="lineNum">      25 </span>            :          *
+<span class="lineNum">      26 </span>            :          * @returns  True si el token es valido, false si no.
+<span class="lineNum">      27 </span>            :          * */
+<span class="lineNum">      28 </span>            :         virtual bool IsTokenActive(unsigned int tok) = 0;
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span>            :         /** Comienza la sesión del usuario si este ya esta registrado en el sistema.
+<span class="lineNum">      32 </span>            :          *
+<span class="lineNum">      33 </span>            :          * Chequea si el nombre de usuario y el password estan en la base de datos; Si lo estan se
+<span class="lineNum">      34 </span>            :          * genera una nueva sesion asociada al usuario, si ya existia una sesion activa se la reemplaza,
+<span class="lineNum">      35 </span>            :          * y devuelve un token que representa esa sesión.
+<span class="lineNum">      36 </span>            :          *
+<span class="lineNum">      37 </span>            :          * Si el nombre de usuario y password NO estan en la base de datos se devuelve un token nulo.
+<span class="lineNum">      38 </span>            :          *
+<span class="lineNum">      39 </span>            :          * @param[in] nombreUsuario   El nombre de usuario del cliente.
+<span class="lineNum">      40 </span>            :          * @param[in] password   El password asociado al nombre de usuario.
+<span class="lineNum">      41 </span>            :          *
+<span class="lineNum">      42 </span>            :          * @returns  Un token que representa la nueva sesión del usuario, &quot;0&quot; si no.
+<span class="lineNum">      43 </span>            :          * */
+<span class="lineNum">      44 </span>            :         virtual unsigned int StartSession(std::string nombreUsuario, std::string password) = 0;
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            : 
+<span class="lineNum">      47 </span>            :         /** Termina la sesión del usuario al que pertenece el token.
+<span class="lineNum">      48 </span>            :          *
+<span class="lineNum">      49 </span>            :          * Si el token no existe no hace nada.
+<span class="lineNum">      50 </span>            :          *
+<span class="lineNum">      51 </span>            :          * @param[in] token     El token asociado a un usuario.
+<span class="lineNum">      52 </span>            :          * */
+<span class="lineNum">      53 </span>            :         virtual void EndSession(unsigned int token) = 0;
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span>            : 
+<span class="lineNum">      56 </span>            :         /** Registra un nuevo usuario en el sistema.
+<span class="lineNum">      57 </span>            :          *
+<span class="lineNum">      58 </span>            :          * Inicializa todos los elementos relacionados con un usuario del sistema.
+<span class="lineNum">      59 </span>            :          * El nombre de usuario debe ser unico ya que es la forma de identificar a cada usuario que pertenece al sistema.
+<span class="lineNum">      60 </span>            :          *
+<span class="lineNum">      61 </span>            :          * @param[in] nombreUsuario   El nombre del usuario, unico para cada usuario.
+<span class="lineNum">      62 </span>            :          * @param[in] password   El password associado al nombre de usuario.
+<span class="lineNum">      63 </span>            :          *
+<span class="lineNum">      64 </span>            :          * @returns  True si se completó la registración en forma exitosa, false si no.
+<span class="lineNum">      65 </span>            :          * */
+<span class="lineNum">      66 </span>            :         virtual bool RegisterNewUser(std::string nombreUsuario, std::string password) = 0;
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span>            :         /** Devuelve el listado con todos los usuarios conectados al sistema.
+<span class="lineNum">      70 </span>            :          *
+<span class="lineNum">      71 </span>            :          * @returns  Una lista con los datos de los usuarios conectados
+<span class="lineNum">      72 </span>            :          * */
+<span class="lineNum">      73 </span>            :         virtual std::vector&lt;UserStatus&gt; ListActiveUsers() = 0;
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            : 
+<span class="lineNum">      76 </span>            :         /** Devuelve un arreglo con el resumen de las conversaciones activas del usuario.
+<span class="lineNum">      77 </span>            :          *
+<span class="lineNum">      78 </span>            :          * @param[in] token   Asociado al usuario activo.
+<span class="lineNum">      79 </span>            :          *
+<span class="lineNum">      80 </span>            :          * @returns Una lista con el resumen de las conversaciones activas del usuario dado.
+<span class="lineNum">      81 </span>            :          * */
+<span class="lineNum">      82 </span>            :         virtual std::vector&lt;Conversacion&gt; ListActiveConversations(unsigned int token) = 0;
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            :         
+<span class="lineNum">      85 </span>            :         /** Devuelve los mensajes de la conversación dada.
+<span class="lineNum">      86 </span>            :          *
+<span class="lineNum">      87 </span>            :          * @param[in] token     El token de un usuario conectado.
+<span class="lineNum">      88 </span>            :          * @param[in] convID    El ID de la conversación cuyos mensajes se desea.
+<span class="lineNum">      89 </span>            :          *
+<span class="lineNum">      90 </span>            :          * @returns Una lista con TODOS los mensajes de la conversación.
+<span class="lineNum">      91 </span>            :          * */
+<span class="lineNum">      92 </span>            :         virtual std::vector&lt;Mensaje&gt; GetMensajes(unsigned int token, unsigned int convID) = 0;
+<span class="lineNum">      93 </span>            : 
+<span class="lineNum">      94 </span>            : 
+<span class="lineNum">      95 </span>            :         /** Devuelve los mensajes de una conversación marcados como no-leidos.
+<span class="lineNum">      96 </span>            :          *
+<span class="lineNum">      97 </span>            :          * @param[in] token     El token de un usuario conectado.
+<span class="lineNum">      98 </span>            :          * @param[in] convID    El ID de la conversación cuyos mensajes se desea.
+<span class="lineNum">      99 </span>            :          *
+<span class="lineNum">     100 </span>            :          * @returns Una lista con los mensajes no leidos de la conversación.
+<span class="lineNum">     101 </span>            :          * */
+<span class="lineNum">     102 </span>            :         virtual std::vector&lt;Mensaje&gt; GetMensajesNoLeidos(unsigned int token, unsigned int convID) = 0;
+<span class="lineNum">     103 </span>            : 
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span>            :         /** Devuelve los participantes de la conversación dada.
+<span class="lineNum">     106 </span>            :          *
+<span class="lineNum">     107 </span>            :          * @param[in] token     El token de un usuario conectado.
+<span class="lineNum">     108 </span>            :          * @param[in] convID    El ID de la conversación cuyos mensajes se desea.
+<span class="lineNum">     109 </span>            :          *
+<span class="lineNum">     110 </span>            :          * @returns Una lista con los participantes de la conversación que no es el usuario del token.
+<span class="lineNum">     111 </span>            :          * */
+<span class="lineNum">     112 </span>            :         virtual std::vector&lt;std::string&gt; GetParticipantes(unsigned int token, unsigned int convID) = 0;
+<span class="lineNum">     113 </span>            :          
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span>            :         /** Devuelve el ID de la conversación entre los dos usuarios o crea una nueva si no existe.
+<span class="lineNum">     116 </span>            :          *
+<span class="lineNum">     117 </span>            :          * @param[in] token     El token de un usuario conectado que participa en la conversación.
+<span class="lineNum">     118 </span>            :          * @param[in] IDdestinatario    El ID del otro participante de la conversación.
+<span class="lineNum">     119 </span>            :          *
+<span class="lineNum">     120 </span>            :          * @returns El ID de una nueva conversación.
+<span class="lineNum">     121 </span>            :          * */
+<span class="lineNum">     122 </span>            :         virtual unsigned int GetConversacion(unsigned int token, std::string IDdestinatario) = 0;
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span>            : 
+<span class="lineNum">     125 </span>            :         /** Agrega un nuevo mensaje a una conversacion por un usuario en el sistema.
+<span class="lineNum">     126 </span>            :          *
+<span class="lineNum">     127 </span>            :          * @param[in] token     El token de un usuario conectado.
+<span class="lineNum">     128 </span>            :          * @param[in] IDConversacion   El ID de la conversación del mensaje que se agrega.
+<span class="lineNum">     129 </span>            :          * @param[in] texto   El cuerpo del mensaje que se agrega.         
+<span class="lineNum">     130 </span>            :          *
+<span class="lineNum">     131 </span>            :          * @returns  True si se completó la operación en forma exitosa, false si no.
+<span class="lineNum">     132 </span>            :          * */
+<span class="lineNum">     133 </span>            :         virtual bool AgregarMensaje(unsigned int token, unsigned int IDConversacion , std::string texto) = 0;
+<span class="lineNum">     134 </span>            : 
+<span class="lineNum">     135 </span>            :         
+<span class="lineNum">     136 </span>            :         /** Devuelve los datos del usuario dado.
+<span class="lineNum">     137 </span>            :          *
+<span class="lineNum">     138 </span>            :          * @param[in] token     El token asociado al usuario del que se desea obtener los datos.
+<span class="lineNum">     139 </span>            :          * @param[in] userID    El ID del usuario del que se desea ver el perfil.
+<span class="lineNum">     140 </span>            :          *
+<span class="lineNum">     141 </span>            :          * @returns  Los datos que conforman el perfil del usuario.
+<span class="lineNum">     142 </span>            :          * */
+<span class="lineNum">     143 </span>            :         virtual UserProfile GetUserProfile(unsigned int token, std::string userID) = 0;
+<span class="lineNum">     144 </span>            : 
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            :         /** Devuelve un texto descriptivo del lugar mas cercano al ultimo lugar reportado por el usuario.
+<span class="lineNum">     147 </span>            :          *
+<span class="lineNum">     148 </span>            :          * @param[in] token     El token asociado al usuario del que se desea obtener la ubicación.
+<span class="lineNum">     149 </span>            :          *
+<span class="lineNum">     150 </span>            :          * @returns  Un texto asociado al lugar mas cercano a la ubicacion del usuario.
+<span class="lineNum">     151 </span>            :          * */
+<span class="lineNum">     152 </span>            :         virtual std::string GetCheckinLocations(unsigned int token) = 0;
+<span class="lineNum">     153 </span>            : 
+<span class="lineNum">     154 </span>            : 
+<span class="lineNum">     155 </span>            :         /** Reemplaza los datos de la ubicación del usuario.
+<span class="lineNum">     156 </span>            :          *
+<span class="lineNum">     157 </span>            :          * Se identifica al usuario mediante su token.
+<span class="lineNum">     158 </span>            :          *
+<span class="lineNum">     159 </span>            :          * @param[in] token     El token asociado al usuario que se desea modificar.
+<span class="lineNum">     160 </span>            :          * @param[in] latitud
+<span class="lineNum">     161 </span>            :          * @param[in] longitud
+<span class="lineNum">     162 </span>            :          * @param[in] fechaHora La fecha y hora cuando el usuario informó su ubicación.
+<span class="lineNum">     163 </span>            :          * */
+<span class="lineNum">     164 </span>            :         virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud, std::string fechaHora) = 0;
+<span class="lineNum">     165 </span>            : 
+<span class="lineNum">     166 </span>            : 
+<span class="lineNum">     167 </span>            :         /** Reemplaza la foto del perfil del usuario.
+<span class="lineNum">     168 </span>            :          * 
+<span class="lineNum">     169 </span>            :          * Se identifica al usuario mediante su token.
+<span class="lineNum">     170 </span>            :          *
+<span class="lineNum">     171 </span>            :          * @param[in] token El token asociado al usuario que se desea modificar.
+<span class="lineNum">     172 </span>            :          * @param[in] foto  Los datos binarios correspondientes a la foto a reemplazar.
+<span class="lineNum">     173 </span>            :          * */
+<span class="lineNum">     174 </span>            :         virtual void ReplaceFoto(unsigned int token, std::string foto) = 0;
+<span class="lineNum">     175 </span>            : 
+<span class="lineNum">     176 </span>            : 
+<span class="lineNum">     177 </span>            :         /** Cambia el estado de un usuario conectado.
+<span class="lineNum">     178 </span>            :          * 
+<span class="lineNum">     179 </span>            :          * @param[in] token El token asociado al usuario que se desea modificar.
+<span class="lineNum">     180 </span>            :          * @param[in] estado  El nuevo estado asociado al usuario: &quot;C&quot; o &quot;D&quot;.
+<span class="lineNum">     181 </span>            :          * */
+<span class="lineNum">     182 </span>            :         virtual void ChangeEstado(unsigned int token, std::string estado) = 0;
+<span class="lineNum">     183 </span>            :         
+<span class="lineNum">     184 </span>            :         /** Envia el mensaje dado a todos los usuarios conectados.
+<span class="lineNum">     185 </span>            :          *
+<span class="lineNum">     186 </span>            :          * @param[in] token El token asociado al usuario que envia el mensaje.
+<span class="lineNum">     187 </span>            :          * @param[in] texto El mensaje a enviar.
+<span class="lineNum">     188 </span>            :          *
+<span class="lineNum">     189 </span>            :          * @returns  True si se completó la operación en forma exitosa, false si no.
+<span class="lineNum">     190 </span>            :          * */
+<span class="lineNum">     191 </span>            :         virtual bool EnviarBroadcast(unsigned int token, std::string texto) = 0;
+<a name="192"><span class="lineNum">     192 </span>            : </a>
+<span class="lineNum">     193 </span>            : 
+<span class="lineNum">     194 </span><span class="lineCov">        100 :         virtual ~IDataService() { } </span>
+<span class="lineNum">     195 </span>            : 
+<span class="lineNum">     196 </span>            : };
+<span class="lineNum">     197 </span>            : 
+<span class="lineNum">     198 </span>            : 
+<span class="lineNum">     199 </span>            : #endif
+<span class="lineNum">     200 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

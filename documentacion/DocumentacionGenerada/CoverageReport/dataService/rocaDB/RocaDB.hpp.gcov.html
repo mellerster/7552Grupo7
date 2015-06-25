@@ -1,0 +1,176 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - dataService/rocaDB/RocaDB.hpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">dataService/rocaDB</a> - RocaDB.hpp<span style="font-size: 80%;"> (source / <a href="RocaDB.hpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-24</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #ifndef ROCA_DATABASE_H</a>
+<span class="lineNum">       2 </span>            : #define ROCA_DATABASE_H
+<span class="lineNum">       3 </span>            : 
+<span class="lineNum">       4 </span>            : #include &lt;stdexcept&gt;
+<span class="lineNum">       5 </span>            : #include &lt;vector&gt;
+<span class="lineNum">       6 </span>            : #include &lt;string&gt;
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span>            : #include &quot;IDB.hpp&quot;
+<span class="lineNum">       9 </span>            : #include &quot;json/json.h&quot;
+<span class="lineNum">      10 </span>            : #include &quot;rocksdb/db.h&quot;
+<span class="lineNum">      11 </span>            : #include &quot;humblelogging/api.h&quot;
+<span class="lineNum">      12 </span>            : 
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span>            : 
+<span class="lineNum">      15 </span>            : /**
+<span class="lineNum">      16 </span>            :  * Implementación de la base de datos mediante RocksDB.
+<span class="lineNum">      17 </span>            :  * */
+<a name="18"><span class="lineNum">      18 </span>            : class RocaDB : public IDB {</a>
+<span class="lineNum">      19 </span>            :     public:
+<span class="lineNum">      20 </span><span class="lineCov">         52 :         RocaDB() : m_rockdb( nullptr ) { }</span>
+<span class="lineNum">      21 </span>            :         virtual ~RocaDB();
+<span class="lineNum">      22 </span>            : 
+<span class="lineNum">      23 </span>            :         virtual void Open(std::string fileName);
+<span class="lineNum">      24 </span>            :         virtual void Close();
+<span class="lineNum">      25 </span>            : 
+<span class="lineNum">      26 </span>            :         virtual bool ExistsUser(std::string userID);
+<span class="lineNum">      27 </span>            :         virtual bool CreateUser(std::string userID, std::string password);
+<span class="lineNum">      28 </span>            :         virtual bool AutheticateUser(std::string userID, std::string password);
+<span class="lineNum">      29 </span>            :         virtual bool StoreUserUbicacion(std::string userID, std::string latitud, std::string longitud, std::string fechaHora);
+<span class="lineNum">      30 </span>            :         virtual bool LoadUserUbicacion(std::string userID, std::string &amp;latitud, std::string &amp;longitud, std::string &amp;fechaHora);
+<span class="lineNum">      31 </span>            :         virtual bool StoreUserFoto(std::string userID, std::string foto);
+<span class="lineNum">      32 </span>            :         virtual bool LoadUserFoto(std::string userID, std::string &amp;foto);
+<span class="lineNum">      33 </span>            : 
+<span class="lineNum">      34 </span>            :         virtual unsigned int CreateNewConversacion(std::vector&lt;std::string&gt; listaUsuarios);
+<span class="lineNum">      35 </span>            :         virtual std::vector&lt;unsigned int&gt; GetConversaciones(std::string userID);
+<span class="lineNum">      36 </span>            :         virtual std::vector&lt;unsigned int&gt; GetMensajesConversacion(unsigned int conversacionID);
+<span class="lineNum">      37 </span>            :         virtual std::vector&lt;std::string&gt; GetParticipantesConversacion(unsigned int conversacionID);
+<span class="lineNum">      38 </span>            :         virtual unsigned int AgregarMensaje(std::string userID, unsigned int IDConversacion, std::string texto);
+<span class="lineNum">      39 </span>            :         virtual std::string GetMensaje(unsigned int mensajeID);
+<span class="lineNum">      40 </span>            :         virtual std::string GetRemitente(unsigned int mensajeID);
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span>            :         virtual unsigned int GetIDUltimoMensaje(std::string userID, unsigned int conversacionID);
+<span class="lineNum">      43 </span>            :         virtual void SetIDUltimoMensaje(std::string userID, unsigned int conversacionID, unsigned int mensajeID);
+<span class="lineNum">      44 </span>            : 
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span>            :     protected:
+<span class="lineNum">      47 </span>            : 
+<span class="lineNum">      48 </span>            :         /** Dado el Id de un usuario devuelve la clave para acceder a los datos correspondientes.
+<span class="lineNum">      49 </span>            :          * */
+<span class="lineNum">      50 </span>            :         std::string GetUserKey(std::string userID) const;
+<span class="lineNum">      51 </span>            : 
+<span class="lineNum">      52 </span>            : 
+<span class="lineNum">      53 </span>            :         /** Dado el Id de una conversación devuelve la clave para acceder a los datos correspondientes.
+<span class="lineNum">      54 </span>            :          * */
+<span class="lineNum">      55 </span>            :         std::string GetConversationKey(unsigned int convID) const;
+<span class="lineNum">      56 </span>            : 
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span>            :         /** Dado el Id de un mensaje devuelve la clave para acceder a los datos correspondientes.
+<span class="lineNum">      59 </span>            :          * */
+<span class="lineNum">      60 </span>            :         std::string GetMessageKey(unsigned int msgID) const;
+<span class="lineNum">      61 </span>            : 
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span>            :         /** Genera la clave para acceder al ultimo mensaje recibido por el usuario.
+<span class="lineNum">      64 </span>            :          * */
+<span class="lineNum">      65 </span>            :         std::string GetUltimoReciboKey(std::string userID, unsigned int convID) const;
+<span class="lineNum">      66 </span>            : 
+<span class="lineNum">      67 </span>            : 
+<span class="lineNum">      68 </span>            :         /** Genera ids unicos en todo el sistema.
+<span class="lineNum">      69 </span>            :          * */
+<span class="lineNum">      70 </span>            :         unsigned int GenerateNewID();
+<span class="lineNum">      71 </span>            : 
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span>            :     private:
+<span class="lineNum">      74 </span>            : 
+<span class="lineNum">      75 </span>            :         rocksdb::DB* m_rockdb;  /**&lt; La base de datos. */
+<span class="lineNum">      76 </span>            : 
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            :         /** Dado un Slice, devuelve su contenido en un Json.
+<span class="lineNum">      79 </span>            :          *
+<span class="lineNum">      80 </span>            :          * @returns  Un Json con una copia de los datos originales.
+<span class="lineNum">      81 </span>            :          * */
+<span class="lineNum">      82 </span>            :         Json::Value SliceToJson(rocksdb::Slice s) const;
+<span class="lineNum">      83 </span>            : 
+<span class="lineNum">      84 </span>            : 
+<span class="lineNum">      85 </span>            :         /** Dado un Json, devuelve su contenido en un string.
+<span class="lineNum">      86 </span>            :          *
+<span class="lineNum">      87 </span>            :          * Debido a la forma en que los slices funcionan, es necesario guardar una referencia a este string
+<span class="lineNum">      88 </span>            :          * para luego asignarselo a un slice.
+<span class="lineNum">      89 </span>            :          * Esto es porque los slices no tienen una copia de los datos, si no que guardan una referencia a los 
+<span class="lineNum">      90 </span>            :          * datos originales.
+<span class="lineNum">      91 </span>            :          *
+<span class="lineNum">      92 </span>            :          * @returns  Un string con una copia de los datos del Json.
+<span class="lineNum">      93 </span>            :          * */
+<span class="lineNum">      94 </span>            :         std::string JsonToSlice(Json::Value j) const;
+<span class="lineNum">      95 </span>            : 
+<span class="lineNum">      96 </span>            : };
+<span class="lineNum">      97 </span>            : 
+<span class="lineNum">      98 </span>            : 
+<span class="lineNum">      99 </span>            : #endif
+<span class="lineNum">     100 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

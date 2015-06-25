@@ -1,0 +1,375 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - tests/MensajesDataServiceTester.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../index.html">top level</a> - <a href="index.html">tests</a> - MensajesDataServiceTester.cpp<span style="font-size: 80%;"> (source / <a href="MensajesDataServiceTester.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">176</td>
+            <td class="headerCovTableEntry">176</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-24</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &lt;vector&gt;</a>
+<span class="lineNum">       2 </span>            : 
+<span class="lineNum">       3 </span>            : #include &quot;include/catch.hpp&quot;
+<span class="lineNum">       4 </span>            : #include &quot;include/hippomocks.h&quot;
+<span class="lineNum">       5 </span>            : 
+<span class="lineNum">       6 </span>            : #include &quot;rocaDB/IDB.hpp&quot;
+<span class="lineNum">       7 </span>            : #include &quot;helpers/IPosicionador.hpp&quot;
+<span class="lineNum">       8 </span>            : #include &quot;DataService.hpp&quot;
+<span class="lineNum">       9 </span>            : 
+<span class="lineNum">      10 </span>            : #include &quot;Mensaje.hpp&quot;
+<span class="lineNum">      11 </span>            : 
+<a name="12"><span class="lineNum">      12 </span>            : </a>
+<span class="lineNum">      13 </span>            : 
+<span class="lineNum">      14 </span><span class="lineCov">         34 : TEST_CASE ( &quot;Listado de mensajes&quot; ) {</span>
+<span class="lineNum">      15 </span>            :     // Mocks
+<span class="lineNum">      16 </span><span class="lineCov">          6 :     MockRepository mocker;</span>
+<span class="lineNum">      17 </span><span class="lineCov">          6 :     IDB* mockedDB = mocker.Mock&lt;IDB&gt;();</span>
+<span class="lineNum">      18 </span><span class="lineCov">          6 :     IPosicionador* mockedPositionator = mocker.Mock&lt;IPosicionador&gt;();</span>
+<span class="lineNum">      19 </span>            : 
+<span class="lineNum">      20 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::Open );</span>
+<span class="lineNum">      21 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );</span>
+<span class="lineNum">      22 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::Close );</span>
+<span class="lineNum">      23 </span>            : 
+<span class="lineNum">      24 </span><span class="lineCov">         12 :     DataService ds( *mockedDB, *mockedPositionator );</span>
+<span class="lineNum">      25 </span><span class="lineCov">          6 :     unsigned int token = ds.StartSession( &quot;pepe&quot;, &quot;1234&quot; );</span>
+<span class="lineNum">      26 </span>            : 
+<span class="lineNum">      27 </span><span class="lineCov">          6 :     SECTION ( &quot;obtener mensaje&quot; ) {</span>
+<span class="lineNum">      28 </span><span class="lineCov">          2 :         std::vector&lt;unsigned int&gt; vecMsjs;</span>
+<span class="lineNum">      29 </span><span class="lineCov">          2 :         vecMsjs.push_back( 890 );</span>
+<span class="lineNum">      30 </span>            : 
+<span class="lineNum">      31 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetMensajesConversacion ).With( 9 ).Return( vecMsjs );</span>
+<span class="lineNum">      32 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 890 ).Return( &quot;Come home Perry&quot; );</span>
+<span class="lineNum">      33 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 890 ).Return( &quot;Gravity&quot; );</span>
+<span class="lineNum">      34 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::SetIDUltimoMensaje ).With( &quot;pepe&quot;, 9, 890 );</span>
+<span class="lineNum">      35 </span>            : 
+<span class="lineNum">      36 </span>            :         // Act
+<span class="lineNum">      37 </span><span class="lineCov">          4 :         std::vector&lt;Mensaje&gt; vecRes = ds.GetMensajes( token, 9 );</span>
+<span class="lineNum">      38 </span>            : 
+<span class="lineNum">      39 </span>            :         // Assert
+<span class="lineNum">      40 </span><span class="lineCov">          2 :         REQUIRE ( 1 == vecRes.size() );</span>
+<span class="lineNum">      41 </span>            : 
+<span class="lineNum">      42 </span><span class="lineCov">          2 :         REQUIRE ( &quot;Come home Perry&quot; == vecRes.front().Texto );</span>
+<span class="lineNum">      43 </span><span class="lineCov">          4 :         REQUIRE ( &quot;Gravity&quot; == vecRes.front().IDRemitente );</span>
+<span class="lineNum">      44 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">      45 </span>            : 
+<span class="lineNum">      46 </span><span class="lineCov">          6 :     SECTION ( &quot;obtener mensajes&quot; ) {</span>
+<span class="lineNum">      47 </span><span class="lineCov">          2 :         std::vector&lt;unsigned int&gt; vecMsjs;</span>
+<span class="lineNum">      48 </span><span class="lineCov">          2 :         vecMsjs.push_back( 890 );</span>
+<span class="lineNum">      49 </span><span class="lineCov">          2 :         vecMsjs.push_back( 891 );</span>
+<span class="lineNum">      50 </span>            : 
+<span class="lineNum">      51 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetMensajesConversacion ).With( 9 ).Return( vecMsjs );</span>
+<span class="lineNum">      52 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 890 ).Return( &quot;Come home Perry&quot; );</span>
+<span class="lineNum">      53 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 890 ).Return( &quot;Gravity&quot; );</span>
+<span class="lineNum">      54 </span>            : 
+<span class="lineNum">      55 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetMensaje ).With( 891 ).Return( &quot;Summer rocks!&quot; );</span>
+<span class="lineNum">      56 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetRemitente ).With( 891 ).Return( &quot;Evil&quot; );</span>
+<span class="lineNum">      57 </span>            : 
+<span class="lineNum">      58 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::SetIDUltimoMensaje ).With( &quot;pepe&quot;, 9, 891 );</span>
+<span class="lineNum">      59 </span>            : 
+<span class="lineNum">      60 </span>            :         // Act
+<span class="lineNum">      61 </span><span class="lineCov">          4 :         std::vector&lt;Mensaje&gt; vecRes = ds.GetMensajes( token, 9 );</span>
+<span class="lineNum">      62 </span>            : 
+<span class="lineNum">      63 </span>            :         // Assert
+<span class="lineNum">      64 </span><span class="lineCov">          2 :         REQUIRE ( 2 == vecRes.size() );</span>
+<span class="lineNum">      65 </span>            : 
+<span class="lineNum">      66 </span><span class="lineCov">          2 :         REQUIRE ( &quot;Come home Perry&quot; == vecRes.front().Texto );</span>
+<span class="lineNum">      67 </span><span class="lineCov">          2 :         REQUIRE ( &quot;Gravity&quot; == vecRes.front().IDRemitente );</span>
+<span class="lineNum">      68 </span>            : 
+<span class="lineNum">      69 </span><span class="lineCov">          2 :         REQUIRE ( &quot;Summer rocks!&quot; == vecRes.back().Texto );</span>
+<span class="lineNum">      70 </span><span class="lineCov">          4 :         REQUIRE ( &quot;Evil&quot; == vecRes.back().IDRemitente );</span>
+<span class="lineNum">      71 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">      72 </span>            : 
+<span class="lineNum">      73 </span><span class="lineCov">          6 :     SECTION ( &quot;no hay mensajes&quot; ) {</span>
+<span class="lineNum">      74 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetMensajesConversacion ).With( 9 ).Return( std::vector&lt;unsigned int&gt;() );</span>
+<span class="lineNum">      75 </span><span class="lineCov">          2 :         mocker.NeverCall( mockedDB, IDB::GetMensaje );</span>
+<span class="lineNum">      76 </span><span class="lineCov">          2 :         mocker.NeverCall( mockedDB, IDB::GetRemitente );</span>
+<span class="lineNum">      77 </span>            : 
+<span class="lineNum">      78 </span>            :         // Act
+<span class="lineNum">      79 </span><span class="lineCov">          2 :         std::vector&lt;Mensaje&gt; vecRes = ds.GetMensajes( token, 9 );</span>
+<span class="lineNum">      80 </span>            : 
+<span class="lineNum">      81 </span>            :         // Assert
+<span class="lineNum">      82 </span><span class="lineCov">          2 :         REQUIRE ( 0 == vecRes.size() );</span>
+<span class="lineNum">      83 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">      84 </span><span class="lineCov">          6 : }</span>
+<a name="85"><span class="lineNum">      85 </span>            : </a>
+<span class="lineNum">      86 </span>            : 
+<span class="lineNum">      87 </span><span class="lineCov">         36 : TEST_CASE ( &quot;Obtener los mensajes no leidos&quot; ) {</span>
+<span class="lineNum">      88 </span>            :     // Mocks
+<span class="lineNum">      89 </span><span class="lineCov">          8 :     MockRepository mocker;</span>
+<span class="lineNum">      90 </span><span class="lineCov">          8 :     IDB* mockedDB = mocker.Mock&lt;IDB&gt;();</span>
+<span class="lineNum">      91 </span><span class="lineCov">          8 :     IPosicionador* mockedPositionator = mocker.Mock&lt;IPosicionador&gt;();</span>
+<span class="lineNum">      92 </span>            : 
+<span class="lineNum">      93 </span><span class="lineCov">          8 :     mocker.OnCall( mockedDB, IDB::Open );</span>
+<span class="lineNum">      94 </span><span class="lineCov">          8 :     mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );</span>
+<span class="lineNum">      95 </span><span class="lineCov">          8 :     mocker.OnCall( mockedDB, IDB::Close );</span>
+<span class="lineNum">      96 </span>            : 
+<span class="lineNum">      97 </span><span class="lineCov">         16 :     DataService ds( *mockedDB, *mockedPositionator );</span>
+<span class="lineNum">      98 </span><span class="lineCov">          8 :     unsigned int token = ds.StartSession( &quot;pepe&quot;, &quot;1234&quot; );</span>
+<span class="lineNum">      99 </span>            : 
+<span class="lineNum">     100 </span><span class="lineCov">          8 :     SECTION ( &quot;Todos los mensajes son no leidos&quot; ) {</span>
+<span class="lineNum">     101 </span><span class="lineCov">          2 :         std::vector&lt;unsigned int&gt; lMensajes;</span>
+<span class="lineNum">     102 </span><span class="lineCov">          2 :         lMensajes.push_back( 55 );</span>
+<span class="lineNum">     103 </span><span class="lineCov">          2 :         lMensajes.push_back( 60 );</span>
+<span class="lineNum">     104 </span>            : 
+<span class="lineNum">     105 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::SetIDUltimoMensaje );</span>
+<span class="lineNum">     106 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetIDUltimoMensaje ).Return( 0 );</span>
+<span class="lineNum">     107 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).Return( lMensajes );</span>
+<span class="lineNum">     108 </span>            : 
+<span class="lineNum">     109 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 55 ).Return( &quot;At all the same stuff&quot; );</span>
+<span class="lineNum">     110 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 60 ).Return( &quot;When our robot armies march&quot; );</span>
+<span class="lineNum">     111 </span>            : 
+<span class="lineNum">     112 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetRemitente ).With( 55 ).Return( &quot;pepa&quot; );</span>
+<span class="lineNum">     113 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetRemitente ).With( 60 ).Return( &quot;pepe&quot; );</span>
+<span class="lineNum">     114 </span>            : 
+<span class="lineNum">     115 </span>            :         // Act
+<span class="lineNum">     116 </span><span class="lineCov">          4 :         std::vector&lt;Mensaje&gt; vecMensajes = ds.GetMensajesNoLeidos( token, 9 );</span>
+<span class="lineNum">     117 </span>            : 
+<span class="lineNum">     118 </span>            :         // Assert
+<span class="lineNum">     119 </span><span class="lineCov">          2 :         REQUIRE ( 2 == vecMensajes.size() );</span>
+<span class="lineNum">     120 </span>            : 
+<span class="lineNum">     121 </span><span class="lineCov">          2 :         REQUIRE ( &quot;pepa&quot; == vecMensajes.front().IDRemitente );</span>
+<span class="lineNum">     122 </span><span class="lineCov">          2 :         REQUIRE ( &quot;At all the same stuff&quot; == vecMensajes.front().Texto );</span>
+<span class="lineNum">     123 </span>            : 
+<span class="lineNum">     124 </span><span class="lineCov">          2 :         REQUIRE ( &quot;pepe&quot; == vecMensajes.back().IDRemitente );</span>
+<span class="lineNum">     125 </span><span class="lineCov">          4 :         REQUIRE ( &quot;When our robot armies march&quot; == vecMensajes.back().Texto );</span>
+<span class="lineNum">     126 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">     127 </span>            : 
+<span class="lineNum">     128 </span><span class="lineCov">          8 :     SECTION ( &quot;Hay mensajes no leidos&quot; ) {</span>
+<span class="lineNum">     129 </span><span class="lineCov">          2 :         std::vector&lt;unsigned int&gt; lMensajes;</span>
+<span class="lineNum">     130 </span><span class="lineCov">          2 :         lMensajes.push_back( 55 );</span>
+<span class="lineNum">     131 </span><span class="lineCov">          2 :         lMensajes.push_back( 60 );</span>
+<span class="lineNum">     132 </span>            : 
+<span class="lineNum">     133 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::SetIDUltimoMensaje );</span>
+<span class="lineNum">     134 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetIDUltimoMensaje ).Return( 55 );</span>
+<span class="lineNum">     135 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).Return( lMensajes );</span>
+<span class="lineNum">     136 </span>            : 
+<span class="lineNum">     137 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetRemitente ).With( 55 ).Return( &quot;pepa&quot; );</span>
+<span class="lineNum">     138 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 55 ).Return( &quot;At all the same stuff&quot; );</span>
+<span class="lineNum">     139 </span>            : 
+<span class="lineNum">     140 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetRemitente ).With( 60 ).Return( &quot;pepe&quot; );</span>
+<span class="lineNum">     141 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 60 ).Return( &quot;When our robot armies march&quot; );</span>
+<span class="lineNum">     142 </span>            : 
+<span class="lineNum">     143 </span>            :         // Act
+<span class="lineNum">     144 </span><span class="lineCov">          4 :         std::vector&lt;Mensaje&gt; vecMensajes = ds.GetMensajesNoLeidos( token, 9 );</span>
+<span class="lineNum">     145 </span>            : 
+<span class="lineNum">     146 </span>            :         // Assert
+<span class="lineNum">     147 </span><span class="lineCov">          2 :         REQUIRE ( 1 == vecMensajes.size() );</span>
+<span class="lineNum">     148 </span>            : 
+<span class="lineNum">     149 </span><span class="lineCov">          2 :         REQUIRE ( &quot;pepe&quot; == vecMensajes.front().IDRemitente );</span>
+<span class="lineNum">     150 </span><span class="lineCov">          4 :         REQUIRE ( &quot;When our robot armies march&quot; == vecMensajes.front().Texto );</span>
+<span class="lineNum">     151 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">     152 </span>            : 
+<span class="lineNum">     153 </span><span class="lineCov">          8 :     SECTION ( &quot;No hay mensajes no leidos&quot; ) {</span>
+<span class="lineNum">     154 </span><span class="lineCov">          2 :         std::vector&lt;unsigned int&gt; lMensajes;</span>
+<span class="lineNum">     155 </span><span class="lineCov">          2 :         lMensajes.push_back( 55 );</span>
+<span class="lineNum">     156 </span><span class="lineCov">          2 :         lMensajes.push_back( 60 );</span>
+<span class="lineNum">     157 </span>            : 
+<span class="lineNum">     158 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::SetIDUltimoMensaje );</span>
+<span class="lineNum">     159 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetIDUltimoMensaje ).Return( 60 );</span>
+<span class="lineNum">     160 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).Return( lMensajes );</span>
+<span class="lineNum">     161 </span>            : 
+<span class="lineNum">     162 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 55 ).Return( &quot;At all the same stuff&quot; );</span>
+<span class="lineNum">     163 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensaje ).With( 60 ).Return( &quot;When our robot armies march&quot; );</span>
+<span class="lineNum">     164 </span>            : 
+<span class="lineNum">     165 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetRemitente ).With( 55 ).Return( &quot;pepa&quot; );</span>
+<span class="lineNum">     166 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetRemitente ).With( 60 ).Return( &quot;pepe&quot; );</span>
+<span class="lineNum">     167 </span>            : 
+<span class="lineNum">     168 </span>            :         // Act
+<span class="lineNum">     169 </span><span class="lineCov">          4 :         std::vector&lt;Mensaje&gt; vecMensajes = ds.GetMensajesNoLeidos( token, 9 );</span>
+<span class="lineNum">     170 </span>            : 
+<span class="lineNum">     171 </span>            :         // Assert
+<span class="lineNum">     172 </span><span class="lineCov">          4 :         REQUIRE ( vecMensajes.empty() );</span>
+<span class="lineNum">     173 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">     174 </span>            : 
+<span class="lineNum">     175 </span><span class="lineCov">          8 :     SECTION ( &quot;Setea el ultimo mensaje recuperado como leido&quot; ) {</span>
+<span class="lineNum">     176 </span><span class="lineCov">          2 :         std::vector&lt;unsigned int&gt; lMensajes;</span>
+<span class="lineNum">     177 </span><span class="lineCov">          2 :         lMensajes.push_back( 55 );</span>
+<span class="lineNum">     178 </span><span class="lineCov">          2 :         lMensajes.push_back( 60 );</span>
+<span class="lineNum">     179 </span>            : 
+<span class="lineNum">     180 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetIDUltimoMensaje ).Return( 55 );</span>
+<span class="lineNum">     181 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensajesConversacion ).Return( lMensajes );</span>
+<span class="lineNum">     182 </span>            : 
+<span class="lineNum">     183 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetMensaje ).Return( &quot;Rock me Amadeus!&quot; );</span>
+<span class="lineNum">     184 </span><span class="lineCov">          2 :         mocker.OnCall( mockedDB, IDB::GetRemitente ).Return( &quot;pepa&quot; );</span>
+<span class="lineNum">     185 </span>            : 
+<span class="lineNum">     186 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::SetIDUltimoMensaje ).With( &quot;pepe&quot;, 9, 60 );</span>
+<span class="lineNum">     187 </span>            : 
+<span class="lineNum">     188 </span>            :         // Act
+<span class="lineNum">     189 </span><span class="lineCov">          4 :         std::vector&lt;Mensaje&gt; vecMensajes = ds.GetMensajesNoLeidos( token, 9 );</span>
+<span class="lineNum">     190 </span>            : 
+<span class="lineNum">     191 </span>            :         // Assert
+<span class="lineNum">     192 </span><span class="lineCov">          4 :         REQUIRE_FALSE ( vecMensajes.empty() );</span>
+<span class="lineNum">     193 </span><span class="lineCov">         16 :     }</span>
+<span class="lineNum">     194 </span><span class="lineCov">          8 : }</span>
+<a name="195"><span class="lineNum">     195 </span>            : </a>
+<span class="lineNum">     196 </span>            : 
+<span class="lineNum">     197 </span><span class="lineCov">         34 : TEST_CASE ( &quot;Postear un mensaje&quot; ) {</span>
+<span class="lineNum">     198 </span>            :     // Mocks
+<span class="lineNum">     199 </span><span class="lineCov">          6 :     MockRepository mocker;</span>
+<span class="lineNum">     200 </span><span class="lineCov">          6 :     IDB* mockedDB = mocker.Mock&lt;IDB&gt;();</span>
+<span class="lineNum">     201 </span><span class="lineCov">          6 :     IPosicionador* mockedPositionator = mocker.Mock&lt;IPosicionador&gt;();</span>
+<span class="lineNum">     202 </span>            : 
+<span class="lineNum">     203 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::Open );</span>
+<span class="lineNum">     204 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );</span>
+<span class="lineNum">     205 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::Close );</span>
+<span class="lineNum">     206 </span>            : 
+<span class="lineNum">     207 </span><span class="lineCov">         12 :     DataService ds( *mockedDB, *mockedPositionator );</span>
+<span class="lineNum">     208 </span><span class="lineCov">          6 :     unsigned int token = ds.StartSession( &quot;pepe&quot;, &quot;1234&quot; );</span>
+<span class="lineNum">     209 </span>            : 
+<span class="lineNum">     210 </span><span class="lineCov">          6 :     SECTION ( &quot;Exito&quot; ) {</span>
+<span class="lineNum">     211 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::AgregarMensaje ).With( &quot;pepe&quot;, 99, &quot;S.I.M.P.&quot; ).Return( true );</span>
+<span class="lineNum">     212 </span>            : 
+<span class="lineNum">     213 </span>            :         // Act
+<span class="lineNum">     214 </span><span class="lineCov">          2 :         bool success = ds.AgregarMensaje( token, 99, &quot;S.I.M.P.&quot; );</span>
+<span class="lineNum">     215 </span>            : 
+<span class="lineNum">     216 </span>            :         // Assert
+<span class="lineNum">     217 </span><span class="lineCov">          2 :         REQUIRE ( success );</span>
+<span class="lineNum">     218 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     219 </span>            : 
+<span class="lineNum">     220 </span><span class="lineCov">          6 :     SECTION ( &quot;Fracaso&quot; ) {</span>
+<span class="lineNum">     221 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::AgregarMensaje ).Return( false );</span>
+<span class="lineNum">     222 </span>            : 
+<span class="lineNum">     223 </span>            :         // Act
+<span class="lineNum">     224 </span><span class="lineCov">          2 :         bool success = ds.AgregarMensaje( token, 99, &quot;S.I.M.P.&quot; );</span>
+<span class="lineNum">     225 </span>            : 
+<span class="lineNum">     226 </span>            :         // Assert
+<span class="lineNum">     227 </span><span class="lineCov">          2 :         REQUIRE_FALSE ( success );</span>
+<span class="lineNum">     228 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     229 </span>            : 
+<span class="lineNum">     230 </span><span class="lineCov">          6 :     SECTION ( &quot;Invalid token&quot; ) {</span>
+<span class="lineNum">     231 </span><span class="lineCov">          2 :         ds.EndSession( token );</span>
+<span class="lineNum">     232 </span><span class="lineCov">          2 :         mocker.NeverCall( mockedDB, IDB::AgregarMensaje );</span>
+<span class="lineNum">     233 </span>            : 
+<span class="lineNum">     234 </span>            :         // Act
+<span class="lineNum">     235 </span><span class="lineCov">          2 :         bool success = ds.AgregarMensaje( token, 99, &quot;S.I.M.P.&quot; );</span>
+<span class="lineNum">     236 </span>            : 
+<span class="lineNum">     237 </span>            :         // Assert
+<span class="lineNum">     238 </span><span class="lineCov">          2 :         REQUIRE_FALSE ( success );</span>
+<span class="lineNum">     239 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     240 </span><span class="lineCov">          6 : }</span>
+<a name="241"><span class="lineNum">     241 </span>            : </a>
+<span class="lineNum">     242 </span>            : 
+<span class="lineNum">     243 </span><span class="lineCov">         34 : TEST_CASE ( &quot;Enviar broadcast&quot; ) {</span>
+<span class="lineNum">     244 </span>            :     // Mocks
+<span class="lineNum">     245 </span><span class="lineCov">          6 :     MockRepository mocker;</span>
+<span class="lineNum">     246 </span><span class="lineCov">          6 :     IDB* mockedDB = mocker.Mock&lt;IDB&gt;();</span>
+<span class="lineNum">     247 </span><span class="lineCov">          6 :     IPosicionador* mockedPositionator = mocker.Mock&lt;IPosicionador&gt;();</span>
+<span class="lineNum">     248 </span>            : 
+<span class="lineNum">     249 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::Open );</span>
+<span class="lineNum">     250 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::AutheticateUser ).Return( true );</span>
+<span class="lineNum">     251 </span><span class="lineCov">          6 :     mocker.OnCall( mockedDB, IDB::Close );</span>
+<span class="lineNum">     252 </span>            : 
+<span class="lineNum">     253 </span><span class="lineCov">         12 :     DataService ds( *mockedDB, *mockedPositionator );</span>
+<span class="lineNum">     254 </span>            : 
+<span class="lineNum">     255 </span><span class="lineCov">          6 :     SECTION ( &quot;Solo un usuario - No envia a nadie&quot; ) {</span>
+<span class="lineNum">     256 </span><span class="lineCov">          2 :         unsigned int token = ds.StartSession( &quot;pepe&quot;, &quot;1234&quot; );</span>
+<span class="lineNum">     257 </span>            : 
+<span class="lineNum">     258 </span><span class="lineCov">          2 :         mocker.NeverCall( mockedDB, IDB::GetConversaciones );</span>
+<span class="lineNum">     259 </span><span class="lineCov">          2 :         mocker.NeverCall( mockedDB, IDB::CreateNewConversacion );</span>
+<span class="lineNum">     260 </span><span class="lineCov">          2 :         mocker.NeverCall( mockedDB, IDB::AgregarMensaje );</span>
+<span class="lineNum">     261 </span>            : 
+<span class="lineNum">     262 </span>            :         // Act
+<span class="lineNum">     263 </span><span class="lineCov">          2 :         bool sucess = ds.EnviarBroadcast( token, &quot;and ruber snakes&quot; );</span>
+<span class="lineNum">     264 </span>            : 
+<span class="lineNum">     265 </span>            :         // Assert
+<span class="lineNum">     266 </span><span class="lineCov">          2 :         REQUIRE ( sucess );</span>
+<span class="lineNum">     267 </span>            : 
+<span class="lineNum">     268 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     269 </span>            : 
+<span class="lineNum">     270 </span><span class="lineCov">          6 :     SECTION ( &quot;Varios usuarios&quot; ) {</span>
+<span class="lineNum">     271 </span><span class="lineCov">          2 :         unsigned int tok_1 = ds.StartSession( &quot;pepe&quot;, &quot;1234&quot; );</span>
+<span class="lineNum">     272 </span><span class="lineCov">          2 :         unsigned int tok_2 = ds.StartSession( &quot;perry&quot;, &quot;456&quot; );</span>
+<span class="lineNum">     273 </span>            : 
+<span class="lineNum">     274 </span><span class="lineCov">          2 :         std::vector&lt;unsigned int&gt; vecPepe;</span>
+<span class="lineNum">     275 </span><span class="lineCov">          4 :         std::vector&lt;unsigned int&gt; vecPerry;</span>
+<span class="lineNum">     276 </span><span class="lineCov">          2 :         vecPepe.push_back( 2015 );</span>
+<span class="lineNum">     277 </span><span class="lineCov">          2 :         vecPerry.push_back( 2015 );</span>
+<span class="lineNum">     278 </span>            : 
+<span class="lineNum">     279 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( &quot;pepe&quot; ).Return( vecPepe );</span>
+<span class="lineNum">     280 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::GetConversaciones ).With( &quot;perry&quot; ).Return( vecPerry );</span>
+<span class="lineNum">     281 </span>            : 
+<span class="lineNum">     282 </span><span class="lineCov">          2 :         mocker.ExpectCall( mockedDB, IDB::AgregarMensaje ).With( &quot;pepe&quot; , 2015, &quot;summer rocks!&quot; ).Return( 9999 );</span>
+<span class="lineNum">     283 </span>            : 
+<span class="lineNum">     284 </span>            :         // Act
+<span class="lineNum">     285 </span><span class="lineCov">          2 :         bool success = ds.EnviarBroadcast( tok_1, &quot;summer rocks!&quot; );</span>
+<span class="lineNum">     286 </span>            : 
+<span class="lineNum">     287 </span>            :         // Assert
+<span class="lineNum">     288 </span><span class="lineCov">          4 :         REQUIRE ( success );</span>
+<span class="lineNum">     289 </span><span class="lineCov">          6 :     }</span>
+<span class="lineNum">     290 </span>            : 
+<span class="lineNum">     291 </span><span class="lineCov">          6 :     SECTION ( &quot;invalid token&quot; ) {</span>
+<span class="lineNum">     292 </span><span class="lineCov">          2 :         bool success = ds.EnviarBroadcast( 9785, &quot;Agent P.&quot; );</span>
+<span class="lineNum">     293 </span>            : 
+<a name="294"><span class="lineNum">     294 </span><span class="lineCov">          2 :         REQUIRE_FALSE ( success );</span></a>
+<span class="lineNum">     295 </span><span class="lineCov">         12 :     }</span>
+<span class="lineNum">     296 </span><span class="lineCov">         90 : }</span>
+<span class="lineNum">     297 </span>            : 
+<span class="lineNum">     298 </span>            : 
+<span class="lineNum">     299 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

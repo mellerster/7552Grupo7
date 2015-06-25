@@ -1,0 +1,923 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MensajerO - Server: Referencia de la Clase DataService</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MensajerO - Server
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Servidor de MensajerO</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Clases</span></a></li>
+      <li><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="annotated.html"><span>Lista&#160;de&#160;clases</span></a></li>
+      <li><a href="classes.html"><span>Índice&#160;de&#160;clases</span></a></li>
+      <li><a href="hierarchy.html"><span>Jerarquía&#160;de&#160;la&#160;clase</span></a></li>
+      <li><a href="functions.html"><span>Miembros&#160;de&#160;las&#160;clases</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#pub-methods">Métodos públicos</a> &#124;
+<a href="classDataService-members.html">Lista de todos los miembros</a>  </div>
+  <div class="headertitle">
+<div class="title">Referencia de la Clase DataService</div>  </div>
+</div><!--header-->
+<div class="contents">
+
+<p>Provee la funcionalidad de manejo de datos necesarios para el funcionamiento del servidor web.  
+ <a href="classDataService.html#details">Más...</a></p>
+<div class="dynheader">
+Diagrama de herencias de DataService</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classDataService.png" usemap="#DataService_map" alt=""/>
+  <map id="DataService_map" name="DataService_map">
+<area href="classIDataService.html" title="La interfaz que todos los servicios de persistencia de datos deben implementar. " alt="IDataService" shape="rect" coords="0,0,85,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Métodos públicos</h2></td></tr>
+<tr class="memitem:aa281139dcf07d841988b53eb074d6dec"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa281139dcf07d841988b53eb074d6dec"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>DataService</b> (<a class="el" href="classIDB.html">IDB</a> &amp;dbRef, <a class="el" href="classIPosicionador.html">IPosicionador</a> &amp;posInator)</td></tr>
+<tr class="separator:aa281139dcf07d841988b53eb074d6dec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6a6ea0a5ac342551f56f57269aa77085"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classUserStatus.html">UserStatus</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a6a6ea0a5ac342551f56f57269aa77085">ListActiveUsers</a> ()</td></tr>
+<tr class="memdesc:a6a6ea0a5ac342551f56f57269aa77085"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve el listado con todos los usuarios conectados al sistema.  <a href="#a6a6ea0a5ac342551f56f57269aa77085">Más...</a><br /></td></tr>
+<tr class="separator:a6a6ea0a5ac342551f56f57269aa77085"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a07becb79989c9de3e8ca1813445b9489"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classConversacion.html">Conversacion</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a07becb79989c9de3e8ca1813445b9489">ListActiveConversations</a> (unsigned int token)</td></tr>
+<tr class="memdesc:a07becb79989c9de3e8ca1813445b9489"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve un arreglo con el resumen de las conversaciones activas del usuario.  <a href="#a07becb79989c9de3e8ca1813445b9489">Más...</a><br /></td></tr>
+<tr class="separator:a07becb79989c9de3e8ca1813445b9489"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1295de402a69695c8e0b1566320909d0"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a1295de402a69695c8e0b1566320909d0">StartSession</a> (std::string nombreUsuario, std::string password)</td></tr>
+<tr class="memdesc:a1295de402a69695c8e0b1566320909d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Comienza la sesión del usuario si este ya esta registrado en el sistema.  <a href="#a1295de402a69695c8e0b1566320909d0">Más...</a><br /></td></tr>
+<tr class="separator:a1295de402a69695c8e0b1566320909d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace67bc3f19bb58ce4982f18e0cbce91a"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#ace67bc3f19bb58ce4982f18e0cbce91a">EndSession</a> (unsigned int token)</td></tr>
+<tr class="memdesc:ace67bc3f19bb58ce4982f18e0cbce91a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Termina la sesión del usuario al que pertenece el token.  <a href="#ace67bc3f19bb58ce4982f18e0cbce91a">Más...</a><br /></td></tr>
+<tr class="separator:ace67bc3f19bb58ce4982f18e0cbce91a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af2834711a267c184feaf7f24b6ab6b42"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#af2834711a267c184feaf7f24b6ab6b42">RegisterNewUser</a> (std::string nombreUsuario, std::string password)</td></tr>
+<tr class="memdesc:af2834711a267c184feaf7f24b6ab6b42"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registra un nuevo usuario en el sistema.  <a href="#af2834711a267c184feaf7f24b6ab6b42">Más...</a><br /></td></tr>
+<tr class="separator:af2834711a267c184feaf7f24b6ab6b42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a29e6231e6b7b7f70ab16b8603387c500"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a29e6231e6b7b7f70ab16b8603387c500">IsTokenActive</a> (unsigned int tok)</td></tr>
+<tr class="memdesc:a29e6231e6b7b7f70ab16b8603387c500"><td class="mdescLeft">&#160;</td><td class="mdescRight">Indica si el token esta relacionado con alguna sesión activa.  <a href="#a29e6231e6b7b7f70ab16b8603387c500">Más...</a><br /></td></tr>
+<tr class="separator:a29e6231e6b7b7f70ab16b8603387c500"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae7c872709249d8a9dbbb038d57734f49"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classUserProfile.html">UserProfile</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#ae7c872709249d8a9dbbb038d57734f49">GetUserProfile</a> (unsigned int token, std::string userID)</td></tr>
+<tr class="memdesc:ae7c872709249d8a9dbbb038d57734f49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve los datos del usuario dado.  <a href="#ae7c872709249d8a9dbbb038d57734f49">Más...</a><br /></td></tr>
+<tr class="separator:ae7c872709249d8a9dbbb038d57734f49"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a567ffbbccff618eb97726f36bdf1bdd2"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a567ffbbccff618eb97726f36bdf1bdd2">GetCheckinLocations</a> (unsigned int token)</td></tr>
+<tr class="memdesc:a567ffbbccff618eb97726f36bdf1bdd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve un texto descriptivo del lugar mas cercano al ultimo lugar reportado por el usuario.  <a href="#a567ffbbccff618eb97726f36bdf1bdd2">Más...</a><br /></td></tr>
+<tr class="separator:a567ffbbccff618eb97726f36bdf1bdd2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8947ba7c32c4842df01e8879c6680e1"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#ac8947ba7c32c4842df01e8879c6680e1">ReplaceCheckinLocation</a> (unsigned int token, double latitud, double longitud, std::string fechaHora)</td></tr>
+<tr class="memdesc:ac8947ba7c32c4842df01e8879c6680e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reemplaza los datos de la ubicación del usuario.  <a href="#ac8947ba7c32c4842df01e8879c6680e1">Más...</a><br /></td></tr>
+<tr class="separator:ac8947ba7c32c4842df01e8879c6680e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aed117f76d66fed08de8412d590c6f1a8"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#aed117f76d66fed08de8412d590c6f1a8">ReplaceFoto</a> (unsigned int token, std::string foto)</td></tr>
+<tr class="memdesc:aed117f76d66fed08de8412d590c6f1a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reemplaza la foto del perfil del usuario.  <a href="#aed117f76d66fed08de8412d590c6f1a8">Más...</a><br /></td></tr>
+<tr class="separator:aed117f76d66fed08de8412d590c6f1a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a261d6d77036e336edb570660ca68f052"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a261d6d77036e336edb570660ca68f052">ChangeEstado</a> (unsigned int token, std::string estado)</td></tr>
+<tr class="memdesc:a261d6d77036e336edb570660ca68f052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cambia el estado de un usuario conectado.  <a href="#a261d6d77036e336edb570660ca68f052">Más...</a><br /></td></tr>
+<tr class="separator:a261d6d77036e336edb570660ca68f052"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62912cf9987518c3eb6ecc1d808a5936"><td class="memItemLeft" align="right" valign="top">virtual unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a62912cf9987518c3eb6ecc1d808a5936">GetConversacion</a> (unsigned int token, std::string IDdestinatario)</td></tr>
+<tr class="memdesc:a62912cf9987518c3eb6ecc1d808a5936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve el ID de la conversación entre los dos usuarios o crea una nueva si no existe.  <a href="#a62912cf9987518c3eb6ecc1d808a5936">Más...</a><br /></td></tr>
+<tr class="separator:a62912cf9987518c3eb6ecc1d808a5936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a929e604caca4dc3f00308079d9c67c71"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classMensaje.html">Mensaje</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a929e604caca4dc3f00308079d9c67c71">GetMensajes</a> (unsigned int token, unsigned int convID)</td></tr>
+<tr class="memdesc:a929e604caca4dc3f00308079d9c67c71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve los mensajes de la conversación dada.  <a href="#a929e604caca4dc3f00308079d9c67c71">Más...</a><br /></td></tr>
+<tr class="separator:a929e604caca4dc3f00308079d9c67c71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a59b332b20c4d069c4478a53b7bfae7ca"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; <a class="el" href="classMensaje.html">Mensaje</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a59b332b20c4d069c4478a53b7bfae7ca">GetMensajesNoLeidos</a> (unsigned int token, unsigned int convID)</td></tr>
+<tr class="memdesc:a59b332b20c4d069c4478a53b7bfae7ca"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve los mensajes de una conversación marcados como no-leidos.  <a href="#a59b332b20c4d069c4478a53b7bfae7ca">Más...</a><br /></td></tr>
+<tr class="separator:a59b332b20c4d069c4478a53b7bfae7ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62fd46304924ef8e1062150542012e7f"><td class="memItemLeft" align="right" valign="top">virtual std::vector&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a62fd46304924ef8e1062150542012e7f">GetParticipantes</a> (unsigned int token, unsigned int convID)</td></tr>
+<tr class="memdesc:a62fd46304924ef8e1062150542012e7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Devuelve los participantes de la conversación dada.  <a href="#a62fd46304924ef8e1062150542012e7f">Más...</a><br /></td></tr>
+<tr class="separator:a62fd46304924ef8e1062150542012e7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cfdc6b6afd381fc0d751a1c10201102"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a4cfdc6b6afd381fc0d751a1c10201102">AgregarMensaje</a> (unsigned int token, unsigned int IDConversacion, std::string texto)</td></tr>
+<tr class="memdesc:a4cfdc6b6afd381fc0d751a1c10201102"><td class="mdescLeft">&#160;</td><td class="mdescRight">Agrega un nuevo mensaje a una conversacion por un usuario en el sistema.  <a href="#a4cfdc6b6afd381fc0d751a1c10201102">Más...</a><br /></td></tr>
+<tr class="separator:a4cfdc6b6afd381fc0d751a1c10201102"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a153393d9e46a10e7286b8a963473f30d"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classDataService.html#a153393d9e46a10e7286b8a963473f30d">EnviarBroadcast</a> (unsigned int token, std::string texto)</td></tr>
+<tr class="memdesc:a153393d9e46a10e7286b8a963473f30d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Envia el mensaje dado a todos los usuarios conectados.  <a href="#a153393d9e46a10e7286b8a963473f30d">Más...</a><br /></td></tr>
+<tr class="separator:a153393d9e46a10e7286b8a963473f30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Descripción detallada</h2>
+<div class="textblock"><p>Provee la funcionalidad de manejo de datos necesarios para el funcionamiento del servidor web. </p>
+</div><h2 class="groupheader">Documentación de las funciones miembro</h2>
+<a class="anchor" id="a4cfdc6b6afd381fc0d751a1c10201102"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DataService::AgregarMensaje </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>IDConversacion</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>texto</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Agrega un nuevo mensaje a una conversacion por un usuario en el sistema. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token de un usuario conectado. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IDConversacion</td><td>El ID de la conversación del mensaje que se agrega. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">texto</td><td>El cuerpo del mensaje que se agrega.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si se completó la operación en forma exitosa, false si no. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a7591769c4a05c38ef4ee3d8a5320f65a">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a261d6d77036e336edb570660ca68f052"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DataService::ChangeEstado </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>estado</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Cambia el estado de un usuario conectado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token asociado al usuario que se desea modificar. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">estado</td><td>El nuevo estado asociado al usuario: "C" o "D". </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#ac149dc420cfb30b1cfb598f551897303">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ace67bc3f19bb58ce4982f18e0cbce91a"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DataService::EndSession </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Termina la sesión del usuario al que pertenece el token. </p>
+<p>Si el token no existe no hace nada.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token asociado a un usuario. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a7a120e20404e2ee0f2f5f28884d0c013">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a153393d9e46a10e7286b8a963473f30d"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DataService::EnviarBroadcast </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>texto</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Envia el mensaje dado a todos los usuarios conectados. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token asociado al usuario que envia el mensaje. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">texto</td><td>El mensaje a enviar.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si se completó la operación en forma exitosa, false si no. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a15a19f0e65854c9e54fff248e6a7afd2">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a567ffbbccff618eb97726f36bdf1bdd2"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string DataService::GetCheckinLocations </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve un texto descriptivo del lugar mas cercano al ultimo lugar reportado por el usuario. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token asociado al usuario del que se desea obtener la ubicación.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Un texto asociado al lugar mas cercano a la ubicacion del usuario. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#ad5b01a9f0271109c15b7033f9516d0f1">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a62912cf9987518c3eb6ecc1d808a5936"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int DataService::GetConversacion </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>IDdestinatario</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el ID de la conversación entre los dos usuarios o crea una nueva si no existe. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token de un usuario conectado que participa en la conversación. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">IDdestinatario</td><td>El ID del otro participante de la conversación.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>El ID de una nueva conversación. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#aeddb24dd36154c89283b19ffd68f1a55">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a929e604caca4dc3f00308079d9c67c71"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classMensaje.html">Mensaje</a> &gt; DataService::GetMensajes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>convID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve los mensajes de la conversación dada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token de un usuario conectado. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">convID</td><td>El ID de la conversación cuyos mensajes se desea.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Una lista con TODOS los mensajes de la conversación. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a0f3f5eab1255667c7756db4d678d1770">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a59b332b20c4d069c4478a53b7bfae7ca"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classMensaje.html">Mensaje</a> &gt; DataService::GetMensajesNoLeidos </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>convID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve los mensajes de una conversación marcados como no-leidos. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token de un usuario conectado. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">convID</td><td>El ID de la conversación cuyos mensajes se desea.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Una lista con los mensajes no leidos de la conversación. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#ad58ef4e87b913c50ec20333fdfc170ae">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a62fd46304924ef8e1062150542012e7f"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; std::string &gt; DataService::GetParticipantes </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>convID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve los participantes de la conversación dada. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token de un usuario conectado. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">convID</td><td>El ID de la conversación cuyos mensajes se desea.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Una lista con los participantes de la conversación que no es el usuario del token. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a20b73f4674c5da9015d00bf44dd8073b">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ae7c872709249d8a9dbbb038d57734f49"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="classUserProfile.html">UserProfile</a> DataService::GetUserProfile </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>userID</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve los datos del usuario dado. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token asociado al usuario del que se desea obtener los datos. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">userID</td><td>El ID del usuario del que se desea ver el perfil.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Los datos que conforman el perfil del usuario. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a9ea08cc796b71f2b79a1bfe459d16e3d">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a29e6231e6b7b7f70ab16b8603387c500"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DataService::IsTokenActive </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>tok</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Indica si el token esta relacionado con alguna sesión activa. </p>
+<p>Un token activo es aquel que se encuentra asociado a un usuario conectado al sistema.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">tok</td><td>El token a validar</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si el token es valido, false si no. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#abd8b3ed020d36cb5cdec605f213ee87e">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a07becb79989c9de3e8ca1813445b9489"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classConversacion.html">Conversacion</a> &gt; DataService::ListActiveConversations </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve un arreglo con el resumen de las conversaciones activas del usuario. </p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>Asociado al usuario activo.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Una lista con el resumen de las conversaciones activas del usuario dado. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#adecba03c98c0c115eed0c61d9e302633">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a6a6ea0a5ac342551f56f57269aa77085"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::vector&lt; <a class="el" href="classUserStatus.html">UserStatus</a> &gt; DataService::ListActiveUsers </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Devuelve el listado con todos los usuarios conectados al sistema. </p>
+<dl class="section return"><dt>Devuelve</dt><dd>Una lista con los datos de los usuarios conectados </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a23a9348892daef21c00b1af03459a198">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af2834711a267c184feaf7f24b6ab6b42"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool DataService::RegisterNewUser </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>nombreUsuario</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Registra un nuevo usuario en el sistema. </p>
+<p>Inicializa todos los elementos relacionados con un usuario del sistema. El nombre de usuario debe ser unico ya que es la forma de identificar a cada usuario que pertenece al sistema.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nombreUsuario</td><td>El nombre del usuario, unico para cada usuario. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">password</td><td>El password associado al nombre de usuario.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>True si se completó la registración en forma exitosa, false si no. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a1cdc242b3dbec96b53101c2e08e8c751">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="ac8947ba7c32c4842df01e8879c6680e1"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DataService::ReplaceCheckinLocation </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>latitud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>longitud</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>fechaHora</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reemplaza los datos de la ubicación del usuario. </p>
+<p>Se identifica al usuario mediante su token.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token asociado al usuario que se desea modificar. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">latitud</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">longitud</td><td></td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">fechaHora</td><td>La fecha y hora cuando el usuario informó su ubicación. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a714da10572eb4449d462e484d3cfbf21">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="aed117f76d66fed08de8412d590c6f1a8"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void DataService::ReplaceFoto </td>
+          <td>(</td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>token</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>foto</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Reemplaza la foto del perfil del usuario. </p>
+<p>Se identifica al usuario mediante su token.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">token</td><td>El token asociado al usuario que se desea modificar. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">foto</td><td>Los datos binarios correspondientes a la foto a reemplazar. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#aef2dcd063e77d620b85b61ea76f6435c">IDataService</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a1295de402a69695c8e0b1566320909d0"></a>
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">unsigned int DataService::StartSession </td>
+          <td>(</td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>nombreUsuario</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string&#160;</td>
+          <td class="paramname"><em>password</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Comienza la sesión del usuario si este ya esta registrado en el sistema. </p>
+<p>Chequea si el nombre de usuario y el password estan en la base de datos; Si lo estan se genera una nueva sesion asociada al usuario, si ya existia una sesion activa se la reemplaza, y devuelve un token que representa esa sesión.</p>
+<p>Si el nombre de usuario y password NO estan en la base de datos se devuelve un token nulo.</p>
+<dl class="params"><dt>Parámetros</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">nombreUsuario</td><td>El nombre de usuario del cliente. </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">password</td><td>El password asociado al nombre de usuario.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Devuelve</dt><dd>Un token que representa la nueva sesión del usuario, "0" si no. </dd></dl>
+
+<p>Implementa <a class="el" href="classIDataService.html#a89f0523aed7347ce5200b84d9364ace6">IDataService</a>.</p>
+
+</div>
+</div>
+<hr/>La documentación para esta clase fue generada a partir de los siguientes ficheros:<ul>
+<li>src/dataService/<a class="el" href="DataService_8hpp_source.html">DataService.hpp</a></li>
+<li>src/dataService/DataService.cpp</li>
+</ul>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado el Miércoles, 24 de Junio de 2015 22:24:44 para MensajerO - Server por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

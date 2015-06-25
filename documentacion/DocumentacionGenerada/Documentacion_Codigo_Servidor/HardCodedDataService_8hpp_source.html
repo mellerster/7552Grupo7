@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MensajerO - Server: Fichero Fuente src/dataService/HardCodedDataService.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MensajerO - Server
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Servidor de MensajerO</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_685019b3d6f24dd413d56537e4a2a550.html">dataService</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">HardCodedDataService.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef HARDCODED_DATA_SERVICE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define HARDCODED_DATA_SERVICE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;IDataService.hpp&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;posicionaitor/IPosicionador.hpp&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classHardCodedDataService.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classHardCodedDataService.html">HardCodedDataService</a> : <span class="keyword">public</span> <a class="code" href="classIDataService.html">IDataService</a> {</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;        <a class="code" href="classHardCodedDataService.html">HardCodedDataService</a>(<a class="code" href="classIPosicionador.html">IPosicionador</a>&amp; posInator);</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classHardCodedDataService.html#a9a26a4c410348dac9c8d99ef2f6f410f">Open</a>();</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classHardCodedDataService.html#a1b2a4b34a33dd4130080b2ac3a73b48e">Close</a>();</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classHardCodedDataService.html#acd1525b5778df72ccd9b434c275690f6">startSession</a>(std::string nombreUsuario, std::string password);</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classHardCodedDataService.html#acc8e7a341c05aa342f43589265d67954">IsTokenActive</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tok);</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classHardCodedDataService.html#aeea5102e534b7d0d385218711e717db8">RegisterNewUser</a>(std::string nombreUsuario, std::string password);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;UserStatus&gt; <a class="code" href="classHardCodedDataService.html#abef00d514ceead6fe557ccfa284845ce">ListActiveUsers</a>();</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classHardCodedDataService.html#af100615256ed1ad0bde44b3d45e412cd">GetCheckinLocations</a>(<span class="keywordtype">double</span> latitud, <span class="keywordtype">double</span> longitud);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classHardCodedDataService.html#a79e894a3f0e11cac05416691277a2488">ReplaceCheckinLocation</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, <span class="keywordtype">double</span> latitud, <span class="keywordtype">double</span> longitud);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classHardCodedDataService.html#a2a51d86a46a2268b0724416f03330801">ReplaceFoto</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string foto);</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classHardCodedDataService.html#aeb3172cc462eab316fc796f564d43e48">ReplaceEstado</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string estado);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;        <a class="code" href="classIPosicionador.html">IPosicionador</a>&amp; m_posicionador;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        std::string m_fotoBin = <span class="stringliteral">&quot;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&quot;</span>;</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;};</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif </span></div>
+<div class="ttc" id="classHardCodedDataService_html_abef00d514ceead6fe557ccfa284845ce"><div class="ttname"><a href="classHardCodedDataService.html#abef00d514ceead6fe557ccfa284845ce">HardCodedDataService::ListActiveUsers</a></div><div class="ttdeci">virtual std::vector&lt; UserStatus &gt; ListActiveUsers()</div><div class="ttdoc">Devuelve el listado con todos los usuarios conectados al sistema. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:45</div></div>
+<div class="ttc" id="classIPosicionador_html"><div class="ttname"><a href="classIPosicionador.html">IPosicionador</a></div><div class="ttdoc">La interfaz del sistema de triangulación de coordenadas. </div><div class="ttdef"><b>Definition:</b> IPosicionador.hpp:10</div></div>
+<div class="ttc" id="classHardCodedDataService_html_acd1525b5778df72ccd9b434c275690f6"><div class="ttname"><a href="classHardCodedDataService.html#acd1525b5778df72ccd9b434c275690f6">HardCodedDataService::startSession</a></div><div class="ttdeci">virtual unsigned int startSession(std::string nombreUsuario, std::string password)</div><div class="ttdoc">Comienza la sesión del usuario si este ya esta registrado en el sistema. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:18</div></div>
+<div class="ttc" id="classHardCodedDataService_html_a79e894a3f0e11cac05416691277a2488"><div class="ttname"><a href="classHardCodedDataService.html#a79e894a3f0e11cac05416691277a2488">HardCodedDataService::ReplaceCheckinLocation</a></div><div class="ttdeci">virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud)</div><div class="ttdoc">Reemplaza los datos de la ubicación del usuario. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:65</div></div>
+<div class="ttc" id="classHardCodedDataService_html_a9a26a4c410348dac9c8d99ef2f6f410f"><div class="ttname"><a href="classHardCodedDataService.html#a9a26a4c410348dac9c8d99ef2f6f410f">HardCodedDataService::Open</a></div><div class="ttdeci">virtual bool Open()</div><div class="ttdoc">Abre la conexion con la base de datos. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:9</div></div>
+<div class="ttc" id="classHardCodedDataService_html_af100615256ed1ad0bde44b3d45e412cd"><div class="ttname"><a href="classHardCodedDataService.html#af100615256ed1ad0bde44b3d45e412cd">HardCodedDataService::GetCheckinLocations</a></div><div class="ttdeci">virtual std::string GetCheckinLocations(double latitud, double longitud)</div><div class="ttdoc">Devuelve un texto descriptivo del lugar mas cercano a las coordenadas dadas. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:60</div></div>
+<div class="ttc" id="classHardCodedDataService_html_a1b2a4b34a33dd4130080b2ac3a73b48e"><div class="ttname"><a href="classHardCodedDataService.html#a1b2a4b34a33dd4130080b2ac3a73b48e">HardCodedDataService::Close</a></div><div class="ttdeci">virtual void Close()</div><div class="ttdoc">Cierra la conexion con la base de datos. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:14</div></div>
+<div class="ttc" id="classHardCodedDataService_html_aeb3172cc462eab316fc796f564d43e48"><div class="ttname"><a href="classHardCodedDataService.html#aeb3172cc462eab316fc796f564d43e48">HardCodedDataService::ReplaceEstado</a></div><div class="ttdeci">virtual void ReplaceEstado(unsigned int token, std::string estado)</div><div class="ttdoc">Reemplaza el estado del usuario. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:75</div></div>
+<div class="ttc" id="classIDataService_html"><div class="ttname"><a href="classIDataService.html">IDataService</a></div><div class="ttdoc">La interfaz que todos los servicios de persistencia de datos deben implementar. </div><div class="ttdef"><b>Definition:</b> IDataService.hpp:14</div></div>
+<div class="ttc" id="classHardCodedDataService_html_acc8e7a341c05aa342f43589265d67954"><div class="ttname"><a href="classHardCodedDataService.html#acc8e7a341c05aa342f43589265d67954">HardCodedDataService::IsTokenActive</a></div><div class="ttdeci">virtual bool IsTokenActive(unsigned int tok)</div><div class="ttdoc">Indica si el token esta relacionado con alguna sesión activa. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:40</div></div>
+<div class="ttc" id="classHardCodedDataService_html_aeea5102e534b7d0d385218711e717db8"><div class="ttname"><a href="classHardCodedDataService.html#aeea5102e534b7d0d385218711e717db8">HardCodedDataService::RegisterNewUser</a></div><div class="ttdeci">virtual bool RegisterNewUser(std::string nombreUsuario, std::string password)</div><div class="ttdoc">Registra un nuevo usuario en el sistema. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:30</div></div>
+<div class="ttc" id="classHardCodedDataService_html_a2a51d86a46a2268b0724416f03330801"><div class="ttname"><a href="classHardCodedDataService.html#a2a51d86a46a2268b0724416f03330801">HardCodedDataService::ReplaceFoto</a></div><div class="ttdeci">virtual void ReplaceFoto(unsigned int token, std::string foto)</div><div class="ttdoc">Reemplaza la foto del perfil del usuario. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.cpp:70</div></div>
+<div class="ttc" id="classHardCodedDataService_html"><div class="ttname"><a href="classHardCodedDataService.html">HardCodedDataService</a></div><div class="ttdoc">Una implementación temporal del acceso a la base de datos. </div><div class="ttdef"><b>Definition:</b> HardCodedDataService.hpp:14</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado el Domingo, 7 de Junio de 2015 16:23:59 para MensajerO - Server por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

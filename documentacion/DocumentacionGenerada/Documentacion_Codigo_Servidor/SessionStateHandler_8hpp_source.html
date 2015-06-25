@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MensajerO - Server: Fichero Fuente src/dataService/helpers/SessionStateHandler.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MensajerO - Server
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Servidor de MensajerO</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_685019b3d6f24dd413d56537e4a2a550.html">dataService</a></li><li class="navelem"><a class="el" href="dir_76e3b5199c2c758c7eccbf91f3f08d72.html">helpers</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">SessionStateHandler.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef SESSION_STATE_HANDLER_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define SESSION_STATE_HANDLER_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;unordered_map&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;utility&gt;</span></div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div>
+<div class="line"><a name="l00013"></a><span class="lineno"><a class="line" href="classSessionStateHandler.html">   13</a></span>&#160;<span class="keyword">class </span><a class="code" href="classSessionStateHandler.html">SessionStateHandler</a> {</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classSessionStateHandler.html#a4ed77afe24d05ebf276d02d38f142d8a">IsSessionTokenValid</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classSessionStateHandler.html#a0fe8764bbfdd92bb6e14853f19c66397">StartSession</a>(std::string userID);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classSessionStateHandler.html#af1c5f595a3e7ce23bd6536e6c54ed014">EndSession</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token);</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classSessionStateHandler.html#a780b24445a0cb9a300ce80cfffb6f266">DeleteUserSession</a>(std::string userID);</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;        std::vector&lt;unsigned int&gt; <a class="code" href="classSessionStateHandler.html#a56b9733880c16e4261255fede5e87365">GetAllActiveSessionTokens</a>() <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;        std::string <a class="code" href="classSessionStateHandler.html#a84c9047307c41b9f724c8eb0fc095d90">GetAssociatedUserID</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;        std::string <a class="code" href="classSessionStateHandler.html#af2ccbde6cab8f3f20a5cb226d06b0a52">GetAssociatedUserState</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;        std::string <a class="code" href="classSessionStateHandler.html#ad0c2f334807cd6a11f2d75cdf7877c59">GetAssociatedUserStateByUserID</a>(std::string userID) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;        <span class="keywordtype">bool</span> <a class="code" href="classSessionStateHandler.html#a779e81ecffcc907ab5aa40ebb6209f26">SetAssociatedUserState</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string newEstado);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GenerateUniqueToken(std::string userID) <span class="keyword">const</span>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;</div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        std::unordered_map&lt;unsigned int, std::pair&lt;std::string, std::string&gt; &gt; m_tokenContainer;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;};</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;</div>
+<div class="ttc" id="classSessionStateHandler_html_af2ccbde6cab8f3f20a5cb226d06b0a52"><div class="ttname"><a href="classSessionStateHandler.html#af2ccbde6cab8f3f20a5cb226d06b0a52">SessionStateHandler::GetAssociatedUserState</a></div><div class="ttdeci">std::string GetAssociatedUserState(unsigned int token) const </div><div class="ttdoc">Devuelve el estado de una sesión. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:62</div></div>
+<div class="ttc" id="classSessionStateHandler_html_a780b24445a0cb9a300ce80cfffb6f266"><div class="ttname"><a href="classSessionStateHandler.html#a780b24445a0cb9a300ce80cfffb6f266">SessionStateHandler::DeleteUserSession</a></div><div class="ttdeci">bool DeleteUserSession(std::string userID)</div><div class="ttdoc">Si el usuario tiene una sesión la elimina. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:28</div></div>
+<div class="ttc" id="classSessionStateHandler_html_a0fe8764bbfdd92bb6e14853f19c66397"><div class="ttname"><a href="classSessionStateHandler.html#a0fe8764bbfdd92bb6e14853f19c66397">SessionStateHandler::StartSession</a></div><div class="ttdeci">unsigned int StartSession(std::string userID)</div><div class="ttdoc">Inicializa una nueva sesión. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:9</div></div>
+<div class="ttc" id="classSessionStateHandler_html_ad0c2f334807cd6a11f2d75cdf7877c59"><div class="ttname"><a href="classSessionStateHandler.html#ad0c2f334807cd6a11f2d75cdf7877c59">SessionStateHandler::GetAssociatedUserStateByUserID</a></div><div class="ttdeci">std::string GetAssociatedUserStateByUserID(std::string userID) const </div><div class="ttdoc">Devuelve el estado de una sesión. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:67</div></div>
+<div class="ttc" id="classSessionStateHandler_html_a56b9733880c16e4261255fede5e87365"><div class="ttname"><a href="classSessionStateHandler.html#a56b9733880c16e4261255fede5e87365">SessionStateHandler::GetAllActiveSessionTokens</a></div><div class="ttdeci">std::vector&lt; unsigned int &gt; GetAllActiveSessionTokens() const </div><div class="ttdoc">Devuelve una lista con los tokens de todas las sesiones. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:46</div></div>
+<div class="ttc" id="classSessionStateHandler_html_a84c9047307c41b9f724c8eb0fc095d90"><div class="ttname"><a href="classSessionStateHandler.html#a84c9047307c41b9f724c8eb0fc095d90">SessionStateHandler::GetAssociatedUserID</a></div><div class="ttdeci">std::string GetAssociatedUserID(unsigned int token) const </div><div class="ttdoc">Devuelve el UserID asociado a una sesión. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:57</div></div>
+<div class="ttc" id="classSessionStateHandler_html_a4ed77afe24d05ebf276d02d38f142d8a"><div class="ttname"><a href="classSessionStateHandler.html#a4ed77afe24d05ebf276d02d38f142d8a">SessionStateHandler::IsSessionTokenValid</a></div><div class="ttdeci">bool IsSessionTokenValid(unsigned int token) const </div><div class="ttdoc">Indica si existe una sesión asociada al token. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:40</div></div>
+<div class="ttc" id="classSessionStateHandler_html"><div class="ttname"><a href="classSessionStateHandler.html">SessionStateHandler</a></div><div class="ttdoc">Una "Helper-class" para encapsular el manejo de los datos asociados a una sesión. ...</div><div class="ttdef"><b>Definition:</b> SessionStateHandler.hpp:13</div></div>
+<div class="ttc" id="classSessionStateHandler_html_af1c5f595a3e7ce23bd6536e6c54ed014"><div class="ttname"><a href="classSessionStateHandler.html#af1c5f595a3e7ce23bd6536e6c54ed014">SessionStateHandler::EndSession</a></div><div class="ttdeci">bool EndSession(unsigned int token)</div><div class="ttdoc">Termina una sesión. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:21</div></div>
+<div class="ttc" id="classSessionStateHandler_html_a779e81ecffcc907ab5aa40ebb6209f26"><div class="ttname"><a href="classSessionStateHandler.html#a779e81ecffcc907ab5aa40ebb6209f26">SessionStateHandler::SetAssociatedUserState</a></div><div class="ttdeci">bool SetAssociatedUserState(unsigned int token, std::string newEstado)</div><div class="ttdoc">Cambia el estado asociado al token dado. </div><div class="ttdef"><b>Definition:</b> SessionStateHandler.cpp:84</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado el Miércoles, 24 de Junio de 2015 22:24:37 para MensajerO - Server por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

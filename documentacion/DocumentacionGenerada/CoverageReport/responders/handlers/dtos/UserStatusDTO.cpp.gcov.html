@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - responders/handlers/dtos/UserStatusDTO.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../index.html">top level</a> - <a href="index.html">responders/handlers/dtos</a> - UserStatusDTO.cpp<span style="font-size: 80%;"> (source / <a href="UserStatusDTO.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntry">18</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-24</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntry">3</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;UserStatusDTO.hpp&quot;</a>
+<span class="lineNum">       2 </span>            : 
+<a name="3"><span class="lineNum">       3 </span>            : </a>
+<span class="lineNum">       4 </span>            : 
+<span class="lineNum">       5 </span><span class="lineCov">         32 : UserStatusDTO::UserStatusDTO() : BaseDTO(),</span>
+<span class="lineNum">       6 </span>            :     Nombre(&quot;&quot;), Estado(&quot;&quot;), Foto(&quot;&quot;),
+<span class="lineNum">       7 </span><span class="lineCov">         32 :     CheckInFechaHora(&quot;&quot;)</span>
+<span class="lineNum">       8 </span>            : {
+<span class="lineNum">       9 </span><span class="lineCov">         32 : }</span>
+<a name="10"><span class="lineNum">      10 </span>            : </a>
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span><span class="lineCov">         24 : UserStatusDTO::UserStatusDTO(Json::Value jData) : BaseDTO(jData) {</span>
+<span class="lineNum">      13 </span><span class="lineCov">         24 :     this-&gt;Nombre = jData.get(&quot;Nombre&quot;, &quot;&quot;).asString();</span>
+<span class="lineNum">      14 </span><span class="lineCov">         24 :     this-&gt;Estado = jData.get(&quot;Estado&quot;, &quot;&quot;).asString();</span>
+<span class="lineNum">      15 </span><span class="lineCov">         24 :     this-&gt;Foto = jData.get(&quot;Foto&quot;, &quot;&quot;).asString();</span>
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span><span class="lineCov">         24 :     std::string tok = jData.get(&quot;Token&quot;, 0).asString();</span>
+<span class="lineNum">      18 </span><span class="lineCov">         24 :     this-&gt;Token = std::stoul( tok );    // El token es numerico.</span>
+<span class="lineNum">      19 </span><span class="lineCov">         24 : }</span>
+<a name="20"><span class="lineNum">      20 </span>            : </a>
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span><span class="lineCov">         32 : Json::Value UserStatusDTO::ToJSON() const {</span>
+<span class="lineNum">      23 </span><span class="lineCov">         32 :     Json::Value j = BaseDTO::ToJSON();</span>
+<span class="lineNum">      24 </span><span class="lineCov">         32 :     j[&quot;Nombre&quot;] = this-&gt;Nombre;</span>
+<span class="lineNum">      25 </span><span class="lineCov">         32 :     j[&quot;Estado&quot;] = this-&gt;Estado;</span>
+<span class="lineNum">      26 </span><span class="lineCov">         32 :     j[&quot;Foto&quot;] = this-&gt;Foto;</span>
+<span class="lineNum">      27 </span><span class="lineCov">         32 :     j[&quot;CheckInFechaHora&quot;] = this-&gt;CheckInFechaHora;</span>
+<span class="lineNum">      28 </span><span class="lineCov">         32 :     j[&quot;Ubicacion&quot;] = this-&gt;Ubicacion;</span>
+<span class="lineNum">      29 </span>            : 
+<span class="lineNum">      30 </span><span class="lineCov">         32 :     return j;</span>
+<span class="lineNum">      31 </span>            : }
+<span class="lineNum">      32 </span>            : 
+<span class="lineNum">      33 </span>            : 
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>

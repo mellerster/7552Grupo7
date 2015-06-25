@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=9"/>
+<meta name="generator" content="Doxygen 1.8.9.1"/>
+<title>MensajerO - Server: Fichero Fuente src/dataService/DataService.hpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="search/search.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="search/searchdata.js"></script>
+<script type="text/javascript" src="search/search.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() { init_search(); });
+</script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr style="height: 56px;">
+  <td style="padding-left: 0.5em;">
+   <div id="projectname">MensajerO - Server
+   &#160;<span id="projectnumber">1.0</span>
+   </div>
+   <div id="projectbrief">Servidor de MensajerO</div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Generado por Doxygen 1.8.9.1 -->
+<script type="text/javascript">
+var searchBox = new SearchBox("searchBox", "search",false,'Buscar');
+</script>
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Página&#160;principal</span></a></li>
+      <li><a href="annotated.html"><span>Clases</span></a></li>
+      <li class="current"><a href="files.html"><span>Archivos</span></a></li>
+      <li>
+        <div id="MSearchBox" class="MSearchBoxInactive">
+        <span class="left">
+          <img id="MSearchSelect" src="search/mag_sel.png"
+               onmouseover="return searchBox.OnSearchSelectShow()"
+               onmouseout="return searchBox.OnSearchSelectHide()"
+               alt=""/>
+          <input type="text" id="MSearchField" value="Buscar" accesskey="S"
+               onfocus="searchBox.OnSearchFieldFocus(true)" 
+               onblur="searchBox.OnSearchFieldFocus(false)" 
+               onkeyup="searchBox.OnSearchFieldChange(event)"/>
+          </span><span class="right">
+            <a id="MSearchClose" href="javascript:searchBox.CloseResultsWindow()"><img id="MSearchCloseImg" border="0" src="search/close.png" alt=""/></a>
+          </span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div id="navrow2" class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Lista&#160;de&#160;archivos</span></a></li>
+    </ul>
+  </div>
+<!-- window showing the filter options -->
+<div id="MSearchSelectWindow"
+     onmouseover="return searchBox.OnSearchSelectShow()"
+     onmouseout="return searchBox.OnSearchSelectHide()"
+     onkeydown="return searchBox.OnSearchSelectKey(event)">
+</div>
+
+<!-- iframe showing the search results (closed by default) -->
+<div id="MSearchResultsWindow">
+<iframe src="javascript:void(0)" frameborder="0" 
+        name="MSearchResults" id="MSearchResults">
+</iframe>
+</div>
+
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_685019b3d6f24dd413d56537e4a2a550.html">dataService</a></li>  </ul>
+</div>
+</div><!-- top -->
+<div class="header">
+  <div class="headertitle">
+<div class="title">DataService.hpp</div>  </div>
+</div><!--header-->
+<div class="contents">
+<div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#ifndef DATASERVICE_H</span></div>
+<div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#define DATASERVICE_H</span></div>
+<div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;vector&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div>
+<div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="preprocessor">#include &quot;IDataService.hpp&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;rocaDB/IDB.hpp&quot;</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#include &quot;helpers/SessionStateHandler.hpp&quot;</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;helpers/IPosicionador.hpp&quot;</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#include &quot;humblelogging/api.h&quot;</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;</div>
+<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="classDataService.html">   18</a></span>&#160;<span class="keyword">class </span><a class="code" href="classDataService.html">DataService</a> : <span class="keyword">public</span> <a class="code" href="classIDataService.html">IDataService</a> {</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;    <span class="keyword">public</span>:</div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        <a class="code" href="classDataService.html">DataService</a>(<a class="code" href="classIDB.html">IDB</a>&amp; dbRef, <a class="code" href="classIPosicionador.html">IPosicionador</a>&amp; posInator);</div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;        <span class="keyword">virtual</span> ~<a class="code" href="classDataService.html">DataService</a>();</div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;UserStatus&gt; <a class="code" href="classDataService.html#a6a6ea0a5ac342551f56f57269aa77085">ListActiveUsers</a>();</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;Conversacion&gt; <a class="code" href="classDataService.html#a07becb79989c9de3e8ca1813445b9489">ListActiveConversations</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token);</div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;</div>
+<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classDataService.html#a1295de402a69695c8e0b1566320909d0">StartSession</a>(std::string nombreUsuario, std::string password);</div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classDataService.html#ace67bc3f19bb58ce4982f18e0cbce91a">EndSession</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token);</div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classDataService.html#af2834711a267c184feaf7f24b6ab6b42">RegisterNewUser</a>(std::string nombreUsuario, std::string password);</div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classDataService.html#a29e6231e6b7b7f70ab16b8603387c500">IsTokenActive</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> tok);</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;        <span class="keyword">virtual</span> <a class="code" href="classUserProfile.html">UserProfile</a> <a class="code" href="classDataService.html#ae7c872709249d8a9dbbb038d57734f49">GetUserProfile</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string userID);</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        <span class="keyword">virtual</span> std::string <a class="code" href="classDataService.html#a567ffbbccff618eb97726f36bdf1bdd2">GetCheckinLocations</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classDataService.html#ac8947ba7c32c4842df01e8879c6680e1">ReplaceCheckinLocation</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, <span class="keywordtype">double</span> latitud, <span class="keywordtype">double</span> longitud, std::string fechaHora);</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classDataService.html#aed117f76d66fed08de8412d590c6f1a8">ReplaceFoto</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string foto);</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code" href="classDataService.html#a261d6d77036e336edb570660ca68f052">ChangeEstado</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string estado);</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="classDataService.html#a62912cf9987518c3eb6ecc1d808a5936">GetConversacion</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string IDdestinatario);</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;Mensaje&gt; <a class="code" href="classDataService.html#a929e604caca4dc3f00308079d9c67c71">GetMensajes</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> convID);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;Mensaje&gt; <a class="code" href="classDataService.html#a59b332b20c4d069c4478a53b7bfae7ca">GetMensajesNoLeidos</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> convID);</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;        <span class="keyword">virtual</span> std::vector&lt;std::string&gt; <a class="code" href="classDataService.html#a62fd46304924ef8e1062150542012e7f">GetParticipantes</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> convID);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classDataService.html#a4cfdc6b6afd381fc0d751a1c10201102">AgregarMensaje</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> IDConversacion , std::string texto);</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;        <span class="keyword">virtual</span> <span class="keywordtype">bool</span> <a class="code" href="classDataService.html#a153393d9e46a10e7286b8a963473f30d">EnviarBroadcast</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> token, std::string texto);</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keyword">private</span>:</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;        <a class="code" href="classIDB.html">IDB</a>&amp; m_rocaDB;  </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;        <a class="code" href="classIPosicionador.html">IPosicionador</a>&amp; m_posicionador;  </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;        <a class="code" href="classSessionStateHandler.html">SessionStateHandler</a> m_sessionHandler;   </div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;        <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> GetInterseccion( std::vector&lt;unsigned int&gt; v1, std::vector&lt;unsigned int&gt; v2 );</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;};</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;</div>
+<div class="ttc" id="classDataService_html_a567ffbbccff618eb97726f36bdf1bdd2"><div class="ttname"><a href="classDataService.html#a567ffbbccff618eb97726f36bdf1bdd2">DataService::GetCheckinLocations</a></div><div class="ttdeci">virtual std::string GetCheckinLocations(unsigned int token)</div><div class="ttdoc">Devuelve un texto descriptivo del lugar mas cercano al ultimo lugar reportado por el usuario...</div><div class="ttdef"><b>Definition:</b> DataService.cpp:150</div></div>
+<div class="ttc" id="classIPosicionador_html"><div class="ttname"><a href="classIPosicionador.html">IPosicionador</a></div><div class="ttdoc">La interfaz del sistema de triangulación de coordenadas. </div><div class="ttdef"><b>Definition:</b> IPosicionador.hpp:10</div></div>
+<div class="ttc" id="classDataService_html_a62912cf9987518c3eb6ecc1d808a5936"><div class="ttname"><a href="classDataService.html#a62912cf9987518c3eb6ecc1d808a5936">DataService::GetConversacion</a></div><div class="ttdeci">virtual unsigned int GetConversacion(unsigned int token, std::string IDdestinatario)</div><div class="ttdoc">Devuelve el ID de la conversación entre los dos usuarios o crea una nueva si no existe. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:252</div></div>
+<div class="ttc" id="classDataService_html_a929e604caca4dc3f00308079d9c67c71"><div class="ttname"><a href="classDataService.html#a929e604caca4dc3f00308079d9c67c71">DataService::GetMensajes</a></div><div class="ttdeci">virtual std::vector&lt; Mensaje &gt; GetMensajes(unsigned int token, unsigned int convID)</div><div class="ttdoc">Devuelve los mensajes de la conversación dada. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:320</div></div>
+<div class="ttc" id="classDataService_html_a1295de402a69695c8e0b1566320909d0"><div class="ttname"><a href="classDataService.html#a1295de402a69695c8e0b1566320909d0">DataService::StartSession</a></div><div class="ttdeci">virtual unsigned int StartSession(std::string nombreUsuario, std::string password)</div><div class="ttdoc">Comienza la sesión del usuario si este ya esta registrado en el sistema. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:30</div></div>
+<div class="ttc" id="classDataService_html_a4cfdc6b6afd381fc0d751a1c10201102"><div class="ttname"><a href="classDataService.html#a4cfdc6b6afd381fc0d751a1c10201102">DataService::AgregarMensaje</a></div><div class="ttdeci">virtual bool AgregarMensaje(unsigned int token, unsigned int IDConversacion, std::string texto)</div><div class="ttdoc">Agrega un nuevo mensaje a una conversacion por un usuario en el sistema. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:376</div></div>
+<div class="ttc" id="classDataService_html_aed117f76d66fed08de8412d590c6f1a8"><div class="ttname"><a href="classDataService.html#aed117f76d66fed08de8412d590c6f1a8">DataService::ReplaceFoto</a></div><div class="ttdeci">virtual void ReplaceFoto(unsigned int token, std::string foto)</div><div class="ttdoc">Reemplaza la foto del perfil del usuario. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:189</div></div>
+<div class="ttc" id="classDataService_html_a6a6ea0a5ac342551f56f57269aa77085"><div class="ttname"><a href="classDataService.html#a6a6ea0a5ac342551f56f57269aa77085">DataService::ListActiveUsers</a></div><div class="ttdeci">virtual std::vector&lt; UserStatus &gt; ListActiveUsers()</div><div class="ttdoc">Devuelve el listado con todos los usuarios conectados al sistema. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:82</div></div>
+<div class="ttc" id="classIDB_html"><div class="ttname"><a href="classIDB.html">IDB</a></div><div class="ttdoc">La interfaz de la base de datos. </div><div class="ttdef"><b>Definition:</b> IDB.hpp:12</div></div>
+<div class="ttc" id="classDataService_html_ae7c872709249d8a9dbbb038d57734f49"><div class="ttname"><a href="classDataService.html#ae7c872709249d8a9dbbb038d57734f49">DataService::GetUserProfile</a></div><div class="ttdeci">virtual UserProfile GetUserProfile(unsigned int token, std::string userID)</div><div class="ttdoc">Devuelve los datos del usuario dado. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:100</div></div>
+<div class="ttc" id="classDataService_html_a153393d9e46a10e7286b8a963473f30d"><div class="ttname"><a href="classDataService.html#a153393d9e46a10e7286b8a963473f30d">DataService::EnviarBroadcast</a></div><div class="ttdeci">virtual bool EnviarBroadcast(unsigned int token, std::string texto)</div><div class="ttdoc">Envia el mensaje dado a todos los usuarios conectados. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:392</div></div>
+<div class="ttc" id="classIDataService_html"><div class="ttname"><a href="classIDataService.html">IDataService</a></div><div class="ttdoc">La interfaz que todos los servicios de persistencia de datos deben implementar. </div><div class="ttdef"><b>Definition:</b> IDataService.hpp:17</div></div>
+<div class="ttc" id="classDataService_html"><div class="ttname"><a href="classDataService.html">DataService</a></div><div class="ttdoc">Provee la funcionalidad de manejo de datos necesarios para el funcionamiento del servidor web...</div><div class="ttdef"><b>Definition:</b> DataService.hpp:18</div></div>
+<div class="ttc" id="classDataService_html_ac8947ba7c32c4842df01e8879c6680e1"><div class="ttname"><a href="classDataService.html#ac8947ba7c32c4842df01e8879c6680e1">DataService::ReplaceCheckinLocation</a></div><div class="ttdeci">virtual void ReplaceCheckinLocation(unsigned int token, double latitud, double longitud, std::string fechaHora)</div><div class="ttdoc">Reemplaza los datos de la ubicación del usuario. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:174</div></div>
+<div class="ttc" id="classDataService_html_a07becb79989c9de3e8ca1813445b9489"><div class="ttname"><a href="classDataService.html#a07becb79989c9de3e8ca1813445b9489">DataService::ListActiveConversations</a></div><div class="ttdeci">virtual std::vector&lt; Conversacion &gt; ListActiveConversations(unsigned int token)</div><div class="ttdoc">Devuelve un arreglo con el resumen de las conversaciones activas del usuario. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:215</div></div>
+<div class="ttc" id="classUserProfile_html"><div class="ttname"><a href="classUserProfile.html">UserProfile</a></div><div class="ttdoc">Define los datos que componen el perfil de un usuario. </div><div class="ttdef"><b>Definition:</b> UserProfile.hpp:10</div></div>
+<div class="ttc" id="classSessionStateHandler_html"><div class="ttname"><a href="classSessionStateHandler.html">SessionStateHandler</a></div><div class="ttdoc">Una "Helper-class" para encapsular el manejo de los datos asociados a una sesión. ...</div><div class="ttdef"><b>Definition:</b> SessionStateHandler.hpp:13</div></div>
+<div class="ttc" id="classDataService_html_a59b332b20c4d069c4478a53b7bfae7ca"><div class="ttname"><a href="classDataService.html#a59b332b20c4d069c4478a53b7bfae7ca">DataService::GetMensajesNoLeidos</a></div><div class="ttdeci">virtual std::vector&lt; Mensaje &gt; GetMensajesNoLeidos(unsigned int token, unsigned int convID)</div><div class="ttdoc">Devuelve los mensajes de una conversación marcados como no-leidos. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:348</div></div>
+<div class="ttc" id="classDataService_html_a62fd46304924ef8e1062150542012e7f"><div class="ttname"><a href="classDataService.html#a62fd46304924ef8e1062150542012e7f">DataService::GetParticipantes</a></div><div class="ttdeci">virtual std::vector&lt; std::string &gt; GetParticipantes(unsigned int token, unsigned int convID)</div><div class="ttdoc">Devuelve los participantes de la conversación dada. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:295</div></div>
+<div class="ttc" id="classDataService_html_ace67bc3f19bb58ce4982f18e0cbce91a"><div class="ttname"><a href="classDataService.html#ace67bc3f19bb58ce4982f18e0cbce91a">DataService::EndSession</a></div><div class="ttdeci">virtual void EndSession(unsigned int token)</div><div class="ttdoc">Termina la sesión del usuario al que pertenece el token. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:46</div></div>
+<div class="ttc" id="classDataService_html_a29e6231e6b7b7f70ab16b8603387c500"><div class="ttname"><a href="classDataService.html#a29e6231e6b7b7f70ab16b8603387c500">DataService::IsTokenActive</a></div><div class="ttdeci">virtual bool IsTokenActive(unsigned int tok)</div><div class="ttdoc">Indica si el token esta relacionado con alguna sesión activa. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:25</div></div>
+<div class="ttc" id="classDataService_html_a261d6d77036e336edb570660ca68f052"><div class="ttname"><a href="classDataService.html#a261d6d77036e336edb570660ca68f052">DataService::ChangeEstado</a></div><div class="ttdeci">virtual void ChangeEstado(unsigned int token, std::string estado)</div><div class="ttdoc">Cambia el estado de un usuario conectado. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:204</div></div>
+<div class="ttc" id="classDataService_html_af2834711a267c184feaf7f24b6ab6b42"><div class="ttname"><a href="classDataService.html#af2834711a267c184feaf7f24b6ab6b42">DataService::RegisterNewUser</a></div><div class="ttdeci">virtual bool RegisterNewUser(std::string nombreUsuario, std::string password)</div><div class="ttdoc">Registra un nuevo usuario en el sistema. </div><div class="ttdef"><b>Definition:</b> DataService.cpp:59</div></div>
+</div><!-- fragment --></div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Generado el Miércoles, 24 de Junio de 2015 22:24:37 para MensajerO - Server por &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.9.1
+</small></address>
+</body>
+</html>

@@ -219,7 +219,7 @@ public class ConversacionProxy extends ProxyBase {
             out.close();
             Log.i("MensajerO", "Intento enviar mensaje");
             int HttpResult = urlConnection.getResponseCode();
-            if (HttpResult == HttpURLConnection.HTTP_CREATED) {
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
                 statusOk = true;
                 Log.i("MensajerO", "Mensaje enviado correctamente");
           } else {
@@ -265,7 +265,7 @@ public class ConversacionProxy extends ProxyBase {
             out.close();
             Log.i("MensajerO", "Intento Enviar un Mensaje de Broadcast");
             int HttpResult = urlConnection.getResponseCode();
-            if (HttpResult == HttpURLConnection.HTTP_CREATED) {
+            if (HttpResult == HttpURLConnection.HTTP_OK) {
                 statusOk = true;
                 Log.i("MensajerO", "Mensaje de Broadcast enviado correctamente");
             } else {

@@ -1,0 +1,117 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - coverage.info - responders/handlers/ConversationRequest.cpp</title>
+  <link rel="stylesheet" type="text/css" href="../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../index.html">top level</a> - <a href="index.html">responders/handlers</a> - ConversationRequest.cpp<span style="font-size: 80%;"> (source / <a href="ConversationRequest.cpp.func.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">coverage.info</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2015-06-24</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntry">1</td>
+            <td class="headerCovTableEntryHi">100.0 %</td>
+          </tr>
+          <tr><td><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #include &quot;ConversationRequest.hpp&quot;</a>
+<span class="lineNum">       2 </span>            : 
+<span class="lineNum">       3 </span>            : #include &quot;dtos/ListaMensajesDTO.hpp&quot;
+<span class="lineNum">       4 </span>            : #include &quot;dtos/MensajeDTO.hpp&quot;
+<span class="lineNum">       5 </span>            : 
+<a name="6"><span class="lineNum">       6 </span>            : </a>
+<span class="lineNum">       7 </span>            : 
+<span class="lineNum">       8 </span><span class="lineCov">          6 : Response ConversationRequest::GetResponseData(){</span>
+<span class="lineNum">       9 </span>            :     // Listado de conversaciones es un request de tipo GET
+<span class="lineNum">      10 </span><span class="lineCov">          6 :     ListaMensajesDTO dto( this-&gt;m_parsedParameters_QueryString );</span>
+<span class="lineNum">      11 </span>            : 
+<span class="lineNum">      12 </span>            :     // Chequea que el token sea valido
+<span class="lineNum">      13 </span><span class="lineCov">          6 :     if ( !this-&gt;m_dataService.IsTokenActive(dto.Token) ){</span>
+<span class="lineNum">      14 </span><span class="lineCov">          2 :         return Response( 403, &quot;&quot; );</span>
+<span class="lineNum">      15 </span>            :     }
+<span class="lineNum">      16 </span>            : 
+<span class="lineNum">      17 </span>            :     // Si no existe ya una conversación crea una nueva
+<span class="lineNum">      18 </span><span class="lineCov">          4 :     if (dto.IDConversacion == 0) {</span>
+<span class="lineNum">      19 </span><span class="lineCov">          2 :         dto.IDConversacion = this-&gt;m_dataService.GetConversacion( dto.Token, dto.IDUsuario );</span>
+<span class="lineNum">      20 </span>            :     }
+<span class="lineNum">      21 </span>            : 
+<span class="lineNum">      22 </span><span class="lineCov">          8 :     ListaMensajesDTO resul;</span>
+<span class="lineNum">      23 </span><span class="lineCov">          4 :     resul.IDConversacion = dto.IDConversacion;</span>
+<span class="lineNum">      24 </span><span class="lineCov">          4 :     if(dto.IDUsuario.compare(&quot;&quot;) != 0){</span>
+<span class="lineNum">      25 </span><span class="lineCov">          2 :         resul.IDUsuario = dto.IDUsuario;</span>
+<span class="lineNum">      26 </span>            :     } else {
+<span class="lineNum">      27 </span><span class="lineCov">          2 :         std::vector&lt;std::string&gt; participantes = this-&gt;m_dataService.GetParticipantes(dto.Token,dto.IDConversacion);</span>
+<span class="lineNum">      28 </span><span class="lineCov">          2 :         if(participantes.size() &gt; 0)</span>
+<span class="lineNum">      29 </span><span class="lineCov">          2 :                 resul.IDUsuario = participantes[0];</span>
+<span class="lineNum">      30 </span>            :     }
+<span class="lineNum">      31 </span>            : 
+<span class="lineNum">      32 </span><span class="lineCov">          8 :     for ( auto msj : this-&gt;m_dataService.GetMensajes(dto.Token, dto.IDConversacion) ) {</span>
+<span class="lineNum">      33 </span><span class="lineCov">          8 :         MensajeDTO m;</span>
+<span class="lineNum">      34 </span><span class="lineCov">          4 :         m.Mensaje = msj.Texto;</span>
+<span class="lineNum">      35 </span><span class="lineCov">          4 :         m.IDRemitente = msj.IDRemitente;</span>
+<span class="lineNum">      36 </span><span class="lineCov">          4 :         resul.Mensajes.push_back( m );</span>
+<span class="lineNum">      37 </span><span class="lineCov">          8 :     }</span>
+<span class="lineNum">      38 </span>            :     
+<span class="lineNum">      39 </span>            :     // Crea la respuesta
+<span class="lineNum">      40 </span><span class="lineCov">         10 :     return Response( 200, resul.ToJSON() );</span>
+<span class="lineNum">      41 </span>            : }
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.10</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
