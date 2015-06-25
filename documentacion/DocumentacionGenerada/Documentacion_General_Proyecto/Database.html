@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Base de datos &mdash; MensajerO 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MensajerO 1.0 documentation" href="index.html" />
+    <link rel="next" title="Transmisión de Mensajes" href="Mensajes.html" />
+    <link rel="prev" title="Servidor" href="Servidor.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Mensajes.html" title="Transmisión de Mensajes"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Servidor.html" title="Servidor"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="base-de-datos">
+<h1>Base de datos<a class="headerlink" href="#base-de-datos" title="Permalink to this headline">¶</a></h1>
+<p>Usaremos una base de datos No-SQL de tipo clave-valor para almacenar los datos necesarios para la operacion del sistema.</p>
+<div class="section" id="diseno-de-la-base-de-datos">
+<h2>Diseño de la Base de Datos<a class="headerlink" href="#diseno-de-la-base-de-datos" title="Permalink to this headline">¶</a></h2>
+<p>Para organizar los datos en la base lo que se definirán dominios para separar los distintos tipos de datos; estos dominios serán:</p>
+<ul class="simple">
+<li>Dominio de datos de usuarios: <strong>U/&lt;UserId&gt;</strong></li>
+<li>Dominio de conversaciones: <strong>C/&lt;IdConversacion&gt;</strong></li>
+<li>Dominio de mensajes: <strong>M/&lt;IdMensaje&gt;</strong></li>
+<li>Dominio de mensajes no recibidos: <strong>UR/&lt;UserId&gt;&lt;IdConversacion&gt;</strong></li>
+</ul>
+<p>Por comodidad todos los datos contenidos en cada dominio estarán en formato de JSON.</p>
+<div class="section" id="u-username">
+<h3>U/&lt;UserName&gt;<a class="headerlink" href="#u-username" title="Permalink to this headline">¶</a></h3>
+<p>Se accede por el nombre de usuario con el prefijo <em>U/</em> para remarcar que es un usuario.
+El nombre de usuario debe ser único en todo el sistema y no pueden existir dos usuarios con el mismo nombre; es en efecto un <em>UserId</em>.</p>
+<p>Dentro de este dominio se guardan los siguientes datos:</p>
+<ul class="simple">
+<li><strong>Password:</strong> Se utiliza para autenticar a un usuario registrado del sistema.</li>
+<li><strong>Latitud</strong> y <strong>Longitud:</strong> Correnponde a la ultima ubicación geográfica conocida del usuario.</li>
+<li><strong>Fecha-Hora:</strong> Es un string que contiene la descripción de la fecha y hora del registro de la ultima posición del usuario.</li>
+<li><strong>Foto:</strong> Una fotografia del usuario codificada en <em>base64</em>.</li>
+<li><strong>IdConversaciones:</strong> Un listado con los ids de todas las conversaciones en las que participa el usuario.</li>
+</ul>
+</div>
+<div class="section" id="c-idconversacion">
+<h3>C/&lt;IdConversacion&gt;<a class="headerlink" href="#c-idconversacion" title="Permalink to this headline">¶</a></h3>
+<p>Se accede por el id de la conversación (número autoincremental) con el prefijo <em>C/</em> para separar de los otros dominios.</p>
+<p>Dentro de este dominio se guardan los siguientes datos:</p>
+<ul class="simple">
+<li><strong>UserIds:</strong> Un arreglo con los id de usuarios de todos los usuarios que participan en la conversación.</li>
+<li><strong>IdMensajes:</strong> Un arreglo con los ids de todos los mensajes que pertenecen a la conversación.</li>
+</ul>
+</div>
+<div class="section" id="m-idmensaje">
+<h3>M/&lt;IdMensaje&gt;<a class="headerlink" href="#m-idmensaje" title="Permalink to this headline">¶</a></h3>
+<p>Se accede por el id del mensaje (número autoincremental) con el prefijo <em>M/</em> para separar de los otros dominios.</p>
+<p>Dentro de este dominio se guardan los siguientes datos:</p>
+<ul class="simple">
+<li><strong>UserId:</strong> El emisor o remitente del mensaje.</li>
+<li><strong>Texto:</strong> El contenido del mensaje.</li>
+</ul>
+</div>
+<div class="section" id="ur-userid-idconversacion">
+<h3>UR/&lt;UserId&gt;&lt;idConversacion&gt;<a class="headerlink" href="#ur-userid-idconversacion" title="Permalink to this headline">¶</a></h3>
+<p>Un dominio especial para llevar cuenta de cuales son los ultimos mensajes recibidos de cada conversación para cada usuario.</p>
+<p>Solo contiene un dato:</p>
+<ul class="simple">
+<li><strong>IdUltimoMensajeRecibido:</strong> El id del ultimo mensaje recibido por el usuario en la conversación.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Base de datos</a><ul>
+<li><a class="reference internal" href="#diseno-de-la-base-de-datos">Diseño de la Base de Datos</a><ul>
+<li><a class="reference internal" href="#u-username">U/&lt;UserName&gt;</a></li>
+<li><a class="reference internal" href="#c-idconversacion">C/&lt;IdConversacion&gt;</a></li>
+<li><a class="reference internal" href="#m-idmensaje">M/&lt;IdMensaje&gt;</a></li>
+<li><a class="reference internal" href="#ur-userid-idconversacion">UR/&lt;UserId&gt;&lt;idConversacion&gt;</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Servidor.html"
+                        title="previous chapter">Servidor</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Mensajes.html"
+                        title="next chapter">Transmisión de Mensajes</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Database.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Mensajes.html" title="Transmisión de Mensajes"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Servidor.html" title="Servidor"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Grupo-7.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,714 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Transmisión de Mensajes &mdash; MensajerO 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="MensajerO 1.0 documentation" href="index.html" />
+    <link rel="next" title="Administrador del Servidor" href="Administrador.html" />
+    <link rel="prev" title="Base de datos" href="Database.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="Administrador.html" title="Administrador del Servidor"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="Database.html" title="Base de datos"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="transmision-de-mensajes">
+<h1>Transmisión de Mensajes<a class="headerlink" href="#transmision-de-mensajes" title="Permalink to this headline">¶</a></h1>
+<p>La transmición de los mensajes se define por una cantidad de variables:</p>
+<ol class="arabic simple">
+<li><strong>Metodo Http:</strong> Los tipos permitidos son: <em>POST</em>, <em>GET</em>, <em>PUT</em> o <em>DELETE</em>, el resto son ignorados.</li>
+<li><strong>URL Htpp:</strong> La dirección del recurso al que se desea acceder, esta asociado al tipo de operación a realizar.</li>
+<li><strong>Parametros:</strong> La mayoria de las operaciones requiere que los pedidos vengan con un token, entre muchos otros.</li>
+</ol>
+<p>Mensajes GET</p>
+<p>Los parametros de estos mensajes son transmitidos mediante <em>query strings</em> en la misma dirección URL.</p>
+<div class="section" id="grupo7-api-sesion">
+<h2>/grupo7/api/sesion<a class="headerlink" href="#grupo7-api-sesion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="put">
+<h3>PUT<a class="headerlink" href="#put" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se inicia una sesión del cliente en el servidor.</p>
+<div class="section" id="parametros-de-entrada">
+<h4>Parametros de entrada<a class="headerlink" href="#parametros-de-entrada" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">NombreUsuario</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Password</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>NombreUsuario:</strong> El nombre con el que el usuario se registró en el sistema.</li>
+<li><strong>Password:</strong> La clave con la que el usuario se registró en el sistema.</li>
+</ul>
+</div>
+<div class="section" id="parametros-de-salida">
+<h4>Parametros de salida<a class="headerlink" href="#parametros-de-salida" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica la sesión del usuario, si este logro loggearse al sistema.</li>
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="delete">
+<h3>DELETE<a class="headerlink" href="#delete" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se cierra una sesión del cliente en el servidor</p>
+<div class="section" id="parametro-de-entrada">
+<h4>Parametro de entrada<a class="headerlink" href="#parametro-de-entrada" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Debe ser el token del cliente y estar activo en el sistema.</li>
+</ul>
+</div>
+<div class="section" id="parametro-de-salida">
+<h4>Parametro de salida<a class="headerlink" href="#parametro-de-salida" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="grupo7-api-usuarios">
+<h2>/grupo7/api/usuarios<a class="headerlink" href="#grupo7-api-usuarios" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get">
+<h3>GET<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
+<p>Este pedido hace que el servidor envie al cliente un listado con todos los usuarios que tienen una sesión activa.</p>
+<div class="section" id="id1">
+<h4>Parametros de entrada<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><strong>Token</strong>: Debe ser el token del cliente y estar activo en el sistema.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h4>Parametros de salida<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>Un JSON con la siguiente estructura:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Usuarios</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">Nombre</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">Estado</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">Foto</span><span class="p">:</span> <span class="s">&quot;&lt;base64&gt;&quot;</span><span class="p">,</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="o">...</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status</strong> El estado del resultado de la operación, pudiendo ser esta: &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>Usuarios:</strong> Un arreglo de objetos <em>usuario</em>, pueden ser cero o mas.<ul>
+<li><strong>Status:</strong> Cada dato de usuario tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.</li>
+<li><strong>Nombre:</strong> El nombre del usuario.</li>
+<li><strong>Estado:</strong> El estado del usuario,</li>
+<li><strong>Foto:</strong> La fotografia que el correspondiente usuario ha cargado en el sistema, en base64.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>PUT<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se realiza la edición de los datos del perfil del usuario.</p>
+<div class="section" id="id4">
+<h4>Parametros de entrada<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Foto</span><span class="p">:</span> <span class="s">&quot;&lt;base64&gt;&quot;</span><span class="p">,</span>
+    <span class="n">Estado</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica la sesión del usuario.</li>
+<li><strong>Foto:</strong> Una imagen codificada en base64.</li>
+<li><strong>Estado:</strong> Un texto que indique el estado del usuario.</li>
+</ul>
+</div>
+<div class="section" id="id5">
+<h4>Parametros de salida<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="post">
+<h3>POST<a class="headerlink" href="#post" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido un usuario puede registrarse en el sistema.</p>
+<div class="section" id="id6">
+<h4>Parametro de entrada<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">NombreUsuario</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Password</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>NombreUsuario:</strong> El nombre con el que el usuario se registró en el sistema.</li>
+<li><strong>Password:</strong> La clave con la que el usuario se registró en el sistema.</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h4>Parametros de salida<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="grupo7-api-usuario">
+<h2>/grupo7/api/usuario<a class="headerlink" href="#grupo7-api-usuario" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id8">
+<h3>GET<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se obtiene los datos del perfil de un usuario especifico</p>
+<div class="section" id="id9">
+<h4>Parametros de entrada<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Nombre</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+<li><strong>Nombre:</strong> El nombre del usuario a obtener la información.</li>
+</ul>
+</div>
+<div class="section" id="id10">
+<h4>Parametros de salida<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>Un JSON con la siguiente estructura:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Nombre</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Estado</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Foto</span><span class="p">:</span> <span class="s">&quot;&lt;base64&gt;&quot;</span><span class="p">,</span>
+    <span class="n">Ubicacion</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">CheckInFechaHora</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status</strong> El estado del resultado de la operación, pudiendo ser esta: &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>Nombre:</strong> El nombre del usuario.</li>
+<li><strong>Estado:</strong> El estado del usuario,</li>
+<li><strong>Foto:</strong> La fotografia que el correspondiente usuario ha cargado en el sistema, en base64.</li>
+<li><strong>Ubicacion:</strong> La ubicacion del usuario cuando se registró el ultimo checkin.</li>
+<li><strong>CheckInFechaHora:</strong> La Fecha y Hora cuando se registró el ultimo checkin.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="grupo7-api-checkin">
+<h2>/grupo7/api/checkin<a class="headerlink" href="#grupo7-api-checkin" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id11">
+<h3>POST<a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido un usuario puede actualizar su ubicación en el sistema, al mismo tiempo recibe una descripción del punto conocido mas cercano.</p>
+<div class="section" id="id12">
+<h4>Parametro de entrada<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Latitud</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Longitud</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+<li><strong>Latitud:</strong> Coordenada geografica.</li>
+<li><strong>Longitud:</strong> Coordenada geografica.</li>
+</ul>
+</div>
+<div class="section" id="id13">
+<h4>Parametros de salida<a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Descripcion</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>Descripcion:</strong> Una pequeña descripción del lugar conocido mas cercano a la ubicación del usuario.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="grupo7-api-conversaciones">
+<h2>/grupo7/api/conversaciones<a class="headerlink" href="#grupo7-api-conversaciones" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id14">
+<h3>GET<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se obtiene el listado de conversaciones del usuario.</p>
+<div class="section" id="id15">
+<h4>Parametro de entrada<a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+</ul>
+</div>
+<div class="section" id="id16">
+<h4>Parametros de salida<a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<p>Un JSON con la siguiente estructura:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">Conversaciones</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">IdConversacion</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+                <span class="n">UltimoMensaje</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">UltimoMensajeLeido</span><span class="p">:</span> <span class="n">true</span><span class="p">,</span>
+                <span class="n">Participantes</span><span class="p">:</span> <span class="p">[</span>
+                <span class="p">{</span>
+                    <span class="s">&quot;Usuario1&quot;</span><span class="p">,</span>
+                    <span class="s">&quot;Usuario2&quot;</span><span class="p">,</span>
+                    <span class="o">...</span>
+                <span class="p">},</span>
+                <span class="o">...</span>
+                <span class="p">]</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="o">...</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status</strong> El estado del resultado de la operación, pudiendo ser esta: &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>Conversaciones:</strong> Un arreglo de objetos <em>conversación</em>, pueden ser cero o mas.<ul>
+<li><strong>Status:</strong> Cada dato de conversación tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.</li>
+<li><strong>IdConversacion:</strong> El identificador de la conversación en el servidor.</li>
+<li><strong>UltimoMensaje:</strong> El último mensaje enviado en la conversación con el formato &#8220;Remitente: texto &#8221;,</li>
+<li><strong>UltimoMensajeLeido:</strong> Un flag (true o false) para marcar si este último mensaje fue leído por el usuario que pide el listado.</li>
+<li><strong>Participantes:</strong> Un arreglo con los nombres de usuario de los participantes.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="grupo7-api-conversacion">
+<h2>/grupo7/api/conversacion<a class="headerlink" href="#grupo7-api-conversacion" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id17">
+<h3>GET<a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se obtienen todos los mensajes de una conversación</p>
+<div class="section" id="id18">
+<h4>Parametros de entrada<a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">IDConversacion</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">IDUsuario</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+<li><strong>IdConversacion:</strong> Contiene el identificador unico de la conversación en el servidor.</li>
+</ul>
+<p>o</p>
+<ul class="simple">
+<li><strong>IdUsuario:</strong> Contiene el nombre de otro usuario participante en la conversación.</li>
+</ul>
+</div>
+<div class="section" id="id19">
+<h4>Parametros de salida<a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<p>Un JSON con la siguiente estructura:</p>
+<div class="highlight-python"><div class="highlight"><pre>{
+    Status: &quot;&quot;,
+    IDConversacion: 0,
+    IDUsuario: &quot;&quot;
+    Mensajes: [
+            {
+                Status: &quot;&quot;,
+                IDRemitente: &quot;&quot;,
+                Mensaje: &quot;&quot;
+            },
+            {
+                ...
+            }
+        ]
+}
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status</strong> El estado del resultado de la operación, pudiendo ser esta: &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>IDConversacion</strong> El identificador de la conversación en el servidor.</li>
+<li><strong>IDUsuario</strong> El nombre del otro usuario en la conversación.</li>
+<li><strong>Mensajes:</strong> Un arreglo de objetos <em>mensaje</em>, pueden ser cero o mas.<ul>
+<li><strong>Status:</strong> Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.</li>
+<li><strong>IDRemitente:</strong> El nombre del usuario que envio dicho mensaje,</li>
+<li><strong>Mensaje:</strong> El texto del mensaje enviado.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="grupo7-api-broadcast">
+<h2>/grupo7/api/broadcast<a class="headerlink" href="#grupo7-api-broadcast" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id20">
+<h3>POST<a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se envia un mensaje a todos los usuarios conectados.</p>
+<div class="section" id="id21">
+<h4>Parametros de entrada<a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Mensaje</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+<li><strong>Mensaje:</strong> El mensaje a enviar.</li>
+</ul>
+</div>
+<div class="section" id="id22">
+<h4>Parametros de salida<a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="grupo7-api-mensajes">
+<h2>/grupo7/api/mensajes<a class="headerlink" href="#grupo7-api-mensajes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id23">
+<h3>POST<a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se envia un mensaje a un usuario en una conversacion.</p>
+<div class="section" id="id24">
+<h4>Parametros de entrada<a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">IDConversacion</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Texto</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+<li><strong>IDConversacion:</strong> El identificador de la conversación a la que se envio el mensaje.</li>
+<li><strong>Texto:</strong> El mensaje a enviar.</li>
+</ul>
+</div>
+<div class="section" id="id25">
+<h4>Parametros de salida<a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de salida es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status:</strong> El resultado de la operación; &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="id26">
+<h3>GET<a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h3>
+<p>Mediante este pedido se obtienen los mensajes sin leer por el usuario de una conversación</p>
+<div class="section" id="id27">
+<h4>Parametros de entrada<a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<p>El parametro de entrada es en formato JSON:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Token</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">IDConversacion</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Token:</strong> Contiene el token que identifica al usuario.</li>
+<li><strong>IDConversacion:</strong> Contiene el identificador unico de la conversación en el servidor.</li>
+</ul>
+</div>
+<div class="section" id="id28">
+<h4>Parametros de salida<a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
+<p>Un JSON con la siguiente estructura:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{</span>
+    <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">IDConversacion</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">Mensajes</span><span class="p">:</span> <span class="p">[</span>
+            <span class="p">{</span>
+                <span class="n">Status</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">IDRemitente</span><span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span>
+                <span class="n">Mensaje</span><span class="p">:</span> <span class="s">&quot;&quot;</span>
+            <span class="p">},</span>
+            <span class="p">{</span>
+                <span class="o">...</span>
+            <span class="p">}</span>
+        <span class="p">]</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Donde:</p>
+<ul class="simple">
+<li><strong>Status</strong> El estado del resultado de la operación, pudiendo ser esta: &#8220;OK&#8221; o &#8220;ERR&#8221;.</li>
+<li><strong>IDConversacion</strong> El identificador de la conversación.</li>
+<li><strong>Mensajes:</strong> Un arreglo de objetos <em>mensaje</em>, pueden ser cero o mas.<ul>
+<li><strong>Status:</strong> Cada dato de mensaje tiene este campo por un tema de compatibilidad, siempre deberia ser vacio.</li>
+<li><strong>IDRemitente:</strong> El nombre del usuario que envio dicho mensaje,</li>
+<li><strong>Mensaje:</strong> El texto del mensaje enviado.</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Transmisión de Mensajes</a><ul>
+<li><a class="reference internal" href="#grupo7-api-sesion">/grupo7/api/sesion</a><ul>
+<li><a class="reference internal" href="#put">PUT</a><ul>
+<li><a class="reference internal" href="#parametros-de-entrada">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#parametros-de-salida">Parametros de salida</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#delete">DELETE</a><ul>
+<li><a class="reference internal" href="#parametro-de-entrada">Parametro de entrada</a></li>
+<li><a class="reference internal" href="#parametro-de-salida">Parametro de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-usuarios">/grupo7/api/usuarios</a><ul>
+<li><a class="reference internal" href="#get">GET</a><ul>
+<li><a class="reference internal" href="#id1">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id2">Parametros de salida</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id3">PUT</a><ul>
+<li><a class="reference internal" href="#id4">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id5">Parametros de salida</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#post">POST</a><ul>
+<li><a class="reference internal" href="#id6">Parametro de entrada</a></li>
+<li><a class="reference internal" href="#id7">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-usuario">/grupo7/api/usuario</a><ul>
+<li><a class="reference internal" href="#id8">GET</a><ul>
+<li><a class="reference internal" href="#id9">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id10">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-checkin">/grupo7/api/checkin</a><ul>
+<li><a class="reference internal" href="#id11">POST</a><ul>
+<li><a class="reference internal" href="#id12">Parametro de entrada</a></li>
+<li><a class="reference internal" href="#id13">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-conversaciones">/grupo7/api/conversaciones</a><ul>
+<li><a class="reference internal" href="#id14">GET</a><ul>
+<li><a class="reference internal" href="#id15">Parametro de entrada</a></li>
+<li><a class="reference internal" href="#id16">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-conversacion">/grupo7/api/conversacion</a><ul>
+<li><a class="reference internal" href="#id17">GET</a><ul>
+<li><a class="reference internal" href="#id18">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id19">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-broadcast">/grupo7/api/broadcast</a><ul>
+<li><a class="reference internal" href="#id20">POST</a><ul>
+<li><a class="reference internal" href="#id21">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id22">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#grupo7-api-mensajes">/grupo7/api/mensajes</a><ul>
+<li><a class="reference internal" href="#id23">POST</a><ul>
+<li><a class="reference internal" href="#id24">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id25">Parametros de salida</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id26">GET</a><ul>
+<li><a class="reference internal" href="#id27">Parametros de entrada</a></li>
+<li><a class="reference internal" href="#id28">Parametros de salida</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Database.html"
+                        title="previous chapter">Base de datos</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Administrador.html"
+                        title="next chapter">Administrador del Servidor</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/Mensajes.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="Administrador.html" title="Administrador del Servidor"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="Database.html" title="Base de datos"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">MensajerO 1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, Grupo-7.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
