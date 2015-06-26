@@ -106,6 +106,10 @@
 <div class="highlight-bash"><div class="highlight"><pre><span class="nv">$ </span>./serverMensajerO
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">El servidor corre en el puerto 8080 y en la ip del servidor, para probar se puede usar <a class="reference external" href="http://localhost:8080">http://localhost:8080</a></p>
+</div>
 </div>
 <div class="section" id="forma-de-uso">
 <h2>Forma de uso<a class="headerlink" href="#forma-de-uso" title="Permalink to this headline">¶</a></h2>
@@ -154,6 +158,12 @@
 </pre></div>
 </div>
 </div>
+<div class="section" id="logging">
+<h3>Logging<a class="headerlink" href="#logging" title="Permalink to this headline">¶</a></h3>
+<p>El servidor esta configurado por defecto para loggear su actividad a la consola.</p>
+<p>El formato es &lt;Fecha y Hora&gt; **&lt;Tipo de Log&gt;** [&lt;Id del proceso&gt;] &lt;Archivo&gt;:&lt;Número de Linea dentro del archivo&gt; -&gt; &lt;Mensaje&gt;</p>
+<p>Reemplazando los atributos dentro de &lt;&gt; con lo que corresponda.</p>
+</div>
 <div class="section" id="third-party-libs">
 <h3>Third-party libs<a class="headerlink" href="#third-party-libs" title="Permalink to this headline">¶</a></h3>
 <p>El servidor utiliza un número de librerias externas, estas son:</p>
@@ -171,6 +181,9 @@
 </div>
 <div class="section" id="troubleshooting">
 <h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>Revisar la información loggeada a la consola, suele dar pistas importantes a la naturaleza de los errores que ocurren.</li>
+</ol>
 </div>
 </div>
 
@@ -195,6 +208,7 @@
 <li><a class="reference internal" href="#code-coverage">Code coverage</a></li>
 <li><a class="reference internal" href="#mantenimiento">Mantenimiento</a><ul>
 <li><a class="reference internal" href="#documentacion">Documentación</a></li>
+<li><a class="reference internal" href="#logging">Logging</a></li>
 <li><a class="reference internal" href="#third-party-libs">Third-party libs</a></li>
 </ul>
 </li>
