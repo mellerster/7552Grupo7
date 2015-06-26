@@ -2,6 +2,7 @@
 Administrador del Servidor
 ##########################
 
+
 ***********
 Get Started
 ***********
@@ -77,6 +78,10 @@ Para correr la aplicación ejecutar en la terminal:
 
 	$ ./serverMensajerO
 
+
+.. note:: El servidor corre en el puerto 8080
+
+
 ************
 Forma de uso
 ************
@@ -125,6 +130,7 @@ Para obtener los datos de **code coverage** se debe compilar la aplicación y lu
 
 Se debe abrir el archivo **index.html** para acceder al reporte.
 
+
 *************
 Mantenimiento
 *************
@@ -137,6 +143,13 @@ El código fuente del servidor esta documentado con Doxygen, por lo tanto es nec
 .. sourcecode:: bash
 
 	$ doxygen
+
+
+Logging
+=======
+
+El servidor esta configurado por defecto para loggear su actividad a la consola.
+
 
 Third-party libs
 ================
@@ -159,8 +172,11 @@ Known Issues
 ************
 
 
+
 ***************
 Troubleshooting
 ***************
+
+1. Revisar la información loggeada a la consola, suele dar pistas importantes a la naturaleza de los errores que ocurren.
 
 
