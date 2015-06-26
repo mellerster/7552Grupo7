@@ -83,6 +83,10 @@ Forma de uso
 
 Para iniciar el servidor dentro de la aplicación debe presionar **Y** y luego enter.
 
+El servidor se iniciara en la ip de la maquina que lo aloja en el puerto 8080 o sea que su url es:
+
+http://localhost:8080
+
 Para finalizar el servidor debe presionar **X** y luego enter.
 
 .. warning:: Ambos comandos (X e Y) son en Mayuscula
